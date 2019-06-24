@@ -1,4 +1,4 @@
-# Haal-Centraal-BAG-bevragen
+# Haal Centraal BAG bevragen
 
 
 ## Introductie
