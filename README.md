@@ -24,3 +24,7 @@ Haal Centraal is een G5 initiatief (Amsterdam, Rotterdam, Den Haag, Utrecht en E
 
 ## BAG bevragen
 Deze repository beschrijft het project om tot een API voor de Basisregistratie Adressen en Gebouwen (BAG) te komen.
+
+## Licentie
+Copyright (C) VNG rRealisatie 2018
+Licensed under the [EUPL](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/LICENCE.md)
