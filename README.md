@@ -4,11 +4,11 @@
 ## Introductie
 Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten. 
 
-In principe willen we voor iedere activiteit op een lokale kopie een Haal Centraal alternatief te bieden in de vorm van een API. 
+Haal Centraal wil voor iedere activiteit op een lokale kopie een Haal Centraal alternatief te bieden in de vorm van een API. 
 
 ### Toegevoegde waarde voor gemeenten
 - sneller aansluiten afnemers 
-- goedkoper aansluiten afnemers (x aantal binnegemeentelijke aansluiters x 355 gemeenten)
+- goedkoper aansluiten afnemers (besparing x aantal binnengemeentelijke aansluiters x 355 gemeenten)
 - lagere investeringen (geen lokale kopie/ gegevensmagazijn)
 - lagere beheerkosten (geen gegevensbeheer lokale kopieën)
 - hogere ROI: hergebruik API Landelijke Registratie door alle gemeenten
@@ -23,7 +23,7 @@ In principe willen we voor iedere activiteit op een lokale kopie een Haal Centra
 Haal Centraal is een G5 initiatief (Amsterdam, Rotterdam, Den Haag, Utrecht en Eindhoven). Het concept is getoetst in de BRK pilot van de gemeente Den Haag met het Kadaster op basis van de RSGB bevragingen standaard (voorloper BRP- en BRK-bevragen). De businesscase is gebaseerd op ervaringscijfers van de gemeente Den Haag en de softwareontwikkeling gedurende de pilot. 
 
 ## BAG bevragen
-Deze repository beschrijft het project om tot een API voor de Basisregistratie Adressen en Gebouwen (BAG) te komen.
+Deze repository bevat alle info over de ontwikkeling van de Haal Centraal BAG bevragen API.
 
 ## Licentie
 Copyright &copy; VNG Realisatie 2018
