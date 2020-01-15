@@ -25,6 +25,10 @@ Haal Centraal is een G5 initiatief (Amsterdam, Rotterdam, Den Haag, Utrecht en E
 ## BAG bevragen
 Deze repository bevat alle info over de ontwikkeling van de Haal Centraal BAG bevragen API.
 
+## Technische specificaties
+
+* [Technische specificaties van zoeken en ophalen van een ADRES met gerelateerde BAG-objecten](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/tree/master/api-specificatie/) (Open API Specificaties en JSON schema) en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/api-specificatie/openapi.yaml)
+
 ## Licentie
 Copyright &copy; VNG Realisatie 2018
 Licensed under the [EUPL](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/LICENCE.md)
