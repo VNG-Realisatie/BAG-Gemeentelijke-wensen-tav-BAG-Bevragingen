@@ -50,7 +50,7 @@ tags:
 paths:
   # Zoek adres
   # JBO: Misschien een vooerstel om hier een resource zoekAdres te definieren. Dan is hier is de toevoeging "zoeken" overbodig. Het ontsluiten van een collectie resources(zoekAdressen) waarbij een query wordt gebruikt is per definitie een zoek-functie 
-  /adressen:
+  /adressen/zoeken:
     get:
       security:
         - apiKeyBAG: []
@@ -81,7 +81,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/ZoekSuggestieResponse'
+                $ref: '#/components/schemas/KeuzelijstCollectieHal'
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
         '400':
@@ -110,7 +110,7 @@ paths:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
   # JBO: Het ontsluiten van een adres op basis van de unieke adres-id wordt gebruikelijk gedaan met een path-parameter. Dat impliceert wel een unieke identificatie en is dus geen zoeken meer maar raadplegen. Dat klopt met de response definitie waarin geen array, maar een enkel adres wordt geretourneerd
   #JBO: Krijgen alle adressen nu een eigen adres-id of gaan we de nummeraanduiding-id gebruiken als adres-id ?
-  /adressen/{key}:
+  /adressen/{nummeraanduidingidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -120,7 +120,7 @@ paths:
       summary: Raadpleeg adres o.b.v. een sleutel
       description: Raadpleeg het adres op basis van de key verkregen via de zoeken-operatie
       parameters:
-          - $ref: '#/components/parameters/key'
+          - $ref: '#/components/parameters/nummeraanduidingidentificatie'
       responses:
         '200':
           description: Bevraging zoekAdres geslaagd
@@ -141,7 +141,7 @@ paths:
             application/hal+json:
               schema:
               #JBO: Deze schemacomponent zou bij ons AdresHAL heten. Je introduceert deze om de HAL-specifieke elementen (_links en _embedded) lost te koppelen van het content-object. 
-                $ref: '#/components/schemas/ZoekAdresResponse'
+                $ref: '#/components/schemas/AdresHal'
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
         '400':
@@ -168,15 +168,15 @@ paths:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
-  /ligplaatsen/{identificatie}:
+  /adresseerbaarobject/{identificatie}:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegLigplaats
+      operationId: raadpleegAdresseerbaarobject
       tags:
         - Ligplaats
-      summary: Raadpleeg Ligplaats o.b.v. een sleutel
-      description: Raadpleeg de ligplaats op basis van de identificatie
+      summary: Raadpleeg Adresseerbaar Object  o.b.v. een sleutel
+      description: Raadpleeg de adresseerbaar object op basis van de identificatie
       parameters:
           - $ref: '#/components/parameters/identificatie'
       responses:
@@ -198,7 +198,12 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/LigplaatsHAL'
+                oneOf:
+                  - $ref: '#/components/schemas/LigplaatsHAL'
+                  - $ref: '#/components/schemas/StandplaatsHAL'
+                  - $ref: '#/components/schemas/VerblijfsobjectHAL'
+                discriminator:
+                  propertyName: type
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
         '400':
@@ -225,7 +230,8 @@ paths:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
-  /standplaatsen/{identificatie}:
+  /pand/{identificatie}:
+  #JBO: Todo Standplaats en Verblijfsobject als endpoints verwijderen. Endpoints naar Panden nummeraanduidingen en woonplaatsen toevoegen en de betreffende schemacomponenten ook nog toevoegen. 
     get:
       security:
         - apiKeyBAG: []
@@ -366,9 +372,9 @@ components:
       schema:
         type: string
     #JBO: Advies om hier een betekenisvollere naam te geven. Als je meerdere raadpleeg endpoints in 1 API wilt stoppen is dit een onduidelijke naamgeving. Voorstel: adresIdentificatie.
-    key:
-      description: key verkregen uit zoeksuggestie om meer informatie over dat resultaat op te vragen
-      name: key
+    nummeraanduidingidentificatie:
+      description: Identificatie van de nummeraanduiding, verkregen uit zoeksuggestie om meer informatie over dat resultaat op te vragen. De API haalt zelfstandig alle nummeraanduidingen op van alle zoeksuggesties. 
+      name: nummeraanduidingidentificatie
       #JBO: Key omgezet naar een path-parameter voor het raadpleeg endpoint. 
       in: path
       required: true
@@ -385,6 +391,8 @@ components:
     Adres:
       type: object
       properties:
+        nummeraanduidingIdentificatie:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDNum'
         straatnaam:
           title: openbareruimte naam
           description: De verkorte versie van een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
@@ -447,8 +455,6 @@ components:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
         # De standaard relatie richting is van openbare ruimte naar woonplaats. Voor andersom is een hulp link nodig.
         openbareruimten:
-          # JBO: Een description op deze manier naast een $ref plaatsen mag niet binnen OAS3. Het geeft geen error, maar wordt ook niet getoond in de swagger weergave en is dan dus nutteloos. 
-          # JBO: Dit is op te lossen door het toepassen van een allOf. 
           allOf: 
             - description: 'De gerelateerde openbare ruimte op basis waarvan het adres is samengesteld.'
             - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
@@ -460,19 +466,10 @@ components:
           # JBO: Zie opmerking en oplossing bij openbareRuimten
           description: 'De gerelateerde woonplaats op basis waarvan het adres is samengesteld.'
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-#JBO: Verblijfsobjecten zijn slechts een deel van de adresseerbare objecten. Dus of ligplaats en standplaats toevoegen of adresseerbaarobject met subtypes toevoegen. ik heb nu even ligplaats en standplaats toegevoegd : Cathy ?
-        verblijfsobjecten:
+        adresseerbaarobjecten:
           # JBO: Zie opmerking en oplossing bij openbareRuimten
           description: 'De gerelateerde verblijfsobjecten op basis waarvan het adres is samengesteld.'
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        ligplaatsen:
-          allOf:
-          - description: 'De gerelateerde ligplaatsen op basis waarvan het adres is samengesteld.'
-          - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        standplaatsen:
-          allOf:
-          - description: 'De gerelateerde standplaatsen op basis waarvan het adres is samengesteld.'
-          - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
         panden:
           # JBO: Zie opmerking en oplossing bij openbareRuimten
           description: 'De gerelateerde panden op basis waarvan het adres is samengesteld.'
@@ -486,51 +483,38 @@ components:
           $ref: "#/components/schemas/Nummeraanduiding"
         woonplaatsen:
           $ref: "#/components/schemas/Woonplaats"
+        adresseerbaarobjecten:
+          oneOf:
+            - $ref: "#/components/schemas/Ligplaats"
+            - $ref: "#/components/schemas/Verblijfsobject"
+            - $ref: "#/components/schemas/Standplaats"
+          discriminator: 
+            propertyName: type
     #JBO: Zoeksuggestie wordt hier als een redelijk generiek antwoord op een generieke zoekfuntie gebruikt. Is het te bedoelding dit te hergerbuiken in andere zoek-functie. 
     #JBO: Wat hier "id" genoemd wordt het in de raadpleeg-functie de "key". Is dit verschil een gevolg van de keuze om dit generiek toe te kunnen passen ? 
-    ZoekSuggestie:
+    Keuzelijst:
       type: object
       properties:
-        type:
-          description: 'Type van gevonden zoeksuggestie'
-          title: 'type'
-          type: string
         weergavenaam:
           description: 'Weergavenaam van de zoeksuggestie'
           title: 'weergavenaam'
           type: string
-        id:
-          description: 'Id van de zoeksuggestie'
-          title: 'id'
+        nummeraanduidingidentificatie:
+          description: 'Identificatie van de nummeraanduiding die aan dit adres gerelateerd is. '
+          title: 'nummeraanduidingidentificatie'
           type: string
-        score:
-          description: 'Score van de zoeksuggestie. Hoger is dichterbij de zoekterm'
-          title: 'score'
-          type: number
-
-    ZoekSuggestieResponse:
-      description: 'Lijst van suggestie op basis van een zoekstring'
-      title: ZoekSuggestieResponse
+        adresseerbaarobjectidentificatie:
+          description: 'Identificatie van het adresseerbaarobject dat aan dit adres gerelateerd is.'
+          title: 'adresseerbaarobjectidentificatie'
+          type: string
+    KeuzelijstCollectieHal:
+      description: 'resulaten als lijst'
       type: object
-      properties:
-        resultCount:
-          description: 'aantal gevonden resultaten'
-          title: resultCount
-          type: integer
-        resultStart:
-          description: 'nummer van het eerste resultaat in de lijst'
-          title: resultStart
-          type: integer
-        maxScore:
-          description: 'hoogste score van de suggesties'
-          title: maxScore
-          type: number
-        idStringPairs:
-          description: 'resulaten als lijst'
-          title: idStringPairs
+      properties: 
+        Keuzelijst:
           type: array
           items:
-            $ref: '#/components/schemas/ZoekSuggestie'
+            $ref: '#/components/schemas/Keuzelijst'
 
 #JBO: in deze constructie is de _links geen onderdeel van het adres maar staan ze ernaast. Dat is niet zoals HAL bedoelt is ik heb de constructie aangepast zoals wij die toepassen.
 #    ZoekAdresResponse:
@@ -542,8 +526,8 @@ components:
 #          $ref: '#/components/schemas/Adres'
 #        _links:
 #          $ref: '#/components/schemas/Adres_links'
-#JBO: Ik laat het nu zo, maar que naamgeving zou ik voor AdresHAL kiezen. 
-    ZoekAdresResponse:
+#JBO: Onderstaand component AdresHal genoemd. Enige bestaansrecht van deze component is de toevoeging van _links en _embedded n.a.v. gebruik van hal+json. 
+    AdresHal:
       allOf: 
         - $ref: '#/components/schemas/Adres'
         - properties:
@@ -579,24 +563,15 @@ components:
         - Ligplaats
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/ligplaats.yaml (+aanpassingen)
     Ligplaats:
-      title: Ligplaats
-      description: >-
-        Een Ligplaats is een door het bevoegde gemeentelijke orgaan
-        als zodanig aangewezen plaats in het water al dan niet aangevuld
-        met een op de oever aanwezig terrein of een gedeelte daarvan, die
-        bestemd is voor het permanent afmeren van een voor woon-,
-        bedrijfsmatige of recreatieve doeleinden geschikt drijvend object.
       allOf:
         - $ref: '#/components/schemas/AdresseerbaarObject'
         - type: object
-          required:
-            - identificatie
-            - status
-            - geometrie
-            - geconstateerd
-            - documentdatum
-            - documentnummer
-            - voorkomen
+          description: >-
+            Een Ligplaats is een door het bevoegde gemeentelijke orgaan
+            als zodanig aangewezen plaats in het water al dan niet aangevuld
+            met een op de oever aanwezig terrein of een gedeelte daarvan, die
+            bestemd is voor het permanent afmeren van een voor woon-,
+            bedrijfsmatige of recreatieve doeleinden geschikt drijvend object.
           properties:
             identificatie:
               $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDLig'
@@ -621,10 +596,10 @@ components:
               maxLength: 40
               pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
               example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-#JBO: Niet nodig voor gebruikerswens
-#           voorkomen:
-#             $ref: './historie.yaml#/Voorkomen'
-#JBO: Inonderzoek moet bezien worden hoe de gemeente dat wil weten. Is een boolean genoeg of wil men alles heel specifiek weten ? 
+    #JBO: Niet nodig voor gebruikerswens
+    #           voorkomen:
+    #             $ref: './historie.yaml#/Voorkomen'
+    #JBO: Inonderzoek moet bezien worden hoe de gemeente dat wil weten. Is een boolean genoeg of wil men alles heel specifiek weten ? 
             inonderzoek:
               $ref: "#/components/schemas/KenmerkLigplaatsInOnderzoek"
     KenmerkLigplaatsInOnderzoek:
