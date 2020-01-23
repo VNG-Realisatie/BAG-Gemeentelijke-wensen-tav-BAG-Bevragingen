@@ -506,14 +506,14 @@ components:
           type: string
           minLength: 1
           maxLength: 24
-          example: 'Laan v Westenenk'
+          example: 'Ln vd l D Westervoort'
         straatnaam:
           title: straatnaam
           description: De volledige versie van een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
           type: string
           minLength: 1
           maxLength: 80
-          example: 'Laan van Westenenk'
+          example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         huisnummer:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
@@ -787,10 +787,6 @@ components:
           allOf:
           - description: 'De gerelateerde woonplaats op basis waarvan het adres is samengesteld.'
           - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        panden:
-          allOf:
-          - description: 'De gerelateerde panden op basis waarvan het adres is samengesteld.'
-          - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
     Ligplaats_embedded:
       type: object
       properties:
@@ -927,10 +923,6 @@ components:
         woonplaatsen:
           allOf: 
             - description: 'De gerelateerde woonplaats op basis waarvan het adres is samengesteld.'
-            - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        panden:
-          allOf: 
-            - description: 'De gerelateerde panden op basis waarvan het adres is samengesteld.'
             - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
     Standplaats_embedded:
       type: object
