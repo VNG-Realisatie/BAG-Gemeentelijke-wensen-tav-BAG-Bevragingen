@@ -45,7 +45,10 @@ security:
 tags:
   -
     name: Adres
-    description: 'Dit endpoint levert één of meer (voorkomens van) adres(sen)'
+    description: "Dit endpoint levert de actuele gegevens van één of meer (voorkomens van) adres(sen). 
+      De informatie die wordt verkregen via dit endpoint is alleen actueel op het moment van bevragen.
+      Tussen twee bevragingen kunnen wijzigingen zijn doorgevoerd op de adres informatie, waardoor de informatie verkregen uit verschillende bevragingen kan verschillen.  
+      Dit endpoint levert geen historische informatie noch de gehele levenscyclus van adressen."
 
 paths:
   # Zoek adres
@@ -118,7 +121,7 @@ paths:
         - Adres
       summary: Raadpleeg adres o.b.v. een sleutel
       description: "Raadpleeg het adres op basis van de nummeraanduiding identificatie verkregen via de zoeken-operatie
-        Geleverd wordt een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding. 
+        Geleverd worden de actuele gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding. 
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en). 
         Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding.</li>
         Als expand=openbareruimte dan wordt het gerelateerde openbare ruime object als geneste resources geleverd.<br/>
@@ -186,7 +189,7 @@ paths:
         - Adresseerbaarobject
       summary: Raadpleeg Adresseerbaar Object  o.b.v. een sleutel
       description: "Raadpleeg het adresseerbaar object op basis van de identificatie verkregen via de zoek-operatie
-        Geleverd wordt een adresseerbaarobject evt. met adres en pand. 
+        Geleverd worden de actuele gegevens van een adresseerbaarobject evt. met adres en pand. 
         Parameter adresseerbaarobjectIdentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject.</li>
         Als expand=pand dan worden de gerelateerde pand objecten als geneste resources geleverd (alleen indien adressserbaarobject van het type verblijfsobject is).<br/>
         Als expand=adres dan wordt het gerelateerde adres als geneste resources geleverd.<br/>
@@ -259,7 +262,7 @@ paths:
         - Pand
       summary: Raadpleeg Pand o.b.v. een sleutel
       description: "Raadpleeg een pand op basis van de identificatie
-        Geleverd wordt een pand evt. met gerelateerde verblijfsobject en adres. 
+        Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobject en adres. 
         Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand.</li>
         Als expand=pand dan worden de gerelateerde pand objecten als geneste resources geleverd.<br/>
         Als expand=adres dan wordt het gerelateerde adres als geneste resources geleverd.<br/>
