@@ -3,9 +3,9 @@ openapi: 3.0.0
 #Server specificatie
 servers:
   - description: LVBAG - TEST
-    url: https://api.test.kadaster.nl/lvbag/api/individuelebevragingen/v1
+    url: https://api.test.kadaster.nl/lvbag/api/adressen/v1
   - description: LVBAG - PRODUCTIE
-    url: https://api.kadaster.nl/lvbag/api/individuelebevragingen/v1
+    url: https://api.kadaster.nl/lvbag/api/adressen/v1
 
 #API specificatie - algemeen
 info:
@@ -194,6 +194,8 @@ paths:
         De contentCrs in de header moet zijn epsg:28992"
       parameters:
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie'
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
+        - $ref: '#/components/parameters/pandIdentificatie'
         - $ref: '../../../../generiek/parameters.yaml#/expand'
         - $ref: '../../../../generiek/headers.yaml#/contentCrs'
       responses:
