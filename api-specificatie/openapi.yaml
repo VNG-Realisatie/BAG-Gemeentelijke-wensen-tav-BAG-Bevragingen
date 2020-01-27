@@ -267,6 +267,75 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
 
+  /panden/{pandIdentificatie}:    
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegPand
+      tags:
+        - Panden
+      summary: Raadpleeg Pand o.b.v. een identificatie
+      description: "Raadpleeg een pand op basis van de identificatie
+        Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres. 
+        Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand.</li>
+        Als expand=pand dan worden de gerelateerde pand objecten als geneste resources geleverd.<br/>
+        Als expand=adres dan wordt het gerelateerde adres als geneste resources geleverd.<br/>
+        Als expand=true dan worden het gerelateerde adres en pand(en) objecten als geneste resources geleverd.<br/>
+        De contentCrs in de header moet zijn epsg:28992"
+      parameters:
+        - $ref: '#/components/parameters/pandIdentificatie'
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
+            warning:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PandHal'
+        '204':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
+        '400':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/400'
+        '401':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/401'
+        '403':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/403'
+        '404':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/404'
+        '405':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405'
+        '406':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/406'
+        '410':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/410'
+        '412':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412'
+        '429':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/429'
+        '500':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/500'
+        '503':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
+        default:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
   /panden:
     post:
       requestBody:
@@ -340,79 +409,6 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
 
-  /panden/{pandIdentificatie}:    
-    get:
-      security:
-        - apiKeyBAG: []
-      operationId: raadpleegPand
-      tags:
-        - Panden
-      summary: Raadpleeg Pand o.b.v. een identificatie
-      description: "Raadpleeg een pand op basis van de identificatie
-        Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres. 
-        Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand.</li>
-        Als expand=pand dan worden de gerelateerde pand objecten als geneste resources geleverd.<br/>
-        Als expand=adres dan wordt het gerelateerde adres als geneste resources geleverd.<br/>
-        Als expand=true dan worden het gerelateerde adres en pand(en) objecten als geneste resources geleverd.<br/>
-        De contentCrs in de header moet zijn epsg:28992"
-      parameters:
-        - $ref: '#/components/parameters/pandIdentificatie'
-        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
-      responses:
-        '200':
-          description: Geslaagd
-          headers:
-            api-version:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
-            warning:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs'
-          content:
-            application/hal+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PandHal'
-        '204':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
-        '400':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/400'
-        '401':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/401'
-        '403':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/403'
-        '404':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/404'
-        '405':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405'
-        '406':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/406'
-        '410':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/410'
-        '412':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412'
-        '429':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/429'
-        '500':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/500'
-        '503':
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
-        default:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
-  /panden:
-  #JBO: Todo Standplaats en Verblijfsobject als endpoints verwijderen. Endpoints naar Panden nummeraanduidingen en woonplaatsen toevoegen en de betreffende schemacomponenten ook nog toevoegen. 
     get:
       security:
         - apiKeyBAG: []
@@ -422,11 +418,12 @@ paths:
       summary: Selecteer eeaan aantal panden op basis van zoek-parameters
       description: Selecteer eeaan aantal panden op basis van zoek-parameters
       parameters:
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
-        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
+        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
       responses:
         '200':
           description: Geslaagd
@@ -843,7 +840,7 @@ components:
       properties:
         adressen:
           $ref: "#/components/schemas/Adres"
-    LigplaatsHAL:
+    LigplaatsHal:
       allOf: 
         - $ref: '#/components/schemas/Ligplaats'
         - properties:
@@ -961,7 +958,7 @@ components:
       properties:
         adressen:
           $ref: "#/components/schemas/Adres"
-    StandplaatsHAL:
+    StandplaatsHal:
       allOf: 
         - $ref: '#/components/schemas/Standplaats'
         - properties:
@@ -1143,7 +1140,7 @@ components:
           $ref: "#/components/schemas/Adres"
         panden:
           $ref: "#/components/schemas/Pand"
-    VerblijfsobjectHAL:
+    VerblijfsobjectHal:
       allOf: 
         - $ref: '#/components/schemas/Verblijfsobject'
         - properties:
@@ -1587,7 +1584,7 @@ components:
         adressen:
           $ref: "#/components/schemas/Adres"
 
-    PandHAL:
+    PandHal:
       allOf: 
         - $ref: '#/components/schemas/Pand'
         - properties:
@@ -1595,6 +1592,19 @@ components:
               $ref: '#/components/schemas/Pand_links'
             _embedded:
               $ref: '#/components/schemas/Pand_embedded'
+
+    PandHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks"
+        _embedded:
+          type: object
+          properties:
+            Panden:
+              type: array
+              items:
+                $ref: '#/components/schemas/PandHal'
 
     KenmerkPandInOnderzoek:
       title: KenmerkPandInOnderzoek
