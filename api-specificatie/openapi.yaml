@@ -187,7 +187,7 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
 
-  /adresseerbaarobject/{adresseerbaarObjectIdentificatie}:
+  /adresseerbareobjecten/{adresseerbaarObjectIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
