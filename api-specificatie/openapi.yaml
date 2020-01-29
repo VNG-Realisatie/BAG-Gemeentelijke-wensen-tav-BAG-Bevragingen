@@ -416,7 +416,7 @@ paths:
       tags:
         - Panden
       summary: Selecteer een aantal panden op basis van zoek-parameters
-      description: Selecteer eeaan aantal panden op basis van zoek-parameters
+      description: Selecteer een aantal panden op basis van zoek-parameters
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
