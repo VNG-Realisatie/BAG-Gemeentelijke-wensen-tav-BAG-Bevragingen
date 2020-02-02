@@ -7,9 +7,9 @@ Reden: Een url voor elke item in de lijst genereren kost meer tijd en maakt de r
 
 Achtergrond:
     Gegeven BAG bevat de volgende adressen
-    |keuze item identificatie | straatnaam    | huisnummer | nummeraanduiding id | ado id   | 
-    | 15gaj5y                 | Dalfsenstraat | 1          | NA.1234             | ADO.3456 |
-    | 2354agk                 | Dalfsenstraat | 2          | NA.2345             | ADO.4567 |
+    |keuze item identificatie | straatnaam    | huisnummer |
+    | 15gaj5y                 | Dalfsenstraat | 1          |
+    | 2354agk                 | Dalfsenstraat | 2          |
 
 Scenario: response in HAL, url templating toegepast
     Als de request GET {baseUrl}/adressen/zoeken?zoekTerm=dalfsenstr wordt verstuurd
