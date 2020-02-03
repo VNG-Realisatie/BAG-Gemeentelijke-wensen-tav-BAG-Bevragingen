@@ -1,17 +1,17 @@
 openapi: 3.0.0
 #JBO: Ik heb relatieve paden absoluut gemaakt om ze ook buiten de context van github te kunnen laten werken. Dit is een optie, maar geresolvde OAS3 publiceren is ook een optie.
-#Server specificatie
+# Server specificatie
 servers:
   - description: LVBAG - TEST
-    url: https://api.test.kadaster.nl/lvbag/api/adressen/v1
+    url: https://api.test.kadaster.nl/lvbag/api/bag-bevragen/v1
   - description: LVBAG - PRODUCTIE
-    url: https://api.kadaster.nl/lvbag/api/adressen/v1
+    url: https://api.kadaster.nl/lvbag/api/bag-bevragen/v1
 
-#API specificatie - algemeen
+# API specificatie - algemeen
 info:
-  title: BAG Adressen API
+  title: BAG Bevragen API
   description: >-
-    "Dit is de BAG Adres API van de landelijke voorziening BAG (LVBAG) voor het informatiemodel IMBAG 2.0 en conform de API strategie 1.1 specificatie in OAS3. Deze is vooral gericht op individuele bevragingen (op basis van de identificerende gegevens van een object).
+    "Dit is de BAG Bevragen API van de landelijke voorziening BAG (LVBAG) voor het informatiemodel IMBAG 2.0 en conform de API strategie 1.1 specificatie in OAS3. Deze is vooral gericht op individuele bevragingen (met de identificerende gegevens van een object).
     <br/><br/>
     <font color='red'>**LET OP: Deze specificatie is een \"work in progress\"**, oftewel niet definitief.</font><br/><br/>
     Meer informatie over BAG 2.0 is te vinden op: [Catalogus BAG 2.0](https://www.geobasisregistraties.nl/basisregistraties/adressen-en-gebouwen)
@@ -53,23 +53,20 @@ tags:
       Dit endpoint levert geen historische informatie noch de gehele levenscyclus van adressen."
 
 paths:
-  # Zoek adres
-  # JBO: Misschien een vooerstel om hier een resource zoekAdres te definieren. Dan is hier is de toevoeging "zoeken" overbodig. Het ontsluiten van een collectie resources(zoekAdressen) waarbij een query wordt gebruikt is per definitie een zoek-functie 
-  /adressen/zoeken:
+  /adressen/zoek:
     get:
       security:
         - apiKeyBAG: []
-      operationId: zoeken
+      operationId: zoek
       tags:
         - Adres
-      summary: Zoek adressen o.b.v. verschillende parameters.
+      summary: Zoek adressen met verschillende parameters.
       description: Zoeken van adressen via free query op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging
       parameters:
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
         - $ref: '#/components/parameters/zoekterm'
       responses:
         '200':
-          description: Bevraging zoekAdres geslaagd
+          description: Zoek adres geslaagd
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
@@ -86,7 +83,73 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/KeuzeitemCollectieHal'
+                $ref: '#/components/schemas/KeuzeItemCollectieHal'
+        '204':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
+        '400':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/400'
+        '401':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/401'
+        '403':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/403'
+        '404':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/404'
+        '405':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405'
+        '406':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/406'
+        '410':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/410'
+        '412':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412'
+        '429':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/429'
+        '500':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/500'
+        '503':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
+        default:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
+
+  /adressen:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegAdresMetKeuzeItemId
+      tags:
+        - Adres
+      summary: Raadpleeg adres met de identificatie van het geselecteerde item 
+      description: "Raadpleeg het adres met de identificatie van het geselecteerde item verkregen via de zoeken-operatie
+        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding. 
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
+        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en). 
+        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
+      parameters:
+        - $ref: '#/components/parameters/keuzeItemIdentificatie'
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+      responses:
+        '200':
+          description: Bevraging raadpleegAdresMetKeuzeItemId geslaagd
+          headers:
+            api-version:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
+            warning:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresHal'
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
         '400':
@@ -121,30 +184,24 @@ paths:
     get:
       security:
         - apiKeyBAG: []
-      operationId: zoekAdres
+      operationId: raadpleegAdresMetNumId
       tags:
         - Adres
       summary: Raadpleeg adres o.b.v. een sleutel
-      description: "Raadpleeg het adres op basis van de nummeraanduiding identificatie verkregen via de zoeken-operatie
+      description: "Raadpleeg het adres met de nummeraanduiding identificatie verkregen via de zoek-operatie
         Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding. 
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en). 
-        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding.</li>
-        Als expand=openbareruimte dan wordt het gerelateerde openbare ruime object als geneste resources geleverd.<br/>
-        Als expand=nummeraanduiding dan wordt het gerelateerde nummeraanduiding object als geneste resources geleverd.<br/>
-        Als expand=woonplaats dan wordt het gerelateerde woonplaats object als geneste resources geleverd.<br/>
-        Als expand=true dan worden de gerelateerde openbare ruime, nummeraanduiding en woonplaats objecten als geneste resources geleverd.<br/>
-        De contentCrs in de header moet zijn epsg:28992"
+        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
       responses:
         '200':
-          description: Bevraging zoekAdres geslaagd
+          description: Bevraging raadpleegAdresMetNumId geslaagd
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
@@ -161,7 +218,6 @@ paths:
           content:
             application/hal+json:
               schema:
-              #JBO: Deze schemacomponent zou bij ons AdresHAL heten. Je introduceert deze om de HAL-specifieke elementen (_links en _embedded) los te koppelen van het content-object. 
                 $ref: '#/components/schemas/AdresHal'
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
@@ -197,16 +253,12 @@ paths:
       operationId: raadpleegAdresseerbaarobject
       tags:
         - Adresseerbare objecten
-      summary: Raadpleeg adresseerbaar object o.b.v. een identificatie van een adresseerbaar object
-      description: "Raadpleeg het adresseerbaar object op basis van de identificatie verkregen via de zoek-operatie
+      summary: Raadpleeg adresseerbaar object met een identificatie van een adresseerbaar object
+      description: "Raadpleeg het adresseerbaar object met de identificatie verkregen via de zoek-operatie
         Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand. 
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
-        Parameter adresseerbaarobjectIdentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject.</li>
-        Als expand=pand dan worden de gerelateerde pand objecten als geneste resources geleverd (alleen indien adressserbaarobject van het type verblijfsobject is).<br/>
-        Als expand=adres dan wordt het gerelateerde adres als geneste resources geleverd.<br/>
-        Als expand=true dan worden alle gerelateerde objecten als geneste resources geleverd.<br/>
-        De contentCrs in de header moet zijn epsg:28992"
+        Parameter adresseerbaarobjectIdentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie'
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
@@ -214,7 +266,6 @@ paths:
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
       responses:
         '200':
           description: Geslaagd
@@ -274,20 +325,15 @@ paths:
       operationId: raadpleegPand
       tags:
         - Panden
-      summary: Raadpleeg Pand o.b.v. een identificatie
-      description: "Raadpleeg een pand op basis van de identificatie
-        Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres. 
-        Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand.</li>
-        Als expand=pand dan worden de gerelateerde pand objecten als geneste resources geleverd.<br/>
-        Als expand=adres dan wordt het gerelateerde adres als geneste resources geleverd.<br/>
-        Als expand=true dan worden het gerelateerde adres en pand(en) objecten als geneste resources geleverd.<br/>
-        De contentCrs in de header moet zijn epsg:28992"
+      summary: Raadpleeg Pand met een pand identificatie
+      description: "Raadpleeg een pand met de pand identificatie
+        Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen. 
+        Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand."
       parameters:
         - $ref: '#/components/parameters/pandIdentificatie'
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
       responses:
         '200':
           description: Geslaagd
@@ -307,9 +353,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PandHal'
+                $ref: '#/components/schemas/PandHal'
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
         '400':
@@ -336,6 +380,7 @@ paths:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
+
   /panden:
     post:
       requestBody:
@@ -349,17 +394,12 @@ paths:
         - apiKeyBAG: []
       tags:
         - Pand
-      summary: bevragen van één of meer panden, op basis van de geometrische locatie.
+      summary: bevragen van één of meer panden, met een geometrische locatie.
       operationId: raadpleegPandOpLocatie
-      description: "Raadpleeg een pand op basis van een geometrische locatie (punt).
-        Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres. 
-        Als expand=pand dan worden de gerelateerde pand objecten als geneste resources geleverd.<br/>
-        Als expand=adres dan wordt het gerelateerde adres als geneste resources geleverd.<br/>
-        Als expand=true dan worden het gerelateerde adres en pand(en) objecten als geneste resources geleverd.<br/>
-        De contentCrs in de header moet zijn epsg:28992"
+      description: "Raadpleeg een pand met een geometrische locatie (punt).
+        Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
       parameters:
         - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/parameters.yaml#/expand'
-        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
 
       # Antwoord pandGeometrie
       responses:
@@ -381,7 +421,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
+                $ref: '#/components/schemas/PandHalCollectie'
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
         '400':
@@ -415,15 +455,14 @@ paths:
       operationId: raadpleegPanden
       tags:
         - Panden
-      summary: Selecteer een aantal panden op basis van zoek-parameters
-      description: Selecteer een aantal panden op basis van zoek-parameters
+      summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identrificatie vekregen uit een zoek-operatie
+      description: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identrificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).  
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-        - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/contentCrs'
       responses:
         '200':
           description: Geslaagd
@@ -444,6 +483,134 @@ paths:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/PandHalCollectie'
+        '204':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
+        '400':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/400'
+        '401':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/401'
+        '403':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/403'
+        '404':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/404'
+        '405':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405'
+        '406':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/406'
+        '410':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/410'
+        '412':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412'
+        '429':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/429'
+        '500':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/500'
+        '503':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
+        default:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
+
+# todo afmaken
+  /woonplaatsen/{woonplaatsIdentificatie}:    
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegWoonplaats
+      tags:
+        - Panden
+      summary: Raadpleeg Woonplaats met een woonplaats identificatie
+      description: "Raadpleeg een Woonplaats met en woonplaats identificatie
+        Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres. 
+        Parameter woonplaatsIdentificatie bevat de 4 cijferige identificatie van een woonplaats."
+      parameters:
+        - $ref: '#/components/parameters/woonplaatsIdentificatie'
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
+            warning:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/WoonplaatsHal'
+        '204':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
+        '400':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/400'
+        '401':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/401'
+        '403':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/403'
+        '404':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/404'
+        '405':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405'
+        '406':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/406'
+        '410':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/410'
+        '412':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412'
+        '429':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/429'
+        '500':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/500'
+        '503':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
+        default:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
+
+# todo afmaken
+  /openbareruimten/{openbareRuimteIdentificatie}:    
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegOpenbareRuimte
+      tags:
+        - Panden
+      summary: Raadpleeg openbareruimte met een openbareruimte identificatie
+      description: "Raadpleeg een openbareruimte met en openbareruimte identificatie
+        Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres. 
+        Parameter openbareRuimteIdentificatie bevat de 16 cijferige identificatie van een openbareruimte."
+      parameters:
+        - $ref: '#/components/parameters/openbareRuimteIdentificatie'
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
+            warning:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/OpenbareRuimteHal'
         '204':
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
         '400':
@@ -495,6 +662,15 @@ components:
       required: true
       schema:
         type: string
+        
+    keuzeItemIdentificatie:
+      description: een geselecteerd item uit de keuzeItemCollectie verkregen bij een zoek-operatie
+      name: keuzeItemIdentificatie
+      in: query
+      required: true
+      schema:
+        type: string
+
     nummeraanduidingIdentificatie-query:
       description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
       name: nummeraanduidingIdentificatie-query
@@ -504,6 +680,7 @@ components:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
         example: "1234200000000001"
+
     adresseerbaarObjectIdentificatie-query:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn. 
       name: adresseerbaarObjectIdentificatie-query
@@ -514,6 +691,7 @@ components:
         type: string
         pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
         example: 1234010000000001, 1234020000000001, 1234030000000001
+
     pandIdentificatie-query:
       description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
       name: pandIdentificatie-query
@@ -523,6 +701,7 @@ components:
         type: string
         pattern: '^[0-9]{4}10[0-9]{10}$'
         example: 1234100000000001
+
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf. 
     nummeraanduidingIdentificatie:
       description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
@@ -533,6 +712,7 @@ components:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
         example: "1234200000000001"
+
     adresseerbaarObjectIdentificatie:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn. 
       name: adresseerbaarObjectIdentificatie
@@ -543,6 +723,7 @@ components:
         type: string
         pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
         example: 1234010000000001, 1234020000000001, 1234030000000001
+
     pandIdentificatie:
       description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
       name: pandIdentificatie
@@ -553,37 +734,75 @@ components:
         pattern: '^[0-9]{4}10[0-9]{10}$'
         example: 1234100000000001
     
+    woonplaatsIdentificatie:
+      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten. 
+      name: woonplaatsIdentificatie
+      in: path
+      required: true
+      schema:
+        description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
+        type: string
+        pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
+        example: 0150
+
+    openbareRuimteIdentificatie:
+      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten. 
+      name: openbareRuimteIdentificatie
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]{4}30[0-9]{10}$'
+        example: 0518300000000001
+
   schemas:
-    #JBO: Vraag is of we Keuzeitem moeten voorzien van Hal_links naar nummeraanduiding, adresseerbaarobject en adres.
-    Keuzeitem:
+  
+    KeuzeItem:
       type: object
+      description: 'Dit type bevat een enkel keuze item bestaande uit een weergave tekst en keuze item identificatie'
       properties:
         weergavenaam:
           description: 'Weergavenaam van de zoeksuggestie'
           title: 'weergavenaam'
           type: string
-        nummeraanduidingIdentificatie:
-          description: 'Identificatie van de nummeraanduiding die aan dit adres gerelateerd is. '
-          title: 'nummeraanduidingidentificatie'
+        identificatie:
+          title: identificatie
           type: string
-        adresseerbaarObjectIdentificatie:
-          description: 'Identificatie van het adresseerbaarobject dat aan dit adres gerelateerd is.'
-          title: 'adresseerbaarobjectidentificatie'
-          type: string
-    #JBO: Als we geen Hal-links opnemen in het Keuzeitem zouden we dit ook Keuzelijst kunnen noemen. 
-    KeuzeitemCollectieHal:
+      # hier moet nog paginering op komen
+    
+    KeuzeItem_links:
+      type: object
+      properties:
+        adres:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'          
+
+#    KeuzeItemHal:
+#      allOf: 
+#        - $ref: '#/components/schemas/KeuzeItem'
+#        - properties:
+#            _links:
+#              $ref: '#/components/schemas/KeuzeItem_links'
+#            _embedded:
+    
+    KeuzeItemCollectieHal:
       description: 'resulaten als lijst'
       type: object
-      properties: 
-        Keuzeitem:
+      properties:
+        _links:
           type: array
           items:
-            $ref: '#/components/schemas/Keuzeitem'
+            $ref: '#/components/schemas/KeuzeItem_links'
+        _embedded:
+          type: object
+          properties:
+            keuzeitems:
+              type: array
+              items:
+                $ref: '#/components/schemas/KeuzeItem'
+
     Adres:
       type: object
       properties:
-        nummeraanduidingIdentificatie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDNum'
         verkorteStraatnaam:
           title: verkorteNaam
           description: De verkorte naam is een maximaal 24 karakters lange represntatie van de naam van een openbare ruimte.
@@ -632,15 +851,70 @@ components:
           maxLength: 80
           pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
           example: Apeldoorn
+        openbareRuimteIdentificatie:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDOpr'
+        nummeraanduidingIdentificatie:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDNum'
+        woonplaatsIdentificatie:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDWpl'
+        adresseerbaarObjectIdentificatie:
+          oneOf:
+            - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDVbo'
+            - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDLig'
+            - $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDSta'
+        pandIdentificatie:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDPnd'
         nevenadres:
           description: "Boolean die aangeeft of dit adres een nevenadres is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres." 
           type: boolean
-        inonderzoek:
-          description: "Boolean die aangeeft of er in relatie tot dit adres een actueel onderzoek is." 
-          type: boolean
+        inOnderzoek:
+          $ref: '#/components/schemas/InOnderzoek'
+            # Inonderzoek uit de objecten zelf verwijderen
         geconstateerd:
           description: "Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname."
           type: boolean
+
+    InOnderzoek:
+      description: Object met lijst van booleans die aangeeft of er in relatie tot dit adres een actueel onderzoek is.' 
+      type: object
+      properties:
+        openbareRuimteNaam:
+          description: 'Boolean om aan te geven of de openbareruimte naam in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        huisnummer:
+          description: 'Boolean om aan te geven of de huisnummer in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        huisletter:
+          description: 'Boolean om aan te geven of de huisletter in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        huisnummertoevoeging:
+          description: 'Boolean om aan te geven of de huisnummertoevoeging in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        postcode:
+          description: 'Boolean om aan te geven of de postcode in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        woonplaatsNaam:
+          description: 'Boolean om aan te geven of de woonplaats naam in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        heeftAlsHoofdAdres:
+          description: 'Boolean om aan te geven of de heeftAlsHoofdadres relatie tussen een adresseerbaar object en een nummeraanduiding in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        heeftAlsNevenAdres:
+          description: 'Boolean om aan te geven of de heeftAlsNevenadres relatie tussen een adresseerbaar object en een nummeraanduiding in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        nummeraanduidingLigtInWoonplaats:
+          description: 'Boolean om aan te geven of de ligtIn relatie tussen een nummeraanduiding en een woonplaats in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        ligtAanOpenbareRuimte:
+          description: 'Boolean om aan te geven of de ligtAan relatie tussen een nummeranduiding en een openbare ruimte in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        openbarRuimteLigtInWoonplaats:
+          description: 'Boolean om aan te geven of de ligtIn relatie tussen een openbareruimte en een woonplaats in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+        maaktDeelUitVan:
+          description: 'Boolean om aan te geven of de maaktDeelUitVan relatie tussen een verblijfsobject en een pand in onderzoek is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is het attribuut niet in onderzoek.' 
+          type: boolean
+
     Adres_links:
       required:
         - self
@@ -648,33 +922,35 @@ components:
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeOpenbareruimten:
-          # De gerelateerde openbare ruimte op basis waarvan het adres is samengesteld. 
+        openbareruimte:
+          # De aan het adres gerelateerde openbare ruimte. 
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeNummeraanduidingen:
-          # De gerelateerde nummeraanduiding op basis waarvan het adres is samengesteld. Het (bolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft.
+        nummeraanduiding:
+          # De aan het adres gerelateerde nummeraanduiding. Het (boolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeWoonplaatsen:
-          # De gerelateerde woonplaats op basis waarvan het adres is samengesteld.
+        woonplaats:
+          # De aan het adres gerelateerde woonplaats.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeAdresseerbareObjecten:
-          # De gerelateerde verblijfsobjecten op basis waarvan het adres is samengesteld.
+        adresseerbareObject:
+          # De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdePanden:
-          # De gerelateerde panden op basis waarvan het adres is samengesteld.
+        panden:
+          # Het/de aan het adres gerelateerde pand(en).
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
           minItems: 1
+
     Adres_embedded:
       type: object
       properties:
-        gerelateerdeOpenbareruimten:
+        openbareruimte:
           $ref: "#/components/schemas/OpenbareRuimte"
-        gerelateerdeNummeraanduidingen:
+        nummeraanduiding:
           $ref: "#/components/schemas/Nummeraanduiding"
-        gerelateerdeWoonplaatsen:
+        woonplaats:
           $ref: "#/components/schemas/Woonplaats"
+
     AdresHal:
       allOf: 
         - $ref: '#/components/schemas/Adres'
@@ -683,24 +959,17 @@ components:
               $ref: '#/components/schemas/Adres_links'
             _embedded:
               $ref: '#/components/schemas/Adres_embedded'
+
 #JBO: Alles wat hieronder staat is toegevoegd.
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/adresseerbaarobject.yaml
     AdresseerbaarObject:
       title: AdresseerbaarObject
       description: Abstract type adresseerbaar object
       type: object
-      required:
-        - heeftAlsHoofdAdres
-      properties:
-        heeftAlsHoofdAdres:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDNum'
-        heeftAlsNevenAdres:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDNum'
-          minItems: 1
       discriminator:
         propertyName: adresseerbaarObjectType
+# bovenstaande type kan ws. weg, ook uit de ado's
+
     AdresseerbaarobjectHalCollectie:
       type: object
       properties:
@@ -718,14 +987,7 @@ components:
                   - $ref: '#/components/schemas/VerblijfsobjectHal'
                 discriminator:
                   propertyName: type       
-    TypeAdresseerbaarObject:
-      title: TypeAdresseerbaarObject
-      description: De aard van een als zodanig benoemde Nummeraanduiding.
-      type: string
-      enum:
-        - Verblijfsobject
-        - Standplaats
-        - Ligplaats
+
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/ligplaats.yaml (+aanpassingen)
     Ligplaats:
       allOf:
@@ -752,8 +1014,8 @@ components:
             geometrie:
               $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/Surface'
             geconstateerd:
-              # Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
+              description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+              type: boolean
             documentdatum:
               description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
               title: documentdatum
@@ -768,56 +1030,7 @@ components:
               maxLength: 40
               pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
               example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    #JBO: Inonderzoek moet bezien worden hoe de gemeente dat wil weten. Is een boolean genoeg of wil men alles heel specifiek weten ? 
-            inonderzoek:
-              $ref: "#/components/schemas/KenmerkLigplaatsInOnderzoek"
-    KenmerkLigplaatsInOnderzoek:
-      title: KenmerkLigplaatsInOnderzoek
-      type: object
-      required:
-        - kenmerk
-        - identificatieVanLigplaats
-        - inOnderzoek
-        - historie
-        - documentdatum
-        - documentnummer
-      properties:
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekLigplaats_enum'
-        identificatieVanLigplaats:
-          title: identificatie van ligplaats
-          type: string
-          pattern: '^[0-9]{4}02[0-9]{10}$'
-          example: 1234020000000001
-        inOnderzoek:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
-        historie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/historie.yaml#/HistorieInOnderzoek'
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
-          example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-
-    #Informatiemodel - Datatypen
     
-    InOnderzoekLigplaats_enum:
-      title: InOnderzoekLigplaats
-      type: string
-      enum:
-        - geometrie
-        - status
-        - heeft als hoofdadres
-        - heeft als nevenadres
 #JBO: Toegevoegd om de Ligplaats endpoint te realiseren met embedded en links
     Ligplaats_links:
       required:
@@ -826,13 +1039,17 @@ components:
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeAdressen:
+        adres:
+          # Het aan de ligplaats gerelateerde adres (link)
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+
     Ligplaats_embedded:
       type: object
       properties:
-        gerelateerdeAdressen:
+        adres:
+          # Het aan de ligplaats gerelateerde adres (object)
           $ref: "#/components/schemas/Adres"
+
     LigplaatsHal:
       allOf: 
         - $ref: '#/components/schemas/Ligplaats'
@@ -841,6 +1058,7 @@ components:
               $ref: '#/components/schemas/Ligplaats_links'
             _embedded:
               $ref: '#/components/schemas/Ligplaats_embedded'
+
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/standplaats.yaml
     Standplaats:
       title: Standplaats
@@ -868,8 +1086,8 @@ components:
             geometrie:
               $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/Surface'
             geconstateerd:
-              # Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
+              description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+              type: boolean
             documentdatum:
               description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
               title: documentdatum
@@ -884,58 +1102,7 @@ components:
               maxLength: 40
               pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
               example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-#JBO: Inonderzoek moet bezien worden hoe de gemeente dat wil weten. Is een boolean genoeg of wil men alles heel specifiek weten ? 
-            inonderzoek:
-              $ref: "#/components/schemas/KenmerkStandplaatsInOnderzoek"
     
-    KenmerkStandplaatsInOnderzoek:
-      title: KenmerkStandplaatsInOnderzoek
-      type: object
-      required:
-        - kenmerk
-        - identificatieVanStandplaats
-        - inOnderzoek
-        - historie
-        - documentdatum
-        - documentnummer
-      properties:
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekStandplaats'
-        identificatieVanStandplaats:
-          title: identificatie van standplaats
-          type: string
-          pattern: '^[0-9]{4}03[0-9]{10}$'
-          example: 1234030000000001
-        inOnderzoek:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
-        historie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/historie.yaml#/HistorieInOnderzoek'
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
-          example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    
-    #Informatiemodel - Datatypen
-    
-    InOnderzoekStandplaats:
-      title: InOnderzoekStandplaats
-      type: string
-      enum:
-        - geometrie
-        - status
-        - heeft als hoofdadres
-        - heeft als nevenadres
-        
     Standplaats_links:
       required:
         - self
@@ -943,13 +1110,17 @@ components:
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeAdressen:
+        adres:
+          # Het aan de standplaats gerelateerde adres (link)
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+
     Standplaats_embedded:
       type: object
       properties:
-        gerelateerdeAdressen:
+        adres:
+          # Het aan de ligplaats gerelateerde adres (object)
           $ref: "#/components/schemas/Adres"
+
     StandplaatsHal:
       allOf: 
         - $ref: '#/components/schemas/Standplaats'
@@ -961,7 +1132,6 @@ components:
 
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/verblijfsobject.yaml        
         
-    #Informatiemodel - Objecttypen
     Verblijfsobject:
       title: Verblijfsobject
       description: >-
@@ -992,17 +1162,17 @@ components:
             gebruiksdoel:
               type: array
               items:
-                $ref: '#/components/schemas/Gebruiksdoel'
+                $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
               minItems: 1
             oppervlakte:
               title: oppervlakte
               type: integer
               pattern: '^[1-9][0-9]{0,5}$'
             status:
-              $ref: '#/components/schemas/StatusVerblijfsobject'
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/verblijfsobject.yaml#/StatusVerblijfsobject'
             geconstateerd:
-              # Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
+              description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+              type: boolean
             documentdatum:
               description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
               title: documentdatum
@@ -1023,89 +1193,6 @@ components:
               items:
                 $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDPnd'
               minItems: 1
-# Hebben we bij Inonderzoek niet voldoende aan 1 boolean ? 
-            inonderzoek:
-              $ref: "#/components/schemas/KenmerkVerblijfsobjectInOnderzoek"
-    
-    KenmerkVerblijfsobjectInOnderzoek:
-      title: KenmerkVerblijfsobjectInOnderzoek
-      type: object
-      required:
-        - kenmerk
-        - identificatieVanVerblijfsobject
-        - inOnderzoek
-        - historie
-        - documentdatum
-        - documentnummer
-      properties:
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekVerblijfsobject'
-        identificatieVanVerblijfsobject:
-          title: identificatie van verblijfsobject
-          type: string
-          pattern: '^[0-9]{4}01[0-9]{10}$'
-          example: 1234010000000001
-        inOnderzoek:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
-        historie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/historie.yaml#/HistorieInOnderzoek'
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
-          example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    
-    #Informatiemodel - Datatypen
-    
-    Gebruiksdoel:
-      title: Gebruiksdoel
-      type: string
-      enum:
-        - woonfunctie
-        - bijeenkomstfunctie
-        - celfunctie
-        - gezondheidszorgfunctie
-        - industriefunctie
-        - kantoorfunctie
-        - logiesfunctie
-        - onderwijsfunctie
-        - sportfunctie
-        - winkelfunctie
-        - overige gebruiksfunctie
-    
-    StatusVerblijfsobject:
-      title: StatusVerblijfsobject
-      type: string
-      enum:
-        - Verblijfsobject gevormd
-        - Niet gerealiseerd verblijfsobject
-        - Verblijfsobject in gebruik (niet ingemeten)
-        - Verblijfsobject in gebruik
-        - Verbouwing verblijfsobject
-        - Verblijfsobject ingetrokken
-        - Verblijfsobject buiten gebruik
-        - Verblijfsobject ten onrechte opgevoerd
-    
-    InOnderzoekVerblijfsobject:
-      title: InOnderzoekVerblijfsobject
-      type: string
-      enum:
-        - geometrie
-        - gebruiksdoel
-        - oppervlakte
-        - status
-        - maakt deel uit van
-        - heeft als hoofdadres
-        - heeft als nevenadres
 
 #JBO: Toegevoegd om de Verblijfplaats endpoint te realiseren met embedded en links
     Verblijfsobject_links:
@@ -1115,21 +1202,26 @@ components:
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeAdressen:
+        adres:
+          # Het aan het verblijfsobject gerelateerde adres (link)
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
         maaktDeelUitVan:
-          # De gerelateerde panden op basis waarvan het adres is samengesteld.
+          # Het/de aan het verblijfsobject gerelateerde pand(en) (lnik).
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
           minItems: 1
+
     Verblijfsobject_embedded:
       type: object
       properties:
-        gerelateerdeAdressen:
+        adres:
+          # Het aan het verblijfsobject gerelateerde adres (object)
           $ref: "#/components/schemas/Adres"
         maaktDeelUitVan:
+          # Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).
           $ref: "#/components/schemas/Pand"
+
     VerblijfsobjectHal:
       allOf: 
         - $ref: '#/components/schemas/Verblijfsobject'
@@ -1138,6 +1230,7 @@ components:
               $ref: '#/components/schemas/Verblijfsobject_links'
             _embedded:
               $ref: '#/components/schemas/Verblijfsobject_embedded'
+
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/openbareruimte.yaml
     OpenbareRuimte:
       type: object
@@ -1165,15 +1258,15 @@ components:
           example: 'Laan van Westenenk'
         type:
           # De aard van de als zodanig benoemde openbare ruimte.
-          $ref: '#/components/schemas/TypeOpenbareRuimte'
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/openbareruimte.yaml#/TypeOpenbareRuimte'
         status:
           # De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
         verkorteNaam:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen5825.yaml#/VerkorteNaamOpenbareRuimte'
         geconstateerd:
-          # Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
         documentdatum:
           description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
           title: documentdatum
@@ -1192,49 +1285,7 @@ components:
         ligtIn:
           # Een openbare ruimte ligt in een woonplaats.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDWpl'
-        inonderzoek:
-          $ref: "#/components/schemas/KenmerkOpenbareRuimteInOnderzoek"
-    
-    KenmerkOpenbareRuimteInOnderzoek:
-      title: KenmerkOpenbareRuimteInOnderzoek
-      type: object
-      required:
-        - kenmerk
-        - identificatieVanOpenbareRuimte
-        - inOnderzoek
-        - historie
-        - documentdatum
-        - documentnummer
-      properties:
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekOpenbareRuimte'
-        identificatieVanOpenbareRuimte:
-          title: identificatie van openbare ruimte
-          description: De unieke aanduiding van een openbare ruimte.
-          type: string
-          pattern: '^[0-9]{4}30[0-9]{10}$'
-          example: 0518300000000001
-        inOnderzoek:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
-        historie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/historie.yaml#/HistorieInOnderzoek'
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
-          example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    
-    #Informatiemodel - Datatypen
-    
+
     TypeOpenbareRuimte:
       title: TypeOpenbareRuimte
       description: Een codering van de verschillende waarden die de typering van een openbare ruimte kan aannemen.
@@ -1247,15 +1298,41 @@ components:
         - Kunstwerk
         - Landschappelijk gebied
         - Administratief gebied
+
+    OpenbareRuimte_links:
+      required:
+        - self
+      type: object
+      properties:
+        self:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+        adres:
+          # Het aan het openbareruimte gerelateerde adres (link)
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+        ligtIn:
+          # De aan het openbareruimte gerelateerde woonplaats (lnik).
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+
+    OpenbareRuimte_embedded:
+      type: object
+      properties:
+        adres:
+          # Het aan het openbareruimte gerelateerde adres (object)
+          $ref: "#/components/schemas/Adres"
+        ligtIn:
+          # De aan het oenbareruimte gerelateerde woonplaats (object(en)).
+          $ref: "#/components/schemas/Woonplaats"
+
+    OpenbareRuimteHal:
+      allOf: 
+        - $ref: '#/components/schemas/OpenbareRuimte'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/OpenbareRuimte_links'
+            _embedded:
+              $ref: '#/components/schemas/OpenbareRuimte_embedded'
     
-    InOnderzoekOpenbareRuimte:
-      title: InOnderzoekOpenbareRuimte
-      type: string
-      enum:
-        - naam
-        - type
-        - status
-        - gerelateerde woonplaats
+        
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nummeraanduiding.yaml
     Nummeraanduiding:
       type: object
@@ -1264,7 +1341,6 @@ components:
       required:
         - identificatie
         - huisnummer
-        - typeAdresseerbaarObject
         - status
         - geconstateerd
         - documentdatum
@@ -1297,13 +1373,11 @@ components:
           type: string
           pattern: '^[1-9]{1}[0-9]{3}[A-Z]{2}$'
           example: 7500AA
-        typeAdresseerbaarObject:
-          $ref: '#/components/schemas/TypeAdresseerbaarObject'
         status:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
         geconstateerd:
-          # Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
         documentdatum:
           description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
           title: documentdatum
@@ -1324,61 +1398,45 @@ components:
         ligtAan:
           # Een nummeraanduiding ligt aan een openbare ruimte.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDOpr'
-#JBO: Toegevoegd, moet dit geen boolean zijn ? in ieder geval kunnen er zaken minder geleverd worden.
-        inonderzoek:
-          $ref: "#/components/schemas/KenmerkNummeraanduidingInOnderzoek"
-    
-    KenmerkNummeraanduidingInOnderzoek:
-      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment, of van alle kenmerken die ooit in onderzoek zijn geweest als er een tijdreisvraag is gesteld of een vraag naar de levenscyclus.
-      title: KenmerkNummeraanduidingInOnderzoek
-      type: object
+
+    Nummeraanduiding_links:
       required:
-        - kenmerk
-        - identificatieVanNummeraanduiding
-        - inOnderzoek
-        - historie
+        - self
+      type: object
       properties:
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekNummeraanduiding'
-        identificatieVanNummeraanduiding:
-          description: De unieke aanduiding van een nummeraanduiding.
-          title: identificatie van nummeraanduiding
-          type: string
-          pattern: '^[0-9]{4}20[0-9]{10}$'
-          example: 1234200000000001
-        inOnderzoek:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
-        historie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/historie.yaml#/HistorieInOnderzoek'
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
-          example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    
-    #Informatiemodel - Datatypen
-    
-    InOnderzoekNummeraanduiding:
-      title: InOnderzoekNummeraanduiding
-      type: string
-      enum:
-        - huisnummer
-        - huisletter
-        - huisnummertoevoeging
-        - postcode
-        - type adresseerbaar object
-        - status
-        - ligt in
-        - ligt aan
+        self:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+        adres:
+          # Het aan de nummeraanduiding gerelateerde adres (link)
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+        ligtAan:
+          # De aan de nummeraanduiding gerelateerde openbareruimte (link).
+          $ref: "#/components/schemas/OpenbareRuimte"
+        ligtIn:
+          # De aan het openbareruimte gerelateerde woonplaats (lnik).
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+
+    Nummeraanduiding_embedded:
+      type: object
+      properties:
+        adres:
+          # De aan de nummeraanduiding gerelateerde adres (object)
+          $ref: "#/components/schemas/Adres"
+        ligtAan:
+          # De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).
+          $ref: "#/components/schemas/OpenbareRuimte"
+        ligtIn:
+          # De aan de nummeraanduiding gerelateerde woonplaats (object(en)).
+          $ref: "#/components/schemas/Woonplaats"
+
+    NummeraanduidingHal:
+      allOf: 
+        - $ref: '#/components/schemas/Nummeraanduiding'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Nummeraanduiding_links'
+            _embedded:
+              $ref: '#/components/schemas/Nummeraanduiding_embedded'
 
 #JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/woonplaats.yaml
     Woonplaats:
@@ -1410,8 +1468,8 @@ components:
           # De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.
           $ref: '#/components/schemas/StatusWoonplaats'
         geconstateerd:
-          # Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
         documentdatum:
           description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
           title: documentdatum
@@ -1426,49 +1484,6 @@ components:
           maxLength: 40
           pattern: '^[\u0020-u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
           example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-        inonderzoek:
-          $ref: "#/components/schemas/KenmerkWoonplaatsInOnderzoek"
-    
-    KenmerkWoonplaatsInOnderzoek:
-      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment, of van alle kenmerken die ooit in onderzoek zijn geweest als er een tijdreisvraag is gesteld of een vraag naar de levenscyclus.
-      title: KenmerkWoonplaatsInOnderzoek
-      type: object
-      required:
-        - kenmerk
-        - identificatieVanWoonplaats
-        - inOnderzoek
-        - historie
-        - documentdatum
-        - documentnummer
-      properties:
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekWoonplaats'
-        identificatieVanWoonplaats:
-          description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
-          title: identificatie van een woonplaats
-          type: string
-          pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
-          example: 0150
-        inOnderzoek:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
-        historie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/historie.yaml#/HistorieInOnderzoek'
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
-          example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    
-    #Informatiemodel - Datatypen
     
     StatusWoonplaats:
       title: StatusWoonplaats
@@ -1478,13 +1493,32 @@ components:
         - Woonplaats aangewezen
         - Woonplaats ingetrokken
     
-    InOnderzoekWoonplaats:
-      title: InOnderzoekWoonplaats
-      type: string
-      enum:
-        - naam
-        - geometrie
-        - status
+    Woonplaats_links:
+      required:
+        - self
+      type: object
+      properties:
+        self:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+        adres:
+          # Het aan de nummeraanduiding gerelateerde adres (link)
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+
+    Woonplaats_embedded:
+      type: object
+      properties:
+        adres:
+          # De aan de nummeraanduiding gerelateerde adres (object)
+          $ref: "#/components/schemas/Adres"
+
+    WoonplaatsHal:
+      allOf: 
+        - $ref: '#/components/schemas/Woonplaats'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Woonplaats_links'
+            _embedded:
+              $ref: '#/components/schemas/Woonplaats_embedded'
 
     Pand:
       type: object
@@ -1516,8 +1550,8 @@ components:
           # Een codering van de verschillende waarden die de status van een pand kan aannemen.
           $ref: '#/components/schemas/StatusPand'
         geconstateerd:
-          # Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
         documentdatum:
           description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
           title: documentdatum
@@ -1540,13 +1574,13 @@ components:
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        gerelateerdeVerblijfsobjecten:
-          description: 'De verblijfsobjecten die in dit pand liggen. Van elk gerelateerd verblijfsobject: hiervan het voorkomen van verblijfsobject die gevonden wordt op basis van dezelfde tijdreisparameters als waarmee het pand voorkomen gevonden is.'
+        verblijfsobjecten:
+          description: 'De verblijfsobjecten die in dit pand liggen. Van elk gerelateerd verblijfsobject: hiervan het voorkomen van verblijfsobject die gevonden wordt met dezelfde tijdreisparameters als waarmee het pand voorkomen gevonden is.'
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
           minItems: 1
-        gerelateerdeAdressen:
+        adressen:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
@@ -1555,9 +1589,9 @@ components:
     Pand_embedded:
       type: object
       properties:
-        gerelateerdeVerblijfsobjecten:
+        verblijfsobjecten:
           $ref: "#/components/schemas/Verblijfsobject"
-        gerelateerdeAdressen:
+        adressen:
           $ref: "#/components/schemas/Adres"
 
     PandHal:
@@ -1582,45 +1616,6 @@ components:
               items:
                 $ref: '#/components/schemas/PandHal'
 
-    KenmerkPandInOnderzoek:
-      title: KenmerkPandInOnderzoek
-      type: object
-      required:
-        - kenmerk
-        - identificatieVanPand
-        - inOnderzoek
-        - historie
-        - documentdatum
-        - documentnummer
-      properties:
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekPand'
-        identificatieVanPand:
-          title: identificatie van pand
-          type: string
-          pattern: '^[0-9]{4}10[0-9]{10}$'
-          example: 1234100000000001
-        inOnderzoek:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/Indicatie'
-        historie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/historie.yaml#/HistorieInOnderzoek'
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
-          example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    
-    #Informatiemodel - Datatypen
-    
     StatusPand:
       title: StatusPand
       description: Een codering van de verschillende waarden die de status van een pand kan aannemen.
@@ -1636,11 +1631,3 @@ components:
         - 'Pand gesloopt'
         - 'Pand buiten gebruik'
         - 'Pand ten onrechte opgevoerd'
-
-    InOnderzoekPand:
-      title: InOnderzoekPand
-      type: string
-      enum:
-        - geometrie
-        - oorspronkelijk bouwjaar
-        - status
