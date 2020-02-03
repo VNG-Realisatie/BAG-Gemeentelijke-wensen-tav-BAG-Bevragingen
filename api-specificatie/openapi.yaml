@@ -510,7 +510,6 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
 
-# todo afmaken
   /woonplaatsen/{woonplaatsIdentificatie}:    
     get:
       security:
@@ -574,7 +573,6 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
 
-# todo afmaken
   /openbareruimten/{openbareRuimteIdentificatie}:    
     get:
       security:
@@ -768,7 +766,7 @@ components:
         identificatie:
           title: identificatie
           type: string
-      # hier moet nog paginering op komen
+      # hier moet nog paginering bij komen
     
     KeuzeItem_links:
       type: object
@@ -960,15 +958,12 @@ components:
             _embedded:
               $ref: '#/components/schemas/Adres_embedded'
 
-#JBO: Alles wat hieronder staat is toegevoegd.
-#JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/adresseerbaarobject.yaml
     AdresseerbaarObject:
       title: AdresseerbaarObject
       description: Abstract type adresseerbaar object
       type: object
       discriminator:
         propertyName: adresseerbaarObjectType
-# bovenstaande type kan ws. weg, ook uit de ado's
 
     AdresseerbaarobjectHalCollectie:
       type: object
@@ -988,7 +983,6 @@ components:
                 discriminator:
                   propertyName: type       
 
-#JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/ligplaats.yaml (+aanpassingen)
     Ligplaats:
       allOf:
         - $ref: '#/components/schemas/AdresseerbaarObject'
@@ -1031,7 +1025,6 @@ components:
               pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
               example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
     
-#JBO: Toegevoegd om de Ligplaats endpoint te realiseren met embedded en links
     Ligplaats_links:
       required:
         - self
@@ -1059,7 +1052,6 @@ components:
             _embedded:
               $ref: '#/components/schemas/Ligplaats_embedded'
 
-#JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/standplaats.yaml
     Standplaats:
       title: Standplaats
       description: >-
@@ -1130,8 +1122,6 @@ components:
             _embedded:
               $ref: '#/components/schemas/Standplaats_embedded'
 
-#JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/verblijfsobject.yaml        
-        
     Verblijfsobject:
       title: Verblijfsobject
       description: >-
@@ -1187,14 +1177,12 @@ components:
               maxLength: 40
               pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
               example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-# Onderstaande relatie naar Pand zou (ook) in een _links constructie gegoten moeten worden
             maaktDeelUitVan:
               type: array
               items:
                 $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDPnd'
               minItems: 1
 
-#JBO: Toegevoegd om de Verblijfplaats endpoint te realiseren met embedded en links
     Verblijfsobject_links:
       required:
         - self
@@ -1231,7 +1219,6 @@ components:
             _embedded:
               $ref: '#/components/schemas/Verblijfsobject_embedded'
 
-#JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/openbareruimte.yaml
     OpenbareRuimte:
       type: object
       title: OpenbareRuimte
@@ -1281,7 +1268,6 @@ components:
           maxLength: 40
           pattern: '^[\u0020-\u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
           example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-#JBO: Moet die niet met een _links ?
         ligtIn:
           # Een openbare ruimte ligt in een woonplaats.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDWpl'
@@ -1332,8 +1318,6 @@ components:
             _embedded:
               $ref: '#/components/schemas/OpenbareRuimte_embedded'
     
-        
-#JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nummeraanduiding.yaml
     Nummeraanduiding:
       type: object
       title: Nummeraanduiding
@@ -1438,7 +1422,6 @@ components:
             _embedded:
               $ref: '#/components/schemas/Nummeraanduiding_embedded'
 
-#JBO: Uit https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Yaml's/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/woonplaats.yaml
     Woonplaats:
       type: object
       title: Woonplaats
