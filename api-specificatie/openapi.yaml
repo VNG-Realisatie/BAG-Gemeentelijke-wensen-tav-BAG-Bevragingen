@@ -640,6 +640,69 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
 
+  /nummeraanduidingen/{nummeraanduidingIdentificatie}:    
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegNummeraanduiding
+      tags:
+        - Panden
+      summary: Raadpleeg nummeraanduiding met een nummeraanduiding identificatie
+      description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
+        Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres. 
+        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
+      parameters:
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
+        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/api_version'
+            warning:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/NummeraanduidingHal'
+        '204':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/204'
+        '400':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/400'
+        '401':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/401'
+        '403':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/403'
+        '404':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/404'
+        '405':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405'
+        '406':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/406'
+        '410':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/410'
+        '412':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412'
+        '429':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/429'
+        '500':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/500'
+        '503':
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/503'
+        default:
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/default'
+
 components:
 
   securitySchemes:
@@ -1284,19 +1347,6 @@ components:
           # Een openbare ruimte ligt in een woonplaats.
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen3610.yaml#/NEN3610IDWpl'
 
-    TypeOpenbareRuimte:
-      title: TypeOpenbareRuimte
-      description: Een codering van de verschillende waarden die de typering van een openbare ruimte kan aannemen.
-      type: string
-      enum:
-        - Weg
-        - Water
-        - Spoorbaan
-        - Terrein
-        - Kunstwerk
-        - Landschappelijk gebied
-        - Administratief gebied
-
     OpenbareRuimte_links:
       required:
         - self
@@ -1461,7 +1511,7 @@ components:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/VlakOfMultivlak'
         status:
           # De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.
-          $ref: '#/components/schemas/StatusWoonplaats'
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/woonplaats.yaml#/StatusWoonplaats'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1479,14 +1529,6 @@ components:
           maxLength: 40
           pattern: '^[\u0020-u007E;\u00A0-\u00FF;\u0100-\u0113;\u0116-\u012B;\u012E-\u014D;\u0150-\u017E;\u02C7;\u02D8-\u02DB;\u02DD;\u2015;\u2018-\u2019;\u201C-\u201D;\u20AC;\u2122;\u2126;\u215B-\u215E;\u2190-\u2193;\u266A;]*'
           example: 'AV-2019-08-19-00, Z/18/027505/150305, PVB.0965.19.0043'
-    
-    StatusWoonplaats:
-      title: StatusWoonplaats
-      description: Een aanduiding van alle waarden die de status van een woonplaats kan aannemen.
-      type: string
-      enum:
-        - Woonplaats aangewezen
-        - Woonplaats ingetrokken
     
     Woonplaats_links:
       required:
@@ -1543,7 +1585,7 @@ components:
           example: 1972
         status:
           # Een codering van de verschillende waarden die de status van een pand kan aannemen.
-          $ref: '#/components/schemas/StatusPand'
+          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/pand.yaml#/StatusPand'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1610,19 +1652,3 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PandHal'
-
-    StatusPand:
-      title: StatusPand
-      description: Een codering van de verschillende waarden die de status van een pand kan aannemen.
-      type: string
-      enum:
-        - 'Bouwvergunning verleend'
-        - 'Niet gerealiseerd pand'
-        - 'Bouw gestart'
-        - 'Pand in gebruik (niet ingemeten)'
-        - 'Pand in gebruik'
-        - 'Verbouwing pand'
-        - 'Sloopvergunning verleend'
-        - 'Pand gesloopt'
-        - 'Pand buiten gebruik'
-        - 'Pand ten onrechte opgevoerd'
