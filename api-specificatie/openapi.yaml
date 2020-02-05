@@ -179,7 +179,7 @@ paths:
 
   # JBO: Het ontsluiten van een adres op basis van de unieke adres-id wordt gebruikelijk gedaan met een path-parameter. Dat impliceert wel een unieke identificatie en is dus geen zoeken meer maar raadplegen. Dat klopt met de response definitie waarin geen array, maar een enkel adres wordt geretourneerd
   #JBO: Krijgen alle adressen nu een eigen adres-id of gaan we de nummeraanduiding-id gebruiken als adres-id ?
-  #MSR: adressen kunnen geen eigen ID hebben (afgezien van een nummeraanduiding), omdat adressen worden samengesteld uit meerdere andere objecten. Als adressen een eigen ID zouden krijgen, zouden deze ook gepersisteerd moeten worden en dat gebeurt niet, modat adres geen IMBAG object is. 
+  #MSR: adressen kunnen geen eigen ID hebben (afgezien van een nummeraanduiding), omdat adressen worden samengesteld uit meerdere andere objecten. Als adressen een eigen ID zouden krijgen, zouden deze ook gepersisteerd moeten worden en dat gebeurt niet, omdat adres geen IMBAG object is. 
   /adressen/{nummeraanduidingIdentificatie}:
     get:
       security:
