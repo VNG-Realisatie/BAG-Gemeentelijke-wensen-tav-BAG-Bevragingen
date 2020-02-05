@@ -124,9 +124,13 @@ paths:
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en). 
-        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
+        Parameter keuzeItemIdentificatie bevat identificatie van een keuze item verkregen uit een zoek-operatie.
+        Parameter adresString bevat een weergavenaam zoals verkregen uit een zoek-operatie.
+        Parameter adresseerbaarobjectIdentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject."
       parameters:
         - $ref: '#/components/parameters/keuzeItemIdentificatie'
+        - $ref: '#/components/parameters/adresString'
+        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/api-version"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
         - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
@@ -662,8 +666,16 @@ components:
         type: string
         
     keuzeItemIdentificatie:
-      description: een geselecteerd item uit de keuzeItemCollectie verkregen bij een zoek-operatie
+      description: de identificatie van een geselecteerd item uit de keuzeItemCollectie verkregen bij een zoek-operatie
       name: keuzeItemIdentificatie
+      in: query
+      required: true
+      schema:
+        type: string
+
+    adresString:
+      description: de weergavenaam van een geselecteerd item uit de keuzeItemCollectie verkregen bij een zoek-operatie
+      name: adresString
       in: query
       required: true
       schema:
