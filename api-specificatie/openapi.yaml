@@ -909,6 +909,14 @@ components:
         adres:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'          
 
+#    KeuzeItemHal:
+#      allOf: 
+#        - $ref: '#/components/schemas/KeuzeItem'
+#        - properties:
+#            _links:
+#              $ref: '#/components/schemas/KeuzeItem_links'
+#            _embedded:
+    
     KeuzeItemCollectieHal:
       description: 'resulaten als lijst'
       type: object
@@ -1593,7 +1601,7 @@ components:
         adres:
           # De aan de nummeraanduiding gerelateerde adres (object)
           $ref: "#/components/schemas/Adres"
-        geometie:
+        geometrie:
           $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/VlakOfMultivlak'
         
     WoonplaatsHal:
