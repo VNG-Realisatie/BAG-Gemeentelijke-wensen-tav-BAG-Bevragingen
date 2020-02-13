@@ -1,5 +1,4 @@
 openapi: 3.0.0
-#JBO: Ik heb relatieve paden absoluut gemaakt om ze ook buiten de context van github te kunnen laten werken. Dit is een optie, maar geresolvde OAS3 publiceren is ook een optie.
 # Server specificatie
 servers:
   - description: LVBAG - TEST
