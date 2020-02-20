@@ -1113,7 +1113,6 @@ components:
       description: Abstract type adresseerbaar object
       type: object
       properties:
-      properties:
         heeftAlsHoofdAdres:
           $ref: '#/components/schemas/NEN3610ID'
         heeftAlsNevenAdres:
