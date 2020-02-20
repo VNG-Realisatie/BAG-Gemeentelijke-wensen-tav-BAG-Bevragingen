@@ -31,10 +31,10 @@ tags:
   -
     name: Adres
     description: "Dit endpoint levert de huidige gegevens van één of meer (voorkomens van) adres(sen).
-      Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
-      Als een nummeraanduiding of een adresseerbaarobject een eind status heeft, dan levert een bevraging geen adres op. 
+      Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+      Als een nummeraanduiding of een adresseerbaarobject een eind status heeft, dan levert een bevraging geen adres op.
       De informatie die wordt verkregen via dit endpoint is alleen actueel op het moment van bevragen.
-      Tussen twee bevragingen kunnen wijzigingen zijn doorgevoerd op de adres informatie, waardoor de informatie verkregen uit verschillende bevragingen kan verschillen.  
+      Tussen twee bevragingen kunnen wijzigingen zijn doorgevoerd op de adres informatie, waardoor de informatie verkregen uit verschillende bevragingen kan verschillen.
       Dit endpoint levert geen historische informatie noch de gehele levenscyclus van adressen."
 
 paths:
@@ -58,7 +58,7 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/Foutbericht"
+                $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/Foutbericht'
 
   /adressen/zoek:
     get:
@@ -76,57 +76,59 @@ paths:
           description: Zoek adres geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             X-Pagination-Page:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Pagination_Page"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Pagination_Page'
             X-Pagination-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Pagination_Limit"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Pagination_Limit'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/KeuzeItemCollectieHal'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
   /adressen:
     get:
@@ -135,69 +137,71 @@ paths:
       operationId: raadpleegAdresMetKeuzeItemId
       tags:
         - Adres
-      summary: De API levert huidige gegevens van een adres. 
+      summary: De API levert huidige gegevens van een adres.
       description: "Raadpleeg het adres met de identificatie van het gekozen item verkregen via de zoek-operatie.
-        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding. 
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
-        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en). 
+        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
+        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
         Parameter keuzeItemIdentificatie bevat identificatie van een gekozen item verkregen uit een zoek-operatie."
       parameters:
         - $ref: '#/components/parameters/keuzeItemIdentificatie'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
         '200':
           description: Bevraging raadpleegAdresMetKeuzeItemId geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/AdresHal'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
   /adressen/{nummeraanduidingIdentificatie}:
     get:
@@ -208,67 +212,69 @@ paths:
         - Adres
       summary: Raadpleeg adres met een sleutel
       description: "Raadpleeg het adres met de nummeraanduiding identificatie verkregen via de zoek-operatie
-        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding. 
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
-        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en). 
+        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
+        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
         Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
         '200':
           description: raadpleegAdresMetNumId geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/AdresHal'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
   /adresseerbareobjecten/{adresseerbaarObjectIdentificatie}:
     get:
@@ -276,74 +282,71 @@ paths:
         - apiKeyBAG: []
       operationId: raadpleegAdresseerbaarobjectMetAdoId
       tags:
-        - Adresseerbare objecten
+        - Adresseerbaar object
       summary: Raadpleeg adresseerbaar object met een identificatie van een adresseerbaar object
       description: "Raadpleeg het adresseerbaar object met de identificatie verkregen via de zoek-operatie
-        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand. 
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
+        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
         Parameter adresseerbaarobjectIdentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
         '200':
           description: Geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/LigplaatsHal'
-                  - $ref: '#/components/schemas/StandplaatsHal'
-                  - $ref: '#/components/schemas/VerblijfsobjectHal'
-                discriminator:
-                  propertyName: type
+                $ref: '#/components/schemas/AdresseerbaarObjectHal'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
   /adresseerbareobjecten:
     get:
@@ -351,144 +354,353 @@ paths:
         - apiKeyBAG: []
       operationId: raadpleegAdresseerbaarobject
       tags:
-        - Adresseerbare objecten
+        - Adresseerbaar object
       summary: Raadpleeg adresseerbaar object met een identificatie van een nummeraanduiding of pand object
       description: "Raadpleeg het adresseerbaar object met de identificatie van een nummeraanduiding of pand via de zoek-operatie.
-        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand. 
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'. 
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op. 
+        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
         Parameter nummeraanduidingIdentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
         Parameter pandIdentificatie-query bevat de 16 cijferige identificatie van een pand"
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/pandIdentificatie-query'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
         '200':
           description: Geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/LigplaatsHal'
-                  - $ref: '#/components/schemas/StandplaatsHal'
-                  - $ref: '#/components/schemas/VerblijfsobjectHal'
-                discriminator:
-                  propertyName: type
+                $ref: '#/components/schemas/AdresseerbaarObjectHal'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /panden/{pandIdentificatie}:    
+  /woonplaatsen/{woonplaatsIdentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegWoonplaats
+      tags:
+        - Woonplaats
+      summary: Raadpleeg Woonplaats met een woonplaats identificatie
+      description: "Raadpleeg een Woonplaats met en woonplaats identificatie
+        Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres.
+        Parameter woonplaatsIdentificatie bevat de 4 cijferige identificatie van een woonplaats."
+      parameters:
+        - $ref: '#/components/parameters/woonplaatsIdentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/WoonplaatsHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /openbareruimten/{openbareRuimteIdentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegOpenbareRuimte
+      tags:
+        - Openbare ruimte
+      summary: Raadpleeg openbareruimte met een openbareruimte identificatie
+      description: "Raadpleeg een openbareruimte met en openbareruimte identificatie
+        Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres.
+        Parameter openbareRuimteIdentificatie bevat de 16 cijferige identificatie van een openbareruimte."
+      parameters:
+        - $ref: '#/components/parameters/openbareRuimteIdentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/OpenbareRuimteHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /nummeraanduidingen/{nummeraanduidingIdentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegNummeraanduiding
+      tags:
+        - Nummeraanduiding
+      summary: Raadpleeg nummeraanduiding met een nummeraanduiding identificatie
+      description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
+        Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres.
+        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
+      parameters:
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/NummeraanduidingHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /panden/{pandIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
       operationId: raadpleegPand
       tags:
-        - Panden
+        - Pand
       summary: Raadpleeg Pand met een pand identificatie
       description: "Raadpleeg een pand met de pand identificatie
-        Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen. 
+        Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.
         Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand."
       parameters:
         - $ref: '#/components/parameters/pandIdentificatie'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
         '200':
           description: Geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/PandHal'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
   /panden:
     post:
@@ -498,7 +710,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/Point'
+              $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Point'
       security:
         - apiKeyBAG: []
       tags:
@@ -508,8 +720,8 @@ paths:
       description: "Raadpleeg een pand met een geometrische locatie (punt).
         Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
       parameters:
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
 
       # Antwoord pandGeometrie
       responses:
@@ -517,325 +729,125 @@ paths:
           description: Geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/PandHalCollectie'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
     get:
       security:
         - apiKeyBAG: []
       operationId: raadpleegPanden
       tags:
-        - Panden
+        - Pand
       summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identrificatie vekregen uit een zoek-operatie
-      description: "Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identrificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).  
+      description: "Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identrificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).
         Parameter nummeraanduidingIdentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
         Parameter adresseerbaarObjectIdentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
         '200':
           description: Geslaagd
           headers:
             api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
             warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
             X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
             X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
             Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/PandHalCollectie'
         '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
         '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
         '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
         '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
+          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
         '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
+          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
         '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
         '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
         '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
-
-  /woonplaatsen/{woonplaatsIdentificatie}:    
-    get:
-      security:
-        - apiKeyBAG: []
-      operationId: raadpleegWoonplaats
-      tags:
-        - Panden
-      summary: Raadpleeg Woonplaats met een woonplaats identificatie
-      description: "Raadpleeg een Woonplaats met en woonplaats identificatie
-        Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres. 
-        Parameter woonplaatsIdentificatie bevat de 4 cijferige identificatie van een woonplaats."
-      parameters:
-        - $ref: '#/components/parameters/woonplaatsIdentificatie'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-      responses:
-        '200':
-          description: Geslaagd
-          headers:
-            api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
-            warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
-            X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
-            X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
-            X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
-            Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/WoonplaatsHal'
-        '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
-        '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
-        '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
-        '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
-        '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
-        '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
-        '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
-        '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
-        '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
-        '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
-        '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
-        '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
-        '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
-        '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
-        '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
-        default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
-
-  /openbareruimten/{openbareRuimteIdentificatie}:    
-    get:
-      security:
-        - apiKeyBAG: []
-      operationId: raadpleegOpenbareRuimte
-      tags:
-        - Panden
-      summary: Raadpleeg openbareruimte met een openbareruimte identificatie
-      description: "Raadpleeg een openbareruimte met en openbareruimte identificatie
-        Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres. 
-        Parameter openbareRuimteIdentificatie bevat de 16 cijferige identificatie van een openbareruimte."
-      parameters:
-        - $ref: '#/components/parameters/openbareRuimteIdentificatie'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-      responses:
-        '200':
-          description: Geslaagd
-          headers:
-            api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
-            warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
-            X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
-            X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
-            X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
-            Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/OpenbareRuimteHal'
-        '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
-        '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
-        '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
-        '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
-        '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
-        '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
-        '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
-        '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
-        '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
-        '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
-        '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
-        '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
-        '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
-        '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
-        '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
-        default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
-
-  /nummeraanduidingen/{nummeraanduidingIdentificatie}:    
-    get:
-      security:
-        - apiKeyBAG: []
-      operationId: raadpleegNummeraanduiding
-      tags:
-        - Panden
-      summary: Raadpleeg nummeraanduiding met een nummeraanduiding identificatie
-      description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
-        Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres. 
-        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
-      parameters:
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand"
-        - $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields"
-      responses:
-        '200':
-          description: Geslaagd
-          headers:
-            api-version:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version"
-            warning:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning"
-            X-Rate-Limit-Limit:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit" 
-            X-Rate-Limit-Remaining:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining" 
-            X-Rate-Limit-Reset:
-              $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset" 
-            Accept-Crs:
-              $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/headers.yaml#/acceptCrs"
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/NummeraanduidingHal'
-        '204':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204" 
-        '400':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/400" 
-        '401':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/401" 
-        '403':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/403" 
-        '404':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/404"
-        '405':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/405"
-        '406':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/406" 
-        '409':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/409" 
-        '410':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/410"
-        '412':
-          $ref: "https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/responses.yaml#/412"
-        '415':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/415" 
-        '429':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/429" 
-        '500':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/500" 
-        '501':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/501" 
-        '503':
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/503"
-        default:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default" 
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
 components:
 
@@ -861,7 +873,7 @@ components:
       required: true
       schema:
         type: string
-        
+
     keuzeItemIdentificatie:
       description: de identificatie van een gekozen item uit de keuzeItemCollectie verkregen bij een zoek-operatie
       name: keuzeItemIdentificatie
@@ -878,10 +890,10 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
-        example: "1234200000000001"
+        example: '1234200000000001'
 
     adresseerbaarObjectIdentificatie-query:
-      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn. 
+      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
       name: adresseerbaarObjectIdentificatie-query
       in: query
       required: false
@@ -889,7 +901,7 @@ components:
         title: identificatie van een adresseerbaarobject
         type: string
         pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
-        example: 1234010000000001, 1234020000000001, 1234030000000001
+        example: 1234010000000001
 
     pandIdentificatie-query:
       description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
@@ -901,7 +913,7 @@ components:
         pattern: '^[0-9]{4}10[0-9]{10}$'
         example: 1234100000000001
 
-    # Opsomming van path parameters - /{...} - specificatie bij operation zelf. 
+    # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingIdentificatie:
       description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
       name: nummeraanduidingIdentificatie
@@ -910,10 +922,10 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
-        example: "1234200000000001"
+        example: '1234200000000001'
 
     adresseerbaarObjectIdentificatie:
-      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn. 
+      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
       name: adresseerbaarObjectIdentificatie
       in: path
       required: true
@@ -921,7 +933,7 @@ components:
         title: identificatie van een adresseerbaarobject
         type: string
         pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
-        example: 1234010000000001, 1234020000000001, 1234030000000001
+        example: 1234010000000001
 
     pandIdentificatie:
       description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
@@ -932,9 +944,9 @@ components:
         type: string
         pattern: '^[0-9]{4}10[0-9]{10}$'
         example: 1234100000000001
-    
+
     woonplaatsIdentificatie:
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten. 
+      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
       name: woonplaatsIdentificatie
       in: path
       required: true
@@ -945,7 +957,7 @@ components:
         example: 0150
 
     openbareRuimteIdentificatie:
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten. 
+      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
       name: openbareRuimteIdentificatie
       in: path
       required: true
@@ -955,7 +967,7 @@ components:
         example: 0518300000000001
 
   schemas:
-  
+
     KeuzeItem:
       type: object
       description: 'Dit type bevat een enkel keuze item bestaande uit een weergave tekst en keuze item identificatie'
@@ -969,12 +981,12 @@ components:
           type: string
         _links:
           $ref: '#/components/schemas/KeuzeItem_links'
-    
+
     KeuzeItem_links:
       type: object
       properties:
         adres:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'          
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
 
     KeuzeItemCollectieHal:
       description: 'resulaten als lijst'
@@ -985,7 +997,7 @@ components:
           items:
             $ref: '#/components/schemas/KeuzeItem'
         _links:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks"
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalPaginationLinks'
 
     Adres:
       type: object
@@ -1042,111 +1054,92 @@ components:
         pandIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
         nevenadres:
-          description: "Boolean die aangeeft of dit adres een nevenadres is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres." 
+          description: 'Boolean die aangeeft of dit adres een nevenadres is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
           type: boolean
         geconstateerd:
-          description: "Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname."
+          description: 'Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
           type: boolean
-
-    KenmerkAdresInOnderzoek:
-      description: Object met lijst van booleans die aangeeft of er in relatie tot dit adres een actueel onderzoek is.' 
-      type: object
-      properties:
-        kenmerkWoonplaatsInOnderzoekAggregatie:
-          description: 'boolean om aan te geven dat er gegevens van een woonplaats in onderzoek zijn.'
+        indicatieInOnderzoek:
+          description: 'Een indicatie dat één of meerdere attributen van objecten gerelateerd aan een adres in onderzoek is/zijn.'
           type: boolean
-        kenmerkOpenbareRuimteInOnderzoekAggregatie:
-          description: 'boolean om aan te geven dat er gegevens van een openbareruimte in onderzoek zijn.'
-          type: boolean
-        kenmerkNummeraanduidingInOnderzoekAggregatie:
-          description: 'boolean om aan te geven dat er gegevens van een nummeraanduiding in onderzoek zijn.'
-          type: boolean
-
-    AdresInOnderzoek:
-      type: object
-      title: AdresInOnderzoek
-      properties:
-        adres:
-          $ref: "#/components/schemas/Adres"
-        inonderzoek:
-          type: array
-          items:
-            $ref: "#/components/schemas/KenmerkAdresInOnderzoek"
-          minItems: 1
 
     Adres_links:
+      type: object
       required:
         - self
-      type: object
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         openbareruimte:
-          # De aan het adres gerelateerde openbare ruimte. 
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          # De aan het adres gerelateerde openbare ruimte.
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         nummeraanduiding:
           # De aan het adres gerelateerde nummeraanduiding. Het (boolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         woonplaats:
           # De aan het adres gerelateerde woonplaats.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adresseerbareObject:
           # De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         panden:
           # Het/de aan het adres gerelateerde pand(en).
           type: array
           items:
-            $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
           minItems: 1
 
     Adres_embedded:
       type: object
       properties:
         openbareruimte:
-          $ref: "#/components/schemas/OpenbareRuimte"
+          $ref: '#/components/schemas/OpenbareRuimte'
         nummeraanduiding:
-          $ref: "#/components/schemas/Nummeraanduiding"
+          $ref: '#/components/schemas/Nummeraanduiding'
         woonplaats:
-          $ref: "#/components/schemas/Woonplaats"
+          $ref: '#/components/schemas/Woonplaats'
 
     AdresHal:
-      allOf: 
-        - $ref: '#/components/schemas/AdresInOnderzoek'
+      allOf:
+        - $ref: '#/components/schemas/Adres'
         - properties:
             _links:
               $ref: '#/components/schemas/Adres_links'
             _embedded:
               $ref: '#/components/schemas/Adres_embedded'
 
-    AdresseerbaarObject:
-      title: AdresseerbaarObject
+    AbstractAdresseerbaarObject:
+      title: AbstractAdresseerbaarObject
       description: Abstract type adresseerbaar object
       type: object
+      properties:
+      properties:
+        heeftAlsHoofdAdres:
+          $ref: '#/components/schemas/NEN3610ID'
+        heeftAlsNevenAdres:
+          type: array
+          items:
+            $ref: '#/components/schemas/NEN3610ID'
+          minItems: 1
+        adresseerbaarObjectType:
+          $ref: '../../../imbag/v20180601/adresseerbaarobject.yaml#/TypeAdresseerbaarObject'
       discriminator:
         propertyName: adresseerbaarObjectType
 
-    AdresseerbaarobjectHalCollectie:
+    AdresseerbaarObjectHal:
+      title: AdresAdresseerbaarObject
       type: object
       properties:
-        _links:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks"
-        _embedded:
-          type: object
-          properties:
-            adressseerbareObjecten:
-              type: array
-              items:
-                oneOf:
-                  - $ref: '#/components/schemas/LigplaatsHal'
-                  - $ref: '#/components/schemas/StandplaatsHal'
-                  - $ref: '#/components/schemas/VerblijfsobjectHal'
-                discriminator:
-                  propertyName: type       
+        ligplaats:
+          $ref: '#/components/schemas/LigplaatsHal'
+        standplaats:
+          $ref: '#/components/schemas/StandplaatsHal'
+        verblijfsobject:
+          $ref: '#/components/schemas/VerblijfsobjectHal'
 
     Ligplaats:
       allOf:
-        - $ref: '#/components/schemas/AdresseerbaarObject'
+        - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
         - type: object
           description: >-
             Een Ligplaats is een door het bevoegde gemeentelijke orgaan
@@ -1158,9 +1151,9 @@ components:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
             status:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/StatusPlaats'
+              $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusPlaats'
             geometrie:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/Surface'
+              $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Surface'
             geconstateerd:
               description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
               type: boolean
@@ -1177,6 +1170,7 @@ components:
               minLength: 1
               maxLength: 40
               example: 'AV-2019-08-19-00'
+            
 
     KenmerkLigplaatsInOnderzoek:
       title: KenmerkLigplaatsInOnderzoek
@@ -1188,7 +1182,7 @@ components:
           example: 1234020000000001
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekLigplaats'
-        ioBoolean:
+        indicatieInOnderzoek:
           type: boolean
         documentdatum:
           description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
@@ -1203,7 +1197,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-    
+
     InOnderzoekLigplaats:
       title: InOnderzoekLigplaats
       type: string
@@ -1214,37 +1208,37 @@ components:
         - 'heeft als nevenadres'
 
     Ligplaats_links:
+      type: object
       required:
         - self
-      type: object
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
           # Het aan de ligplaats gerelateerde adres (link)
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
 
     Ligplaats_embedded:
       type: object
       properties:
         adres:
           # Het aan de ligplaats gerelateerde adres (object)
-          $ref: "#/components/schemas/Adres"
+          $ref: '#/components/schemas/Adres'
 
     LigplaatsInOnderzoek:
       type: object
       title: LigplaatsInOnderzoek
       properties:
         ligplaats:
-          $ref: "#/components/schemas/Ligplaats"
+          $ref: '#/components/schemas/Ligplaats'
         inonderzoek:
           type: array
           items:
-            $ref: "#/components/schemas/KenmerkLigplaatsInOnderzoek"
+            $ref: '#/components/schemas/KenmerkLigplaatsInOnderzoek'
           minItems: 1
 
     LigplaatsHal:
-      allOf: 
+      allOf:
         - $ref: '#/components/schemas/LigplaatsInOnderzoek'
         - properties:
             _links:
@@ -1261,15 +1255,15 @@ components:
         aarde verbonden en voor woon-, bedrijfsmatige, of recreatieve
         doeleinden geschikte ruimte.
       allOf:
-        - $ref: '#/components/schemas/AdresseerbaarObject'
+        - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
         - type: object
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
             status:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/StatusPlaats'
+              $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusPlaats'
             geometrie:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/Surface'
+              $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Surface'
             geconstateerd:
               description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
               type: boolean
@@ -1286,7 +1280,7 @@ components:
               minLength: 1
               maxLength: 40
               example: 'AV-2019-08-19-00'
-    
+
     KenmerkStandplaatsInOnderzoek:
       title: KenmerkStandplaatsInOnderzoek
       type: object
@@ -1297,7 +1291,7 @@ components:
           example: 1234020000000001
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekStandplaats'
-        ioBoolean:
+        indicatieInOnderzoek:
           type: boolean
         documentdatum:
           description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
@@ -1312,7 +1306,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-    
+
     InOnderzoekStandplaats:
       title: InOnderzoekStandplaats
       type: string
@@ -1323,37 +1317,37 @@ components:
         - 'heeft als nevenadres'
 
     Standplaats_links:
+      type: object
       required:
         - self
-      type: object
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
           # Het aan de standplaats gerelateerde adres (link)
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
 
     Standplaats_embedded:
       type: object
       properties:
         adres:
           # Het aan de ligplaats gerelateerde adres (object)
-          $ref: "#/components/schemas/Adres"
+          $ref: '#/components/schemas/Adres'
 
     StandplaatsInOnderzoek:
       type: object
       title: StandplaatsInOnderzoek
       properties:
         standplaats:
-          $ref: "#/components/schemas/Standplaats"
+          $ref: '#/components/schemas/Standplaats'
         inonderzoek:
           type: array
           items:
-            $ref: "#/components/schemas/KenmerkStandplaatsInOnderzoek"
+            $ref: '#/components/schemas/KenmerkStandplaatsInOnderzoek'
           minItems: 1
 
     StandplaatsHal:
-      allOf: 
+      allOf:
         - $ref: '#/components/schemas/StandplaatsInOnderzoek'
         - properties:
             _links:
@@ -1371,23 +1365,23 @@ components:
         verkeersruimte, onderwerp kan zijn van goederenrechtelijke
         rechtshandelingen en in functioneel opzicht zelfstandig is.
       allOf:
-        - $ref: '#/components/schemas/AdresseerbaarObject'
+        - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
         - type: object
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
             geometrie:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/PuntOfVlak'
+              $ref: '../../../../lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
             gebruiksdoel:
               type: array
               items:
-                $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
+                $ref: '../../../../lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
               minItems: 1
             oppervlakte:
               title: oppervlakte
               type: integer
             status:
-              $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/verblijfsobject.yaml#/StatusVerblijfsobject'
+              $ref: '../../../../lvbag/imbag/v20180601/verblijfsobject.yaml#/StatusVerblijfsobject'
             geconstateerd:
               description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
               type: boolean
@@ -1420,7 +1414,7 @@ components:
           example: 1234010000000001
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekVerblijfsobject'
-        ioBoolean:
+        indicatieInOnderzoek:
           type: boolean
         documentdatum:
           description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
@@ -1435,7 +1429,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-    
+
     InOnderzoekVerblijfsobject:
       title: InOnderzoekVerblijfsobject
       type: string
@@ -1447,22 +1441,22 @@ components:
         - 'maakt deel uit van'
         - 'heeft als hoofdadres'
         - 'heeft als nevenadres'
-    
+
     Verblijfsobject_links:
+      type: object
       required:
         - self
-      type: object
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
           # Het aan het verblijfsobject gerelateerde adres (link)
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         maaktDeelUitVan:
           # Het/de aan het verblijfsobject gerelateerde pand(en) (lnik).
           type: array
           items:
-            $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
           minItems: 1
 
     Verblijfsobject_embedded:
@@ -1470,25 +1464,25 @@ components:
       properties:
         adres:
           # Het aan het verblijfsobject gerelateerde adres (object)
-          $ref: "#/components/schemas/Adres"
+          $ref: '#/components/schemas/Adres'
         maaktDeelUitVan:
           # Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).
-          $ref: "#/components/schemas/Pand"
+          $ref: '#/components/schemas/Pand'
 
     VerblijfsobjectInOnderzoek:
       type: object
       title: VerblijfsobjectInOnderzoek
       properties:
         verblijfsobject:
-          $ref: "#/components/schemas/Verblijfsobject"
+          $ref: '#/components/schemas/Verblijfsobject'
         inonderzoek:
           type: array
           items:
-            $ref: "#/components/schemas/KenmerkVerblijfsobjectInOnderzoek"
+            $ref: '#/components/schemas/KenmerkVerblijfsobjectInOnderzoek'
           minItems: 1
 
     VerblijfsobjectHal:
-      allOf: 
+      allOf:
         - $ref: '#/components/schemas/VerblijfsobjectInOnderzoek'
         - properties:
             _links:
@@ -1512,12 +1506,12 @@ components:
           example: 'Laan van Westenenk'
         type:
           # De aard van de als zodanig benoemde openbare ruimte.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/openbareruimte.yaml#/TypeOpenbareRuimte'
+          $ref: '../../../../lvbag/imbag/v20180601/openbareruimte.yaml#/TypeOpenbareRuimte'
         status:
           # De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
+          $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
         verkorteNaam:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/nen5825.yaml#/VerkorteNaamOpenbareRuimte'
+          $ref: '../../../../lvbag/imbag/v20180601/nen5825.yaml#/VerkorteNaamOpenbareRuimte'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1534,7 +1528,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtIn:
+        ligtInWoonplaats:
           # Een openbare ruimte ligt in een woonplaats.
           $ref: '#/components/schemas/NEN3610ID'
 
@@ -1543,13 +1537,13 @@ components:
       title: OpenbareRuimteInOnderzoek
       properties:
         openbareruimte:
-          $ref: "#/components/schemas/OpenbareRuimte"
+          $ref: '#/components/schemas/OpenbareRuimte'
         inonderzoek:
           type: array
           items:
-            $ref: "#/components/schemas/KenmerkOpenbareRuimteInOnderzoek"
+            $ref: '#/components/schemas/KenmerkOpenbareRuimteInOnderzoek'
           minItems: 1
-    
+
     KenmerkOpenbareRuimteInOnderzoek:
       title: KenmerkOpenbareRuimteInOnderzoek
       type: object
@@ -1561,7 +1555,7 @@ components:
           example: 0518300000000001
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekOpenbareRuimte'
-        ioBoolean:
+        indicatieInOnderzoek:
           type: boolean
         documentdatum:
           description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
@@ -1576,7 +1570,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-    
+
     InOnderzoekOpenbareRuimte:
       title: InOnderzoekOpenbareRuimte
       type: string
@@ -1587,32 +1581,35 @@ components:
         - 'gerelateerde woonplaats'
 
     OpenbareRuimte_links:
+      type: object
       required:
         - self
-      type: object
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        ligtIn:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        adres:
+          # Het aan het openbareruimte gerelateerde adres (link)
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        ligtInWoonplaats:
           # De aan het openbareruimte gerelateerde woonplaats (lnik).
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
 
     OpenbareRuimte_embedded:
       type: object
       properties:
-        ligtIn:
+        ligtInWoonplaats:
           # De aan het oenbareruimte gerelateerde woonplaats (object(en)).
-          $ref: "#/components/schemas/Woonplaats"
+          $ref: '#/components/schemas/Woonplaats'
 
     OpenbareRuimteHal:
-      allOf: 
+      allOf:
         - $ref: '#/components/schemas/OpenbareRuimteInOnderzoek'
         - properties:
             _links:
               $ref: '#/components/schemas/OpenbareRuimte_links'
             _embedded:
               $ref: '#/components/schemas/OpenbareRuimte_embedded'
-    
+
     Nummeraanduiding:
       type: object
       title: Nummeraanduiding
@@ -1641,7 +1638,7 @@ components:
           type: string
           example: 7500AA
         status:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
+          $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1658,10 +1655,10 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtIn:
+        ligtInWoonplaats:
           # Een nummeraanduiding ligt in een woonplaats.
           $ref: '#/components/schemas/NEN3610ID'
-        ligtAan:
+        ligtAanOpenbareRuimte:
           # Een nummeraanduiding ligt aan een openbare ruimte.
           $ref: '#/components/schemas/NEN3610ID'
 
@@ -1677,7 +1674,7 @@ components:
           example: 1234200000000001
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekNummeraanduiding'
-        ioBoolean:
+        indicatieInOnderzoek:
           type: boolean
         documentdatum:
           description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
@@ -1692,7 +1689,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-    
+
     InOnderzoekNummeraanduiding:
       title: InOnderzoekNummeraanduiding
       type: string
@@ -1705,51 +1702,51 @@ components:
         - 'status'
         - 'ligt in'
         - 'ligt aan'
-    
+
     NummeraanduidingInOnderzoek:
       type: object
       title: NummeraanduidingInOnderzoek
       properties:
         nummeraanduiding:
-          $ref: "#/components/schemas/Nummeraanduiding"
+          $ref: '#/components/schemas/Nummeraanduiding'
         inonderzoek:
           type: array
           items:
-            $ref: "#/components/schemas/KenmerkNummeraanduidingInOnderzoek"
+            $ref: '#/components/schemas/KenmerkNummeraanduidingInOnderzoek'
           minItems: 1
 
     Nummeraanduiding_links:
+      type: object
       required:
         - self
-      type: object
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
           # Het aan de nummeraanduiding gerelateerde adres (link)
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
-        ligtAan:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        ligtAanOpenbareRuimte:
           # De aan de nummeraanduiding gerelateerde openbareruimte (link).
-          $ref: "#/components/schemas/OpenbareRuimte"
-        ligtIn:
+          $ref: '#/components/schemas/OpenbareRuimte'
+        ligtInWoonplaats:
           # De aan het openbareruimte gerelateerde woonplaats (lnik).
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
 
     Nummeraanduiding_embedded:
       type: object
       properties:
         adres:
           # De aan de nummeraanduiding gerelateerde adres (object)
-          $ref: "#/components/schemas/Adres"
-        ligtAan:
+          $ref: '#/components/schemas/Adres'
+        ligtAanOpenbareRuimte:
           # De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).
-          $ref: "#/components/schemas/OpenbareRuimte"
-        ligtIn:
+          $ref: '#/components/schemas/OpenbareRuimte'
+        ligtInWoonplaats:
           # De aan de nummeraanduiding gerelateerde woonplaats (object(en)).
-          $ref: "#/components/schemas/Woonplaats"
+          $ref: '#/components/schemas/Woonplaats'
 
     NummeraanduidingHal:
-      allOf: 
+      allOf:
         - $ref: '#/components/schemas/NummeraanduidingInOnderzoek'
         - properties:
             _links:
@@ -1773,7 +1770,7 @@ components:
           example: Apeldoorn
         status:
           # De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/woonplaats.yaml#/StatusWoonplaats'
+          $ref: '../../../../lvbag/imbag/v20180601/woonplaats.yaml#/StatusWoonplaats'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1790,17 +1787,17 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-    
+
     WoonplaatsInOnderzoek:
       type: object
       title: WoonplaatsInOnderzoek
       properties:
         woonplaats:
-          $ref: "#/components/schemas/Woonplaats"
+          $ref: '#/components/schemas/Woonplaats'
         inonderzoek:
           type: array
           items:
-            $ref: "#/components/schemas/KenmerkWoonplaatsInOnderzoek"
+            $ref: '#/components/schemas/KenmerkWoonplaatsInOnderzoek'
           minItems: 1
 
     KenmerkWoonplaatsInOnderzoek:
@@ -1815,7 +1812,7 @@ components:
           example: 0150
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekWoonplaats'
-        ioBoolean:
+        indicatieInOnderzoek:
           type: boolean
         documentdatum:
           description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
@@ -1840,21 +1837,21 @@ components:
         - 'status'
 
     Woonplaats_links:
+      type: object
       required:
         - self
-      type: object
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink' 
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
 
     Woonplaats_embedded:
       type: object
       properties:
         geometrie:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/VlakOfMultivlak'
-        
+          $ref: '../../../../lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/VlakOfMultivlak'
+
     WoonplaatsHal:
-      allOf: 
+      allOf:
         - $ref: '#/components/schemas/WoonplaatsInOnderzoek'
         - properties:
             _links:
@@ -1872,7 +1869,7 @@ components:
           $ref: '#/components/schemas/NEN3610ID'
         geometrie:
           # De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/geometrie/geometrie.yaml#/components/schemas/Surface'
+          $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Surface'
         oorspronkelijkBouwjaar:
           title: Oorspronkelijk bouwjaar
           description: 'De aanduiding van het jaar waarin een pand oorspronkelijk als bouwkundig gereed is of zal worden opgeleverd. Bij het initieel opvoeren van een PAND wordt door de gemeente een reële inschatting gemaakt van het waarschijnlijke bouwjaar van het PAND. Bij het bouwkundig gereed opleveren van het PAND wordt deze waarde in voorkomende gevallen aangepast. Indien in latere jaren wijzigingen aan een pand worden aangebracht, leidt dit niet tot wijziging van het bouwjaar.'
@@ -1881,7 +1878,7 @@ components:
           example: 1972
         status:
           # Een codering van de verschillende waarden die de status van een pand kan aannemen.
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/lvbag/imbag/v20180601/pand.yaml#/StatusPand'
+          $ref: '../../../../lvbag/imbag/v20180601/pand.yaml#/StatusPand'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1905,41 +1902,45 @@ components:
         - self
       properties:
         self:
-          $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         verblijfsobjecten:
           description: 'De verblijfsobjecten die in dit pand liggen. Van elk gerelateerd verblijfsobject: hiervan het voorkomen van verblijfsobject die gevonden wordt met dezelfde tijdreisparameters als waarmee het pand voorkomen gevonden is.'
           type: array
           items:
-            $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
           minItems: 1
         adressen:
           type: array
           items:
-            $ref: 'https://raw.githubusercontent.com/lvbag/BAG-API/master/Technische%20specificatie/Yaml%27s/20191209-1-lvbag-individuele-bevragingen-20180601/generiek/hallinks.yaml#/HalLink'
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
           minItems: 1
 
     Pand_embedded:
       type: object
       properties:
         verblijfsobjecten:
-          $ref: "#/components/schemas/Verblijfsobject"
+          type: array
+          items:
+            $ref: '#/components/schemas/Verblijfsobject'
         adressen:
-          $ref: "#/components/schemas/Adres"
+          type: array
+          items:
+            $ref: '#/components/schemas/Adres'
 
     PandInOnderzoek:
       type: object
       title: PandInOnderzoek
       properties:
         pand:
-          $ref: "#/components/schemas/Pand"
+          $ref: '#/components/schemas/Pand'
         inonderzoek:
           type: array
           items:
-            $ref: "#/components/schemas/KenmerkPandInOnderzoek"
+            $ref: '#/components/schemas/KenmerkPandInOnderzoek'
           minItems: 1
 
     PandHal:
-      allOf: 
+      allOf:
         - $ref: '#/components/schemas/PandInOnderzoek'
         - properties:
             _links:
@@ -1951,7 +1952,7 @@ components:
       type: object
       properties:
         _links:
-          $ref: "https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks"
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalCollectionLinks'
         _embedded:
           type: object
           properties:
@@ -1970,7 +1971,7 @@ components:
           example: 1234100000000001
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekPand'
-        ioBoolean:
+        indicatieInOnderzoek:
           type: boolean
         documentdatum:
           description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
@@ -1993,7 +1994,7 @@ components:
         - 'geometrie'
         - 'oorspronkelijk bouwjaar'
         - 'status'
-    
+
     NEN3610ID:
       type: object
       title: NEN3610ID
@@ -2003,9 +2004,10 @@ components:
         - namespace
       properties:
         lokaalID:
-          description: 'Deze wordt gebruikt in de operation.'
+          description: 'De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018).'
           title: lokaalID
           type: string
+          example: 0123
         namespace:
           description: 'De namespace voor een BAG object. Formaat: NL.IMBAG.<object naam>.'
           title: namespace
