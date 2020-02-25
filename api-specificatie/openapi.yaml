@@ -71,6 +71,8 @@ paths:
       description: Zoeken van adressen via free query op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging
       parameters:
         - $ref: '#/components/parameters/zoek'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/page'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/pageSize'
       responses:
         '200':
           description: Zoek adres geslaagd
@@ -386,7 +388,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
+                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
         '204':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
@@ -1043,9 +1045,10 @@ components:
           minLength: 1
           maxLength: 80
           example: Apeldoorn
-        openbareRuimteIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
         nummeraanduidingIdentificatie:
+          description: 'Fungeert ook als identificatie van het adres.'
+          $ref: '#/components/schemas/NEN3610ID'
+        openbareRuimteIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
         woonplaatsIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1071,19 +1074,19 @@ components:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         openbareruimte:
-          # De aan het adres gerelateerde openbare ruimte.
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde openbare ruimte.'
         nummeraanduiding:
-          # De aan het adres gerelateerde nummeraanduiding. Het (boolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft.
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde nummeraanduiding. Het (boolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft.'
         woonplaats:
-          # De aan het adres gerelateerde woonplaats.
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde woonplaats.'
         adresseerbareObject:
-          # De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject.
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject.'
         panden:
-          # Het/de aan het adres gerelateerde pand(en).
+          description: 'Het/de aan het adres gerelateerde pand(en).'
           type: array
           items:
             $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
@@ -1136,6 +1139,19 @@ components:
         verblijfsobject:
           $ref: '#/components/schemas/VerblijfsobjectHal'
 
+    AdresseerbaarobjectHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalCollectionLinks'
+        _embedded:
+          type: object
+          properties:
+            adressseerbareObjecten:
+              type: array
+              items:
+                $ref: '#/components/schemas/AdresseerbaarObjectHal'
+
     Ligplaats:
       allOf:
         - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
@@ -1146,6 +1162,13 @@ components:
             met een op de oever aanwezig terrein of een gedeelte daarvan, die
             bestemd is voor het permanent afmeren van een voor woon-,
             bedrijfsmatige of recreatieve doeleinden geschikt drijvend object.
+          required:
+            - identificatie
+            - status
+            - geometrie
+            - geconstateerd
+            - documentdatum
+            - documentnummer
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
@@ -1174,6 +1197,12 @@ components:
     KenmerkLigplaatsInOnderzoek:
       title: KenmerkLigplaatsInOnderzoek
       type: object
+      required:
+        - identificatieVanLigplaats
+        - kenmerk
+        - indicatieInOnderzoek
+        - documentdatum
+        - documentnummer
       properties:
         identificatieVanLigplaats:
           title: identificatie van ligplaats
@@ -1214,15 +1243,15 @@ components:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
-          # Het aan de ligplaats gerelateerde adres (link)
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: Het aan de ligplaats gerelateerde adres (link).
 
     Ligplaats_embedded:
       type: object
       properties:
         adres:
-          # Het aan de ligplaats gerelateerde adres (object)
           $ref: '#/components/schemas/Adres'
+          description: Het aan de ligplaats gerelateerde adres (object)
 
     LigplaatsInOnderzoek:
       type: object
@@ -1256,6 +1285,13 @@ components:
       allOf:
         - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
         - type: object
+          required:
+            - identificatie
+            - status
+            - geometrie
+            - geconstateerd
+            - documentdatum
+            - documentnummer
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
@@ -1283,6 +1319,12 @@ components:
     KenmerkStandplaatsInOnderzoek:
       title: KenmerkStandplaatsInOnderzoek
       type: object
+      required:
+        - identificatieVanStandplaats
+        - kenmerk
+        - indicatieInOnderzoek
+        - documentdatum
+        - documentnummer
       properties:
         identificatieVanStandplaats:
           title: identificatie van standplaats
@@ -1323,15 +1365,15 @@ components:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
-          # Het aan de standplaats gerelateerde adres (link)
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'Het aan de standplaats gerelateerde adres (link).'
 
     Standplaats_embedded:
       type: object
       properties:
         adres:
-          # Het aan de ligplaats gerelateerde adres (object)
           $ref: '#/components/schemas/Adres'
+          description: 'Het aan de ligplaats gerelateerde adres (object).'
 
     StandplaatsInOnderzoek:
       type: object
@@ -1366,6 +1408,16 @@ components:
       allOf:
         - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
         - type: object
+          required:
+            - identificatie
+            - geometrie
+            - gebruiksdoel
+            - oppervlakte
+            - status
+            - geconstateerd
+            - documentdatum
+            - documentnummer
+            - maaktDeelUitVan
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
@@ -1406,6 +1458,12 @@ components:
     KenmerkVerblijfsobjectInOnderzoek:
       title: KenmerkVerblijfsobjectInOnderzoek
       type: object
+      required:
+        - identificatieVanVerblijfsobject
+        - kenmerk
+        - indicatieInOnderzoek
+        - documentdatum
+        - documentnummer
       properties:
         identificatieVanVerblijfsobject:
           title: identificatie van verblijfsobject
@@ -1449,10 +1507,10 @@ components:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
-          # Het aan het verblijfsobject gerelateerde adres (link)
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'Het aan het verblijfsobject gerelateerde adres (link).'
         maaktDeelUitVan:
-          # Het/de aan het verblijfsobject gerelateerde pand(en) (lnik).
+          description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (lnik).'
           type: array
           items:
             $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
@@ -1462,11 +1520,11 @@ components:
       type: object
       properties:
         adres:
-          # Het aan het verblijfsobject gerelateerde adres (object)
           $ref: '#/components/schemas/Adres'
+          description: 'Het aan het verblijfsobject gerelateerde adres (object).'
         maaktDeelUitVan:
-          # Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).
           $ref: '#/components/schemas/Pand'
+          description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).'
 
     VerblijfsobjectInOnderzoek:
       type: object
@@ -1493,6 +1551,16 @@ components:
       type: object
       title: OpenbareRuimte
       description: 'Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen.'
+      required:
+        - identificatie
+        - naam
+        - type
+        - status
+        - verkorteNaam
+        - geconstateerd
+        - documentdatum
+        - documentnummer
+        - ligtIn
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1504,13 +1572,14 @@ components:
           maxLength: 80
           example: 'Laan van Westenenk'
         type:
-          # De aard van de als zodanig benoemde openbare ruimte.
           $ref: '../../../../lvbag/imbag/v20180601/openbareruimte.yaml#/TypeOpenbareRuimte'
+          description: 'De aard van de als zodanig benoemde openbare ruimte.'
         status:
-          # De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.
           $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
+          desciption: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
         verkorteNaam:
           $ref: '../../../../lvbag/imbag/v20180601/nen5825.yaml#/VerkorteNaamOpenbareRuimte'
+          description: 'De verkorte naam van een openbare ruimte naam als deze langer is dan 25 karakters.'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1527,9 +1596,9 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtInWoonplaats:
-          # Een openbare ruimte ligt in een woonplaats.
+        ligtIn:
           $ref: '#/components/schemas/NEN3610ID'
+          description: 'Een openbare ruimte ligt in een woonplaats.'
 
     OpenbareRuimteInOnderzoek:
       type: object
@@ -1546,6 +1615,12 @@ components:
     KenmerkOpenbareRuimteInOnderzoek:
       title: KenmerkOpenbareRuimteInOnderzoek
       type: object
+      required:
+        - identificatieVanOpenbareRuimte
+        - kenmerk
+        - indicatieInOnderzoek
+        - documentdatum
+        - documentnummer
       properties:
         identificatieVanOpenbareRuimte:
           title: identificatie van openbare ruimte
@@ -1587,18 +1662,18 @@ components:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
-          # Het aan het openbareruimte gerelateerde adres (link)
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'Het aan het openbareruimte gerelateerde adres (link).'
         ligtInWoonplaats:
-          # De aan het openbareruimte gerelateerde woonplaats (lnik).
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
 
     OpenbareRuimte_embedded:
       type: object
       properties:
         ligtInWoonplaats:
-          # De aan het oenbareruimte gerelateerde woonplaats (object(en)).
           $ref: '#/components/schemas/Woonplaats'
+          description: 'De aan het oenbareruimte gerelateerde woonplaats (object(en)).'
 
     OpenbareRuimteHal:
       allOf:
@@ -1613,6 +1688,14 @@ components:
       type: object
       title: Nummeraanduiding
       description: Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats.
+      required:
+        - identificatie
+        - huisnummer
+        - status
+        - geconstateerd
+        - documentdatum
+        - documentnummer
+        - ligtAan
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1654,17 +1737,23 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtInWoonplaats:
-          # Een nummeraanduiding ligt in een woonplaats.
+        ligtIn:
           $ref: '#/components/schemas/NEN3610ID'
-        ligtAanOpenbareRuimte:
-          # Een nummeraanduiding ligt aan een openbare ruimte.
+          description: 'Een nummeraanduiding ligt in een woonplaats.'
+        ligtAan:
           $ref: '#/components/schemas/NEN3610ID'
+          descriptin: 'Een nummeraanduiding ligt aan een openbare ruimte.'
 
     KenmerkNummeraanduidingInOnderzoek:
       description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment, of van alle kenmerken die ooit in onderzoek zijn geweest als er een tijdreisvraag is gesteld of een vraag naar de levenscyclus.
       title: KenmerkNummeraanduidingInOnderzoek
       type: object
+      required:
+        - identificatieVanNummeraanduiding
+        - kenmerk
+        - indicatieInOnderzoek
+        - documentdatum
+        - documentnummer
       properties:
         identificatieVanNummeraanduiding:
           description: De unieke aanduiding van een nummeraanduiding.
@@ -1722,27 +1811,27 @@ components:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
         adres:
-          # Het aan de nummeraanduiding gerelateerde adres (link)
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'Het aan de nummeraanduiding gerelateerde adres (link).'
         ligtAanOpenbareRuimte:
-          # De aan de nummeraanduiding gerelateerde openbareruimte (link).
           $ref: '#/components/schemas/OpenbareRuimte'
+          description: 'De aan de nummeraanduiding gerelateerde openbareruimte (link).'
         ligtInWoonplaats:
-          # De aan het openbareruimte gerelateerde woonplaats (lnik).
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
 
     Nummeraanduiding_embedded:
       type: object
       properties:
         adres:
-          # De aan de nummeraanduiding gerelateerde adres (object)
           $ref: '#/components/schemas/Adres'
+          description: 'De aan de nummeraanduiding gerelateerde adres (object).'
         ligtAanOpenbareRuimte:
-          # De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).
           $ref: '#/components/schemas/OpenbareRuimte'
+          descripion: 'De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).'
         ligtInWoonplaats:
-          # De aan de nummeraanduiding gerelateerde woonplaats (object(en)).
           $ref: '#/components/schemas/Woonplaats'
+          description: 'De aan de nummeraanduiding gerelateerde woonplaats (object(en)).'
 
     NummeraanduidingHal:
       allOf:
@@ -1757,6 +1846,13 @@ components:
       type: object
       title: Woonplaats
       description: Een Woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente.
+      required:
+        - identificatie
+        - naam
+        - status
+        - geconstateerd
+        - documentdatum
+        - documentnummer
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1768,8 +1864,8 @@ components:
           maxLength: 80
           example: Apeldoorn
         status:
-          # De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.
           $ref: '../../../../lvbag/imbag/v20180601/woonplaats.yaml#/StatusWoonplaats'
+          description: 'De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1803,6 +1899,12 @@ components:
       description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment, of van alle kenmerken die ooit in onderzoek zijn geweest als er een tijdreisvraag is gesteld of een vraag naar de levenscyclus.
       title: KenmerkWoonplaatsInOnderzoek
       type: object
+      required:
+        - identificatieVanWoonplaats
+        - kenmerk
+        - indicatieInOnderzoek
+        - documentdatum
+        - documentnummer
       properties:
         identificatieVanWoonplaats:
           description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
@@ -1862,13 +1964,21 @@ components:
       type: object
       title: Pand
       description: Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is.
+      required:
+        - identificatie
+        - geometrie
+        - oorspronkelijkBouwjaar
+        - status
+        - geconstateerd
+        - documentdatum
+        - documentnummer
       properties:
         identificatie:
-          # De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode.
           $ref: '#/components/schemas/NEN3610ID'
+          description: 'De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode.'
         geometrie:
-          # De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand.
           $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Surface'
+          description: 'De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand.'
         oorspronkelijkBouwjaar:
           title: Oorspronkelijk bouwjaar
           description: 'De aanduiding van het jaar waarin een pand oorspronkelijk als bouwkundig gereed is of zal worden opgeleverd. Bij het initieel opvoeren van een PAND wordt door de gemeente een reële inschatting gemaakt van het waarschijnlijke bouwjaar van het PAND. Bij het bouwkundig gereed opleveren van het PAND wordt deze waarde in voorkomende gevallen aangepast. Indien in latere jaren wijzigingen aan een pand worden aangebracht, leidt dit niet tot wijziging van het bouwjaar.'
@@ -1876,8 +1986,8 @@ components:
           maxLength: 4
           example: 1972
         status:
-          # Een codering van de verschillende waarden die de status van een pand kan aannemen.
           $ref: '../../../../lvbag/imbag/v20180601/pand.yaml#/StatusPand'
+          description: 'Een codering van de verschillende waarden die de status van een pand kan aannemen.'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1963,6 +2073,12 @@ components:
     KenmerkPandInOnderzoek:
       title: KenmerkPandInOnderzoek
       type: object
+      required:
+        - identificatieVanPand
+        - kenmerk
+        - indicatieInOnderzoek
+        - documentdatum
+        - documentnummer
       properties:
         identificatieVanPand:
           title: identificatie van pand
