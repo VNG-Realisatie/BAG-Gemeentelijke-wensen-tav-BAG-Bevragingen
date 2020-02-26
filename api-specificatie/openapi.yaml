@@ -1523,8 +1523,11 @@ components:
           $ref: '#/components/schemas/Adres'
           description: 'Het aan het verblijfsobject gerelateerde adres (object).'
         maaktDeelUitVan:
-          $ref: '#/components/schemas/Pand'
           description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).'
+          type: array
+          items:
+            $ref: '#/components/schemas/Pand'
+          minItems: 1
 
     VerblijfsobjectInOnderzoek:
       type: object
@@ -1745,7 +1748,7 @@ components:
           descriptin: 'Een nummeraanduiding ligt aan een openbare ruimte.'
 
     KenmerkNummeraanduidingInOnderzoek:
-      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment, of van alle kenmerken die ooit in onderzoek zijn geweest als er een tijdreisvraag is gesteld of een vraag naar de levenscyclus.
+      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment.
       title: KenmerkNummeraanduidingInOnderzoek
       type: object
       required:
@@ -1896,7 +1899,7 @@ components:
           minItems: 1
 
     KenmerkWoonplaatsInOnderzoek:
-      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment, of van alle kenmerken die ooit in onderzoek zijn geweest als er een tijdreisvraag is gesteld of een vraag naar de levenscyclus.
+      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment.
       title: KenmerkWoonplaatsInOnderzoek
       type: object
       required:
