@@ -1789,7 +1789,6 @@ components:
         - 'huisletter'
         - 'huisnummertoevoeging'
         - 'postcode'
-        - 'type adresseerbaar object'
         - 'status'
         - 'ligt in'
         - 'ligt aan'
