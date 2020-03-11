@@ -205,7 +205,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /adressen/{nummeraanduidingIdentificatie}:
+  /adressen/{nummeraanduidingidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -278,7 +278,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /adresseerbareobjecten/{adresseerbaarObjectIdentificatie}:
+  /adresseerbareobjecten/{adresseerbaarobjectidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -424,7 +424,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /woonplaatsen/{woonplaatsIdentificatie}:
+  /woonplaatsen/{woonplaatsidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -494,7 +494,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /openbareruimten/{openbareRuimteIdentificatie}:
+  /openbareruimten/{openbareruimteidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -564,7 +564,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /nummeraanduidingen/{nummeraanduidingIdentificatie}:
+  /nummeraanduidingen/{nummeraanduidingidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -634,7 +634,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /panden/{pandIdentificatie}:
+  /panden/{pandidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -878,15 +878,15 @@ components:
 
     keuzeItemIdentificatie:
       description: de identificatie van een gekozen item uit de keuzeItemCollectie verkregen bij een zoek-operatie
-      name: keuzeItemIdentificatie
+      name: keuzeitemidentificatie
       in: query
       required: true
       schema:
         type: string
 
     nummeraanduidingIdentificatie-query:
-      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
-      name: nummeraanduidingIdentificatie-query
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      name: nummeraanduidingidentificatie
       in: query
       required: false
       schema:
@@ -896,7 +896,7 @@ components:
 
     adresseerbaarObjectIdentificatie-query:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
-      name: adresseerbaarObjectIdentificatie-query
+      name: adresseerbaarobjectidentificatie
       in: query
       required: false
       schema:
@@ -906,8 +906,8 @@ components:
         example: 1234010000000001
 
     pandIdentificatie-query:
-      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
-      name: pandIdentificatie-query
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      name: pandidentificatie
       in: query
       required: false
       schema:
@@ -917,8 +917,8 @@ components:
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingIdentificatie:
-      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
-      name: nummeraanduidingIdentificatie
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      name: nummeraanduidingidentificatie
       in: path
       required: true
       schema:
@@ -928,7 +928,7 @@ components:
 
     adresseerbaarObjectIdentificatie:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
-      name: adresseerbaarObjectIdentificatie
+      name: adresseerbaarobjectidentificatie
       in: path
       required: true
       schema:
@@ -938,8 +938,8 @@ components:
         example: 1234010000000001
 
     pandIdentificatie:
-      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
-      name: pandIdentificatie
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      name: pandidentificatie
       in: path
       required: true
       schema:
@@ -949,7 +949,7 @@ components:
 
     woonplaatsIdentificatie:
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
-      name: woonplaatsIdentificatie
+      name: woonplaatsidentificatie
       in: path
       required: true
       schema:
@@ -960,7 +960,7 @@ components:
 
     openbareRuimteIdentificatie:
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
-      name: openbareRuimteIdentificatie
+      name: openbareruimteidentificatie
       in: path
       required: true
       schema:
