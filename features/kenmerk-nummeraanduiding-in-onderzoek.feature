@@ -52,7 +52,6 @@ Scenario: Alle kenmerken zijn in onderzoek
             "huisletter": true,
             "huisnummerToevoeging": true,
             "postcode": true,
-            "typeAdresseerbaarObject": true,
             "geconstateerd": true,
             "documentDatum": true,
             "documentNummer": true,
