@@ -110,7 +110,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/KeuzeItemCollectieHal'
+                $ref: '#/components/schemas/ZoekResultaatHalCollectie'
         204:
           description: No content
           headers:
@@ -194,7 +194,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -417,13 +417,13 @@ paths:
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres
         op. Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject)
         en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde
-        pand(en). Parameter keuzeItemIdentificatie bevat identificatie van een gekozen
-        item verkregen uit een zoek-operatie.
-      operationId: raadpleegAdresMetKeuzeItemId
+        pand(en). Parameter zoekresultaatidentificatie bevat identificatie van een
+        gekozen item verkregen uit een zoek-operatie.
+      operationId: raadpleegAdresMetZoekResultaatIdentificatie
       parameters:
-      - name: keuzeItemIdentificatie
+      - name: zoekresultaatidentificatie
         in: query
-        description: de identificatie van een gekozen item uit de keuzeItemCollectie
+        description: de identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie
           verkregen bij een zoek-operatie
         required: true
         style: form
@@ -453,7 +453,7 @@ paths:
           type: string
       responses:
         200:
-          description: Bevraging raadpleegAdresMetKeuzeItemId geslaagd
+          description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -554,7 +554,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -765,7 +765,7 @@ paths:
                 $ref: '#/components/schemas/Foutbericht'
       security:
       - apiKeyBAG: []
-  /adressen/{nummeraanduidingIdentificatie}:
+  /adressen/{nummeraanduidingidentificatie}:
     get:
       tags:
       - Adres
@@ -777,13 +777,13 @@ paths:
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres
         op. Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject)
         en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde
-        pand(en). Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie
+        pand(en). Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie
         van een lnummeraanduiding.
       operationId: raadpleegAdresMetNumId
       parameters:
-      - name: nummeraanduidingIdentificatie
+      - name: nummeraanduidingidentificatie
         in: path
-        description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16
+        description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
           cijfers lang.
         required: true
         style: simple
@@ -916,7 +916,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -1127,7 +1127,7 @@ paths:
                 $ref: '#/components/schemas/Foutbericht'
       security:
       - apiKeyBAG: []
-  /adresseerbareobjecten/{adresseerbaarObjectIdentificatie}:
+  /adresseerbareobjecten/{adresseerbaarobjectidentificatie}:
     get:
       tags:
       - Adresseerbaar object
@@ -1137,11 +1137,11 @@ paths:
         via de zoek-operatie Geleverd worden de huidige gegevens van een adresseerbaarobject
         evt. met adres en pand. Huidige gegevens zijn actuele gegevens die geen eind
         status hebben, zoals 'Naamgeving ingetrokken'. Als de nummeraanduiding is
-        ingetrokken, dan levert een bevraging geen adres op. Parameter adresseerbaarobjectIdentificatie
+        ingetrokken, dan levert een bevraging geen adres op. Parameter adresseerbaarobjectidentificatie
         bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject.
       operationId: raadpleegAdresseerbaarobjectMetAdoId
       parameters:
-      - name: adresseerbaarObjectIdentificatie
+      - name: adresseerbaarobjectidentificatie
         in: path
         description: De identificatie van een adresserbaar object uit de BAG. Dit
           kan een verblijfsobject, een standplaats of een ligplaats zijn.
@@ -1277,7 +1277,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -1499,14 +1499,14 @@ paths:
         gegevens van een adresseerbaarobject evt. met adres en pand. Huidige gegevens
         zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres
-        op. Parameter nummeraanduidingIdentificatie-query bevat de 16 cijferige identificatie
-        van een nummeraanduiding. Parameter pandIdentificatie-query bevat de 16 cijferige
+        op. Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie
+        van een nummeraanduiding. Parameter pandidentificatie bevat de 16 cijferige
         identificatie van een pand
       operationId: raadpleegAdresseerbaarobject
       parameters:
-      - name: nummeraanduidingIdentificatie-query
+      - name: nummeraanduidingidentificatie
         in: query
-        description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16
+        description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
           cijfers lang.
         required: false
         style: form
@@ -1515,9 +1515,9 @@ paths:
           pattern: ^[0-9]{4}20[0-9]{10}$
           type: string
           example: "1234200000000001"
-      - name: pandIdentificatie-query
+      - name: pandidentificatie
         in: query
-        description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
+        description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
         required: false
         style: form
         explode: true
@@ -1649,7 +1649,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -1860,17 +1860,17 @@ paths:
                 $ref: '#/components/schemas/Foutbericht'
       security:
       - apiKeyBAG: []
-  /woonplaatsen/{woonplaatsIdentificatie}:
+  /woonplaatsen/{woonplaatsidentificatie}:
     get:
       tags:
       - Woonplaats
       summary: Raadpleeg Woonplaats met een woonplaats identificatie
       description: Raadpleeg een Woonplaats met en woonplaats identificatie Geleverd
         worden de actuele gegevens van een woonplaats en het gerelateerde adres. Parameter
-        woonplaatsIdentificatie bevat de 4 cijferige identificatie van een woonplaats.
+        woonplaatsidentificatie bevat de 4 cijferige identificatie van een woonplaats.
       operationId: raadpleegWoonplaats
       parameters:
-      - name: woonplaatsIdentificatie
+      - name: woonplaatsidentificatie
         in: path
         description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
           woonplaats en 16 lang bij de andere objecten.
@@ -1882,7 +1882,7 @@ paths:
           type: string
           description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123.
             Waarde: 0001-9999.'
-          example: "150"
+          example: "0150"
       - name: expand
         in: query
         description: Hier kan aangegeven worden welke gerelateerde resources meegeladen
@@ -2007,7 +2007,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -2218,18 +2218,18 @@ paths:
                 $ref: '#/components/schemas/Foutbericht'
       security:
       - apiKeyBAG: []
-  /openbareruimten/{openbareRuimteIdentificatie}:
+  /openbareruimten/{openbareruimteidentificatie}:
     get:
       tags:
       - Openbare ruimte
       summary: Raadpleeg openbareruimte met een openbareruimte identificatie
       description: Raadpleeg een openbareruimte met en openbareruimte identificatie
         Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde
-        woonplaats en adres. Parameter openbareRuimteIdentificatie bevat de 16 cijferige
+        woonplaats en adres. Parameter openbareruimteidentificatie bevat de 16 cijferige
         identificatie van een openbareruimte.
       operationId: raadpleegOpenbareRuimte
       parameters:
-      - name: openbareRuimteIdentificatie
+      - name: openbareruimteidentificatie
         in: path
         description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
           woonplaats en 16 lang bij de andere objecten.
@@ -2239,7 +2239,7 @@ paths:
         schema:
           pattern: ^[0-9]{4}30[0-9]{10}$
           type: string
-          example: "518300000000001"
+          example: "0518300000000001"
       - name: expand
         in: query
         description: Hier kan aangegeven worden welke gerelateerde resources meegeladen
@@ -2364,7 +2364,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -2575,20 +2575,20 @@ paths:
                 $ref: '#/components/schemas/Foutbericht'
       security:
       - apiKeyBAG: []
-  /nummeraanduidingen/{nummeraanduidingIdentificatie}:
+  /nummeraanduidingen/{nummeraanduidingidentificatie}:
     get:
       tags:
       - Nummeraanduiding
       summary: Raadpleeg nummeraanduiding met een nummeraanduiding identificatie
       description: Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
         Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde
-        woonplaats, openbare ruimte en adres. Parameter nummeraanduidingIdentificatie
+        woonplaats, openbare ruimte en adres. Parameter nummeraanduidingidentificatie
         bevat de 16 cijferige identificatie van een nummeraanduiding.
       operationId: raadpleegNummeraanduiding
       parameters:
-      - name: nummeraanduidingIdentificatie
+      - name: nummeraanduidingidentificatie
         in: path
-        description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16
+        description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
           cijfers lang.
         required: true
         style: simple
@@ -2721,7 +2721,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -2932,19 +2932,19 @@ paths:
                 $ref: '#/components/schemas/Foutbericht'
       security:
       - apiKeyBAG: []
-  /panden/{pandIdentificatie}:
+  /panden/{pandidentificatie}:
     get:
       tags:
       - Pand
       summary: Raadpleeg Pand met een pand identificatie
       description: Raadpleeg een pand met de pand identificatie Geleverd worden de
         actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.
-        Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand.
+        Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand.
       operationId: raadpleegPand
       parameters:
-      - name: pandIdentificatie
+      - name: pandidentificatie
         in: path
-        description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
+        description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
         required: true
         style: simple
         explode: false
@@ -3076,7 +3076,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -3292,17 +3292,17 @@ paths:
       tags:
       - Pand
       summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject
-        identrificatie vekregen uit een zoek-operatie
+        identificatie vekregen uit een zoek-operatie
       description: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject
-        identrificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde
-        verblijfsobjecten en het/de adres(sen). Parameter nummeraanduidingIdentificatie-query
-        bevat de 16 cijferige identificatie van een nummeraanduiding. Parameter adresseerbaarObjectIdentificatie-query
+        identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde
+        verblijfsobjecten en het/de adres(sen). Parameter nummeraanduidingidentificatie
+        bevat de 16 cijferige identificatie van een nummeraanduiding. Parameter adresseerbaarobjectidentificatie
         bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject
       operationId: raadpleegPanden
       parameters:
-      - name: nummeraanduidingIdentificatie-query
+      - name: nummeraanduidingidentificatie
         in: query
-        description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16
+        description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
           cijfers lang.
         required: false
         style: form
@@ -3311,7 +3311,7 @@ paths:
           pattern: ^[0-9]{4}20[0-9]{10}$
           type: string
           example: "1234200000000001"
-      - name: adresseerbaarObjectIdentificatie-query
+      - name: adresseerbaarobjectidentificatie
         in: query
         description: De identificatie van een adresserbaar object uit de BAG. Dit
           kan een verblijfsobject, een standplaats of een ligplaats zijn.
@@ -3447,7 +3447,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -3798,7 +3798,7 @@ paths:
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
         405:
-          description: Method not alowed.
+          description: Method not allowed.
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -4011,34 +4011,36 @@ paths:
       - apiKeyBAG: []
 components:
   schemas:
-    KeuzeItem:
+    ZoekResultaat:
       type: object
       properties:
         weergavenaam:
           title: weergavenaam
           type: string
-          description: Weergavenaam van de zoeksuggestie
+          description: Weergavenaam van het zoekresultaat
         identificatie:
           title: identificatie
           type: string
-        _links:
-          $ref: '#/components/schemas/KeuzeItem_links'
-      description: Dit type bevat een enkel keuze item bestaande uit een weergave
-        tekst en keuze item identificatie
-    KeuzeItem_links:
+          description: Identificatie van het zoekresultaat
+      description: Dit type bevat een enkel zoekresultaat bestaande uit een weergave
+        tekst en zoekresultaat identificatie
+    ZoekResultaatHalCollectie:
       type: object
       properties:
-        adres:
-          $ref: '#/components/schemas/HalLink'
-    KeuzeItemCollectieHal:
-      type: object
-      properties:
-        zoekResultaten:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeuzeItem'
         _links:
-          $ref: '#/components/schemas/HalPaginationLinks'
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HalLink'
+            adres:
+              $ref: '#/components/schemas/HalPaginationLinks'
+        _embedded:
+          type: object
+          properties:
+            zoekResultaten:
+              type: array
+              items:
+                $ref: '#/components/schemas/ZoekResultaat'
       description: resulaten als lijst
     Adres:
       type: object
@@ -4048,7 +4050,7 @@ components:
           maxLength: 24
           minLength: 1
           type: string
-          description: De verkorte naam is een maximaal 24 karakters lange represntatie
+          description: De verkorte naam is een maximaal 24 karakters lange representatie
             van de naam van een openbare ruimte.
           example: Ln vd l D Westervoort
         straat:
@@ -4111,10 +4113,10 @@ components:
             boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.
         geconstateerd:
           type: boolean
-          description: Een aanduiding waarmee kan worden aangegeven dat een object
-            in de registratie is opgenomen als gevolg van een feitelijke constatering,
-            zonder dat er op het moment van opname sprake was van een regulier brondocument
-            voor deze opname.
+          description: Een aanduiding waarmee kan worden aangegeven dat één of meerdere
+            gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg
+            van een feitelijke constatering, zonder dat er op het moment van opname
+            sprake was van een regulier brondocument voor deze opname.
         indicatieInOnderzoek:
           type: boolean
           description: Een indicatie dat één of meerdere attributen van objecten gerelateerd
@@ -4183,11 +4185,18 @@ components:
           $ref: '#/components/schemas/StandplaatsHal'
         verblijfsobject:
           $ref: '#/components/schemas/VerblijfsobjectHal'
+      description: Bevat één van de adresseerbare objecten ligplaats, standplaats
+        of verblijfsobject.
     AdresseerbaarobjectHalCollectie:
       type: object
       properties:
         _links:
-          $ref: '#/components/schemas/HalCollectionLinks'
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HalLink'
+            adresseerbareObjecten:
+              $ref: '#/components/schemas/HalPaginationLinks'
         _embedded:
           type: object
           properties:
@@ -4198,14 +4207,7 @@ components:
     Ligplaats:
       allOf:
       - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-      - required:
-        - documentdatum
-        - documentnummer
-        - geconstateerd
-        - geometrie
-        - identificatie
-        - status
-        type: object
+      - type: object
         properties:
           identificatie:
             $ref: '#/components/schemas/NEN3610ID'
@@ -4324,14 +4326,7 @@ components:
         woon-, bedrijfsmatige, of recreatieve doeleinden geschikte ruimte.
       allOf:
       - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-      - required:
-        - documentdatum
-        - documentnummer
-        - geconstateerd
-        - geometrie
-        - identificatie
-        - status
-        type: object
+      - type: object
         properties:
           identificatie:
             $ref: '#/components/schemas/NEN3610ID'
@@ -4447,17 +4442,7 @@ components:
         is.
       allOf:
       - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-      - required:
-        - documentdatum
-        - documentnummer
-        - gebruiksdoel
-        - geconstateerd
-        - geometrie
-        - identificatie
-        - maaktDeelUitVan
-        - oppervlakte
-        - status
-        type: object
+      - type: object
         properties:
           identificatie:
             $ref: '#/components/schemas/NEN3610ID'
@@ -4593,16 +4578,6 @@ components:
             $ref: '#/components/schemas/Verblijfsobject_embedded'
     OpenbareRuimte:
       title: OpenbareRuimte
-      required:
-      - documentdatum
-      - documentnummer
-      - geconstateerd
-      - identificatie
-      - ligtIn
-      - naam
-      - status
-      - type
-      - verkorteNaam
       type: object
       properties:
         identificatie:
@@ -4624,7 +4599,7 @@ components:
           maxLength: 24
           minLength: 1
           type: string
-          description: De verkorte naam is een maximaal 24 karakters lange represntatie
+          description: De verkorte naam is een maximaal 24 karakters lange representatie
             van de naam van een openbare ruimte.
           example: Ln vd l D Westervoort
         geconstateerd:
@@ -4681,7 +4656,7 @@ components:
           title: identificatie van openbare ruimte
           type: string
           description: De unieke aanduiding van een openbare ruimte.
-          example: "518300000000001"
+          example: "0518300000000001"
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekOpenbareRuimte'
         indicatieInOnderzoek:
@@ -4733,14 +4708,6 @@ components:
             $ref: '#/components/schemas/OpenbareRuimte_embedded'
     Nummeraanduiding:
       title: Nummeraanduiding
-      required:
-      - documentdatum
-      - documentnummer
-      - geconstateerd
-      - huisnummer
-      - identificatie
-      - ligtAan
-      - status
       type: object
       properties:
         identificatie:
@@ -4895,13 +4862,6 @@ components:
             $ref: '#/components/schemas/Nummeraanduiding_embedded'
     Woonplaats:
       title: Woonplaats
-      required:
-      - documentdatum
-      - documentnummer
-      - geconstateerd
-      - identificatie
-      - naam
-      - status
       type: object
       properties:
         identificatie:
@@ -4968,7 +4928,7 @@ components:
           type: string
           description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123.
             Waarde: 0001-9999.'
-          example: "150"
+          example: "0150"
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekWoonplaats'
         indicatieInOnderzoek:
@@ -5019,14 +4979,6 @@ components:
             $ref: '#/components/schemas/Woonplaats_embedded'
     Pand:
       title: Pand
-      required:
-      - documentdatum
-      - documentnummer
-      - geconstateerd
-      - geometrie
-      - identificatie
-      - oorspronkelijkBouwjaar
-      - status
       type: object
       properties:
         identificatie:
@@ -5133,7 +5085,7 @@ components:
         _embedded:
           type: object
           properties:
-            Panden:
+            panden:
               type: array
               items:
                 $ref: '#/components/schemas/PandHal'
@@ -5191,7 +5143,7 @@ components:
             voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte,
             nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten
             (waarde zoals gespecificeerd in de BAG Catalogus 2018).'
-          example: "123"
+          example: "0123"
         namespace:
           title: namespace
           minLength: 1
@@ -5362,63 +5314,21 @@ components:
         ingevuld moeten worden staat op: https://github.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/blob/master/features/foutafhandeling.feature'
     Point:
       title: GeoJSON Point
-      example:
-        type: Point
-        dimensions: geometry-3D
-      allOf:
-      - $ref: '#/components/schemas/GeoJsonGeometry'
-      - required:
-        - coordinates
-        type: object
-        properties:
-          coordinates:
-            $ref: '#/components/schemas/Coordinate'
-    GeoJsonGeometry:
-      title: GeoJSON Geometry
       required:
+      - coordinates
       - type
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/GeometryTypes'
-        dimensions:
-          $ref: '#/components/schemas/GeometryDimensions'
-        bbox:
-          minItems: 4
+          type: string
+          enum:
+          - Point
+        coordinates:
+          minItems: 2
           type: array
           items:
             type: number
-      description: Geometrie in GeoJSON formaat (RFC 7946).
-      externalDocs:
-        description: RFC 7946 - The GeoJSON Format
-        url: https://tools.ietf.org/html/rfc7946
-      discriminator:
-        propertyName: type
-    GeometryTypes:
-      title: GeoJSON GeometryTypes
-      type: string
-      description: De mogelijke geometrie types.
-      enum:
-      - Point
-      - LineString
-      - Polygon
-      - MultiPoint
-      - MultiLineString
-      - MultiPolygon
-    GeometryDimensions:
-      type: string
-      description: De geometrie dimensie.
-      enum:
-      - geometry-2D
-      - geometry-3D
-    Coordinate:
-      title: Coordinate
-      maxItems: 2
-      minItems: 3
-      type: array
-      description: Een coordinate kan 2D of 3D zijn.
-      items:
-        type: number
+      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
     HalLink:
       title: HalLink
       required:
@@ -5510,21 +5420,26 @@ components:
       - $ref: '#/components/schemas/Polygon'
     Polygon:
       title: GeoJSON Polygon
-      example:
-        type: Polygon
-      allOf:
-      - $ref: '#/components/schemas/GeoJsonGeometry'
-      - required:
-        - coordinates
-        type: object
-        properties:
-          coordinates:
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - Polygon
+        coordinates:
+          type: array
+          items:
+            minItems: 4
             type: array
             items:
-              minItems: 3
+              minItems: 2
               type: array
               items:
-                $ref: '#/components/schemas/Coordinate'
+                type: number
+      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
     PuntOfVlak:
       title: PuntOfVlak
       type: object
@@ -5627,23 +5542,28 @@ components:
       - $ref: '#/components/schemas/MultiPolygon'
     MultiPolygon:
       title: GeoJSON MultiPolygon
-      example:
-        type: MultiPolygon
-      allOf:
-      - $ref: '#/components/schemas/GeoJsonGeometry'
-      - required:
-        - coordinates
-        type: object
-        properties:
-          coordinates:
-            minItems: 2
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - MultiPolygon
+        coordinates:
+          type: array
+          items:
             type: array
             items:
+              minItems: 4
               type: array
               items:
+                minItems: 2
                 type: array
                 items:
-                  $ref: '#/components/schemas/Coordinate'
+                  type: number
+      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/multipolygonGeoJSON.yaml'
   parameters:
     zoek:
       name: zoek
@@ -5655,21 +5575,21 @@ components:
       explode: true
       schema:
         type: string
-    keuzeItemIdentificatie:
-      name: keuzeItemIdentificatie
+    zoekresultaatidentificatie:
+      name: zoekresultaatidentificatie
       in: query
-      description: de identificatie van een gekozen item uit de keuzeItemCollectie
+      description: de identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie
         verkregen bij een zoek-operatie
       required: true
       style: form
       explode: true
       schema:
         type: string
-    nummeraanduidingIdentificatie-query:
-      name: nummeraanduidingIdentificatie-query
+    nummeraanduidingidentificatie-query:
+      name: nummeraanduidingidentificatie
       in: query
-      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16
-        cijfers lang.
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers
+        lang.
       required: false
       style: form
       explode: true
@@ -5677,8 +5597,19 @@ components:
         pattern: ^[0-9]{4}20[0-9]{10}$
         type: string
         example: "1234200000000001"
-    adresseerbaarObjectIdentificatie-query:
-      name: adresseerbaarObjectIdentificatie-query
+    pandidentificatie-query:
+      name: pandidentificatie
+      in: query
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^[0-9]{4}10[0-9]{10}$
+        type: string
+        example: "1234100000000001"
+    adresseerbaarobjectidentificatie-query:
+      name: adresseerbaarobjectidentificatie
       in: query
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan
         een verblijfsobject, een standplaats of een ligplaats zijn.
@@ -5690,22 +5621,11 @@ components:
         pattern: ^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$
         type: string
         example: "1234010000000001"
-    pandIdentificatie-query:
-      name: pandIdentificatie-query
-      in: query
-      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
-      required: false
-      style: form
-      explode: true
-      schema:
-        pattern: ^[0-9]{4}10[0-9]{10}$
-        type: string
-        example: "1234100000000001"
-    nummeraanduidingIdentificatie:
-      name: nummeraanduidingIdentificatie
+    nummeraanduidingidentificatie:
+      name: nummeraanduidingidentificatie
       in: path
-      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16
-        cijfers lang.
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers
+        lang.
       required: true
       style: simple
       explode: false
@@ -5713,8 +5633,8 @@ components:
         pattern: ^[0-9]{4}20[0-9]{10}$
         type: string
         example: "1234200000000001"
-    adresseerbaarObjectIdentificatie:
-      name: adresseerbaarObjectIdentificatie
+    adresseerbaarobjectidentificatie:
+      name: adresseerbaarobjectidentificatie
       in: path
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan
         een verblijfsobject, een standplaats of een ligplaats zijn.
@@ -5726,10 +5646,10 @@ components:
         pattern: ^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$
         type: string
         example: "1234010000000001"
-    pandIdentificatie:
-      name: pandIdentificatie
+    pandidentificatie:
+      name: pandidentificatie
       in: path
-      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
       required: true
       style: simple
       explode: false
@@ -5737,8 +5657,8 @@ components:
         pattern: ^[0-9]{4}10[0-9]{10}$
         type: string
         example: "1234100000000001"
-    woonplaatsIdentificatie:
-      name: woonplaatsIdentificatie
+    woonplaatsidentificatie:
+      name: woonplaatsidentificatie
       in: path
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
         woonplaats en 16 lang bij de andere objecten.
@@ -5750,9 +5670,9 @@ components:
         type: string
         description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123.
           Waarde: 0001-9999.'
-        example: "150"
-    openbareRuimteIdentificatie:
-      name: openbareRuimteIdentificatie
+        example: "0150"
+    openbareruimteidentificatie:
+      name: openbareruimteidentificatie
       in: path
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
         woonplaats en 16 lang bij de andere objecten.
@@ -5762,7 +5682,7 @@ components:
       schema:
         pattern: ^[0-9]{4}30[0-9]{10}$
         type: string
-        example: "518300000000001"
+        example: "0518300000000001"
   headers:
     api_version:
       schema:
@@ -5805,13 +5725,13 @@ components:
       schema:
         type: string
         description: CRS van de coördinaten in de response.
+        default: epsg:28992
         enum:
         - epsg:28992
-        default: epsg:28992
   securitySchemes:
     apiKeyBAG:
       type: apiKey
       description: |
-        De API-key die je hebt gekregen dient bij elke request naar deze via de `X-Api-Key` request header meegestuurd te worden. Indien deze niet juist wordt meegestuurd, of het een ongeldige key betreft, zul je de foutmelding `403 Forbidden` terugkrijgen.
+        De API-key die je hebt gekregen dient bij elke request via de `X-Api-Key` request header meegestuurd te worden. Indien deze niet juist wordt meegestuurd, of het een ongeldige key betreft, zul je de foutmelding `403 Forbidden` terugkrijgen.
       name: X-Api-Key
       in: header

@@ -96,7 +96,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/KeuzeItemCollectieHal'
+                $ref: '#/components/schemas/ZoekResultaatHalCollectie'
         '204':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
         '400':
@@ -136,7 +136,7 @@ paths:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegAdresMetKeuzeItemId
+      operationId: raadpleegAdresMetZoekResultaatIdentificatie
       tags:
         - Adres
       summary: De API levert huidige gegevens van een adres.
@@ -145,14 +145,14 @@ paths:
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
-        Parameter keuzeItemIdentificatie bevat identificatie van een gekozen item verkregen uit een zoek-operatie."
+        Parameter zoekresultaatidentificatie bevat identificatie van een gekozen item verkregen uit een zoek-operatie."
       parameters:
-        - $ref: '#/components/parameters/keuzeItemIdentificatie'
+        - $ref: '#/components/parameters/zoekresultaatidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
         '200':
-          description: Bevraging raadpleegAdresMetKeuzeItemId geslaagd
+          description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
           headers:
             api-version:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
@@ -205,7 +205,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /adressen/{nummeraanduidingIdentificatie}:
+  /adressen/{nummeraanduidingidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -218,9 +218,9 @@ paths:
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
-        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
+        Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -278,7 +278,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /adresseerbareobjecten/{adresseerbaarObjectIdentificatie}:
+  /adresseerbareobjecten/{adresseerbaarobjectidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -290,9 +290,9 @@ paths:
         Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
-        Parameter adresseerbaarobjectIdentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject."
+        Parameter adresseerbaarobjectidentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject."
       parameters:
-        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie'
+        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -362,11 +362,11 @@ paths:
         Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
-        Parameter nummeraanduidingIdentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
-        Parameter pandIdentificatie-query bevat de 16 cijferige identificatie van een pand"
+        Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
+        Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand"
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
-        - $ref: '#/components/parameters/pandIdentificatie-query'
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
+        - $ref: '#/components/parameters/pandidentificatie-query'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -424,7 +424,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /woonplaatsen/{woonplaatsIdentificatie}:
+  /woonplaatsen/{woonplaatsidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -434,9 +434,9 @@ paths:
       summary: Raadpleeg Woonplaats met een woonplaats identificatie
       description: "Raadpleeg een Woonplaats met en woonplaats identificatie
         Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres.
-        Parameter woonplaatsIdentificatie bevat de 4 cijferige identificatie van een woonplaats."
+        Parameter woonplaatsidentificatie bevat de 4 cijferige identificatie van een woonplaats."
       parameters:
-        - $ref: '#/components/parameters/woonplaatsIdentificatie'
+        - $ref: '#/components/parameters/woonplaatsidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -494,7 +494,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /openbareruimten/{openbareRuimteIdentificatie}:
+  /openbareruimten/{openbareruimteidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -504,9 +504,9 @@ paths:
       summary: Raadpleeg openbareruimte met een openbareruimte identificatie
       description: "Raadpleeg een openbareruimte met en openbareruimte identificatie
         Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres.
-        Parameter openbareRuimteIdentificatie bevat de 16 cijferige identificatie van een openbareruimte."
+        Parameter openbareruimteidentificatie bevat de 16 cijferige identificatie van een openbareruimte."
       parameters:
-        - $ref: '#/components/parameters/openbareRuimteIdentificatie'
+        - $ref: '#/components/parameters/openbareruimteidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -564,7 +564,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /nummeraanduidingen/{nummeraanduidingIdentificatie}:
+  /nummeraanduidingen/{nummeraanduidingidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -574,9 +574,9 @@ paths:
       summary: Raadpleeg nummeraanduiding met een nummeraanduiding identificatie
       description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
         Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres.
-        Parameter nummeraanduidingIdentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
+        Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie'
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -634,7 +634,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /panden/{pandIdentificatie}:
+  /panden/{pandidentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -644,9 +644,9 @@ paths:
       summary: Raadpleeg Pand met een pand identificatie
       description: "Raadpleeg een pand met de pand identificatie
         Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.
-        Parameter pandIdentificatie bevat de 16 cijferige identificatie van een pand."
+        Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand."
       parameters:
-        - $ref: '#/components/parameters/pandIdentificatie'
+        - $ref: '#/components/parameters/pandidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -787,13 +787,13 @@ paths:
       operationId: raadpleegPanden
       tags:
         - Pand
-      summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identrificatie vekregen uit een zoek-operatie
-      description: "Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identrificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).
-        Parameter nummeraanduidingIdentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
-        Parameter adresseerbaarObjectIdentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
+      summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identificatie vekregen uit een zoek-operatie
+      description: "Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).
+        Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een nummeraanduiding.
+        Parameter adresseerbaarobjectidentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
-        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
       responses:
@@ -860,10 +860,10 @@ components:
       name: X-Api-Key
       in: header
       description: >
-        De API-key die je hebt gekregen dient bij elke request naar deze
-        via de `X-Api-Key` request header meegestuurd te worden. Indien deze
-        niet juist wordt meegestuurd, of het een ongeldige key betreft, zul je
-        de foutmelding `403 Forbidden` terugkrijgen.
+        De API-key die je hebt gekregen dient bij elke request via de
+        `X-Api-Key` request header meegestuurd te worden. Indien deze
+        niet juist wordt meegestuurd, of het een ongeldige key betreft,
+        zul je de foutmelding `403 Forbidden` terugkrijgen.
 
   parameters:
 
@@ -876,49 +876,49 @@ components:
       schema:
         type: string
 
-    keuzeItemIdentificatie:
-      description: de identificatie van een gekozen item uit de keuzeItemCollectie verkregen bij een zoek-operatie
-      name: keuzeItemIdentificatie
+    zoekresultaatidentificatie:
+      description: de identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie
+      name: zoekresultaatidentificatie
       in: query
       required: true
       schema:
         type: string
 
-    nummeraanduidingIdentificatie-query:
-      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
-      name: nummeraanduidingIdentificatie-query
+    nummeraanduidingidentificatie-query:
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      name: nummeraanduidingidentificatie
       in: query
       required: false
       schema:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
         example: '1234200000000001'
+        
+    pandidentificatie-query:    
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      name: pandidentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{4}10[0-9]{10}$'
+        example: '1234100000000001'
 
-    adresseerbaarObjectIdentificatie-query:
+    adresseerbaarobjectidentificatie-query:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
-      name: adresseerbaarObjectIdentificatie-query
+      name: adresseerbaarobjectidentificatie
       in: query
       required: false
       schema:
         title: identificatie van een adresseerbaarobject
         type: string
         pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
-        example: 1234010000000001
-
-    pandIdentificatie-query:
-      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
-      name: pandIdentificatie-query
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: '^[0-9]{4}10[0-9]{10}$'
-        example: 1234100000000001
+        example: '1234010000000001'
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
-    nummeraanduidingIdentificatie:
-      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
-      name: nummeraanduidingIdentificatie
+    nummeraanduidingidentificatie:
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      name: nummeraanduidingidentificatie
       in: path
       required: true
       schema:
@@ -926,87 +926,90 @@ components:
         pattern: '^[0-9]{4}20[0-9]{10}$'
         example: '1234200000000001'
 
-    adresseerbaarObjectIdentificatie:
+    adresseerbaarobjectidentificatie:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
-      name: adresseerbaarObjectIdentificatie
+      name: adresseerbaarobjectidentificatie
       in: path
       required: true
       schema:
         title: identificatie van een adresseerbaarobject
         type: string
         pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
-        example: 1234010000000001
+        example: '1234010000000001'
 
-    pandIdentificatie:
-      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
-      name: pandIdentificatie
+    pandidentificatie:
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      name: pandidentificatie
       in: path
       required: true
       schema:
         type: string
         pattern: '^[0-9]{4}10[0-9]{10}$'
-        example: 1234100000000001
+        example: '1234100000000001'
 
-    woonplaatsIdentificatie:
+    woonplaatsidentificatie:
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
-      name: woonplaatsIdentificatie
+      name: woonplaatsidentificatie
       in: path
       required: true
       schema:
         description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
         type: string
         pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
-        example: 0150
+        example: '0150'
 
-    openbareRuimteIdentificatie:
+    openbareruimteidentificatie:
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
-      name: openbareRuimteIdentificatie
+      name: openbareruimteidentificatie
       in: path
       required: true
       schema:
         type: string
         pattern: '^[0-9]{4}30[0-9]{10}$'
-        example: 0518300000000001
+        example: '0518300000000001'
 
   schemas:
 
-    KeuzeItem:
+    ZoekResultaat:
       type: object
-      description: 'Dit type bevat een enkel keuze item bestaande uit een weergave tekst en keuze item identificatie'
+      description: 'Dit type bevat een enkel zoekresultaat bestaande uit een weergave tekst en zoekresultaat identificatie'
       properties:
         weergavenaam:
-          description: 'Weergavenaam van de zoeksuggestie'
+          description: 'Weergavenaam van het zoekresultaat'
           title: 'weergavenaam'
           type: string
         identificatie:
+          description: 'Identificatie van het zoekresultaat'
           title: identificatie
           type: string
-        _links:
-          $ref: '#/components/schemas/KeuzeItem_links'
 
-    KeuzeItem_links:
-      type: object
-      properties:
-        adres:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-
-    KeuzeItemCollectieHal:
+    ZoekResultaatHalCollectie:
       description: 'resulaten als lijst'
       type: object
       properties:
-        zoekResultaten:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeuzeItem'
         _links:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalPaginationLinks'
+          type: object
+          properties:
+            self:
+              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+              description: 'Refereert naar de /adressen/zoeken endpoint met de zoekterm als parameter'
+            adres:
+              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalPaginationLinks'
+              description: 'Gepagineerde lijst van links naar zoekresultaten via een templated URI en met een zoekresultaat identificatie.'
+        _embedded:
+          type: object
+          properties:
+            zoekResultaten:
+              type: array
+              items:
+                $ref: '#/components/schemas/ZoekResultaat'
 
     Adres:
       type: object
       properties:
         verkorteStraatnaam:
           title: verkorteNaam
-          description: De verkorte naam is een maximaal 24 karakters lange represntatie van de naam van een openbare ruimte.
+          description: De verkorte naam is een maximaal 24 karakters lange representatie van de naam van een openbare ruimte.
           type: string
           minLength: 1
           maxLength: 24
@@ -1022,29 +1025,29 @@ components:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
           type: integer
-          example: 12
+          example: '12'
         huisletter:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
           title: huisletter
           type: string
-          example: A
+          example: 'A'
         huisnummertoevoeging:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter.
           title: huisnummer toevoeging
           type: string
-          example: bis
+          example: 'bis'
         postcode:
           title: postcode
           description: De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.
           type: string
-          example: 7500AA
+          example: '7500AA'
         woonplaats:
           description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
           title: woonplaats naam
           type: string
           minLength: 1
           maxLength: 80
-          example: Apeldoorn
+          example: 'Apeldoorn'
         nummeraanduidingIdentificatie:
           description: 'Fungeert ook als identificatie van het adres.'
           $ref: '#/components/schemas/NEN3610ID'
@@ -1063,7 +1066,7 @@ components:
           description: 'Boolean die aangeeft of dit adres een nevenadres is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
           type: boolean
         geconstateerd:
-          description: 'Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
+          description: 'Een aanduiding waarmee kan worden aangegeven dat één of meerdere gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
           type: boolean
         indicatieInOnderzoek:
           description: 'Een indicatie dat één of meerdere attributen van objecten gerelateerd aan een adres in onderzoek is/zijn.'
@@ -1134,6 +1137,7 @@ components:
     AdresseerbaarObjectHal:
       title: AdresAdresseerbaarObject
       type: object
+      description: 'Bevat één van de adresseerbare objecten ligplaats, standplaats of verblijfsobject.' 
       properties:
         ligplaats:
           $ref: '#/components/schemas/LigplaatsHal'
@@ -1141,12 +1145,19 @@ components:
           $ref: '#/components/schemas/StandplaatsHal'
         verblijfsobject:
           $ref: '#/components/schemas/VerblijfsobjectHal'
-
+    
     AdresseerbaarobjectHalCollectie:
       type: object
       properties:
         _links:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalCollectionLinks'
+          type: object
+          properties:
+            self:
+              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+              description: 'Refereert naar de /adresseerbareobjecten endpoint waar met nummeraanduiding- of pandIdentificatie bevraagd kan worden'
+            adresseerbareObjecten:
+              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalPaginationLinks'
+              description: 'Gepagineerde lijst van links naar adresseerbare objecten via een templated URI en met een identificatie van een adresseerbaar object.'
         _embedded:
           type: object
           properties:
@@ -1165,13 +1176,6 @@ components:
             met een op de oever aanwezig terrein of een gedeelte daarvan, die
             bestemd is voor het permanent afmeren van een voor woon-,
             bedrijfsmatige of recreatieve doeleinden geschikt drijvend object.
-          required:
-            - identificatie
-            - status
-            - geometrie
-            - geconstateerd
-            - documentdatum
-            - documentnummer
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
@@ -1195,7 +1199,6 @@ components:
               minLength: 1
               maxLength: 40
               example: 'AV-2019-08-19-00'
-            
 
     KenmerkLigplaatsInOnderzoek:
       title: KenmerkLigplaatsInOnderzoek
@@ -1210,7 +1213,7 @@ components:
         identificatieVanLigplaats:
           title: identificatie van ligplaats
           type: string
-          example: 1234020000000001
+          example: '1234020000000001'
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekLigplaats'
         indicatieInOnderzoek:
@@ -1288,13 +1291,6 @@ components:
       allOf:
         - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
         - type: object
-          required:
-            - identificatie
-            - status
-            - geometrie
-            - geconstateerd
-            - documentdatum
-            - documentnummer
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
@@ -1332,7 +1328,7 @@ components:
         identificatieVanStandplaats:
           title: identificatie van standplaats
           type: string
-          example: 1234020000000001
+          example: '1234020000000001'
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekStandplaats'
         indicatieInOnderzoek:
@@ -1411,16 +1407,6 @@ components:
       allOf:
         - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
         - type: object
-          required:
-            - identificatie
-            - geometrie
-            - gebruiksdoel
-            - oppervlakte
-            - status
-            - geconstateerd
-            - documentdatum
-            - documentnummer
-            - maaktDeelUitVan
           properties:
             identificatie:
               $ref: '#/components/schemas/NEN3610ID'
@@ -1471,7 +1457,7 @@ components:
         identificatieVanVerblijfsobject:
           title: identificatie van verblijfsobject
           type: string
-          example: 1234010000000001
+          example: '1234010000000001'
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekVerblijfsobject'
         indicatieInOnderzoek:
@@ -1557,16 +1543,6 @@ components:
       type: object
       title: OpenbareRuimte
       description: 'Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen.'
-      required:
-        - identificatie
-        - naam
-        - type
-        - status
-        - verkorteNaam
-        - geconstateerd
-        - documentdatum
-        - documentnummer
-        - ligtIn
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1585,7 +1561,7 @@ components:
           desciption: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
         verkorteNaam:
           title: verkorteNaam
-          description: De verkorte naam is een maximaal 24 karakters lange represntatie van de naam van een openbare ruimte.
+          description: De verkorte naam is een maximaal 24 karakters lange representatie van de naam van een openbare ruimte.
           type: string
           minLength: 1
           maxLength: 24
@@ -1636,7 +1612,7 @@ components:
           title: identificatie van openbare ruimte
           description: De unieke aanduiding van een openbare ruimte.
           type: string
-          example: 0518300000000001
+          example: '0518300000000001'
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekOpenbareRuimte'
         indicatieInOnderzoek:
@@ -1695,14 +1671,6 @@ components:
       type: object
       title: Nummeraanduiding
       description: Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats.
-      required:
-        - identificatie
-        - huisnummer
-        - status
-        - geconstateerd
-        - documentdatum
-        - documentnummer
-        - ligtAan
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1710,22 +1678,22 @@ components:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
           type: integer
-          example: 12
+          example: '12'
         huisletter:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
           title: huisletter
           type: string
-          example: A
+          example: 'A'
         huisnummertoevoeging:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter.
           title: huisnummer toevoeging
           type: string
-          example: bis
+          example: 'bis'
         postcode:
           title: postcode
           description: De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.
           type: string
-          example: 7500AA
+          example: '7500AA'
         status:
           $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
         geconstateerd:
@@ -1766,7 +1734,7 @@ components:
           description: De unieke aanduiding van een nummeraanduiding.
           title: identificatie van nummeraanduiding
           type: string
-          example: 1234200000000001
+          example: '1234200000000001'
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekNummeraanduiding'
         indicatieInOnderzoek:
@@ -1853,13 +1821,6 @@ components:
       type: object
       title: Woonplaats
       description: Een Woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente.
-      required:
-        - identificatie
-        - naam
-        - status
-        - geconstateerd
-        - documentdatum
-        - documentnummer
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1869,7 +1830,7 @@ components:
           type: string
           minLength: 1
           maxLength: 80
-          example: Apeldoorn
+          example: 'Apeldoorn'
         status:
           $ref: '../../../../lvbag/imbag/v20180601/woonplaats.yaml#/StatusWoonplaats'
           description: 'De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.'
@@ -1917,7 +1878,7 @@ components:
           description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
           title: identificatie van een woonplaats
           type: string
-          example: 0150
+          example: '0150'
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekWoonplaats'
         indicatieInOnderzoek:
@@ -1971,14 +1932,6 @@ components:
       type: object
       title: Pand
       description: Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is.
-      required:
-        - identificatie
-        - geometrie
-        - oorspronkelijkBouwjaar
-        - status
-        - geconstateerd
-        - documentdatum
-        - documentnummer
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1991,7 +1944,7 @@ components:
           description: 'De aanduiding van het jaar waarin een pand oorspronkelijk als bouwkundig gereed is of zal worden opgeleverd. Bij het initieel opvoeren van een PAND wordt door de gemeente een reële inschatting gemaakt van het waarschijnlijke bouwjaar van het PAND. Bij het bouwkundig gereed opleveren van het PAND wordt deze waarde in voorkomende gevallen aangepast. Indien in latere jaren wijzigingen aan een pand worden aangebracht, leidt dit niet tot wijziging van het bouwjaar.'
           type: string
           maxLength: 4
-          example: 1972
+          example: '1972'
         status:
           $ref: '../../../../lvbag/imbag/v20180601/pand.yaml#/StatusPand'
           description: 'Een codering van de verschillende waarden die de status van een pand kan aannemen.'
@@ -2019,6 +1972,7 @@ components:
       properties:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+# Dit ie eigenljik niet nodig. Er is een endpoint om de adresseerbare objecten op te vragen met een pand ID.
         verblijfsobjecten:
           description: 'De verblijfsobjecten die in dit pand liggen. Van elk gerelateerd verblijfsobject: hiervan het voorkomen van verblijfsobject die gevonden wordt met dezelfde tijdreisparameters als waarmee het pand voorkomen gevonden is.'
           type: array
@@ -2072,7 +2026,7 @@ components:
         _embedded:
           type: object
           properties:
-            Panden:
+            panden:
               type: array
               items:
                 $ref: '#/components/schemas/PandHal'
@@ -2090,7 +2044,7 @@ components:
         identificatieVanPand:
           title: identificatie van pand
           type: string
-          example: 1234100000000001
+          example: '1234100000000001'
         kenmerk:
           $ref: '#/components/schemas/InOnderzoekPand'
         indicatieInOnderzoek:
@@ -2129,10 +2083,10 @@ components:
           description: 'De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018).'
           title: lokaalID
           type: string
-          example: 0123
+          example: '0123'
         namespace:
           description: 'De namespace voor een BAG object. Formaat: NL.IMBAG.<object naam>.'
           title: namespace
           type: string
           minLength: 1
-          example: NL.IMBAG.Woonplaats
+          example: 'NL.IMBAG.Woonplaats'
