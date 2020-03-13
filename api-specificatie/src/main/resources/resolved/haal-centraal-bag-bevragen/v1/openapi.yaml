@@ -1500,7 +1500,7 @@ paths:
         zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres
         op. Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie
-        van een nummeraanduiding. Parameter pandidentificatie bevat de 16 cijferige
+        van een nummeraanduiding. Parameter pandidentificatie-query bevat de 16 cijferige
         identificatie van een pand
       operationId: raadpleegAdresseerbaarobject
       parameters:
@@ -3295,8 +3295,8 @@ paths:
         identificatie vekregen uit een zoek-operatie
       description: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject
         identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde
-        verblijfsobjecten en het/de adres(sen). Parameter nummeraanduidingidentificatie
-        bevat de 16 cijferige identificatie van een nummeraanduiding. Parameter adresseerbaarobjectidentificatie
+        verblijfsobjecten en het/de adres(sen). Parameter nummeraanduidingidentificatie-query
+        bevat de 16 cijferige identificatie van een nummeraanduiding. Parameter adresseerbaarobjectidentificatie-query
         bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject
       operationId: raadpleegPanden
       parameters:
