@@ -1227,8 +1227,6 @@ components:
 
     AdresseerbaarObject_embedded:
       type: object
-      required:
-        - self
       properties:
         maaktDeelUitVanPanden:
           description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).'
