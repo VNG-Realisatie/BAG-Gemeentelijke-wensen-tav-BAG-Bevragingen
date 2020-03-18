@@ -2,17 +2,17 @@ openapi: 3.0.0
 # Server specificatie
 servers:
   - description: LVBAG - TEST
-    url: https://api.test.kadaster.nl/lvbag/api/haal-centraal-bag-bevragen/v1
+    url: https://api.test.kadaster.nl/lvbag/api/huidigebevragingen/v1
   - description: LVBAG - ACCEPTATIE
-    url: https://api.acceptatie.kadaster.nl/lvbag/api/haal-centraal-bag-bevragen/v1
+    url: https://api.acceptatie.kadaster.nl/lvbag/api/huidigebevragingen/v1
   - description: LVBAG - PRODUCTIE
-    url: https://api.kadaster.nl/lvbag/api/haal-centraal-bag-bevragen/v1
+    url: https://api.kadaster.nl/lvbag/api/huidigebevragingen/v1
 
 # API specificatie - algemeen
 info:
-  title: Haal Centraal BAG Bevragen API
+  title: Huidige bevragingen API
   description: >-
-    "Dit is de Haal Centraal BAG Bevragen API."
+    "Dit is de huidige bevragingen API."
   version: "1.0.0"
   # De versie wordt 1.0 als de API naar productie gaat.
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
@@ -1006,6 +1006,7 @@ components:
 
     Adres:
       type: object
+      title: Adres
       properties:
         verkorteStraatnaam:
           title: verkorteNaam
@@ -1057,20 +1058,29 @@ components:
           $ref: '#/components/schemas/NEN3610ID'
         adresseerbaarObjectIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
-        pandIdentificatie:
+        pandIdentificaties:
           type: array
           items:
             $ref: '#/components/schemas/NEN3610ID'
           minItems: 1
-        nevenadres:
-          description: 'Boolean die aangeeft of dit adres een nevenadres is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
+        indicatieNevenadres:
+          description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
           type: boolean
-        geconstateerd:
+        indicatieGeconstateerd:
           description: 'Een aanduiding waarmee kan worden aangegeven dat één of meerdere gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
           type: boolean
-        indicatieInOnderzoek:
-          description: 'Een indicatie dat één of meerdere attributen van objecten gerelateerd aan een adres in onderzoek is/zijn.'
+        indicatieMogelijkOnjuist:
+          description: 'Een aanduiding dat één of meerdere attributen van objecten gerelateerd aan een adres in onderzoek of mogelijk onjuist is/zijn.'
           type: boolean
+
+    AdresHal:
+      allOf:
+        - $ref: '#/components/schemas/Adres'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Adres_links'
+            _embedded:
+              $ref: '#/components/schemas/Adres_embedded'
 
     Adres_links:
       type: object
@@ -1102,62 +1112,139 @@ components:
       type: object
       properties:
         openbareruimte:
-          $ref: '#/components/schemas/OpenbareRuimte'
+          $ref: '#/components/schemas/OpenbareRuimteHal'
         nummeraanduiding:
-          $ref: '#/components/schemas/Nummeraanduiding'
+          $ref: '#/components/schemas/NummeraanduidingHal'
         woonplaats:
-          $ref: '#/components/schemas/Woonplaats'
+          $ref: '#/components/schemas/WoonplaatsHal'
 
-    AdresHal:
-      allOf:
-        - $ref: '#/components/schemas/Adres'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Adres_links'
-            _embedded:
-              $ref: '#/components/schemas/Adres_embedded'
-
-    AbstractAdresseerbaarObject:
-      title: AbstractAdresseerbaarObject
-      description: Abstract type adresseerbaar object
+    AdresseerbaarObject:
+      title: AdresseerbaarObject
       type: object
+      description: 'De definitie van dit object is in tegenstelling tot de deifnitie in de BAG Catalogus 2018 een concreet object type dat een ligplaats, standplaats of verblijfsobject kan zijn.'
       properties:
+        identificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        geometrie:
+          $ref: '../../../../lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
+        gebruiksdoelen:
+          type: array
+          items:
+            $ref: '../../../../lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
+          minItems: 1
+        oppervlakte:
+          title: oppervlakte
+          type: integer
+        status:
+          $ref: '#/components/schemas/AdresseerbaarObjectHuidigeStatus'
+          description: 'Een aanduiding van de huidige status van een adresseerbaar object. Deze wordt ontleend van de status van een ligplaats, standplaats of verblijfsobject.'
+        geconstateerd:
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
+        documentdatum:
+          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
+          title: documentdatum
+          type: string
+          format: date
+          example: '2019-08-14'
+        documentnummer:
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
+          type: string
+          minLength: 1
+          maxLength: 40
+          example: 'AV-2019-08-19-00'
+        type:
+          $ref: '../../../imbag/v20180601/adresseerbaarobject.yaml#/TypeAdresseerbaarObject'
         heeftAlsHoofdAdres:
           $ref: '#/components/schemas/NEN3610ID'
-        heeftAlsNevenAdres:
+        heeftAlsNevenAdressen:
           type: array
           items:
             $ref: '#/components/schemas/NEN3610ID'
           minItems: 1
-        adresseerbaarObjectType:
-          $ref: '../../../imbag/v20180601/adresseerbaarobject.yaml#/TypeAdresseerbaarObject'
-      discriminator:
-        propertyName: adresseerbaarObjectType
+        maaktDeelUitVanPanden:
+          type: array
+          items:
+            $ref: '#/components/schemas/NEN3610ID'
+          minItems: 1
+        geometrieMogelijkOnjuist:
+          description: 'Als de geometrie in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        gebruiksdoelMogelijkOnjuist:
+          description: 'Als het adresseeerbare object een verblijfsobject betreft en een gebruiksdoel is in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        oppervlakteMogelijkOnjuist:
+          description: 'Als het adresseeerbare object een verblijfsobject betreft en de oppervlakte is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        statusMogelijkOnjuist:
+          description: 'Als de status in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        heeftAlsHoofdAdresMogelijkOnjuist:
+          description: 'Als de relatie van een adresseerbaar object met het hoofdadres is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        heeftAlsNevenAdresMogelijkOnjuist:
+          description: 'Als de relatie van een adresseerbaar object met een nevenadres in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        maaktDeelUitVanPandenMogelijkOnjuist:
+          description: 'Als het adresseerbare object een verblijfsobject betreft en de relatie van het verblijfsobject met een pand is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
 
     AdresseerbaarObjectHal:
-      title: AdresAdresseerbaarObject
+      allOf:
+        - $ref: '#/components/schemas/AdresseerbaarObject'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/AdresseerbaarObject_links'
+            _embedded:
+              $ref: '#/components/schemas/AdresseerbaarObject_embedded'
+
+    AdresseerbaarObject_links:
       type: object
-      description: 'Bevat één van de adresseerbare objecten ligplaats, standplaats of verblijfsobject.' 
+      required:
+        - self
       properties:
-        ligplaats:
-          $ref: '#/components/schemas/LigplaatsHal'
-        standplaats:
-          $ref: '#/components/schemas/StandplaatsHal'
-        verblijfsobject:
-          $ref: '#/components/schemas/VerblijfsobjectHal'
-    
+        self:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'Refereert naar de /adresseerbareobjecten endpoint waar met een adresseerbaarobject identificatie bevraagd kan worden'
+        heeftAlsHoofdadres:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        heeftAlsNevenadressen:
+          type: array
+          items:
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+            description: 'Refereert bij verblijfsobjecten naar de /adresseerbareobjecten waar met een adresseerbaarobject identificatie bevraagd kan worden'
+          minItems: 0
+        maaktDeelUitVanPanden:
+          type: array
+          items:
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+            description: 'Refereert bij verblijfsobjecten naar de /adresseerbareobjecten waar met een adresseerbaarobject identificatie bevraagd kan worden'
+          minItems: 1
+        adres:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: Het aan de ligplaats gerelateerde adres (link).
+
+    AdresseerbaarObject_embedded:
+      type: object
+      required:
+        - self
+      properties:
+        maaktDeelUitVanPanden:
+          description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).'
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHal'
+          minItems: 1
+        adres:
+          $ref: '#/components/schemas/AdresHal'
+          description: Het aan de ligplaats gerelateerde adres (object)
+
     AdresseerbaarobjectHalCollectie:
       type: object
       properties:
         _links:
-          type: object
-          properties:
-            self:
-              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-              description: 'Refereert naar de /adresseerbareobjecten endpoint waar met nummeraanduiding- of pandIdentificatie bevraagd kan worden'
-            adresseerbareObjecten:
-              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalPaginationLinks'
-              description: 'Gepagineerde lijst van links naar adresseerbare objecten via een templated URI en met een identificatie van een adresseerbaar object.'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalCollectionLinks'
         _embedded:
           type: object
           properties:
@@ -1166,383 +1253,23 @@ components:
               items:
                 $ref: '#/components/schemas/AdresseerbaarObjectHal'
 
-    Ligplaats:
-      allOf:
-        - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-        - type: object
-          description: >-
-            Een Ligplaats is een door het bevoegde gemeentelijke orgaan
-            als zodanig aangewezen plaats in het water al dan niet aangevuld
-            met een op de oever aanwezig terrein of een gedeelte daarvan, die
-            bestemd is voor het permanent afmeren van een voor woon-,
-            bedrijfsmatige of recreatieve doeleinden geschikt drijvend object.
-          properties:
-            identificatie:
-              $ref: '#/components/schemas/NEN3610ID'
-            status:
-              $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusPlaats'
-            geometrie:
-              $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Surface'
-            geconstateerd:
-              description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-              type: boolean
-            documentdatum:
-              description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-              title: documentdatum
-              type: string
-              format: date
-              example: '2019-08-14'
-            documentnummer:
-              description: De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.
-              title: Documentnummer
-              type: string
-              minLength: 1
-              maxLength: 40
-              example: 'AV-2019-08-19-00'
-
-    KenmerkLigplaatsInOnderzoek:
-      title: KenmerkLigplaatsInOnderzoek
-      type: object
-      required:
-        - identificatieVanLigplaats
-        - kenmerk
-        - indicatieInOnderzoek
-        - documentdatum
-        - documentnummer
-      properties:
-        identificatieVanLigplaats:
-          title: identificatie van ligplaats
-          type: string
-          example: '1234020000000001'
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekLigplaats'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
-
-    InOnderzoekLigplaats:
-      title: InOnderzoekLigplaats
+    AdresseerbaarObjectHuidigeStatus:
+      title: AdresseerbaarObjectHuidigeStatus
       type: string
       enum:
-        - 'geometrie'
-        - 'status'
-        - 'heeft als hoofdadres'
-        - 'heeft als nevenadres'
-
-    Ligplaats_links:
-      type: object
-      required:
-        - self
-      properties:
-        self:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-        adres:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-          description: Het aan de ligplaats gerelateerde adres (link).
-
-    Ligplaats_embedded:
-      type: object
-      properties:
-        adres:
-          $ref: '#/components/schemas/Adres'
-          description: Het aan de ligplaats gerelateerde adres (object)
-
-    LigplaatsInOnderzoek:
-      type: object
-      title: LigplaatsInOnderzoek
-      properties:
-        ligplaats:
-          $ref: '#/components/schemas/Ligplaats'
-        inonderzoek:
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkLigplaatsInOnderzoek'
-          minItems: 1
-
-    LigplaatsHal:
-      allOf:
-        - $ref: '#/components/schemas/LigplaatsInOnderzoek'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Ligplaats_links'
-            _embedded:
-              $ref: '#/components/schemas/Ligplaats_embedded'
-
-    Standplaats:
-      title: Standplaats
-      description: >-
-        Een Standplaats is een door het bevoegde gemeentelijke orgaan als
-        zodanig aangewezen terrein of gedeelte daarvan dat bestemd is voor
-        het permanent plaatsen van een niet direct en niet duurzaam met de
-        aarde verbonden en voor woon-, bedrijfsmatige, of recreatieve
-        doeleinden geschikte ruimte.
-      allOf:
-        - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-        - type: object
-          properties:
-            identificatie:
-              $ref: '#/components/schemas/NEN3610ID'
-            status:
-              $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusPlaats'
-            geometrie:
-              $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Surface'
-            geconstateerd:
-              description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-              type: boolean
-            documentdatum:
-              description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-              title: documentdatum
-              type: string
-              format: date
-              example: '2019-08-14'
-            documentnummer:
-              description: De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.
-              title: Documentnummer
-              type: string
-              minLength: 1
-              maxLength: 40
-              example: 'AV-2019-08-19-00'
-
-    KenmerkStandplaatsInOnderzoek:
-      title: KenmerkStandplaatsInOnderzoek
-      type: object
-      required:
-        - identificatieVanStandplaats
-        - kenmerk
-        - indicatieInOnderzoek
-        - documentdatum
-        - documentnummer
-      properties:
-        identificatieVanStandplaats:
-          title: identificatie van standplaats
-          type: string
-          example: '1234020000000001'
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekStandplaats'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
-
-    InOnderzoekStandplaats:
-      title: InOnderzoekStandplaats
-      type: string
-      enum:
-        - 'geometrie'
-        - 'status'
-        - 'heeft als hoofdadres'
-        - 'heeft als nevenadres'
-
-    Standplaats_links:
-      type: object
-      required:
-        - self
-      properties:
-        self:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-        adres:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-          description: 'Het aan de standplaats gerelateerde adres (link).'
-
-    Standplaats_embedded:
-      type: object
-      properties:
-        adres:
-          $ref: '#/components/schemas/Adres'
-          description: 'Het aan de ligplaats gerelateerde adres (object).'
-
-    StandplaatsInOnderzoek:
-      type: object
-      title: StandplaatsInOnderzoek
-      properties:
-        standplaats:
-          $ref: '#/components/schemas/Standplaats'
-        inonderzoek:
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkStandplaatsInOnderzoek'
-          minItems: 1
-
-    StandplaatsHal:
-      allOf:
-        - $ref: '#/components/schemas/StandplaatsInOnderzoek'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Standplaats_links'
-            _embedded:
-              $ref: '#/components/schemas/Standplaats_embedded'
-
-    Verblijfsobject:
-      title: Verblijfsobject
-      description: >-
-        Een Verblijfsobject is de kleinste binnen een of meer panden gelegen
-        en voor woon-, bedrijfsmatige, of recreatieve doeleinden geschikte
-        eenheid van gebruik die ontsloten wordt via een eigen afsluitbare
-        toegang vanaf de openbare weg, een erf of een gedeelde
-        verkeersruimte, onderwerp kan zijn van goederenrechtelijke
-        rechtshandelingen en in functioneel opzicht zelfstandig is.
-      allOf:
-        - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-        - type: object
-          properties:
-            identificatie:
-              $ref: '#/components/schemas/NEN3610ID'
-            geometrie:
-              $ref: '../../../../lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
-            gebruiksdoel:
-              type: array
-              items:
-                $ref: '../../../../lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
-              minItems: 1
-            oppervlakte:
-              title: oppervlakte
-              type: integer
-            status:
-              $ref: '../../../../lvbag/imbag/v20180601/verblijfsobject.yaml#/StatusVerblijfsobject'
-            geconstateerd:
-              description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-              type: boolean
-            documentdatum:
-              description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-              title: documentdatum
-              type: string
-              format: date
-              example: '2019-08-14'
-            documentnummer:
-              description: De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.
-              title: Documentnummer
-              type: string
-              minLength: 1
-              maxLength: 40
-              example: 'AV-2019-08-19-00'
-            maaktDeelUitVan:
-              type: array
-              items:
-                $ref: '#/components/schemas/NEN3610ID'
-              minItems: 1
-
-    KenmerkVerblijfsobjectInOnderzoek:
-      title: KenmerkVerblijfsobjectInOnderzoek
-      type: object
-      required:
-        - identificatieVanVerblijfsobject
-        - kenmerk
-        - indicatieInOnderzoek
-        - documentdatum
-        - documentnummer
-      properties:
-        identificatieVanVerblijfsobject:
-          title: identificatie van verblijfsobject
-          type: string
-          example: '1234010000000001'
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekVerblijfsobject'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
-
-    InOnderzoekVerblijfsobject:
-      title: InOnderzoekVerblijfsobject
-      type: string
-      enum:
-        - 'geometrie'
-        - 'gebruiksdoel'
-        - 'oppervlakte'
-        - 'status'
-        - 'maakt deel uit van'
-        - 'heeft als hoofdadres'
-        - 'heeft als nevenadres'
-
-    Verblijfsobject_links:
-      type: object
-      required:
-        - self
-      properties:
-        self:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-        adres:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-          description: 'Het aan het verblijfsobject gerelateerde adres (link).'
-        maaktDeelUitVan:
-          description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (lnik).'
-          type: array
-          items:
-            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-          minItems: 1
-
-    Verblijfsobject_embedded:
-      type: object
-      properties:
-        adres:
-          $ref: '#/components/schemas/Adres'
-          description: 'Het aan het verblijfsobject gerelateerde adres (object).'
-        maaktDeelUitVan:
-          description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).'
-          type: array
-          items:
-            $ref: '#/components/schemas/Pand'
-          minItems: 1
-
-    VerblijfsobjectInOnderzoek:
-      type: object
-      title: VerblijfsobjectInOnderzoek
-      properties:
-        verblijfsobject:
-          $ref: '#/components/schemas/Verblijfsobject'
-        inonderzoek:
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkVerblijfsobjectInOnderzoek'
-          minItems: 1
-
-    VerblijfsobjectHal:
-      allOf:
-        - $ref: '#/components/schemas/VerblijfsobjectInOnderzoek'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Verblijfsobject_links'
-            _embedded:
-              $ref: '#/components/schemas/Verblijfsobject_embedded'
+        # Ligplaats / standplaats huidige statussen
+        - 'Plaats aangewezen'
+        # Verblijfsobject huidige statussen
+        - 'Verblijfsobject gevormd'
+        - 'Verblijfsobject in gebruik (niet ingemeten)'
+        - 'Verblijfsobject in gebruik'
+        - 'Verbouwing verblijfsobject'
+        - 'Verblijfsobject buiten gebruik'
 
     OpenbareRuimte:
       type: object
       title: OpenbareRuimte
-      description: 'Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen.'
+      description: 'Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1552,7 +1279,7 @@ components:
           type: string
           minLength: 1
           maxLength: 80
-          example: 'Laan van Westenenk'
+          example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         type:
           $ref: '../../../../lvbag/imbag/v20180601/openbareruimte.yaml#/TypeOpenbareRuimte'
           description: 'De aard van de als zodanig benoemde openbare ruimte.'
@@ -1577,69 +1304,34 @@ components:
           example: '2019-08-14'
         documentnummer:
           description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
-          title: Documentnummer
+          title: documentnummer
           type: string
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtIn:
+        naamMogelijkOnjuist:
+          type: boolean
+        typeMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+        gerelateerdeWoonplaatsMogelijkOnjuist:
+          type: boolean  
+        ligtInWoonplaats:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een openbare ruimte ligt in een woonplaats.'
 
-    OpenbareRuimteInOnderzoek:
+    OpenbareRuimteHal:
       type: object
-      title: OpenbareRuimteInOnderzoek
+      title: OpenbareRuimteHal
       properties:
-        openbareruimte:
-          $ref: '#/components/schemas/OpenbareRuimte'
-        inonderzoek:
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkOpenbareRuimteInOnderzoek'
-          minItems: 1
-
-    KenmerkOpenbareRuimteInOnderzoek:
-      title: KenmerkOpenbareRuimteInOnderzoek
-      type: object
-      required:
-        - identificatieVanOpenbareRuimte
-        - kenmerk
-        - indicatieInOnderzoek
-        - documentdatum
-        - documentnummer
-      properties:
-        identificatieVanOpenbareRuimte:
-          title: identificatie van openbare ruimte
-          description: De unieke aanduiding van een openbare ruimte.
-          type: string
-          example: '0518300000000001'
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekOpenbareRuimte'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
-
-    InOnderzoekOpenbareRuimte:
-      title: InOnderzoekOpenbareRuimte
-      type: string
-      enum:
-        - 'naam'
-        - 'type'
-        - 'status'
-        - 'gerelateerde woonplaats'
-
+        openbareRuimte:
+          $ref: '#/components/schemas/OpenbareRuimte'          
+        _links:
+          $ref: '#/components/schemas/OpenbareRuimte_links'
+        _embedded:
+          $ref: '#/components/schemas/OpenbareRuimte_embedded'
+      
     OpenbareRuimte_links:
       type: object
       required:
@@ -1655,22 +1347,13 @@ components:
       type: object
       properties:
         ligtInWoonplaats:
-          $ref: '#/components/schemas/Woonplaats'
+          $ref: '#/components/schemas/WoonplaatsHal'
           description: 'De aan het oenbareruimte gerelateerde woonplaats (object(en)).'
-
-    OpenbareRuimteHal:
-      allOf:
-        - $ref: '#/components/schemas/OpenbareRuimteInOnderzoek'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/OpenbareRuimte_links'
-            _embedded:
-              $ref: '#/components/schemas/OpenbareRuimte_embedded'
 
     Nummeraanduiding:
       type: object
       title: Nummeraanduiding
-      description: Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats.
+      description: 'Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1706,77 +1389,45 @@ components:
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.
-          title: Documentnummer
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
           type: string
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtIn:
+        ligtInWoonplaats:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een nummeraanduiding ligt in een woonplaats.'
-        ligtAan:
+        ligtAanOpenbareRuimte:
           $ref: '#/components/schemas/NEN3610ID'
           descriptin: 'Een nummeraanduiding ligt aan een openbare ruimte.'
-
-    KenmerkNummeraanduidingInOnderzoek:
-      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment.
-      title: KenmerkNummeraanduidingInOnderzoek
-      type: object
-      required:
-        - identificatieVanNummeraanduiding
-        - kenmerk
-        - indicatieInOnderzoek
-        - documentdatum
-        - documentnummer
-      properties:
-        identificatieVanNummeraanduiding:
-          description: De unieke aanduiding van een nummeraanduiding.
-          title: identificatie van nummeraanduiding
-          type: string
-          example: '1234200000000001'
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekNummeraanduiding'
-        indicatieInOnderzoek:
+        huisnummerMogelijkOnjuist:
           type: boolean
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
+        huisletterMogelijkOnjuist:
+          type: boolean
+        huisnummertoevoegingMogelijkOnjuist:
+          type: boolean
+        postcodeMogelijkOnjuist:
+          type: boolean
+        typeAdresseerbaarObjectMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+        ligtInWoonplaatsMogelijkOnjuist:
+          type: boolean
+        ligtAanOpenbareRuimteMogelijkOnjuist:
+          type: boolean
 
-    InOnderzoekNummeraanduiding:
-      title: InOnderzoekNummeraanduiding
-      type: string
-      enum:
-        - 'huisnummer'
-        - 'huisletter'
-        - 'huisnummertoevoeging'
-        - 'postcode'
-        - 'type adresseerbaar object'
-        - 'status'
-        - 'ligt in'
-        - 'ligt aan'
-
-    NummeraanduidingInOnderzoek:
+    NummeraanduidingHal:
       type: object
-      title: NummeraanduidingInOnderzoek
+      title: NummeraanduidingHal
       properties:
         nummeraanduiding:
           $ref: '#/components/schemas/Nummeraanduiding'
-        inonderzoek:
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkNummeraanduidingInOnderzoek'
-          minItems: 1
+        _links:
+          $ref: '#/components/schemas/Nummeraanduiding_links'
+        _embedded:
+          $ref: '#/components/schemas/Nummeraanduiding_embedded'
 
     Nummeraanduiding_links:
       type: object
@@ -1799,28 +1450,19 @@ components:
       type: object
       properties:
         adres:
-          $ref: '#/components/schemas/Adres'
+          $ref: '#/components/schemas/AdresHal'
           description: 'De aan de nummeraanduiding gerelateerde adres (object).'
         ligtAanOpenbareRuimte:
-          $ref: '#/components/schemas/OpenbareRuimte'
+          $ref: '#/components/schemas/OpenbareRuimteHal'
           descripion: 'De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).'
         ligtInWoonplaats:
-          $ref: '#/components/schemas/Woonplaats'
+          $ref: '#/components/schemas/WoonplaatsHal'
           description: 'De aan de nummeraanduiding gerelateerde woonplaats (object(en)).'
-
-    NummeraanduidingHal:
-      allOf:
-        - $ref: '#/components/schemas/NummeraanduidingInOnderzoek'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Nummeraanduiding_links'
-            _embedded:
-              $ref: '#/components/schemas/Nummeraanduiding_embedded'
 
     Woonplaats:
       type: object
       title: Woonplaats
-      description: Een Woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente.
+      description: 'Een Woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1844,66 +1486,27 @@ components:
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.
-          title: Documentnummer
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
           type: string
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-
-    WoonplaatsInOnderzoek:
-      type: object
-      title: WoonplaatsInOnderzoek
-      properties:
-        woonplaats:
-          $ref: '#/components/schemas/Woonplaats'
-        inonderzoek:
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkWoonplaatsInOnderzoek'
-          minItems: 1
-
-    KenmerkWoonplaatsInOnderzoek:
-      description: Limitatieve opsomming van alle kenmerken van dit object die in onderzoek zijn op dit moment.
-      title: KenmerkWoonplaatsInOnderzoek
-      type: object
-      required:
-        - identificatieVanWoonplaats
-        - kenmerk
-        - indicatieInOnderzoek
-        - documentdatum
-        - documentnummer
-      properties:
-        identificatieVanWoonplaats:
-          description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
-          title: identificatie van een woonplaats
-          type: string
-          example: '0150'
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekWoonplaats'
-        indicatieInOnderzoek:
+        naamMogelijkOnjuist:
           type: boolean
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
+        geometrieMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
 
-    InOnderzoekWoonplaats:
-      title: InOnderzoekWoonplaats
-      type: string
-      enum:
-        - 'naam'
-        - 'geometrie'
-        - 'status'
+    WoonplaatsHal:
+      allOf:
+        - $ref: '#/components/schemas/Woonplaats'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Woonplaats_links'
+            _embedded:
+              $ref: '#/components/schemas/Woonplaats_embedded'
 
     Woonplaats_links:
       type: object
@@ -1919,19 +1522,10 @@ components:
         geometrie:
           $ref: '../../../../lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/VlakOfMultivlak'
 
-    WoonplaatsHal:
-      allOf:
-        - $ref: '#/components/schemas/WoonplaatsInOnderzoek'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Woonplaats_links'
-            _embedded:
-              $ref: '#/components/schemas/Woonplaats_embedded'
-
     Pand:
       type: object
       title: Pand
-      description: Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is.
+      description: 'Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
@@ -1958,12 +1552,27 @@ components:
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.
-          title: Documentnummer
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
           type: string
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
+        geometrieMogelijkOnjuist:
+          type: boolean
+        oorspronkelijkBouwjaarMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+    
+    PandHal:
+      allOf:
+        - $ref: '#/components/schemas/Pand'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Pand_links'
+            _embedded:
+              $ref: '#/components/schemas/Pand_embedded'
 
     Pand_links:
       type: object
@@ -1972,13 +1581,6 @@ components:
       properties:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-# Dit ie eigenljik niet nodig. Er is een endpoint om de adresseerbare objecten op te vragen met een pand ID.
-        verblijfsobjecten:
-          description: 'De verblijfsobjecten die in dit pand liggen. Van elk gerelateerd verblijfsobject: hiervan het voorkomen van verblijfsobject die gevonden wordt met dezelfde tijdreisparameters als waarmee het pand voorkomen gevonden is.'
-          type: array
-          items:
-            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-          minItems: 1
         adressen:
           type: array
           items:
@@ -1988,35 +1590,10 @@ components:
     Pand_embedded:
       type: object
       properties:
-        verblijfsobjecten:
-          type: array
-          items:
-            $ref: '#/components/schemas/Verblijfsobject'
         adressen:
           type: array
           items:
-            $ref: '#/components/schemas/Adres'
-
-    PandInOnderzoek:
-      type: object
-      title: PandInOnderzoek
-      properties:
-        pand:
-          $ref: '#/components/schemas/Pand'
-        inonderzoek:
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkPandInOnderzoek'
-          minItems: 1
-
-    PandHal:
-      allOf:
-        - $ref: '#/components/schemas/PandInOnderzoek'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Pand_links'
-            _embedded:
-              $ref: '#/components/schemas/Pand_embedded'
+            $ref: '#/components/schemas/AdresHal'
 
     PandHalCollectie:
       type: object
@@ -2030,46 +1607,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PandHal'
-
-    KenmerkPandInOnderzoek:
-      title: KenmerkPandInOnderzoek
-      type: object
-      required:
-        - identificatieVanPand
-        - kenmerk
-        - indicatieInOnderzoek
-        - documentdatum
-        - documentnummer
-      properties:
-        identificatieVanPand:
-          title: identificatie van pand
-          type: string
-          example: '1234100000000001'
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekPand'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          description: De datum van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: Het nummer van het document waarin de grondslag van het onderzoek wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          title: Documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
-
-    InOnderzoekPand:
-      title: InOnderzoekPand
-      type: string
-      enum:
-        - 'geometrie'
-        - 'oorspronkelijk bouwjaar'
-        - 'status'
 
     NEN3610ID:
       type: object
