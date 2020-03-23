@@ -33,7 +33,7 @@ Nummeraanduiding:
       title: huisnummer toevoeging
       type: string
       pattern: '^[0-9a-zA-Z]{1,4}$'
-      example: bis
+      example: 'bis'
     postcode:
       title: postcode
       description: De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.
