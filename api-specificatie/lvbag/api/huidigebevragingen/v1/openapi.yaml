@@ -1,0 +1,1629 @@
+openapi: 3.0.0
+# Server specificatie
+servers:
+  - description: LVBAG - TEST
+    url: https://api.test.kadaster.nl/lvbag/api/huidigebevragingen/v1
+  - description: LVBAG - ACCEPTATIE
+    url: https://api.acceptatie.kadaster.nl/lvbag/api/huidigebevragingen/v1
+  - description: LVBAG - PRODUCTIE
+    url: https://api.kadaster.nl/lvbag/api/huidigebevragingen/v1
+
+# API specificatie - algemeen
+info:
+  title: Huidige bevragingen API
+  description: >-
+    "Dit is de huidige bevragingen API."
+  version: "1.0.0"
+  # De versie wordt 1.0 als de API naar productie gaat.
+  termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
+  contact:
+    name: Kadaster - Beheerder Landelijke Voorziening BAG
+    email: bag@kadaster.nl
+    url: https://zakelijk.kadaster.nl/bag
+  license:
+    name: European Union Public License, version 1.2 (EUPL-1.2)
+    url: https://eupl.eu/1.2/nl/
+
+security:
+  - apiKeyBAG: []
+
+tags:
+  -
+    name: Adres
+    description: "Dit endpoint levert de huidige gegevens van één of meer (voorkomens van) adres(sen).
+      Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+      Als een nummeraanduiding of een adresseerbaarobject een eind status heeft, dan levert een bevraging geen adres op.
+      De informatie die wordt verkregen via dit endpoint is alleen actueel op het moment van bevragen.
+      Tussen twee bevragingen kunnen wijzigingen zijn doorgevoerd op de adres informatie, waardoor de informatie verkregen uit verschillende bevragingen kan verschillen.
+      Dit endpoint levert geen historische informatie noch de gehele levenscyclus van adressen."
+
+paths:
+  /info:
+    get:
+      security:
+        - apiKeyBAG: []
+      summary: 'Algemene info van de API'
+      tags:
+        - Algemene informatie
+      operationId: getInfo
+      responses:
+        '200':
+          description: Bevraging getInfo geslaagd
+          content:
+            application/json:
+              schema:
+                $ref: '../../../../generiek/api-info.yaml#/API-info'
+        default:
+          description: 'Onverwacht probleem'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/Foutbericht'
+
+  /adressen/zoek:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: zoek
+      tags:
+        - Adres
+      summary: Zoek adressen met verschillende parameters.
+      description: Zoeken van adressen via free query op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging
+      parameters:
+        - $ref: '#/components/parameters/zoek'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/page'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/pageSize'
+      responses:
+        '200':
+          description: Zoek adres geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            X-Pagination-Page:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Pagination_Limit'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/ZoekResultaatHalCollectie'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /adressen:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegAdresMetZoekResultaatIdentificatie
+      tags:
+        - Adres
+      summary: De API levert huidige gegevens van een adres.
+      description: "Raadpleeg het adres met de identificatie van het gekozen item verkregen via de zoek-operatie.
+        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
+        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
+        Parameter zoekresultaatidentificatie bevat identificatie van een gekozen item verkregen uit een zoek-operatie."
+      parameters:
+        - $ref: '#/components/parameters/zoekresultaatidentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /adressen/{nummeraanduidingidentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegAdresMetNumId
+      tags:
+        - Adres
+      summary: Raadpleeg adres met een sleutel
+      description: "Raadpleeg het adres met de nummeraanduiding identificatie verkregen via de zoek-operatie
+        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
+        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
+        Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
+      parameters:
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: raadpleegAdresMetNumId geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /adresseerbareobjecten/{adresseerbaarobjectidentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegAdresseerbaarobjectMetAdoId
+      tags:
+        - Adresseerbaar object
+      summary: Raadpleeg adresseerbaar object met een identificatie van een adresseerbaar object
+      description: "Raadpleeg het adresseerbaar object met de identificatie verkregen via de zoek-operatie
+        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
+        Parameter adresseerbaarobjectidentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject."
+      parameters:
+        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresseerbaarObjectHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /adresseerbareobjecten:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegAdresseerbaarobject
+      tags:
+        - Adresseerbaar object
+      summary: Raadpleeg adresseerbaar object met een identificatie van een nummeraanduiding of pand object
+      description: "Raadpleeg het adresseerbaar object met de identificatie van een nummeraanduiding of pand via de zoek-operatie.
+        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
+        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
+        Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
+        Parameter pandidentificatie-query bevat de 16 cijferige identificatie van een pand"
+      parameters:
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
+        - $ref: '#/components/parameters/pandidentificatie-query'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /woonplaatsen/{woonplaatsidentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegWoonplaats
+      tags:
+        - Woonplaats
+      summary: Raadpleeg Woonplaats met een woonplaats identificatie
+      description: "Raadpleeg een Woonplaats met en woonplaats identificatie
+        Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres.
+        Parameter woonplaatsidentificatie bevat de 4 cijferige identificatie van een woonplaats."
+      parameters:
+        - $ref: '#/components/parameters/woonplaatsidentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/WoonplaatsHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /openbareruimten/{openbareruimteidentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegOpenbareRuimte
+      tags:
+        - Openbare ruimte
+      summary: Raadpleeg openbareruimte met een openbareruimte identificatie
+      description: "Raadpleeg een openbareruimte met en openbareruimte identificatie
+        Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres.
+        Parameter openbareruimteidentificatie bevat de 16 cijferige identificatie van een openbareruimte."
+      parameters:
+        - $ref: '#/components/parameters/openbareruimteidentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/OpenbareRuimteHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /nummeraanduidingen/{nummeraanduidingidentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegNummeraanduiding
+      tags:
+        - Nummeraanduiding
+      summary: Raadpleeg nummeraanduiding met een nummeraanduiding identificatie
+      description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
+        Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres.
+        Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
+      parameters:
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/NummeraanduidingHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /panden/{pandidentificatie}:
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegPand
+      tags:
+        - Pand
+      summary: Raadpleeg Pand met een pand identificatie
+      description: "Raadpleeg een pand met de pand identificatie
+        Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.
+        Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand."
+      parameters:
+        - $ref: '#/components/parameters/pandidentificatie'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PandHal'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+  /panden:
+    post:
+      requestBody:
+        description: Geometrisch punt waarop de panden bepaald moeten worden.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Point'
+      security:
+        - apiKeyBAG: []
+      tags:
+        - Pand
+      summary: bevragen van één of meer panden, met een geometrische locatie.
+      operationId: raadpleegPandOpLocatie
+      description: "Raadpleeg een pand met een geometrische locatie (punt).
+        Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
+      parameters:
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+
+      # Antwoord pandGeometrie
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PandHalCollectie'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegPanden
+      tags:
+        - Pand
+      summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identificatie vekregen uit een zoek-operatie
+      description: "Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).
+        Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
+        Parameter adresseerbaarobjectidentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
+      parameters:
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
+        - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+      responses:
+        '200':
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/api_version'
+            warning:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/warning'
+            X-Rate-Limit-Limit:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
+            Accept-Crs:
+              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PandHalCollectie'
+        '204':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/204'
+        '400':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/400'
+        '401':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/401'
+        '403':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
+        '404':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
+        '405':
+          $ref: '../../../../generiek/responses.yaml#/405'
+        '406':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
+        '409':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
+        '410':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
+        '412':
+          $ref: '../../../../generiek/responses.yaml#/412'
+        '415':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
+        '422':
+          $ref: '../../../../generiek/responses.yaml#/422'
+        '429':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
+        '500':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
+        '501':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
+        '503':
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
+        default:
+          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
+
+components:
+
+  securitySchemes:
+
+    apiKeyBAG:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: >
+        De API-key die je hebt gekregen dient bij elke request via de
+        `X-Api-Key` request header meegestuurd te worden. Indien deze
+        niet juist wordt meegestuurd, of het een ongeldige key betreft,
+        zul je de foutmelding `403 Forbidden` terugkrijgen.
+
+  parameters:
+
+    # Opsomming van request parameters - ?='...' parameters (by name) - specificatie bij operation zelf.
+    zoek:
+      description: zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging
+      name: zoek
+      in: query
+      required: true
+      schema:
+        type: string
+
+    zoekresultaatidentificatie:
+      description: de identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie
+      name: zoekresultaatidentificatie
+      in: query
+      required: true
+      schema:
+        type: string
+
+    nummeraanduidingidentificatie-query:
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      name: nummeraanduidingidentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{4}20[0-9]{10}$'
+        example: '1234200000000001'
+        
+    pandidentificatie-query:    
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      name: pandidentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{4}10[0-9]{10}$'
+        example: '1234100000000001'
+
+    adresseerbaarobjectidentificatie-query:
+      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
+      name: adresseerbaarobjectidentificatie
+      in: query
+      required: false
+      schema:
+        title: identificatie van een adresseerbaarobject
+        type: string
+        pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
+        example: '1234010000000001'
+
+    # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
+    nummeraanduidingidentificatie:
+      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      name: nummeraanduidingidentificatie
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]{4}20[0-9]{10}$'
+        example: '1234200000000001'
+
+    adresseerbaarobjectidentificatie:
+      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
+      name: adresseerbaarobjectidentificatie
+      in: path
+      required: true
+      schema:
+        title: identificatie van een adresseerbaarobject
+        type: string
+        pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
+        example: '1234010000000001'
+
+    pandidentificatie:
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      name: pandidentificatie
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]{4}10[0-9]{10}$'
+        example: '1234100000000001'
+
+    woonplaatsidentificatie:
+      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
+      name: woonplaatsidentificatie
+      in: path
+      required: true
+      schema:
+        description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
+        type: string
+        pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
+        example: '0150'
+
+    openbareruimteidentificatie:
+      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
+      name: openbareruimteidentificatie
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]{4}30[0-9]{10}$'
+        example: '0518300000000001'
+
+  schemas:
+
+    ZoekResultaat:
+      type: object
+      description: 'Dit type bevat een enkel zoekresultaat bestaande uit een weergave tekst en zoekresultaat identificatie'
+      properties:
+        weergavenaam:
+          description: 'Weergavenaam van het zoekresultaat'
+          title: 'weergavenaam'
+          type: string
+        identificatie:
+          description: 'Identificatie van het zoekresultaat'
+          title: identificatie
+          type: string
+
+    ZoekResultaatHalCollectie:
+      description: 'resulaten als lijst'
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+              description: 'Refereert naar de /adressen/zoeken endpoint met de zoekterm als parameter'
+            adres:
+              $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalPaginationLinks'
+              description: 'Gepagineerde lijst van links naar zoekresultaten via een templated URI en met een zoekresultaat identificatie.'
+        _embedded:
+          type: object
+          properties:
+            zoekResultaten:
+              type: array
+              items:
+                $ref: '#/components/schemas/ZoekResultaat'
+
+    Adres:
+      type: object
+      title: Adres
+      properties:
+        verkorteStraatnaam:
+          title: verkorteNaam
+          description: De verkorte naam is een maximaal 24 karakters lange representatie van de naam van een openbare ruimte.
+          type: string
+          minLength: 1
+          maxLength: 24
+          example: 'Ln vd l D Westervoort'
+        straat:
+          title: openbareruimte naam
+          description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
+          type: string
+          minLength: 1
+          maxLength: 80
+          example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
+        huisnummer:
+          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
+          title: huisnummer
+          type: integer
+          example: '12'
+        huisletter:
+          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
+          title: huisletter
+          type: string
+          example: 'A'
+        huisnummertoevoeging:
+          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter.
+          title: huisnummer toevoeging
+          type: string
+          example: 'bis'
+        postcode:
+          title: postcode
+          description: De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.
+          type: string
+          example: '7500AA'
+        woonplaats:
+          description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
+          title: woonplaats naam
+          type: string
+          minLength: 1
+          maxLength: 80
+          example: 'Apeldoorn'
+        nummeraanduidingIdentificatie:
+          description: 'Fungeert ook als identificatie van het adres.'
+          $ref: '#/components/schemas/NEN3610ID'
+        openbareRuimteIdentificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        woonplaatsIdentificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        adresseerbaarObjectIdentificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        pandIdentificaties:
+          type: array
+          items:
+            $ref: '#/components/schemas/NEN3610ID'
+          minItems: 1
+        indicatieNevenadres:
+          description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
+          type: boolean
+        indicatieGeconstateerd:
+          description: 'Een aanduiding waarmee kan worden aangegeven dat één of meerdere gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
+          type: boolean
+        indicatieMogelijkOnjuist:
+          description: 'Een aanduiding dat één of meerdere attributen van objecten gerelateerd aan een adres in onderzoek of mogelijk onjuist is/zijn.'
+          type: boolean
+
+    AdresHal:
+      allOf:
+        - $ref: '#/components/schemas/Adres'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Adres_links'
+            _embedded:
+              $ref: '#/components/schemas/Adres_embedded'
+
+    Adres_links:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        openbareruimte:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde openbare ruimte.'
+        nummeraanduiding:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde nummeraanduiding. Het (boolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft.'
+        woonplaats:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde woonplaats.'
+        adresseerbareObject:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject.'
+        panden:
+          description: 'Het/de aan het adres gerelateerde pand(en).'
+          type: array
+          items:
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          minItems: 1
+
+    Adres_embedded:
+      type: object
+      properties:
+        openbareruimte:
+          $ref: '#/components/schemas/OpenbareRuimteHal'
+        nummeraanduiding:
+          $ref: '#/components/schemas/NummeraanduidingHal'
+        woonplaats:
+          $ref: '#/components/schemas/WoonplaatsHal'
+
+    AdresseerbaarObject:
+      title: AdresseerbaarObject
+      type: object
+      description: 'De definitie van dit object is in tegenstelling tot de deifnitie in de BAG Catalogus 2018 een concreet object type dat een ligplaats, standplaats of verblijfsobject kan zijn.'
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        geometrie:
+          $ref: '../../../../lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
+        gebruiksdoelen:
+          type: array
+          items:
+            $ref: '../../../../lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
+          minItems: 1
+        oppervlakte:
+          title: oppervlakte
+          type: integer
+        status:
+          $ref: '#/components/schemas/AdresseerbaarObjectHuidigeStatus'
+          description: 'Een aanduiding van de huidige status van een adresseerbaar object. Deze wordt ontleend van de status van een ligplaats, standplaats of verblijfsobject.'
+        geconstateerd:
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
+        documentdatum:
+          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
+          title: documentdatum
+          type: string
+          format: date
+          example: '2019-08-14'
+        documentnummer:
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
+          type: string
+          minLength: 1
+          maxLength: 40
+          example: 'AV-2019-08-19-00'
+        type:
+          $ref: '../../../imbag/v20180601/adresseerbaarobject.yaml#/TypeAdresseerbaarObject'
+        heeftAlsHoofdAdres:
+          $ref: '#/components/schemas/NEN3610ID'
+        heeftAlsNevenAdressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/NEN3610ID'
+          minItems: 1
+        maaktDeelUitVanPanden:
+          type: array
+          items:
+            $ref: '#/components/schemas/NEN3610ID'
+          minItems: 1
+        geometrieMogelijkOnjuist:
+          description: 'Als de geometrie in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        gebruiksdoelMogelijkOnjuist:
+          description: 'Als het adresseeerbare object een verblijfsobject betreft en een gebruiksdoel is in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        oppervlakteMogelijkOnjuist:
+          description: 'Als het adresseeerbare object een verblijfsobject betreft en de oppervlakte is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        statusMogelijkOnjuist:
+          description: 'Als de status in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        heeftAlsHoofdAdresMogelijkOnjuist:
+          description: 'Als de relatie van een adresseerbaar object met het hoofdadres is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        heeftAlsNevenAdresMogelijkOnjuist:
+          description: 'Als de relatie van een adresseerbaar object met een nevenadres in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+        maaktDeelUitVanPandenMogelijkOnjuist:
+          description: 'Als het adresseerbare object een verblijfsobject betreft en de relatie van het verblijfsobject met een pand is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
+          type: boolean
+
+    AdresseerbaarObjectHal:
+      allOf:
+        - $ref: '#/components/schemas/AdresseerbaarObject'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/AdresseerbaarObject_links'
+            _embedded:
+              $ref: '#/components/schemas/AdresseerbaarObject_embedded'
+
+    AdresseerbaarObject_links:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'Refereert naar de /adresseerbareobjecten endpoint waar met een adresseerbaarobject identificatie bevraagd kan worden'
+        heeftAlsHoofdadres:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        heeftAlsNevenadressen:
+          type: array
+          items:
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+            description: 'Refereert bij verblijfsobjecten naar de /adresseerbareobjecten waar met een adresseerbaarobject identificatie bevraagd kan worden'
+          minItems: 0
+        maaktDeelUitVanPanden:
+          type: array
+          items:
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+            description: 'Refereert bij verblijfsobjecten naar de /adresseerbareobjecten waar met een adresseerbaarobject identificatie bevraagd kan worden'
+          minItems: 1
+        adres:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: Het aan de ligplaats gerelateerde adres (link).
+
+    AdresseerbaarObject_embedded:
+      type: object
+      required:
+        - self
+      properties:
+        maaktDeelUitVanPanden:
+          description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).'
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHal'
+          minItems: 1
+        adres:
+          $ref: '#/components/schemas/AdresHal'
+          description: Het aan de ligplaats gerelateerde adres (object)
+
+    AdresseerbaarobjectHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalCollectionLinks'
+        _embedded:
+          type: object
+          properties:
+            adressseerbareObjecten:
+              type: array
+              items:
+                $ref: '#/components/schemas/AdresseerbaarObjectHal'
+
+    AdresseerbaarObjectHuidigeStatus:
+      title: AdresseerbaarObjectHuidigeStatus
+      type: string
+      enum:
+        # Ligplaats / standplaats huidige statussen
+        - 'Plaats aangewezen'
+        # Verblijfsobject huidige statussen
+        - 'Verblijfsobject gevormd'
+        - 'Verblijfsobject in gebruik (niet ingemeten)'
+        - 'Verblijfsobject in gebruik'
+        - 'Verbouwing verblijfsobject'
+        - 'Verblijfsobject buiten gebruik'
+
+    OpenbareRuimte:
+      type: object
+      title: OpenbareRuimte
+      description: 'Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        naam:
+          title: openbare ruimte naam
+          description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
+          type: string
+          minLength: 1
+          maxLength: 80
+          example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
+        type:
+          $ref: '../../../../lvbag/imbag/v20180601/openbareruimte.yaml#/TypeOpenbareRuimte'
+          description: 'De aard van de als zodanig benoemde openbare ruimte.'
+        status:
+          $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
+          desciption: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
+        verkorteNaam:
+          title: verkorteNaam
+          description: De verkorte naam is een maximaal 24 karakters lange representatie van de naam van een openbare ruimte.
+          type: string
+          minLength: 1
+          maxLength: 24
+          example: 'Ln vd l D Westervoort'
+        geconstateerd:
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
+        documentdatum:
+          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
+          title: documentdatum
+          type: string
+          format: date
+          example: '2019-08-14'
+        documentnummer:
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
+          type: string
+          minLength: 1
+          maxLength: 40
+          example: 'AV-2019-08-19-00'
+        naamMogelijkOnjuist:
+          type: boolean
+        typeMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+        gerelateerdeWoonplaatsMogelijkOnjuist:
+          type: boolean  
+        ligtInWoonplaats:
+          $ref: '#/components/schemas/NEN3610ID'
+          description: 'Een openbare ruimte ligt in een woonplaats.'
+
+    OpenbareRuimteHal:
+      type: object
+      title: OpenbareRuimteHal
+      properties:
+        openbareRuimte:
+          $ref: '#/components/schemas/OpenbareRuimte'          
+        _links:
+          $ref: '#/components/schemas/OpenbareRuimte_links'
+        _embedded:
+          $ref: '#/components/schemas/OpenbareRuimte_embedded'
+      
+    OpenbareRuimte_links:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        ligtInWoonplaats:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
+
+    OpenbareRuimte_embedded:
+      type: object
+      properties:
+        ligtInWoonplaats:
+          $ref: '#/components/schemas/WoonplaatsHal'
+          description: 'De aan het oenbareruimte gerelateerde woonplaats (object(en)).'
+
+    Nummeraanduiding:
+      type: object
+      title: Nummeraanduiding
+      description: 'Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        huisnummer:
+          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
+          title: huisnummer
+          type: integer
+          example: '12'
+        huisletter:
+          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
+          title: huisletter
+          type: string
+          example: 'A'
+        huisnummertoevoeging:
+          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter.
+          title: huisnummer toevoeging
+          type: string
+          example: 'bis'
+        postcode:
+          title: postcode
+          description: De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.
+          type: string
+          example: '7500AA'
+        status:
+          $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
+        geconstateerd:
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
+        documentdatum:
+          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
+          title: documentdatum
+          type: string
+          format: date
+          example: '2019-08-14'
+        documentnummer:
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
+          type: string
+          minLength: 1
+          maxLength: 40
+          example: 'AV-2019-08-19-00'
+        ligtInWoonplaats:
+          $ref: '#/components/schemas/NEN3610ID'
+          description: 'Een nummeraanduiding ligt in een woonplaats.'
+        ligtAanOpenbareRuimte:
+          $ref: '#/components/schemas/NEN3610ID'
+          descriptin: 'Een nummeraanduiding ligt aan een openbare ruimte.'
+        huisnummerMogelijkOnjuist:
+          type: boolean
+        huisletterMogelijkOnjuist:
+          type: boolean
+        huisnummertoevoegingMogelijkOnjuist:
+          type: boolean
+        postcodeMogelijkOnjuist:
+          type: boolean
+        typeAdresseerbaarObjectMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+        ligtInWoonplaatsMogelijkOnjuist:
+          type: boolean
+        ligtAanOpenbareRuimteMogelijkOnjuist:
+          type: boolean
+
+    NummeraanduidingHal:
+      type: object
+      title: NummeraanduidingHal
+      properties:
+        nummeraanduiding:
+          $ref: '#/components/schemas/Nummeraanduiding'
+        _links:
+          $ref: '#/components/schemas/Nummeraanduiding_links'
+        _embedded:
+          $ref: '#/components/schemas/Nummeraanduiding_embedded'
+
+    Nummeraanduiding_links:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        adres:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'Het aan de nummeraanduiding gerelateerde adres (link).'
+        ligtAanOpenbareRuimte:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan de nummeraanduiding gerelateerde openbareruimte (link).'
+        ligtInWoonplaats:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
+
+    Nummeraanduiding_embedded:
+      type: object
+      properties:
+        adres:
+          $ref: '#/components/schemas/AdresHal'
+          description: 'De aan de nummeraanduiding gerelateerde adres (object).'
+        ligtAanOpenbareRuimte:
+          $ref: '#/components/schemas/OpenbareRuimteHal'
+          descripion: 'De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).'
+        ligtInWoonplaats:
+          $ref: '#/components/schemas/WoonplaatsHal'
+          description: 'De aan de nummeraanduiding gerelateerde woonplaats (object(en)).'
+
+    Woonplaats:
+      type: object
+      title: Woonplaats
+      description: 'Een Woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+        naam:
+          description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
+          title: woonplaats naam
+          type: string
+          minLength: 1
+          maxLength: 80
+          example: 'Apeldoorn'
+        status:
+          $ref: '../../../../lvbag/imbag/v20180601/woonplaats.yaml#/StatusWoonplaats'
+          description: 'De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.'
+        geconstateerd:
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
+        documentdatum:
+          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
+          title: documentdatum
+          type: string
+          format: date
+          example: '2019-08-14'
+        documentnummer:
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
+          type: string
+          minLength: 1
+          maxLength: 40
+          example: 'AV-2019-08-19-00'
+        naamMogelijkOnjuist:
+          type: boolean
+        geometrieMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+
+    WoonplaatsHal:
+      allOf:
+        - $ref: '#/components/schemas/Woonplaats'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Woonplaats_links'
+            _embedded:
+              $ref: '#/components/schemas/Woonplaats_embedded'
+
+    Woonplaats_links:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+
+    Woonplaats_embedded:
+      type: object
+      properties:
+        geometrie:
+          $ref: '../../../../lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/VlakOfMultivlak'
+
+    Pand:
+      type: object
+      title: Pand
+      description: 'Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/NEN3610ID'
+          description: 'De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode.'
+        geometrie:
+          $ref: '../../../../geometrie/geometrie.yaml#/components/schemas/Surface'
+          description: 'De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand.'
+        oorspronkelijkBouwjaar:
+          title: Oorspronkelijk bouwjaar
+          description: 'De aanduiding van het jaar waarin een pand oorspronkelijk als bouwkundig gereed is of zal worden opgeleverd. Bij het initieel opvoeren van een PAND wordt door de gemeente een reële inschatting gemaakt van het waarschijnlijke bouwjaar van het PAND. Bij het bouwkundig gereed opleveren van het PAND wordt deze waarde in voorkomende gevallen aangepast. Indien in latere jaren wijzigingen aan een pand worden aangebracht, leidt dit niet tot wijziging van het bouwjaar.'
+          type: string
+          maxLength: 4
+          example: '1972'
+        status:
+          $ref: '../../../../lvbag/imbag/v20180601/pand.yaml#/StatusPand'
+          description: 'Een codering van de verschillende waarden die de status van een pand kan aannemen.'
+        geconstateerd:
+          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          type: boolean
+        documentdatum:
+          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
+          title: documentdatum
+          type: string
+          format: date
+          example: '2019-08-14'
+        documentnummer:
+          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          title: documentnummer
+          type: string
+          minLength: 1
+          maxLength: 40
+          example: 'AV-2019-08-19-00'
+        geometrieMogelijkOnjuist:
+          type: boolean
+        oorspronkelijkBouwjaarMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+    
+    PandHal:
+      allOf:
+        - $ref: '#/components/schemas/Pand'
+        - properties:
+            _links:
+              $ref: '#/components/schemas/Pand_links'
+            _embedded:
+              $ref: '#/components/schemas/Pand_embedded'
+
+    Pand_links:
+      type: object
+      required:
+        - self
+      properties:
+        self:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+        adressen:
+          type: array
+          items:
+            $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
+          minItems: 1
+
+    Pand_embedded:
+      type: object
+      properties:
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresHal'
+
+    PandHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalCollectionLinks'
+        _embedded:
+          type: object
+          properties:
+            panden:
+              type: array
+              items:
+                $ref: '#/components/schemas/PandHal'
+
+    NEN3610ID:
+      type: object
+      title: NEN3610ID
+      description: 'De identificatie van een (voorkomen van een) object, conform de NEN3610 standaard.'
+      required:
+        - lokaalID
+        - namespace
+      properties:
+        lokaalID:
+          description: 'De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018).'
+          title: lokaalID
+          type: string
+          example: '0123'
+        namespace:
+          description: 'De namespace voor een BAG object. Formaat: NL.IMBAG.<object naam>.'
+          title: namespace
+          type: string
+          minLength: 1
+          example: 'NL.IMBAG.Woonplaats'
