@@ -205,7 +205,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /adressen/{nummeraanduidingidentificatie}:
+  /adressen/{nummeraanduidingIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -278,7 +278,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /adresseerbareobjecten/{adresseerbaarobjectidentificatie}:
+  /adresseerbareobjecten/{adresseerbaarObjectIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -424,7 +424,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /woonplaatsen/{woonplaatsidentificatie}:
+  /woonplaatsen/{woonplaatsIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -494,7 +494,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /openbareruimten/{openbareruimteidentificatie}:
+  /openbareruimten/{openbareRuimteIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -564,7 +564,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /nummeraanduidingen/{nummeraanduidingidentificatie}:
+  /nummeraanduidingen/{nummeraanduidingIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -634,7 +634,7 @@ paths:
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
-  /panden/{pandidentificatie}:
+  /panden/{pandIdentificatie}:
     get:
       security:
         - apiKeyBAG: []
@@ -878,15 +878,15 @@ components:
 
     keuzeItemIdentificatie:
       description: de identificatie van een gekozen item uit de keuzeItemCollectie verkregen bij een zoek-operatie
-      name: keuzeitemidentificatie
+      name: keuzeItemIdentificatie
       in: query
       required: true
       schema:
         type: string
 
     nummeraanduidingIdentificatie-query:
-      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
-      name: nummeraanduidingidentificatie
+      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
+      name: nummeraanduidingIdentificatie-query
       in: query
       required: false
       schema:
@@ -896,7 +896,7 @@ components:
 
     adresseerbaarObjectIdentificatie-query:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
-      name: adresseerbaarobjectidentificatie
+      name: adresseerbaarObjectIdentificatie-query
       in: query
       required: false
       schema:
@@ -906,8 +906,8 @@ components:
         example: 1234010000000001
 
     pandIdentificatie-query:
-      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
-      name: pandidentificatie
+      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
+      name: pandIdentificatie-query
       in: query
       required: false
       schema:
@@ -917,8 +917,8 @@ components:
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingIdentificatie:
-      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
-      name: nummeraanduidingidentificatie
+      description: Identificatie van een nummeraanduiding uit de BAG. Dzeze is 16 cijfers lang.
+      name: nummeraanduidingIdentificatie
       in: path
       required: true
       schema:
@@ -928,7 +928,7 @@ components:
 
     adresseerbaarObjectIdentificatie:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
-      name: adresseerbaarobjectidentificatie
+      name: adresseerbaarObjectIdentificatie
       in: path
       required: true
       schema:
@@ -938,8 +938,8 @@ components:
         example: 1234010000000001
 
     pandIdentificatie:
-      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
-      name: pandidentificatie
+      description: Identificatie van een pand uit de BAG. Dzeze is 16 cijfers lang.
+      name: pandIdentificatie
       in: path
       required: true
       schema:
@@ -949,7 +949,7 @@ components:
 
     woonplaatsIdentificatie:
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
-      name: woonplaatsidentificatie
+      name: woonplaatsIdentificatie
       in: path
       required: true
       schema:
@@ -960,7 +960,7 @@ components:
 
     openbareRuimteIdentificatie:
       description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
-      name: openbareruimteidentificatie
+      name: openbareRuimteIdentificatie
       in: path
       required: true
       schema:
@@ -1055,7 +1055,10 @@ components:
         adresseerbaarObjectIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
         pandIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: array
+          items:
+            $ref: '#/components/schemas/NEN3610ID'
+          minItems: 1
         nevenadres:
           description: 'Boolean die aangeeft of dit adres een nevenadres is. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
           type: boolean
@@ -1581,8 +1584,12 @@ components:
           $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
           desciption: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
         verkorteNaam:
-          $ref: '../../../../lvbag/imbag/v20180601/nen5825.yaml#/VerkorteNaamOpenbareRuimte'
-          description: 'De verkorte naam van een openbare ruimte naam als deze langer is dan 25 karakters.'
+          title: verkorteNaam
+          description: De verkorte naam is een maximaal 24 karakters lange represntatie van de naam van een openbare ruimte.
+          type: string
+          minLength: 1
+          maxLength: 24
+          example: 'Ln vd l D Westervoort'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
           type: boolean
@@ -1664,9 +1671,6 @@ components:
       properties:
         self:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-        adres:
-          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
-          description: 'Het aan het openbareruimte gerelateerde adres (link).'
         ligtInWoonplaats:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
           description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
@@ -1789,6 +1793,7 @@ components:
         - 'huisletter'
         - 'huisnummertoevoeging'
         - 'postcode'
+        - 'type adresseerbaar object'
         - 'status'
         - 'ligt in'
         - 'ligt aan'
@@ -1816,7 +1821,7 @@ components:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
           description: 'Het aan de nummeraanduiding gerelateerde adres (link).'
         ligtAanOpenbareRuimte:
-          $ref: '#/components/schemas/OpenbareRuimte'
+          $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
           description: 'De aan de nummeraanduiding gerelateerde openbareruimte (link).'
         ligtInWoonplaats:
           $ref: '../../../../extern/haal-centraal/common-schemas.yaml#/HalLink'
