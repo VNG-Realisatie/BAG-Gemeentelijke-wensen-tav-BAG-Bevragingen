@@ -1,0 +1,332 @@
+HalLink:
+  description: 'De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5'
+  type: object
+  title: HalLink
+  required:
+    - href
+  properties:
+    href:
+      type: string
+      format: uri
+      example: 'datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcename/{resource-identificatie}'
+    templated:
+      type: boolean
+    title:
+     description: 'Voor mens leesbaar label bij de link'
+     type: string
+HalCollectionLinks:
+  type: object
+  title: HalCollectionLinks
+  properties:
+    self:
+      $ref: '#/HalLink'
+HalPaginationLinks:
+  allOf:
+  - $ref: '#/HalCollectionLinks'
+  - type: object
+    properties:
+      first:
+        type: object
+        title: first
+        description: 'uri voor het opvragen van de eerste pagina van deze collectie'
+        properties:
+          href:
+            type: string
+            format: uri
+            example: 'https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=1'
+          templated:
+            type: boolean
+          title:
+            type: string
+            example: 'Eerste pagina'
+      previous:
+        type: object
+        title: previous
+        description: 'uri voor het opvragen van de vorige pagina van deze collectie'
+        properties:
+          href:
+            type: string
+            format: uri
+            example: 'https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=3'
+          templated:
+            type: boolean
+          title:
+            type: string
+            example: 'Vorige pagina'
+      next:
+        type: object
+        title: next
+        description: 'uri voor het opvragen van de volgende pagina van deze collectie'
+        properties:
+          href:
+            type: string
+            format: uri
+            example: 'https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=5'
+          templated:
+            type: boolean
+          title:
+            type: string
+            example: 'Volgende pagina'
+Foutbericht:
+  type: object
+  title: Foutbericht
+  description: 'Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).'
+  properties:
+    type:
+      type: string
+      format: uri
+      description: Link naar meer informatie over deze fout
+    title:
+      type: string
+      description: Beschrijving van de fout
+    status:
+      type: integer
+      description: Http status code
+    detail:
+      type: string
+      description: Details over de fout
+    instance:
+      type: string
+      format: uri
+      description: Uri van de aanroep die de fout heeft veroorzaakt
+    code:
+      type: string
+      description: Systeemcode die het type fout aangeeft
+      minLength: 1
+InvalidParams:
+  type: object
+  title: InvalidParams
+  description: Details over fouten in opgegeven parameters
+  properties:
+    type:
+      type: string
+      format: uri
+      example: https://www.vng.nl/realisatie/api/{major-versie}/validaties/integer
+    name:
+      type: string
+      description: Naam van de parameter
+      example: verblijfplaats__huisnummer
+    code:
+      type: string
+      description: Systeemcode die het type fout aangeeft
+      minLength: 1
+      example: integer
+    reason:
+      type: string
+      description: Beschrijving van de fout op de parameterwaarde
+      example: Waarde is geen geldige integer.
+BadRequestFoutbericht:
+  allOf:
+  - $ref: '#/Foutbericht'
+  - type: object
+    properties:
+      invalidParams:
+        description: Foutmelding per fout in een parameter. Alle gevonden fouten worden één keer teruggemeld.
+        type: array
+        items:
+          $ref: '#/InvalidParams'
+Datum_onvolledig:
+  type: object
+  title: Datum_onvolledig
+  description: "Gegevens over de datums die mogelijk niet volledig zijn, maar\
+    \ waarvan de bekende gedeeltes wel moeten kunnen worden uitgewisseld. Als\
+    \ de volledige datum bekend is worden alle elementen gevuld."
+  properties:
+    dag:
+      type: integer
+      title: dag
+      description: "De dag. Als de dag van de datum bekend is wordt deze hier\
+        \ ingevuld. Ook als de volledige datum bekend is."
+      minimum: 1
+      maximum: 31
+      example: 3
+    datum:
+      type: string
+      title: datum
+      description: "De volledige datum die in de `date` definitie past. Dit element\
+        \ wordt alleen gevuld als de volledige datum bekend is."
+      format: date
+      example: '1989-05-03'
+    jaar:
+      type: integer
+      title: jaar
+      description: "Het jaar van de datum. Als het jaar bekend is wordt dit element\
+        \ gevuld, ook als de volledige datum bekend is."
+      maximum: 9999
+      example: 1989
+    maand:
+      type: integer
+      title: maand
+      description: "De maand. Als de maand van een datum bekend is wordt deze\
+        \ hier ingevuld. Ook als de volledige datum is ingevuld."
+      minimum: 1
+      maximum: 12
+      example: 5
+Waardelijst:
+  type: object
+  title: Waardelijst
+  description: "Generieke waardelijst met waarden om een code en omschrijving op te nemen."
+  properties:
+    code:
+      type: string
+      title: code
+      description: ""
+    waarde:
+      type: string
+      title: waarde
+      description: ""
+Geometry:
+  title: Geometry
+  description: GeoJSON geometry
+  required:
+  - type
+  type: object
+  properties:
+    type:
+      description: The geometry type
+      type: string
+      enum:
+      - Point
+      - MultiPoint
+      - LineString
+      - MultiLineString
+      - Polygon
+      - MultiPolygon
+      - Feature
+      - FeatureCollection
+      - GeometryCollection
+  discriminator:
+    propertyName: type
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1'
+Point2D:
+  title: Point2D
+  description: A 2D point
+  type: array
+  items:
+    type: number
+  maxItems: 2
+  minItems: 2
+Point:
+  description: GeoJSON point geometry
+  type: object
+  allOf:
+  - $ref: '#/Geometry'
+  - required:
+    - coordinates
+    type: object
+    properties:
+      coordinates:
+        $ref: '#/Point2D'
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1.2'
+MultiPoint:
+  description: GeoJSON multi-point geometry
+  type: object
+  allOf:
+  - $ref: '#/Geometry'
+  - required:
+    - coordinates
+    type: object
+    properties:
+      coordinates:
+        type: array
+        items:
+          $ref: '#/Point2D'
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1.3'
+LineString:
+  description: GeoJSON line-string geometry
+  type: object
+  allOf:
+  - $ref: '#/Geometry'
+  - required:
+    - coordinates
+    type: object
+    properties:
+      coordinates:
+        type: array
+        items:
+          $ref: '#/Point2D'
+        minItems: 2
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1.4'
+MultiLineString:
+  description: GeoJSON multi-line-string geometry
+  type: object
+  allOf:
+  - $ref: '#/Geometry'
+  - required:
+    - coordinates
+    type: object
+    properties:
+      coordinates:
+        type: array
+        items:
+          type: array
+          items:
+            $ref: '#/Point2D'
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1.5'
+Polygon:
+  description: GeoJSON polygon geometry
+  type: object
+  allOf:
+  - $ref: '#/Geometry'
+  - required:
+    - coordinates
+    type: object
+    properties:
+      coordinates:
+        type: array
+        items:
+          type: array
+          items:
+            $ref: '#/Point2D'
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1.6'
+MultiPolygon:
+  description: GeoJSON multi-polygon geometry
+  type: object
+  allOf:
+  - $ref: '#/Geometry'
+  - required:
+    - coordinates
+    type: object
+    properties:
+      coordinates:
+        type: array
+        items:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/Point2D'
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1.7'
+GeometryCollection:
+  description: GeoJSON multi-polygon geometry
+  type: object
+  allOf:
+  - $ref: '#/Geometry'
+  - required:
+    - geometries
+    type: object
+    properties:
+      geometries:
+        type: array
+        items:
+          $ref: '#/Geometry'
+  externalDocs:
+    url: 'https://tools.ietf.org/html/rfc7946#section-3.1.8'
+GeoJSONGeometry:
+  title: GeoJSONGeometry
+  type: object
+  oneOf:
+  - $ref: '#/Point'
+  - $ref: '#/MultiPoint'
+  - $ref: '#/LineString'
+  - $ref: '#/MultiLineString'
+  - $ref: '#/Polygon'
+  - $ref: '#/MultiPolygon'
+  - $ref: '#/GeometryCollection'
