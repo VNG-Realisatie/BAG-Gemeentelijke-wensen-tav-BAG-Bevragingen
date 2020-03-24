@@ -1,5 +1,8 @@
 # Haal Centraal BAG bevragen
 
+## APIlab-specificatie 26-03-2020
+
+* De openapi.yaml voor het apilab op 26-03-2020 is [hier](./api-specificatie/resolved/openapi.yaml) te vinden. en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/api-specificatie/resolved/openapi.yaml)
 
 ## Introductie
 Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten. 
