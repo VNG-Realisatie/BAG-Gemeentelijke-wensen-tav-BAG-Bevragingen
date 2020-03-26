@@ -1,7 +1,9 @@
 # Haal Centraal BAG bevragen
 
-## APIlab-specificatie 26-03-2020
+# Planning
+https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
 
+## APIlab-specificatie 26-03-2020
 * De openapi.yaml voor het apilab op 26-03-2020 is [hier](./api-specificatie/resolved/openapi.yaml) te vinden. en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/api-specificatie/resolved/openapi.yaml)
 
 ## Introductie
