@@ -1,6 +1,6 @@
 # Haal Centraal BAG bevragen
 
-# Planning
+## Planning
 https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
 
 ## APIlab-specificatie 26-03-2020
