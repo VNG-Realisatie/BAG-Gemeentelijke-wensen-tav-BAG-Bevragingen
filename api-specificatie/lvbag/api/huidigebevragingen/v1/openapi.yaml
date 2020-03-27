@@ -117,8 +117,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -187,8 +185,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -257,8 +253,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -326,8 +320,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -397,8 +389,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -464,8 +454,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -528,8 +516,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -592,8 +578,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -659,8 +643,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -733,8 +715,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -800,8 +780,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -961,6 +939,7 @@ components:
     Adres:
       type: object
       title: Adres
+      description: 'Het adres is de benaming van een adreswaardige locatie bestaande uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding.'
       properties:
         korteNaam:
           title: korteNaam
