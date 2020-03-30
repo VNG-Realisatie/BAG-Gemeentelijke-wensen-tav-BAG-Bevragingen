@@ -8,7 +8,7 @@ OpenbareRuimte:
     - naam
     - type
     - status
-    - verkorteNaam
+    - korteNaam
     - geconstateerd
     - documentdatum
     - documentnummer
@@ -30,9 +30,9 @@ OpenbareRuimte:
     status:
       description: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
       $ref: './datatypes.yaml#/StatusNaamgeving'
-    verkorteNaam:
-      description: De verkorte naam is een maximaal 24 karakters lange representatie van de naam van een openbare ruimte.
-      title: verkorteNaam
+    korteNaam:
+      description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
+      title: korteNaam
       type: string
       minLength: 1
       maxLength: 24

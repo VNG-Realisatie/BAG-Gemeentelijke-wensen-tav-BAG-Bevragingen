@@ -91,8 +91,6 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Pagination_Page'
             X-Pagination-Limit:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Pagination_Limit'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
@@ -107,16 +105,10 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
-        '406':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/409'
         '410':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/410'
-        '412':
-          $ref: '../../../../generiek/responses.yaml#/412'
         '415':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/415'
         '422':
@@ -125,10 +117,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -150,6 +138,7 @@ paths:
         - $ref: '#/components/parameters/zoekresultaatidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       responses:
         '200':
           description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
@@ -164,8 +153,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -180,8 +169,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -198,10 +185,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -223,6 +206,7 @@ paths:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       responses:
         '200':
           description: raadpleegAdresMetNumId geslaagd
@@ -237,8 +221,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -253,8 +237,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -271,10 +253,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -295,6 +273,7 @@ paths:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       responses:
         '200':
           description: Geslaagd
@@ -309,8 +288,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -325,8 +304,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -343,10 +320,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -369,6 +342,7 @@ paths:
         - $ref: '#/components/parameters/pandidentificatie-query'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       responses:
         '200':
           description: Geslaagd
@@ -383,8 +357,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -399,8 +373,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -417,10 +389,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -439,6 +407,7 @@ paths:
         - $ref: '#/components/parameters/woonplaatsidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       responses:
         '200':
           description: Geslaagd
@@ -453,8 +422,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -469,8 +438,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -487,10 +454,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -523,8 +486,6 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
@@ -539,8 +500,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -557,10 +516,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -593,8 +548,6 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
           content:
             application/hal+json:
               schema:
@@ -609,8 +562,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -627,10 +578,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -649,6 +596,7 @@ paths:
         - $ref: '#/components/parameters/pandidentificatie'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       responses:
         '200':
           description: Geslaagd
@@ -663,8 +611,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -679,8 +627,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -697,10 +643,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -724,7 +666,8 @@ paths:
       parameters:
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
-
+        - $ref: '../../../../generiek/parameters.yaml#/contentCrs'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       # Antwoord pandGeometrie
       responses:
         '200':
@@ -740,8 +683,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -756,8 +699,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -774,10 +715,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -796,6 +733,7 @@ paths:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/expand'
         - $ref: '../../../../extern/haal-centraal/common-parameters.yaml#/fields'
+        - $ref: '../../../../generiek/parameters.yaml#/acceptCrs'
       responses:
         '200':
           description: Geslaagd
@@ -810,8 +748,8 @@ paths:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '../../../../extern/haal-centraal/common-headers.yaml#/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '../../../../generiek/headers.yaml#/acceptCrs'
+            Content-Crs:
+              $ref: '../../../../generiek/headers.yaml#/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -826,8 +764,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/403'
         '404':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/404'
-        '405':
-          $ref: '../../../../generiek/responses.yaml#/405'
         '406':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/406'
         '409':
@@ -844,10 +780,6 @@ paths:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/429'
         '500':
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/500'
-        '501':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/501'
-        '503':
-          $ref: '../../../../extern/haal-centraal/common-responses.yaml#/503'
         default:
           $ref: '../../../../extern/haal-centraal/common-responses.yaml#/default'
 
@@ -1007,10 +939,11 @@ components:
     Adres:
       type: object
       title: Adres
+      description: 'Het adres is de benaming van een adreswaardige locatie bestaande uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding.'
       properties:
-        verkorteStraatnaam:
-          title: verkorteNaam
-          description: De verkorte naam is een maximaal 24 karakters lange representatie van de naam van een openbare ruimte.
+        korteNaam:
+          title: korteNaam
+          description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
           type: string
           minLength: 1
           maxLength: 24
@@ -1284,9 +1217,9 @@ components:
         status:
           $ref: '../../../../lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
           desciption: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
-        verkorteNaam:
-          title: verkorteNaam
-          description: De verkorte naam is een maximaal 24 karakters lange representatie van de naam van een openbare ruimte.
+        korteNaam:
+          title: korteNaam
+          description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
           type: string
           minLength: 1
           maxLength: 24
