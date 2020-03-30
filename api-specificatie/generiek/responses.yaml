@@ -163,6 +163,9 @@
   headers:
     api-version:
       $ref: './headers.yaml#/api_version'
+# Evt. kan in de header worden aangegeven welke CRS-en ondersteund worden.
+#    acceptCrs: 
+#      $ref: './headers.yaml#/accptCrs'
   content:
     application/problem+json:
       schema:
@@ -171,7 +174,7 @@
         status: 406
         title: Gevraagde contenttype wordt niet ondersteund.
         type: 'https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7 406 Not Acceptable'
-        detail: The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request
+        detail: The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request
         instance: 'https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde'
         code: notAcceptable
 
