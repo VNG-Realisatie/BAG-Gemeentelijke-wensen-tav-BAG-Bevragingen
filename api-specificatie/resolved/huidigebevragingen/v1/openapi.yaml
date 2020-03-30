@@ -105,8 +105,6 @@ paths:
               $ref: '#/components/headers/X_Pagination_Page'
             X-Pagination-Limit:
               $ref: '#/components/headers/X_Pagination_Limit'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
           content:
             application/hal+json:
               schema:
@@ -193,45 +191,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
-          description: Not Acceptable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
-                title: Gevraagde contenttype wordt niet ondersteund.
-                status: 406
-                detail: The resource identified by the request is only capable of
-                  generating response entities which have content characteristics
-                  not acceptable according to thr accept headers sent in the request
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAcceptable
         409:
           description: Conflict
           headers:
@@ -268,24 +227,6 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
-                  412 Precondition Failed
-                detail: The precondition given in one or more of the request-header
-                  fields evaluated to false when it was tested on the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: preconditionFailed
         415:
           description: Unsupported Media Type
           headers:
@@ -358,24 +299,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -451,6 +374,15 @@ paths:
         required: false
         schema:
           type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       responses:
         200:
           description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
@@ -465,8 +397,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -553,26 +485,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -718,24 +630,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -813,6 +707,15 @@ paths:
         required: false
         schema:
           type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       responses:
         200:
           description: raadpleegAdresMetNumId geslaagd
@@ -827,8 +730,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -915,26 +818,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -1080,24 +963,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -1174,6 +1039,15 @@ paths:
         required: false
         schema:
           type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       responses:
         200:
           description: Geslaagd
@@ -1188,8 +1062,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -1276,26 +1150,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -1441,24 +1295,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -1546,6 +1382,15 @@ paths:
         required: false
         schema:
           type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       responses:
         200:
           description: Geslaagd
@@ -1560,8 +1405,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -1648,26 +1493,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -1813,24 +1638,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -1904,6 +1711,15 @@ paths:
         required: false
         schema:
           type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       responses:
         200:
           description: Geslaagd
@@ -1918,8 +1734,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -2006,26 +1822,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -2171,24 +1967,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -2275,8 +2053,6 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
           content:
             application/hal+json:
               schema:
@@ -2363,26 +2139,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -2528,24 +2284,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -2632,8 +2370,6 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
           content:
             application/hal+json:
               schema:
@@ -2720,26 +2456,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -2885,24 +2601,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -2973,6 +2671,15 @@ paths:
         required: false
         schema:
           type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       responses:
         200:
           description: Geslaagd
@@ -2987,8 +2694,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -3075,26 +2782,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -3240,24 +2927,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -3344,6 +3013,15 @@ paths:
         required: false
         schema:
           type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       responses:
         200:
           description: Geslaagd
@@ -3358,8 +3036,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -3446,26 +3124,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -3611,24 +3269,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -3688,6 +3328,23 @@ paths:
         required: false
         schema:
           type: string
+      - name: Content-Crs
+        in: header
+        description: CRS van de meegegeven geometrie.
+        required: false
+        schema:
+          type: string
+          enum:
+          - epsg:28992
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+          enum:
+          - epsg:28992
       requestBody:
         description: Geometrisch punt waarop de panden bepaald moeten worden.
         content:
@@ -3709,8 +3366,8 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -3797,26 +3454,6 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
         406:
           description: Not Acceptable
           headers:
@@ -3962,24 +3599,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
         503:
           description: Service Unavailable
           headers:
@@ -4046,13 +3665,13 @@ components:
       title: Adres
       type: object
       properties:
-        verkorteStraatnaam:
-          title: verkorteNaam
+        korteNaam:
+          title: korteNaam
           maxLength: 24
           minLength: 1
           type: string
-          description: De verkorte naam is een maximaal 24 karakters lange representatie
-            van de naam van een openbare ruimte.
+          description: De officiële openbare ruimte naam als deze niet langer is dan
+            24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.
           example: Ln vd l D Westervoort
         straat:
           title: openbareruimte naam
@@ -4334,13 +3953,13 @@ components:
           $ref: '#/components/schemas/TypeOpenbareRuimte'
         status:
           $ref: '#/components/schemas/StatusNaamgeving'
-        verkorteNaam:
-          title: verkorteNaam
+        korteNaam:
+          title: korteNaam
           maxLength: 24
           minLength: 1
           type: string
-          description: De verkorte naam is een maximaal 24 karakters lange representatie
-            van de naam van een openbare ruimte.
+          description: De officiële openbare ruimte naam als deze niet langer is dan
+            24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.
           example: Ln vd l D Westervoort
         geconstateerd:
           type: boolean
@@ -5254,13 +4873,11 @@ components:
         type: integer
         description: Aantal resultaten per pagina.
         example: 20
-    acceptCrs:
-      description: Gewenste CRS van de coördinaten in de response.
+    contentCrs:
+      description: CRS van de meegegeven geometrie.
       required: false
       schema:
         type: string
-        description: CRS van de coördinaten in de response.
-        default: epsg:28992
         enum:
         - epsg:28992
   securitySchemes:
