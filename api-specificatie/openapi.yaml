@@ -654,7 +654,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yamlcomponents/schemas/Point'
+              $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
       security:
         - apiKeyBAG: []
       tags:
