@@ -1473,7 +1473,7 @@ components:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode.'
         geometrie:
-          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yamlcomponents/schemas/Surface'
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
           description: 'De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand.'
         oorspronkelijkBouwjaar:
           title: Oorspronkelijk bouwjaar
@@ -1518,8 +1518,6 @@ components:
 
     Pand_links:
       type: object
-      required:
-        - self
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
@@ -1535,7 +1533,7 @@ components:
         adressen:
           type: array
           items:
-            $ref: '#/components/schemas/AdresHal'
+            $ref: '#/components/schemas/Adres'
 
     PandHalCollectie:
       type: object
