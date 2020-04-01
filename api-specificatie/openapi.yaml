@@ -950,7 +950,8 @@ components:
     Adres:
       type: object
       title: Adres
-      description: 'Het adres is de benaming van een adreswaardige locatie bestaande uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding.'
+      description: 'Het adres is de benaming van een adreswaardige locatie bestaande uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding. Wat tussen haakjes staat is optioneel
+'
       properties:
         korteNaam:
           title: korteNaam
