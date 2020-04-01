@@ -41,8 +41,10 @@ Als ‘let op’, niet als aggregatie. De betekenis/description is: let op, er i
 Deze lijsten van properies krijgen de naam ....MogelijkOnjuist  (bv. woonplaatsnaamMogelijkOnjuist)
 Deze indicaties hebben de rol om de consumer te attenderen op het feit dat er mogelijk iets in onderzoek is en niet om de exact juiste "Inonderzoek" gegevens te communiceren. Als de consumer dat wil weten moet de de daarvoor bestemde endpoint bevraagd worden. 
 
-## Alleen inonderzoek info over huidige statussen 
+## Bij zoeken endpoint wordt een parameter ‘zoek’ gebruikt i.p.v. q omdat het duidelijker aangeeft waarvoor de parameter wordt gebruikt
 
+## VerkorteNaam wordt korteNaam en deze wordt altijd (ook als de openbare ruimte naam niet langer is dan  24 karakters) gevuld in de response.
 
+## In de yaml specificaties worden absolute paden gebruikt bij referenties, tenzij het een referentie is naar een lokaal (lees in hetzelfde bestand) gedefinieerd type
 
 
