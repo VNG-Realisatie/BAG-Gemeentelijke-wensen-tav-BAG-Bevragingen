@@ -1061,12 +1061,11 @@ components:
       type: object
       properties:
         openbareruimte:
-          $ref: '#/components/schemas/OpenbareRuimteHal'
+          $ref: '#/components/schemas/OpenbareRuimteHalBasis'
         nummeraanduiding:
-          $ref: '#/components/schemas/NummeraanduidingHal'
+          $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
-          $ref: '#/components/schemas/WoonplaatsHal'
-
+          $ref: '#/components/schemas/WoonplaatsHalBasis'
     AdresseerbaarObject:
       type: object
       description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
@@ -1177,17 +1176,14 @@ components:
       properties:
         adres:
           $ref: '#/components/schemas/AdresHalBasis'
-        maaktDeelUitVanPand:
-          description: Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).
-          items:
-            $ref: '#/components/schemas/Pand'
-          type: array
+        panden:
+          $ref: '#/components/schemas/PandHalCollectie'
     AdresseerbaarObject_links:
       type: object
       properties:
         hoofdAdres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-        maaktDeelUitVanPand:
+        panden:
           description: link(s) naar het pand of de panden waar het verblijfsobject
             deel van uitmaakt
           items:
@@ -1267,16 +1263,20 @@ components:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een openbare ruimte ligt in een woonplaats.'
 
+    OpenbareRuimteHalBasis:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/OpenbareRuimte'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/OpenbareRuimte_links'
     OpenbareRuimteHal:
       type: object
-      title: OpenbareRuimteHal
-      properties:
-        openbareRuimte:
-          $ref: '#/components/schemas/OpenbareRuimte'          
-        _links:
-          $ref: '#/components/schemas/OpenbareRuimte_links'
-        _embedded:
-          $ref: '#/components/schemas/OpenbareRuimte_embedded'
+      allOf:
+      - $ref: '#/components/schemas/OpenbareRuimteHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/OpenbareRuimte_embedded'
       
     OpenbareRuimte_links:
       type: object
@@ -1293,7 +1293,7 @@ components:
       type: object
       properties:
         ligtInWoonplaats:
-          $ref: '#/components/schemas/WoonplaatsHal'
+          $ref: '#/components/schemas/WoonplaatsHalBasis'
           description: 'De aan het oenbareruimte gerelateerde woonplaats (object(en)).'
 
     Nummeraanduiding:
@@ -1363,18 +1363,18 @@ components:
           type: boolean
         ligtAanOpenbareRuimteMogelijkOnjuist:
           type: boolean
-
+    NummeraanduidingHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/Nummeraanduiding'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Nummeraanduiding_links'
     NummeraanduidingHal:
-      type: object
-      title: NummeraanduidingHal
-      properties:
-        nummeraanduiding:
-          $ref: '#/components/schemas/Nummeraanduiding'
-        _links:
-          $ref: '#/components/schemas/Nummeraanduiding_links'
-        _embedded:
-          $ref: '#/components/schemas/Nummeraanduiding_embedded'
-
+      allOf:
+      - $ref: '#/components/schemas/NummeraanduidingHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/Nummeraanduiding_embedded'
     Nummeraanduiding_links:
       type: object
       required:
@@ -1396,13 +1396,13 @@ components:
       type: object
       properties:
         adres:
-          $ref: '#/components/schemas/AdresHal'
+          $ref: '#/components/schemas/AdresHalBasis'
           description: 'De aan de nummeraanduiding gerelateerde adres (object).'
         ligtAanOpenbareRuimte:
-          $ref: '#/components/schemas/OpenbareRuimteHal'
+          $ref: '#/components/schemas/OpenbareRuimteHalBasis'
           descripion: 'De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).'
         ligtInWoonplaats:
-          $ref: '#/components/schemas/WoonplaatsHal'
+          $ref: '#/components/schemas/WoonplaatsHalBasis'
           description: 'De aan de nummeraanduiding gerelateerde woonplaats (object(en)).'
 
     Woonplaats:
@@ -1444,16 +1444,18 @@ components:
           type: boolean
         statusMogelijkOnjuist:
           type: boolean
-
-    WoonplaatsHal:
+    WoonplaatsHalBasis:
       allOf:
         - $ref: '#/components/schemas/Woonplaats'
         - properties:
             _links:
               $ref: '#/components/schemas/Woonplaats_links'
+    WoonplaatsHal:
+      allOf:
+        - $ref: '#/components/schemas/WoonplaatsHalBasis'
+        - properties:
             _embedded:
               $ref: '#/components/schemas/Woonplaats_embedded'
-
     Woonplaats_links:
       type: object
       required:
@@ -1537,7 +1539,7 @@ components:
         adressen:
           type: array
           items:
-            $ref: '#/components/schemas/Adres'
+            $ref: '#/components/schemas/AdresHalBasis'
 
     PandHalCollectie:
       type: object
