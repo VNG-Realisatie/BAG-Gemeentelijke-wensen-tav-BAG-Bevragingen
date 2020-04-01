@@ -3717,7 +3717,7 @@ components:
         _embedded:
           type: object
           properties:
-            adressseerbareObjecten:
+            adresseerbareObjecten:
               type: array
               items:
                 $ref: '#/components/schemas/AdresseerbaarObjectHal'
