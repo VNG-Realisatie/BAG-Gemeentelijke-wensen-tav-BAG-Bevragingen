@@ -1196,7 +1196,7 @@ components:
       properties:
         _embedded:
           properties:
-            adressseerbareObjecten:
+            adresseerbareObjecten:
               items:
                 $ref: '#/components/schemas/AdresseerbaarObjectHal'
               type: array
