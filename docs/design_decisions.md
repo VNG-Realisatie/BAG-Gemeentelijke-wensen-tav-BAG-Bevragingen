@@ -16,8 +16,6 @@ De resource adres wordt samengesteld uit de resources nummeraanduiding, openbare
 ## We gaan het zoeken restfull invulling geven. 
 De logica van de locatieserver wordt achter de schermen afgehandeld. Op basis van een zoekstring worden suggesties gedaan en op basis van de geselecteerde zoeksuggestie wordt met de zoekresultatidentificatie wordt een adres (via /adressen) opgehaald met daarbij in de links weer de nummeraanduiding-id en de adresseerbaarobjectidentificatie aangeboden. 
 
-Zorg ook dat dit voldoet aan de eisen die we aan HAL stellen. 
-
 ## We nemen de velden die door de provider ALTIJD (en onconditioneel) geleverd worden op als required. 
 
 Sommige properties worden altijd geleverd door het Kadaster. De elementen die dat betreft worden 
