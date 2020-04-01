@@ -1017,16 +1017,20 @@ components:
         indicatieMogelijkOnjuist:
           description: 'Een aanduiding dat één of meerdere attributen van objecten gerelateerd aan een adres in onderzoek of mogelijk onjuist is/zijn.'
           type: boolean
-
     AdresHal:
+      type: object
       allOf:
-        - $ref: '#/components/schemas/Adres'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/Adres_links'
-            _embedded:
-              $ref: '#/components/schemas/Adres_embedded'
-
+      - $ref: '#/components/schemas/AdresHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/Adres_embedded'
+    AdresHalBasis:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Adres'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Adres_links'
     Adres_links:
       type: object
       required:
@@ -1064,151 +1068,150 @@ components:
           $ref: '#/components/schemas/WoonplaatsHal'
 
     AdresseerbaarObject:
-      title: AdresseerbaarObject
       type: object
-      description: 'De definitie van dit object is in tegenstelling tot de deifnitie in de BAG Catalogus 2018 een concreet object type dat een ligplaats, standplaats of verblijfsobject kan zijn.'
+      description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
       properties:
-        identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
-        geometrie:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
-        gebruiksdoelen:
-          type: array
+        adresseerbaarObjectIdentificatie:
+          description: unieke identificatie van het adresseerbaar object
+          type: string
+          example: "01230167890123456"
+        adresseerbaarObjectType:
+          $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+        documentdatum:
+          description: De datum waarop het brondocument is vastgesteld, op basis waarvan
+            een opname, mutatie of een verwijdering van gegevens ten aanzien van een
+            object heeft plaatsgevonden.
+          example: "2019-08-14"
+          format: date
+          type: string
+        documentnummer:
+          description: De unieke aanduiding van het brondocument op basis waarvan
+            een opname, mutatie of een verwijdering van gegevens ten aanzien van een
+            woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
+            de MES-1 karakterset zijn toegstaan.
+          example: AV-2019-08-19-00
+          maxLength: 40
+          type: string
+        gebruiksdoel:
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
-          minItems: 1
+          type: array
+        geconstateerd:
+          description: Een aanduiding waarmee kan worden aangegeven dat een object
+            in de registratie is opgenomen als gevolg van een feitelijke constatering,
+            zonder dat er op het moment van opname sprake was van een regulier brondocument
+            voor deze opname.
+          type: boolean
+        geometrie:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
+        hoofdAdresIdentificatie:
+          description: identificatie van het hoofdadres
+          type: string
+          example: "01232067890123456"
+        nevenAdresIdentificaties:
+          description: identificatie(s) van het nevenadres of de nevenadressen
+          items:
+            type: string
+            example: "0123201234567890"
+          type: array
+        pandIdentificaties:
+          description: identificatie(s) van het pand of de panden waar het verblijfsobject
+            deel van uitmaakt
+          items:
+            type: string
+            example: "01234567890123456"
+          type: array
         oppervlakte:
-          title: oppervlakte
           type: integer
         status:
-          $ref: '#/components/schemas/AdresseerbaarObjectHuidigeStatus'
-          description: 'Een aanduiding van de huidige status van een adresseerbaar object. Deze wordt ontleend van de status van een ligplaats, standplaats of verblijfsobject.'
-        geconstateerd:
-          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
-          type: boolean
-        documentdatum:
-          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-          title: documentdatum
-          type: string
-          format: date
-          example: '2019-08-14'
-        documentnummer:
-          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
-          title: documentnummer
-          type: string
-          minLength: 1
-          maxLength: 40
-          example: 'AV-2019-08-19-00'
-        type:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/adresseerbaarobject.yaml#/TypeAdresseerbaarObject'
-        heeftAlsHoofdAdres:
-          $ref: '#/components/schemas/NEN3610ID'
-        heeftAlsNevenAdressen:
-          type: array
-          items:
-            $ref: '#/components/schemas/NEN3610ID'
-          minItems: 1
-        maaktDeelUitVanPanden:
-          type: array
-          items:
-            $ref: '#/components/schemas/NEN3610ID'
-          minItems: 1
-        geometrieMogelijkOnjuist:
-          description: 'Als de geometrie in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
-          type: boolean
-        gebruiksdoelMogelijkOnjuist:
-          description: 'Als het adresseeerbare object een verblijfsobject betreft en een gebruiksdoel is in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
-          type: boolean
-        oppervlakteMogelijkOnjuist:
-          description: 'Als het adresseeerbare object een verblijfsobject betreft en de oppervlakte is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
-          type: boolean
-        statusMogelijkOnjuist:
-          description: 'Als de status in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
-          type: boolean
-        heeftAlsHoofdAdresMogelijkOnjuist:
-          description: 'Als de relatie van een adresseerbaar object met het hoofdadres is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
-          type: boolean
-        heeftAlsNevenAdresMogelijkOnjuist:
-          description: 'Als de relatie van een adresseerbaar object met een nevenadres in onderzoek of mogelijk onjuist is, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
-          type: boolean
-        maaktDeelUitVanPandenMogelijkOnjuist:
-          description: 'Als het adresseerbare object een verblijfsobject betreft en de relatie van het verblijfsobject met een pand is in onderzoek of mogelijk onjuist, dan wordt dit met true aangegeven, anders is dit attribuut niet aanwezig.'
-          type: boolean
-
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/adresseerbaarObject.yaml#/AdresseerbaarObjectStatus'
+        mogelijkOnjuist:
+          $ref: '#/components/schemas/AdresseerbaarObjectMogelijkOnjuist'
     AdresseerbaarObjectHal:
-      allOf:
-        - $ref: '#/components/schemas/AdresseerbaarObject'
-        - properties:
-            _links:
-              $ref: '#/components/schemas/AdresseerbaarObject_links'
-            _embedded:
-              $ref: '#/components/schemas/AdresseerbaarObject_embedded'
-
-    AdresseerbaarObject_links:
       type: object
-      required:
-        - self
+      allOf:
+      - $ref: '#/components/schemas/AdresseerbaarObjectHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/AdresseerbaarObject_embedded'
+    AdresseerbaarObjectHalBasis:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AdresseerbaarObject'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/AdresseerbaarObject_links'
+    AdresseerbaarObjectMogelijkOnjuist:
+      type: object
       properties:
-        self:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'Refereert naar de /adresseerbareobjecten endpoint waar met een adresseerbaarobject identificatie bevraagd kan worden'
-        heeftAlsHoofdadres:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-        heeftAlsNevenadressen:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-            description: 'Refereert bij verblijfsobjecten naar de /adresseerbareobjecten waar met een adresseerbaarobject identificatie bevraagd kan worden'
-          minItems: 0
-        maaktDeelUitVanPanden:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-            description: 'Refereert bij verblijfsobjecten naar de /adresseerbareobjecten waar met een adresseerbaarobject identificatie bevraagd kan worden'
-          minItems: 1
-        adres:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: Het aan de ligplaats gerelateerde adres (link).
-
+        gebruiksdoel:
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+          type: boolean
+        geometrie:
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+          type: boolean
+        hoofdadresidentificatie:
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+          type: boolean
+        nevenadresIdentificaties:
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+          type: boolean
+        pandIdentificaties:
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+          type: boolean
+        oppervlakte:
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+          type: boolean
+        status:
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+          type: boolean
     AdresseerbaarObject_embedded:
       type: object
       properties:
-        maaktDeelUitVanPanden:
-          description: 'Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).'
-          type: array
-          items:
-            $ref: '#/components/schemas/PandHal'
-          minItems: 1
         adres:
-          $ref: '#/components/schemas/AdresHal'
-          description: Het aan de ligplaats gerelateerde adres (object)
-
+          $ref: '#/components/schemas/AdresHalBasis'
+        maaktDeelUitVanPand:
+          description: Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).
+          items:
+            $ref: '#/components/schemas/Pand'
+          type: array
+    AdresseerbaarObject_links:
+      type: object
+      properties:
+        hoofdAdres:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+        maaktDeelUitVanPand:
+          description: link(s) naar het pand of de panden waar het verblijfsobject
+            deel van uitmaakt
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+          type: array
+        self:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
     AdresseerbaarobjectHalCollectie:
       type: object
       properties:
-        _links:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks'
         _embedded:
-          type: object
           properties:
             adressseerbareObjecten:
-              type: array
               items:
                 $ref: '#/components/schemas/AdresseerbaarObjectHal'
-
-    AdresseerbaarObjectHuidigeStatus:
-      title: AdresseerbaarObjectHuidigeStatus
-      type: string
-      enum:
-        # Ligplaats / standplaats huidige statussen
-        - 'Plaats aangewezen'
-        # Verblijfsobject huidige statussen
-        - 'Verblijfsobject gevormd'
-        - 'Verblijfsobject in gebruik (niet ingemeten)'
-        - 'Verblijfsobject in gebruik'
-        - 'Verbouwing verblijfsobject'
-        - 'Verblijfsobject buiten gebruik'
-
+              type: array
+          type: object
+        _links:
+          properties:
+            adresseerbareObjecten:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
+            self:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+          type: object
     OpenbareRuimte:
       type: object
       title: OpenbareRuimte
@@ -1323,7 +1326,7 @@ components:
         status:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
         geconstateerd:
-          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          description: "Indicator dat een object in de registratie is opgenomen op basis van een feitelijke constatering, zonder dat er een besluit en brondocument aan ten grondslag ligt."
           type: boolean
         documentdatum:
           description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
@@ -1332,7 +1335,7 @@ components:
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
+          description: 'Identificatie van het brondocument dat ten grondslag ligt aan de opname, mutatie of een verwijdering van gegevens.'
           title: documentnummer
           type: string
           minLength: 1
@@ -1567,3 +1570,8 @@ components:
           type: string
           minLength: 1
           example: 'NL.IMBAG.Woonplaats'
+    TypeAdresseerbaarObject_enum:
+      enum:
+      - verblijfsobject
+      - standplaats
+      - ligplaats
