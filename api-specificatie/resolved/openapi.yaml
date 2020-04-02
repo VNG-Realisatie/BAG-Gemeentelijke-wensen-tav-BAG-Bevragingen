@@ -20,17 +20,6 @@ servers:
   description: LVBAG - PRODUCTIE
 security:
 - apiKeyBAG: []
-tags:
-- name: Adres
-  description: Dit endpoint levert de huidige gegevens van één of meer (voorkomens
-    van) adres(sen). Huidige gegevens zijn actuele gegevens die geen eind status hebben,
-    zoals 'Naamgeving ingetrokken'. Als een nummeraanduiding of een adresseerbaarobject
-    een eind status heeft, dan levert een bevraging geen adres op. De informatie die
-    wordt verkregen via dit endpoint is alleen actueel op het moment van bevragen.
-    Tussen twee bevragingen kunnen wijzigingen zijn doorgevoerd op de adres informatie,
-    waardoor de informatie verkregen uit verschillende bevragingen kan verschillen.
-    Dit endpoint levert geen historische informatie noch de gehele levenscyclus van
-    adressen.
 paths:
   /info:
     get:
