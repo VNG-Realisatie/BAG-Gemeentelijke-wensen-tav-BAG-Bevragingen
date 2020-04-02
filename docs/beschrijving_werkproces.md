@@ -10,7 +10,7 @@ Het is verstandig de wijzigingen zo klein mogelijk te houden.
 
 # Procesbeschrijving issue afhandeling
 -	Issue staat in ‘**Ready**’.
--	PO bepaalt welke zaken er in een sprint geïmplementeerd worden.
+-	HC PO bepaalt welke zaken er in een sprint geïmplementeerd worden. Issues met label bug worden apart afgehandeld (zie procesbeschrijving afhandeling bevindingen).
   Gedurende de sprint, bij het oppakken van een issue:
 -	Issue(s) in ‘**In progress**’ zetten.
 -	Branch aanmaken met issue nummer en korte beschrijving (zonder spaties) in de naam.
@@ -23,3 +23,10 @@ Het is verstandig de wijzigingen zo klein mogelijk te houden.
 -	Zodra reviewers akkoord -> branch mergen naar master.
 -	Issue(s) naar ‘**Done**’.
 -	Kadaster neemt de versie van de master in de HC github over naar de Kadaster github repository en implementeert deze versie.
+
+# Procesbeschrijving afhandeling bevindingen
+Issues met het label 'bug' zijn fouten die zijn geconstateerd bij het testen van de API en betreffen issues in de implementatie van de API.
+- Issues met label 'bug' worden door Kadaster overgenomen en behandeld via lokale issue tracking systeem.
+- Issues worden intern getest.
+- Zodra intern akkoord, wordt het issue in '**Review**' gezet en kan in de testomgeving worden gevalideerd.
+- Zodra testen akkoord -> issue naar '**Done**'.
