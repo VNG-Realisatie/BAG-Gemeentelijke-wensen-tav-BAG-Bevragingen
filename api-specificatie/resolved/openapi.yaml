@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Haal Centraal BAG Bevragen API
-  description: '"Dit is de Haal Centraal BAG Bevragen API."'
+  title: Huidige bevragingen API
+  description: '"Dit is de huidige bevragingen API."'
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
   contact:
     name: Kadaster - Beheerder Landelijke Voorziening BAG
@@ -12,26 +12,36 @@ info:
     url: https://eupl.eu/1.2/nl/
   version: 1.0.0
 servers:
-- url: https://api.test.kadaster.nl/lvbag/api/haal-centraal-bag-bevragen/vhc
+- url: https://api.test.kadaster.nl/lvbag/api/huidigebevragingen/v1
   description: LVBAG - TEST
-- url: https://api.acceptatie.kadaster.nl/lvbag/api/haal-centraal-bag-bevragen/vhc
+- url: https://api.acceptatie.kadaster.nl/lvbag/api/huidigebevragingen/v1
   description: LVBAG - ACCEPTATIE
-- url: https://api.kadaster.nl/lvbag/api/haal-centraal-bag-bevragen/vhc
+- url: https://api.kadaster.nl/lvbag/api/huidigebevragingen/v1
   description: LVBAG - PRODUCTIE
 security:
 - apiKeyBAG: []
-tags:
-- name: Adres
-  description: Dit endpoint levert de huidige gegevens van één of meer (voorkomens
-    van) adres(sen). Huidige gegevens zijn actuele gegevens die geen eind status hebben,
-    zoals 'Naamgeving ingetrokken'. Als een nummeraanduiding of een adresseerbaarobject
-    een eind status heeft, dan levert een bevraging geen adres op. De informatie die
-    wordt verkregen via dit endpoint is alleen actueel op het moment van bevragen.
-    Tussen twee bevragingen kunnen wijzigingen zijn doorgevoerd op de adres informatie,
-    waardoor de informatie verkregen uit verschillende bevragingen kan verschillen.
-    Dit endpoint levert geen historische informatie noch de gehele levenscyclus van
-    adressen.
 paths:
+  /info:
+    get:
+      tags:
+      - Algemene informatie
+      summary: Algemene info van de API
+      operationId: getInfo
+      responses:
+        "200":
+          description: Bevraging getInfo geslaagd
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-info'
+        default:
+          description: Onverwacht probleem
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+      security:
+      - apiKeyBAG: []
   /adressen/zoek:
     get:
       tags:
@@ -50,8 +60,24 @@ paths:
         explode: true
         schema:
           type: string
+      - name: page
+        in: query
+        description: Pagina nummer
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 20
       responses:
-        200:
+        "200":
           description: Zoek adres geslaagd
           headers:
             api-version:
@@ -68,18 +94,16 @@ paths:
               $ref: '#/components/headers/X_Pagination_Page'
             X-Pagination-Limit:
               $ref: '#/components/headers/X_Pagination_Limit'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/ZoekResultaatHalCollectie'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -102,7 +126,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -121,7 +145,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -139,7 +163,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -156,46 +180,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
-          description: Not Acceptable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
-                title: Gevraagde contenttype wordt niet ondersteund.
-                status: 406
-                detail: The resource identified by the request is only capable of
-                  generating response entities which have content characteristics
-                  not acceptable according to thr accept headers sent in the request
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -213,7 +198,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -231,25 +216,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
-                  412 Precondition Failed
-                detail: The precondition given in one or more of the request-header
-                  fields evaluated to false when it was tested on the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -268,25 +235,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -303,7 +270,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -321,42 +288,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -403,8 +334,26 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
       responses:
-        200:
+        "200":
           description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
           headers:
             api-version:
@@ -417,18 +366,18 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/AdresHal'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -451,7 +400,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -470,7 +419,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -488,7 +437,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -505,27 +454,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -544,7 +473,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -562,7 +491,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -580,25 +509,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -617,25 +546,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -652,7 +581,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -670,42 +599,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -754,8 +647,26 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
       responses:
-        200:
+        "200":
           description: raadpleegAdresMetNumId geslaagd
           headers:
             api-version:
@@ -768,18 +679,18 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/AdresHal'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -802,7 +713,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -821,7 +732,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -839,7 +750,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -856,27 +767,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -895,7 +786,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -913,7 +804,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -931,25 +822,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -968,25 +859,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -1003,7 +894,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -1021,42 +912,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -1104,8 +959,26 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
       responses:
-        200:
+        "200":
           description: Geslaagd
           headers:
             api-version:
@@ -1118,18 +991,18 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/AdresseerbaarObjectHal'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -1152,7 +1025,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -1171,7 +1044,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -1189,7 +1062,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -1206,27 +1079,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -1245,7 +1098,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -1263,7 +1116,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -1281,25 +1134,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -1318,25 +1171,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -1353,7 +1206,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -1371,8 +1224,132 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
+        default:
+          description: Er is een onverwachte fout opgetreden
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+      security:
+      - apiKeyBAG: []
+  /adresseerbareobjecten:
+    get:
+      tags:
+      - Adresseerbaar object
+      summary: Raadpleeg adresseerbaar object met een identificatie van een nummeraanduiding
+        of pand object
+      description: Raadpleeg het adresseerbaar object met de identificatie van een
+        nummeraanduiding of pand via de zoek-operatie. Geleverd worden de huidige
+        gegevens van een adresseerbaarobject evt. met adres en pand. Huidige gegevens
+        zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
+        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres
+        op. Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie
+        van een nummeraanduiding. Parameter pandidentificatie-query bevat de 16 cijferige
+        identificatie van een pand
+      operationId: raadpleegAdresseerbaarobject
+      parameters:
+      - name: nummeraanduidingidentificatie
+        in: query
+        description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
+          cijfers lang.
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[0-9]{4}20[0-9]{10}$
+          type: string
+          example: "1234200000000001"
+      - name: pandidentificatie
+        in: query
+        description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[0-9]{4}10[0-9]{10}$
+          type: string
+          example: "1234100000000001"
+      - name: expand
+        in: query
+        description: Hier kan aangegeven worden welke gerelateerde resources meegeladen
+          moeten worden. Resources en velden van resources die gewenst zijn kunnen
+          in de expand parameter kommagescheiden worden opgegeven. Specifieke velden
+          van resource kunnen worden opgegeven door het opgeven van de resource-naam
+          gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
+        required: false
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+      responses:
+        "200":
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+            warning:
+              $ref: '#/components/headers/warning'
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X_Rate_Limit_Reset'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
+        "204":
+          description: No content
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+        "400":
+          description: Bad Request
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestFoutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
+                  400 Bad Request
+                title: Ten minste één parameter moet worden opgegeven.
+                status: 400
+                detail: The request could not be understood by the server due to malformed
+                  syntax. The client SHOULD NOT repeat the request without modification.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: paramsRequired
+                invalid-params:
+                - type: https://www.vng.nl/realisatie/api/validaties/integer
+                  name: verblijfplaats__huisnummer
+                  code: integer
+                  reason: Waarde is geen geldige integer.
+        "401":
+          description: Unauthorized
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -1381,16 +1358,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
+                  401 Unauthorized
+                title: Niet correct geauthenticeerd.
+                status: 401
+                detail: The request requires user authentication. The response MUST
+                  include a WWW-Authenticate header field (section 14.47) containing
+                  a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
+                code: authentication
+        "403":
+          description: Forbidden
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
@@ -1399,14 +1377,176 @@ paths:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
               example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
+                  403 Forbidden
+                title: U bent niet geautoriseerd voor deze operatie.
+                status: 403
+                detail: The server understood the request, but is refusing to fulfill
+                  it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
+                code: autorisation
+        "404":
+          description: Not Found
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5
+                  404 Not Found
+                title: Opgevraagde resource bestaat niet.
+                status: 404
+                detail: The server has not found anything matching the Request-URI.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: notFound
+        "406":
+          description: Not Acceptable
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
+                  406 Not Acceptable
+                title: Gevraagde contenttype wordt niet ondersteund.
+                status: 406
+                detail: The resource identified by the request is only capable of
+                  generating response entities which have content characteristics
+                  not acceptable according to thr accept headers sent in the request
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: notAcceptable
+        "409":
+          description: Conflict
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.10
+                  409 Conflict
+                title: Conflict
+                status: 409
+                detail: The request could not be completed due to a conflict with
+                  the current state of the resource
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: conflict
+        "410":
+          description: Gone
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
+                  410 Gone
+                title: Gone
+                status: 410
+                detail: The request could not be completed due to a conflict with
+                  the current state of the resource
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: gone
+        "412":
+          description: Precondition failed
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
+                  412 Precondition Failed
+                title: Precondition Failed
+                status: 412
+                detail: The precondition given in one or more of the request-header
+                  fields evaluated to false when it was tested on the server.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: preconditionFailed
+        "415":
+          description: Unsupported Media Type
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.16
+                  415 Unsupported Media Type
+                title: Unsupported Media Type
+                status: 415
+                detail: The server is refusing the request because the entity of the
+                  request is in a format not supported by the requested resource for
+                  the requested method.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: unsupported
+        "422":
+          description: Unprocessable entity
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
+                detail: The server understands the content type of the request entity
+                  and the syntax of the request entity is correct but was unable to
+                  process the contained instructions.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: unprocessableEntity
+        "429":
+          description: Too Many Requests
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+                title: Too many request
+                status: 429
+                detail: The user has sent too many requests in a given amount of time
+                  (rate limiting).
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: tooManyRequests
+        "500":
+          description: Internal Server Error
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
+                  500 Internal server error
+                title: Interne server fout.
+                status: 500
+                detail: The server encountered an unexpected condition which prevented
+                  it from fulfilling the request.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: serverError
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -1451,8 +1591,26 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
       responses:
-        200:
+        "200":
           description: Geslaagd
           headers:
             api-version:
@@ -1465,18 +1623,18 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/WoonplaatsHal'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -1499,7 +1657,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -1518,7 +1676,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -1536,7 +1694,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -1553,27 +1711,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -1592,7 +1730,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -1610,7 +1748,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -1628,25 +1766,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -1665,25 +1803,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -1700,7 +1838,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -1718,42 +1856,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -1797,8 +1899,19 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
       responses:
-        200:
+        "200":
           description: Geslaagd
           headers:
             api-version:
@@ -1811,18 +1924,16 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/OpenbareRuimteHal'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -1845,7 +1956,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -1864,7 +1975,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -1882,7 +1993,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -1899,27 +2010,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -1938,7 +2029,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -1956,7 +2047,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -1974,25 +2065,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -2011,25 +2102,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -2046,7 +2137,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -2064,42 +2155,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -2143,8 +2198,19 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
       responses:
-        200:
+        "200":
           description: Geslaagd
           headers:
             api-version:
@@ -2157,18 +2223,16 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/NummeraanduidingHal'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -2191,7 +2255,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -2210,7 +2274,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -2228,7 +2292,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -2245,27 +2309,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -2284,7 +2328,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -2302,7 +2346,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -2320,25 +2364,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -2357,25 +2401,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -2392,7 +2436,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -2410,42 +2454,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -2487,8 +2495,26 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
       responses:
-        200:
+        "200":
           description: Geslaagd
           headers:
             api-version:
@@ -2501,18 +2527,18 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/PandHal'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -2535,7 +2561,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -2554,7 +2580,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -2572,7 +2598,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -2589,27 +2615,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -2628,7 +2634,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -2646,7 +2652,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -2664,25 +2670,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -2701,25 +2707,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -2736,7 +2742,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -2754,42 +2760,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -2802,6 +2772,327 @@ paths:
       security:
       - apiKeyBAG: []
   /panden:
+    get:
+      tags:
+      - Pand
+      summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject
+        identificatie vekregen uit een zoek-operatie
+      description: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject
+        identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde
+        verblijfsobjecten en het/de adres(sen). Parameter nummeraanduidingidentificatie-query
+        bevat de 16 cijferige identificatie van een nummeraanduiding. Parameter adresseerbaarobjectidentificatie-query
+        bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject
+      operationId: raadpleegPanden
+      parameters:
+      - name: nummeraanduidingidentificatie
+        in: query
+        description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
+          cijfers lang.
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[0-9]{4}20[0-9]{10}$
+          type: string
+          example: "1234200000000001"
+      - name: adresseerbaarobjectidentificatie
+        in: query
+        description: De identificatie van een adresserbaar object uit de BAG. Dit
+          kan een verblijfsobject, een standplaats of een ligplaats zijn.
+        required: false
+        style: form
+        explode: true
+        schema:
+          title: identificatie van een adresseerbaarobject
+          pattern: ^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$
+          type: string
+          example: "1234010000000001"
+      - name: expand
+        in: query
+        description: Hier kan aangegeven worden welke gerelateerde resources meegeladen
+          moeten worden. Resources en velden van resources die gewenst zijn kunnen
+          in de expand parameter kommagescheiden worden opgegeven. Specifieke velden
+          van resource kunnen worden opgegeven door het opgeven van de resource-naam
+          gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
+        required: false
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
+      responses:
+        "200":
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+            warning:
+              $ref: '#/components/headers/warning'
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/X_Rate_Limit_Limit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/X_Rate_Limit_Remaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/X_Rate_Limit_Reset'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PandHalCollectie'
+        "204":
+          description: No content
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+        "400":
+          description: Bad Request
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestFoutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
+                  400 Bad Request
+                title: Ten minste één parameter moet worden opgegeven.
+                status: 400
+                detail: The request could not be understood by the server due to malformed
+                  syntax. The client SHOULD NOT repeat the request without modification.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: paramsRequired
+                invalid-params:
+                - type: https://www.vng.nl/realisatie/api/validaties/integer
+                  name: verblijfplaats__huisnummer
+                  code: integer
+                  reason: Waarde is geen geldige integer.
+        "401":
+          description: Unauthorized
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
+                  401 Unauthorized
+                title: Niet correct geauthenticeerd.
+                status: 401
+                detail: The request requires user authentication. The response MUST
+                  include a WWW-Authenticate header field (section 14.47) containing
+                  a challenge applicable to the requested resource.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: authentication
+        "403":
+          description: Forbidden
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
+                  403 Forbidden
+                title: U bent niet geautoriseerd voor deze operatie.
+                status: 403
+                detail: The server understood the request, but is refusing to fulfill
+                  it.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: autorisation
+        "404":
+          description: Not Found
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.5
+                  404 Not Found
+                title: Opgevraagde resource bestaat niet.
+                status: 404
+                detail: The server has not found anything matching the Request-URI.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: notFound
+        "406":
+          description: Not Acceptable
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
+                  406 Not Acceptable
+                title: Gevraagde contenttype wordt niet ondersteund.
+                status: 406
+                detail: The resource identified by the request is only capable of
+                  generating response entities which have content characteristics
+                  not acceptable according to thr accept headers sent in the request
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: notAcceptable
+        "409":
+          description: Conflict
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.10
+                  409 Conflict
+                title: Conflict
+                status: 409
+                detail: The request could not be completed due to a conflict with
+                  the current state of the resource
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: conflict
+        "410":
+          description: Gone
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.11
+                  410 Gone
+                title: Gone
+                status: 410
+                detail: The request could not be completed due to a conflict with
+                  the current state of the resource
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: gone
+        "412":
+          description: Precondition failed
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
+                  412 Precondition Failed
+                title: Precondition Failed
+                status: 412
+                detail: The precondition given in one or more of the request-header
+                  fields evaluated to false when it was tested on the server.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: preconditionFailed
+        "415":
+          description: Unsupported Media Type
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.16
+                  415 Unsupported Media Type
+                title: Unsupported Media Type
+                status: 415
+                detail: The server is refusing the request because the entity of the
+                  request is in a format not supported by the requested resource for
+                  the requested method.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: unsupported
+        "422":
+          description: Unprocessable entity
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
+                detail: The server understands the content type of the request entity
+                  and the syntax of the request entity is correct but was unable to
+                  process the contained instructions.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: unprocessableEntity
+        "429":
+          description: Too Many Requests
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+                title: Too many request
+                status: 429
+                detail: The user has sent too many requests in a given amount of time
+                  (rate limiting).
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: tooManyRequests
+        "500":
+          description: Internal Server Error
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
+                  500 Internal server error
+                title: Interne server fout.
+                status: 500
+                detail: The server encountered an unexpected condition which prevented
+                  it from fulfilling the request.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: serverError
+        default:
+          description: Er is een onverwachte fout opgetreden
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+      security:
+      - apiKeyBAG: []
     post:
       tags:
       - Pand
@@ -2821,15 +3112,39 @@ paths:
         required: false
         schema:
           type: string
+      - name: fields
+        in: query
+        description: Geeft de mogelijkheid de inhoud van de body van het antwoord
+          naar behoefte aan te passen. Bevat een door komma's gescheiden lijst van
+          veldennamen. Als niet-bestaande veldnamen worden meegegeven wordt een 400
+          Bad Request teruggegeven. Wanneer de parameter fields niet is opgenomen,
+          worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Content-Crs
+        in: header
+        description: CRS van de meegegeven geometrie.
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          type: string
+          description: CRS van de coördinaten in de response.
       requestBody:
         description: Geometrisch punt waarop de panden bepaald moeten worden.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Point'
+              $ref: '#/components/schemas/pointGeoJSON'
         required: true
       responses:
-        200:
+        "200":
           description: Geslaagd
           headers:
             api-version:
@@ -2842,18 +3157,18 @@ paths:
               $ref: '#/components/headers/X_Rate_Limit_Remaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/X_Rate_Limit_Reset'
-            Accept-Crs:
-              $ref: '#/components/headers/acceptCrs'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/PandHalCollectie'
-        204:
+        "204":
           description: No content
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        400:
+        "400":
           description: Bad Request
           headers:
             api-version:
@@ -2876,7 +3191,7 @@ paths:
                   name: verblijfplaats__huisnummer
                   code: integer
                   reason: Waarde is geen geldige integer.
-        401:
+        "401":
           description: Unauthorized
           headers:
             api-version:
@@ -2895,7 +3210,7 @@ paths:
                   a challenge applicable to the requested resource.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: authentication
-        403:
+        "403":
           description: Forbidden
           headers:
             api-version:
@@ -2913,7 +3228,7 @@ paths:
                   it.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: autorisation
-        404:
+        "404":
           description: Not Found
           headers:
             api-version:
@@ -2930,27 +3245,7 @@ paths:
                 detail: The server has not found anything matching the Request-URI.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notFound
-        405:
-          description: Method not allowed.
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: 405
-                title: Methode niet toegestaan
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.6
-                  405 Method Not Allowed
-                detail: The method specified in the Request-Line is not allowed for
-                  the resource identified by the Request-URI. The response MUST include
-                  an Allow header containing a list of valid methods for the requested
-                  resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: methodNotAllowed
-        406:
+        "406":
           description: Not Acceptable
           headers:
             api-version:
@@ -2969,7 +3264,7 @@ paths:
                   not acceptable according to thr accept headers sent in the request
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: notAcceptable
-        409:
+        "409":
           description: Conflict
           headers:
             api-version:
@@ -2987,7 +3282,7 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: conflict
-        410:
+        "410":
           description: Gone
           headers:
             api-version:
@@ -3005,25 +3300,25 @@ paths:
                   the current state of the resource
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: gone
-        412:
-          description: Precondition failed.
+        "412":
+          description: Precondition failed
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 412
-                title: Niet voldaan aan vooraf gestelde voorwaarde
                 type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
                   412 Precondition Failed
+                title: Precondition Failed
+                status: 412
                 detail: The precondition given in one or more of the request-header
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        415:
+        "415":
           description: Unsupported Media Type
           headers:
             api-version:
@@ -3042,25 +3337,25 @@ paths:
                   the requested method.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unsupported
-        422:
-          description: Unprocessable entity.
+        "422":
+          description: Unprocessable entity
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Foutbericht'
               example:
-                status: 422
-                title: Aanvraag kan niet verwerkt worden
                 type: https://tools.ietf.org/html/rfc4918#section-11.2
+                title: Aanvraag kan niet verwerkt worden
+                status: 422
                 detail: The server understands the content type of the request entity
                   and the syntax of the request entity is correct but was unable to
                   process the contained instructions.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: unprocessableEntity
-        429:
+        "429":
           description: Too Many Requests
           headers:
             api-version:
@@ -3077,7 +3372,7 @@ paths:
                   (rate limiting).
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: tooManyRequests
-        500:
+        "500":
           description: Internal Server Error
           headers:
             api-version:
@@ -3095,42 +3390,6 @@ paths:
                   it from fulfilling the request.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: serverError
-        501:
-          description: Not Implemented
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.2
-                  501 Not Implemented
-                title: Not Implemented
-                status: 501
-                detail: The server does not support the functionality required to
-                  fulfill the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notImplemented
-        503:
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
         default:
           description: Er is een onverwachte fout opgetreden
           headers:
@@ -3157,34 +3416,41 @@ components:
           description: Identificatie van het zoekresultaat
       description: Dit type bevat een enkel zoekresultaat bestaande uit een weergave
         tekst en zoekresultaat identificatie
+    ZoekResultaatHal:
+      allOf:
+      - $ref: '#/components/schemas/ZoekResultaat'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/ZoekResultaat_links'
+    ZoekResultaat_links:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/HalLink'
+        adressen:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
       type: object
       properties:
         _links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/HalLink'
-            adres:
-              $ref: '#/components/schemas/HalPaginationLinks'
+          $ref: '#/components/schemas/HalPaginationLinks'
         _embedded:
-          type: object
-          properties:
-            zoekResultaten:
-              type: array
-              items:
-                $ref: '#/components/schemas/ZoekResultaat'
+          $ref: '#/components/schemas/ZoekResultaatHalCollectie__embedded'
       description: resulaten als lijst
     Adres:
+      title: Adres
       type: object
       properties:
-        verkorteStraatnaam:
-          title: verkorteNaam
+        korteNaam:
+          title: korteNaam
           maxLength: 24
           minLength: 1
           type: string
-          description: De verkorte naam is een maximaal 24 karakters lange representatie
-            van de naam van een openbare ruimte.
+          description: De officiële openbare ruimte naam als deze niet langer is dan
+            24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.
           example: Ln vd l D Westervoort
         straat:
           title: openbareruimte naam
@@ -3235,25 +3501,43 @@ components:
           $ref: '#/components/schemas/NEN3610ID'
         adresseerbaarObjectIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
-        pandIdentificatie:
+        pandIdentificaties:
           minItems: 1
           type: array
           items:
             $ref: '#/components/schemas/NEN3610ID'
-        nevenadres:
+        indicatieNevenadres:
           type: boolean
-          description: Boolean die aangeeft of dit adres een nevenadres is. Als deze
-            boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.
-        geconstateerd:
+          description: Een aanduiding die aangeeft of dit adres een nevenadres is
+            van een adresseerbaar object. Als deze boolean niet wordt meegeleverd
+            (of als deze false is) dan is dit een Hoofdadres.
+        indicatieGeconstateerd:
           type: boolean
           description: Een aanduiding waarmee kan worden aangegeven dat één of meerdere
             gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg
             van een feitelijke constatering, zonder dat er op het moment van opname
             sprake was van een regulier brondocument voor deze opname.
-        indicatieInOnderzoek:
+        indicatieMogelijkOnjuist:
           type: boolean
-          description: Een indicatie dat één of meerdere attributen van objecten gerelateerd
-            aan een adres in onderzoek is/zijn.
+          description: Een aanduiding dat één of meerdere attributen van objecten
+            gerelateerd aan een adres in onderzoek of mogelijk onjuist is/zijn.
+      description: 'Het adres is de benaming van een adreswaardige locatie bestaande
+        uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en
+        woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving
+        gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding.
+        Wat tussen haakjes staat is optioneel '
+    AdresHal:
+      allOf:
+      - $ref: '#/components/schemas/AdresHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/Adres_embedded'
+    AdresHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/Adres'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Adres_links'
     Adres_links:
       required:
       - self
@@ -3279,436 +3563,154 @@ components:
       type: object
       properties:
         openbareruimte:
-          $ref: '#/components/schemas/OpenbareRuimte'
+          $ref: '#/components/schemas/OpenbareRuimteHalBasis'
         nummeraanduiding:
-          $ref: '#/components/schemas/Nummeraanduiding'
+          $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
-          $ref: '#/components/schemas/Woonplaats'
-    AdresHal:
-      allOf:
-      - $ref: '#/components/schemas/Adres'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Adres_links'
-          _embedded:
-            $ref: '#/components/schemas/Adres_embedded'
-    AbstractAdresseerbaarObject:
-      title: AbstractAdresseerbaarObject
+          $ref: '#/components/schemas/WoonplaatsHalBasis'
+    AdresseerbaarObject:
       type: object
       properties:
-        heeftAlsHoofdAdres:
-          $ref: '#/components/schemas/NEN3610ID'
-        heeftAlsNevenAdres:
-          minItems: 1
+        adresseerbaarObjectIdentificatie:
+          type: string
+          description: unieke identificatie van het adresseerbaar object
+          example: "01230167890123456"
+        adresseerbaarObjectType:
+          $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+        documentdatum:
+          type: string
+          description: De datum waarop het brondocument is vastgesteld, op basis waarvan
+            een opname, mutatie of een verwijdering van gegevens ten aanzien van een
+            object heeft plaatsgevonden.
+          format: date
+          example: 2019-08-14
+        documentnummer:
+          maxLength: 40
+          type: string
+          description: De unieke aanduiding van het brondocument op basis waarvan
+            een opname, mutatie of een verwijdering van gegevens ten aanzien van een
+            woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
+            de MES-1 karakterset zijn toegstaan.
+          example: AV-2019-08-19-00
+        gebruiksdoel:
           type: array
           items:
-            $ref: '#/components/schemas/NEN3610ID'
-        adresseerbaarObjectType:
-          $ref: '#/components/schemas/TypeAdresseerbaarObject'
-      description: Abstract type adresseerbaar object
-      discriminator:
-        propertyName: adresseerbaarObjectType
+            $ref: '#/components/schemas/Gebruiksdoel'
+        geconstateerd:
+          type: boolean
+          description: Een aanduiding waarmee kan worden aangegeven dat een object
+            in de registratie is opgenomen als gevolg van een feitelijke constatering,
+            zonder dat er op het moment van opname sprake was van een regulier brondocument
+            voor deze opname.
+        geometrie:
+          $ref: '#/components/schemas/PuntOfVlak'
+        hoofdAdresIdentificatie:
+          type: string
+          description: identificatie van het hoofdadres
+          example: "01232067890123456"
+        nevenAdresIdentificaties:
+          type: array
+          description: identificatie(s) van het nevenadres of de nevenadressen
+          items:
+            type: string
+            example: "0123201234567890"
+        pandIdentificaties:
+          type: array
+          description: identificatie(s) van het pand of de panden waar het verblijfsobject
+            deel van uitmaakt
+          items:
+            type: string
+            example: "01234567890123456"
+        oppervlakte:
+          type: integer
+        status:
+          $ref: '#/components/schemas/AdresseerbaarObjectStatus_enum'
+        mogelijkOnjuist:
+          $ref: '#/components/schemas/AdresseerbaarObjectMogelijkOnjuist'
+      description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
     AdresseerbaarObjectHal:
-      title: AdresAdresseerbaarObject
+      allOf:
+      - $ref: '#/components/schemas/AdresseerbaarObjectHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/AdresseerbaarObject_embedded'
+    AdresseerbaarObjectHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/AdresseerbaarObject'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/AdresseerbaarObject_links'
+    AdresseerbaarObjectMogelijkOnjuist:
       type: object
       properties:
-        ligplaats:
-          $ref: '#/components/schemas/LigplaatsHal'
-        standplaats:
-          $ref: '#/components/schemas/StandplaatsHal'
-        verblijfsobject:
-          $ref: '#/components/schemas/VerblijfsobjectHal'
-      description: Bevat één van de adresseerbare objecten ligplaats, standplaats
-        of verblijfsobject.
+        gebruiksdoel:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        geometrie:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        hoofdadresidentificatie:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        nevenadresIdentificaties:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        pandIdentificaties:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        oppervlakte:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        status:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+    AdresseerbaarObject_embedded:
+      type: object
+      properties:
+        adres:
+          $ref: '#/components/schemas/AdresHalBasis'
+        panden:
+          $ref: '#/components/schemas/PandHalCollectie'
+    AdresseerbaarObject_links:
+      type: object
+      properties:
+        hoofdAdres:
+          $ref: '#/components/schemas/HalLink'
+        panden:
+          type: array
+          description: link(s) naar het pand of de panden waar het verblijfsobject
+            deel van uitmaakt
+          items:
+            $ref: '#/components/schemas/HalLink'
+        self:
+          $ref: '#/components/schemas/HalLink'
     AdresseerbaarobjectHalCollectie:
       type: object
       properties:
-        _links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/HalLink'
-            adresseerbareObjecten:
-              $ref: '#/components/schemas/HalPaginationLinks'
         _embedded:
-          type: object
-          properties:
-            adressseerbareObjecten:
-              type: array
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
-    Ligplaats:
-      allOf:
-      - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-      - type: object
-        properties:
-          identificatie:
-            $ref: '#/components/schemas/NEN3610ID'
-          status:
-            $ref: '#/components/schemas/StatusPlaats'
-          geometrie:
-            $ref: '#/components/schemas/Surface'
-          geconstateerd:
-            type: boolean
-            description: Een aanduiding waarmee kan worden aangegeven dat een object
-              in de registratie is opgenomen als gevolg van een feitelijke constatering,
-              zonder dat er op het moment van opname sprake was van een regulier brondocument
-              voor deze opname.
-          documentdatum:
-            title: documentdatum
-            type: string
-            description: De datum waarop het brondocument is vastgesteld, op basis
-              waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien
-              van een object heeft plaatsgevonden.
-            format: date
-            example: 2019-08-14
-          documentnummer:
-            title: Documentnummer
-            maxLength: 40
-            minLength: 1
-            type: string
-            description: De unieke aanduiding van het brondocument op basis waarvan
-              een opname, mutatie of een verwijdering van gegevens ten aanzien van
-              een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters
-              uit de MES-1 karakterset zijn toegstaan.
-            example: AV-2019-08-19-00
-        description: Een Ligplaats is een door het bevoegde gemeentelijke orgaan als
-          zodanig aangewezen plaats in het water al dan niet aangevuld met een op
-          de oever aanwezig terrein of een gedeelte daarvan, die bestemd is voor het
-          permanent afmeren van een voor woon-, bedrijfsmatige of recreatieve doeleinden
-          geschikt drijvend object.
-    KenmerkLigplaatsInOnderzoek:
-      title: KenmerkLigplaatsInOnderzoek
-      required:
-      - documentdatum
-      - documentnummer
-      - identificatieVanLigplaats
-      - indicatieInOnderzoek
-      - kenmerk
-      type: object
-      properties:
-        identificatieVanLigplaats:
-          title: identificatie van ligplaats
-          type: string
-          example: "1234020000000001"
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekLigplaats'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          title: documentdatum
-          type: string
-          description: De datum van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          format: date
-          example: 2019-08-14
-        documentnummer:
-          title: Documentnummer
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: Het nummer van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          example: AV-2019-08-19-00
-    InOnderzoekLigplaats:
-      title: InOnderzoekLigplaats
+          $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie__embedded'
+        _links:
+          $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie__links'
+    AdresseerbaarObjectStatus_enum:
       type: string
       enum:
-      - geometrie
-      - status
-      - heeft als hoofdadres
-      - heeft als nevenadres
-    Ligplaats_links:
-      required:
-      - self
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/HalLink'
-        adres:
-          $ref: '#/components/schemas/HalLink'
-    Ligplaats_embedded:
-      type: object
-      properties:
-        adres:
-          $ref: '#/components/schemas/Adres'
-    LigplaatsInOnderzoek:
-      title: LigplaatsInOnderzoek
-      type: object
-      properties:
-        ligplaats:
-          $ref: '#/components/schemas/Ligplaats'
-        inonderzoek:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkLigplaatsInOnderzoek'
-    LigplaatsHal:
-      allOf:
-      - $ref: '#/components/schemas/LigplaatsInOnderzoek'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Ligplaats_links'
-          _embedded:
-            $ref: '#/components/schemas/Ligplaats_embedded'
-    Standplaats:
-      title: Standplaats
-      description: Een Standplaats is een door het bevoegde gemeentelijke orgaan als
-        zodanig aangewezen terrein of gedeelte daarvan dat bestemd is voor het permanent
-        plaatsen van een niet direct en niet duurzaam met de aarde verbonden en voor
-        woon-, bedrijfsmatige, of recreatieve doeleinden geschikte ruimte.
-      allOf:
-      - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-      - type: object
-        properties:
-          identificatie:
-            $ref: '#/components/schemas/NEN3610ID'
-          status:
-            $ref: '#/components/schemas/StatusPlaats'
-          geometrie:
-            $ref: '#/components/schemas/Surface'
-          geconstateerd:
-            type: boolean
-            description: Een aanduiding waarmee kan worden aangegeven dat een object
-              in de registratie is opgenomen als gevolg van een feitelijke constatering,
-              zonder dat er op het moment van opname sprake was van een regulier brondocument
-              voor deze opname.
-          documentdatum:
-            title: documentdatum
-            type: string
-            description: De datum waarop het brondocument is vastgesteld, op basis
-              waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien
-              van een object heeft plaatsgevonden.
-            format: date
-            example: 2019-08-14
-          documentnummer:
-            title: Documentnummer
-            maxLength: 40
-            minLength: 1
-            type: string
-            description: De unieke aanduiding van het brondocument op basis waarvan
-              een opname, mutatie of een verwijdering van gegevens ten aanzien van
-              een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters
-              uit de MES-1 karakterset zijn toegstaan.
-            example: AV-2019-08-19-00
-    KenmerkStandplaatsInOnderzoek:
-      title: KenmerkStandplaatsInOnderzoek
-      required:
-      - documentdatum
-      - documentnummer
-      - identificatieVanStandplaats
-      - indicatieInOnderzoek
-      - kenmerk
-      type: object
-      properties:
-        identificatieVanStandplaats:
-          title: identificatie van standplaats
-          type: string
-          example: "1234020000000001"
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekStandplaats'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          title: documentdatum
-          type: string
-          description: De datum van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          format: date
-          example: 2019-08-14
-        documentnummer:
-          title: Documentnummer
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: Het nummer van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          example: AV-2019-08-19-00
-    InOnderzoekStandplaats:
-      title: InOnderzoekStandplaats
-      type: string
-      enum:
-      - geometrie
-      - status
-      - heeft als hoofdadres
-      - heeft als nevenadres
-    Standplaats_links:
-      required:
-      - self
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/HalLink'
-        adres:
-          $ref: '#/components/schemas/HalLink'
-    Standplaats_embedded:
-      type: object
-      properties:
-        adres:
-          $ref: '#/components/schemas/Adres'
-    StandplaatsInOnderzoek:
-      title: StandplaatsInOnderzoek
-      type: object
-      properties:
-        standplaats:
-          $ref: '#/components/schemas/Standplaats'
-        inonderzoek:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkStandplaatsInOnderzoek'
-    StandplaatsHal:
-      allOf:
-      - $ref: '#/components/schemas/StandplaatsInOnderzoek'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Standplaats_links'
-          _embedded:
-            $ref: '#/components/schemas/Standplaats_embedded'
-    Verblijfsobject:
-      title: Verblijfsobject
-      description: Een Verblijfsobject is de kleinste binnen een of meer panden gelegen
-        en voor woon-, bedrijfsmatige, of recreatieve doeleinden geschikte eenheid
-        van gebruik die ontsloten wordt via een eigen afsluitbare toegang vanaf de
-        openbare weg, een erf of een gedeelde verkeersruimte, onderwerp kan zijn van
-        goederenrechtelijke rechtshandelingen en in functioneel opzicht zelfstandig
-        is.
-      allOf:
-      - $ref: '#/components/schemas/AbstractAdresseerbaarObject'
-      - type: object
-        properties:
-          identificatie:
-            $ref: '#/components/schemas/NEN3610ID'
-          geometrie:
-            $ref: '#/components/schemas/PuntOfVlak'
-          gebruiksdoel:
-            minItems: 1
-            type: array
-            items:
-              $ref: '#/components/schemas/Gebruiksdoel'
-          oppervlakte:
-            title: oppervlakte
-            type: integer
-          status:
-            $ref: '#/components/schemas/StatusVerblijfsobject'
-          geconstateerd:
-            type: boolean
-            description: Een aanduiding waarmee kan worden aangegeven dat een object
-              in de registratie is opgenomen als gevolg van een feitelijke constatering,
-              zonder dat er op het moment van opname sprake was van een regulier brondocument
-              voor deze opname.
-          documentdatum:
-            title: documentdatum
-            type: string
-            description: De datum waarop het brondocument is vastgesteld, op basis
-              waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien
-              van een object heeft plaatsgevonden.
-            format: date
-            example: 2019-08-14
-          documentnummer:
-            title: Documentnummer
-            maxLength: 40
-            minLength: 1
-            type: string
-            description: De unieke aanduiding van het brondocument op basis waarvan
-              een opname, mutatie of een verwijdering van gegevens ten aanzien van
-              een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters
-              uit de MES-1 karakterset zijn toegstaan.
-            example: AV-2019-08-19-00
-          maaktDeelUitVan:
-            minItems: 1
-            type: array
-            items:
-              $ref: '#/components/schemas/NEN3610ID'
-    KenmerkVerblijfsobjectInOnderzoek:
-      title: KenmerkVerblijfsobjectInOnderzoek
-      required:
-      - documentdatum
-      - documentnummer
-      - identificatieVanVerblijfsobject
-      - indicatieInOnderzoek
-      - kenmerk
-      type: object
-      properties:
-        identificatieVanVerblijfsobject:
-          title: identificatie van verblijfsobject
-          type: string
-          example: "1234010000000001"
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekVerblijfsobject'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          title: documentdatum
-          type: string
-          description: De datum van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          format: date
-          example: 2019-08-14
-        documentnummer:
-          title: Documentnummer
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: Het nummer van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          example: AV-2019-08-19-00
-    InOnderzoekVerblijfsobject:
-      title: InOnderzoekVerblijfsobject
-      type: string
-      enum:
-      - geometrie
-      - gebruiksdoel
-      - oppervlakte
-      - status
-      - maakt deel uit van
-      - heeft als hoofdadres
-      - heeft als nevenadres
-    Verblijfsobject_links:
-      required:
-      - self
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/HalLink'
-        adres:
-          $ref: '#/components/schemas/HalLink'
-        maaktDeelUitVan:
-          minItems: 1
-          type: array
-          description: Het/de aan het verblijfsobject gerelateerde pand(en) (lnik).
-          items:
-            $ref: '#/components/schemas/HalLink'
-    Verblijfsobject_embedded:
-      type: object
-      properties:
-        adres:
-          $ref: '#/components/schemas/Adres'
-        maaktDeelUitVan:
-          minItems: 1
-          type: array
-          description: Het/de aan het verblijfsobject gerelateerde pand(en) (object(en)).
-          items:
-            $ref: '#/components/schemas/Pand'
-    VerblijfsobjectInOnderzoek:
-      title: VerblijfsobjectInOnderzoek
-      type: object
-      properties:
-        verblijfsobject:
-          $ref: '#/components/schemas/Verblijfsobject'
-        inonderzoek:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkVerblijfsobjectInOnderzoek'
-    VerblijfsobjectHal:
-      allOf:
-      - $ref: '#/components/schemas/VerblijfsobjectInOnderzoek'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Verblijfsobject_links'
-          _embedded:
-            $ref: '#/components/schemas/Verblijfsobject_embedded'
+      - Verblijfsobject gevormd
+      - Niet gerealiseerd verblijfsobject
+      - Verblijfsobject in gebruik (niet ingemeten)
+      - Verblijfsobject in gebruik
+      - Verbouwing verblijfsobject
+      - Verblijfsobject ingetrokken
+      - Verblijfsobject buiten gebruik
+      - Verblijfsobject ten onrechte opgevoerd
+      - Plaats aangewezen
+      - Plaats ingetrokken
     OpenbareRuimte:
       title: OpenbareRuimte
       type: object
@@ -3722,18 +3724,18 @@ components:
           type: string
           description: Een naam die aan een openbare ruimte is toegekend in een daartoe
             strekkend formeel gemeentelijk besluit.
-          example: Laan van Westenenk
+          example: Laan van de landinrichtingscommissie Duiven-Westervoort
         type:
           $ref: '#/components/schemas/TypeOpenbareRuimte'
         status:
           $ref: '#/components/schemas/StatusNaamgeving'
-        verkorteNaam:
-          title: verkorteNaam
+        korteNaam:
+          title: korteNaam
           maxLength: 24
           minLength: 1
           type: string
-          description: De verkorte naam is een maximaal 24 karakters lange representatie
-            van de naam van een openbare ruimte.
+          description: De officiële openbare ruimte naam als deze niet langer is dan
+            24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.
           example: Ln vd l D Westervoort
         geconstateerd:
           type: boolean
@@ -3750,7 +3752,7 @@ components:
           format: date
           example: 2019-08-14
         documentnummer:
-          title: Documentnummer
+          title: documentnummer
           maxLength: 40
           minLength: 1
           type: string
@@ -3759,64 +3761,32 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
-        ligtIn:
+        naamMogelijkOnjuist:
+          type: boolean
+        typeMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+        gerelateerdeWoonplaatsMogelijkOnjuist:
+          type: boolean
+        ligtInWoonplaats:
           $ref: '#/components/schemas/NEN3610ID'
       description: Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan
         als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één
-        woonplaats is gelegen.
-    OpenbareRuimteInOnderzoek:
-      title: OpenbareRuimteInOnderzoek
-      type: object
-      properties:
-        openbareruimte:
-          $ref: '#/components/schemas/OpenbareRuimte'
-        inonderzoek:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkOpenbareRuimteInOnderzoek'
-    KenmerkOpenbareRuimteInOnderzoek:
-      title: KenmerkOpenbareRuimteInOnderzoek
-      required:
-      - documentdatum
-      - documentnummer
-      - identificatieVanOpenbareRuimte
-      - indicatieInOnderzoek
-      - kenmerk
-      type: object
-      properties:
-        identificatieVanOpenbareRuimte:
-          title: identificatie van openbare ruimte
-          type: string
-          description: De unieke aanduiding van een openbare ruimte.
-          example: "0518300000000001"
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekOpenbareRuimte'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          title: documentdatum
-          type: string
-          description: De datum van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          format: date
-          example: 2019-08-14
-        documentnummer:
-          title: Documentnummer
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: Het nummer van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          example: AV-2019-08-19-00
-    InOnderzoekOpenbareRuimte:
-      title: InOnderzoekOpenbareRuimte
-      type: string
-      enum:
-      - naam
-      - type
-      - status
-      - gerelateerde woonplaats
+        woonplaats is gelegen. Deze definitie is herleidbaar naar maar niet conform
+        de BAG Catalogus 2018.
+    OpenbareRuimteHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/OpenbareRuimte'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/OpenbareRuimte_links'
+    OpenbareRuimteHal:
+      allOf:
+      - $ref: '#/components/schemas/OpenbareRuimteHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/OpenbareRuimte_embedded'
     OpenbareRuimte_links:
       required:
       - self
@@ -3830,15 +3800,7 @@ components:
       type: object
       properties:
         ligtInWoonplaats:
-          $ref: '#/components/schemas/Woonplaats'
-    OpenbareRuimteHal:
-      allOf:
-      - $ref: '#/components/schemas/OpenbareRuimteInOnderzoek'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/OpenbareRuimte_links'
-          _embedded:
-            $ref: '#/components/schemas/OpenbareRuimte_embedded'
+          $ref: '#/components/schemas/WoonplaatsHalBasis'
     Nummeraanduiding:
       title: Nummeraanduiding
       type: object
@@ -3875,10 +3837,9 @@ components:
           $ref: '#/components/schemas/StatusNaamgeving'
         geconstateerd:
           type: boolean
-          description: Een aanduiding waarmee kan worden aangegeven dat een object
-            in de registratie is opgenomen als gevolg van een feitelijke constatering,
-            zonder dat er op het moment van opname sprake was van een regulier brondocument
-            voor deze opname.
+          description: Indicator dat een object in de registratie is opgenomen op
+            basis van een feitelijke constatering, zonder dat er een besluit en brondocument
+            aan ten grondslag ligt.
         documentdatum:
           title: documentdatum
           type: string
@@ -3888,81 +3849,49 @@ components:
           format: date
           example: 2019-08-14
         documentnummer:
-          title: Documentnummer
+          title: documentnummer
           maxLength: 40
           minLength: 1
           type: string
-          description: De unieke aanduiding van het brondocument op basis waarvan
-            een opname, mutatie of een verwijdering van gegevens ten aanzien van een
-            woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
-            de MES-1 karakterset zijn toegstaan.
+          description: Identificatie van het brondocument dat ten grondslag ligt aan
+            de opname, mutatie of een verwijdering van gegevens.
           example: AV-2019-08-19-00
-        ligtIn:
+        ligtInWoonplaats:
           $ref: '#/components/schemas/NEN3610ID'
-        ligtAan:
+        ligtAanOpenbareRuimte:
           $ref: '#/components/schemas/NEN3610ID'
+        huisnummerMogelijkOnjuist:
+          type: boolean
+        huisletterMogelijkOnjuist:
+          type: boolean
+        huisnummertoevoegingMogelijkOnjuist:
+          type: boolean
+        postcodeMogelijkOnjuist:
+          type: boolean
+        typeAdresseerbaarObjectMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
+        ligtInWoonplaatsMogelijkOnjuist:
+          type: boolean
+        ligtAanOpenbareRuimteMogelijkOnjuist:
+          type: boolean
       description: Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan
         als zodanig toegekende aanduiding van een verblijfsobject, een standplaats
-        of een ligplaats.
-    KenmerkNummeraanduidingInOnderzoek:
-      title: KenmerkNummeraanduidingInOnderzoek
-      required:
-      - documentdatum
-      - documentnummer
-      - identificatieVanNummeraanduiding
-      - indicatieInOnderzoek
-      - kenmerk
-      type: object
-      properties:
-        identificatieVanNummeraanduiding:
-          title: identificatie van nummeraanduiding
-          type: string
-          description: De unieke aanduiding van een nummeraanduiding.
-          example: "1234200000000001"
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekNummeraanduiding'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          title: documentdatum
-          type: string
-          description: De datum van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          format: date
-          example: 2019-08-14
-        documentnummer:
-          title: Documentnummer
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: Het nummer van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          example: AV-2019-08-19-00
-      description: Limitatieve opsomming van alle kenmerken van dit object die in
-        onderzoek zijn op dit moment.
-    InOnderzoekNummeraanduiding:
-      title: InOnderzoekNummeraanduiding
-      type: string
-      enum:
-      - huisnummer
-      - huisletter
-      - huisnummertoevoeging
-      - postcode
-      - type adresseerbaar object
-      - status
-      - ligt in
-      - ligt aan
-    NummeraanduidingInOnderzoek:
-      title: NummeraanduidingInOnderzoek
-      type: object
-      properties:
-        nummeraanduiding:
-          $ref: '#/components/schemas/Nummeraanduiding'
-        inonderzoek:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkNummeraanduidingInOnderzoek'
+        of een ligplaats. Deze definitie is herleidbaar naar maar niet conform de
+        BAG Catalogus 2018.
+    NummeraanduidingHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/Nummeraanduiding'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Nummeraanduiding_links'
+    NummeraanduidingHal:
+      allOf:
+      - $ref: '#/components/schemas/NummeraanduidingHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/Nummeraanduiding_embedded'
     Nummeraanduiding_links:
       required:
       - self
@@ -3980,19 +3909,11 @@ components:
       type: object
       properties:
         adres:
-          $ref: '#/components/schemas/Adres'
+          $ref: '#/components/schemas/AdresHalBasis'
         ligtAanOpenbareRuimte:
-          $ref: '#/components/schemas/OpenbareRuimte'
+          $ref: '#/components/schemas/OpenbareRuimteHalBasis'
         ligtInWoonplaats:
-          $ref: '#/components/schemas/Woonplaats'
-    NummeraanduidingHal:
-      allOf:
-      - $ref: '#/components/schemas/NummeraanduidingInOnderzoek'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Nummeraanduiding_links'
-          _embedded:
-            $ref: '#/components/schemas/Nummeraanduiding_embedded'
+          $ref: '#/components/schemas/WoonplaatsHalBasis'
     Woonplaats:
       title: Woonplaats
       type: object
@@ -4023,7 +3944,7 @@ components:
           format: date
           example: 2019-08-14
         documentnummer:
-          title: Documentnummer
+          title: documentnummer
           maxLength: 40
           minLength: 1
           type: string
@@ -4032,64 +3953,28 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
+        naamMogelijkOnjuist:
+          type: boolean
+        geometrieMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
       description: Een Woonplaats is een door het bevoegde gemeentelijke orgaan als
         zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van
-        de gemeente.
-    WoonplaatsInOnderzoek:
-      title: WoonplaatsInOnderzoek
-      type: object
-      properties:
-        woonplaats:
-          $ref: '#/components/schemas/Woonplaats'
-        inonderzoek:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkWoonplaatsInOnderzoek'
-    KenmerkWoonplaatsInOnderzoek:
-      title: KenmerkWoonplaatsInOnderzoek
-      required:
-      - documentdatum
-      - documentnummer
-      - identificatieVanWoonplaats
-      - indicatieInOnderzoek
-      - kenmerk
-      type: object
-      properties:
-        identificatieVanWoonplaats:
-          title: identificatie van een woonplaats
-          type: string
-          description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123.
-            Waarde: 0001-9999.'
-          example: "0150"
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekWoonplaats'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          title: documentdatum
-          type: string
-          description: De datum van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          format: date
-          example: 2019-08-14
-        documentnummer:
-          title: Documentnummer
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: Het nummer van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          example: AV-2019-08-19-00
-      description: Limitatieve opsomming van alle kenmerken van dit object die in
-        onderzoek zijn op dit moment.
-    InOnderzoekWoonplaats:
-      title: InOnderzoekWoonplaats
-      type: string
-      enum:
-      - naam
-      - geometrie
-      - status
+        de gemeente. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus
+        2018.
+    WoonplaatsHalBasis:
+      allOf:
+      - $ref: '#/components/schemas/Woonplaats'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Woonplaats_links'
+    WoonplaatsHal:
+      allOf:
+      - $ref: '#/components/schemas/WoonplaatsHalBasis'
+      - properties:
+          _embedded:
+            $ref: '#/components/schemas/Woonplaats_embedded'
     Woonplaats_links:
       required:
       - self
@@ -4102,14 +3987,6 @@ components:
       properties:
         geometrie:
           $ref: '#/components/schemas/VlakOfMultivlak'
-    WoonplaatsHal:
-      allOf:
-      - $ref: '#/components/schemas/WoonplaatsInOnderzoek'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Woonplaats_links'
-          _embedded:
-            $ref: '#/components/schemas/Woonplaats_embedded'
     Pand:
       title: Pand
       type: object
@@ -4117,7 +3994,7 @@ components:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
         geometrie:
-          $ref: '#/components/schemas/Surface'
+          $ref: '#/components/schemas/polygonGeoJSON'
         oorspronkelijkBouwjaar:
           title: Oorspronkelijk bouwjaar
           maxLength: 4
@@ -4147,7 +4024,7 @@ components:
           format: date
           example: 2019-08-14
         documentnummer:
-          title: Documentnummer
+          title: documentnummer
           maxLength: 40
           minLength: 1
           type: string
@@ -4156,25 +4033,29 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
+        geometrieMogelijkOnjuist:
+          type: boolean
+        oorspronkelijkBouwjaarMogelijkOnjuist:
+          type: boolean
+        statusMogelijkOnjuist:
+          type: boolean
       description: Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief
         zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar
-        en afsluitbaar is.
+        en afsluitbaar is. Deze definitie is herleidbaar naar maar niet conform de
+        BAG Catalogus 2018.
+    PandHal:
+      allOf:
+      - $ref: '#/components/schemas/Pand'
+      - properties:
+          _links:
+            $ref: '#/components/schemas/Pand_links'
+          _embedded:
+            $ref: '#/components/schemas/Pand_embedded'
     Pand_links:
-      required:
-      - self
       type: object
       properties:
         self:
           $ref: '#/components/schemas/HalLink'
-        verblijfsobjecten:
-          minItems: 1
-          type: array
-          description: 'De verblijfsobjecten die in dit pand liggen. Van elk gerelateerd
-            verblijfsobject: hiervan het voorkomen van verblijfsobject die gevonden
-            wordt met dezelfde tijdreisparameters als waarmee het pand voorkomen gevonden
-            is.'
-          items:
-            $ref: '#/components/schemas/HalLink'
         adressen:
           minItems: 1
           type: array
@@ -4183,85 +4064,17 @@ components:
     Pand_embedded:
       type: object
       properties:
-        verblijfsobjecten:
-          type: array
-          items:
-            $ref: '#/components/schemas/Verblijfsobject'
         adressen:
           type: array
           items:
-            $ref: '#/components/schemas/Adres'
-    PandInOnderzoek:
-      title: PandInOnderzoek
-      type: object
-      properties:
-        pand:
-          $ref: '#/components/schemas/Pand'
-        inonderzoek:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/KenmerkPandInOnderzoek'
-    PandHal:
-      allOf:
-      - $ref: '#/components/schemas/PandInOnderzoek'
-      - properties:
-          _links:
-            $ref: '#/components/schemas/Pand_links'
-          _embedded:
-            $ref: '#/components/schemas/Pand_embedded'
+            $ref: '#/components/schemas/AdresHalBasis'
     PandHalCollectie:
       type: object
       properties:
         _links:
           $ref: '#/components/schemas/HalCollectionLinks'
         _embedded:
-          type: object
-          properties:
-            panden:
-              type: array
-              items:
-                $ref: '#/components/schemas/PandHal'
-    KenmerkPandInOnderzoek:
-      title: KenmerkPandInOnderzoek
-      required:
-      - documentdatum
-      - documentnummer
-      - identificatieVanPand
-      - indicatieInOnderzoek
-      - kenmerk
-      type: object
-      properties:
-        identificatieVanPand:
-          title: identificatie van pand
-          type: string
-          example: "1234100000000001"
-        kenmerk:
-          $ref: '#/components/schemas/InOnderzoekPand'
-        indicatieInOnderzoek:
-          type: boolean
-        documentdatum:
-          title: documentdatum
-          type: string
-          description: De datum van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentdatum.
-          format: date
-          example: 2019-08-14
-        documentnummer:
-          title: Documentnummer
-          maxLength: 40
-          minLength: 1
-          type: string
-          description: Het nummer van het document waarin de grondslag van het onderzoek
-            wordt vastgelegd. Dit wordt vastgelegd in het attribuut documentnummer.
-          example: AV-2019-08-19-00
-    InOnderzoekPand:
-      title: InOnderzoekPand
-      type: string
-      enum:
-      - geometrie
-      - oorspronkelijk bouwjaar
-      - status
+          $ref: '#/components/schemas/PandHalCollectie__embedded'
     NEN3610ID:
       title: NEN3610ID
       required:
@@ -4286,6 +4099,12 @@ components:
           example: NL.IMBAG.Woonplaats
       description: De identificatie van een (voorkomen van een) object, conform de
         NEN3610 standaard.
+    TypeAdresseerbaarObject_enum:
+      type: string
+      enum:
+      - verblijfsobject
+      - standplaats
+      - ligplaats
     API-info:
       title: API-info
       type: object
@@ -4315,7 +4134,6 @@ components:
             is genomen voor deze API.
           format: URI
     Foutbericht:
-      title: Foutbericht
       type: object
       properties:
         type:
@@ -4352,7 +4170,6 @@ components:
             items:
               $ref: '#/components/schemas/InvalidParams'
     InvalidParams:
-      title: InvalidParams
       type: object
       properties:
         type:
@@ -4373,80 +4190,7 @@ components:
           description: Beschrijving van de fout op de parameterwaarde
           example: Waarde is geen geldige integer.
       description: Details over fouten in opgegeven parameters
-    Error:
-      title: Error
-      required:
-      - detail
-      - instance
-      - status
-      - title
-      - type
-      type: object
-      properties:
-        status:
-          type: integer
-          description: De HTTP status code.
-        title:
-          type: string
-          description: De titel behorende bij de HTTP status code.
-          example: OK, Niet correct geauthenticeerd, U bent niet geautoriseerd voor
-            deze operatie, Opgevraagde resource bestaat niet
-        type:
-          type: string
-          description: URI naar een pagina met meer informatie over deze foutmelding
-            voor de ontwikkelaar.
-          format: uri
-          example: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-        detail:
-          type: string
-          description: Een gedetailleerde beschrijving van de HTTP status code.
-          example: Je hebt geen rechten om deze URL te benaderen. Bij 403 Forbidden.
-        instance:
-          type: string
-          description: URI van de aanroep die fout heeft veroorzaakt.
-          format: uri
-        code:
-          minLength: 1
-          type: string
-          description: Systeem code die het type fout aangeeft.
-        invalid-params:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvalidParams_2'
-    InvalidParams_2:
-      title: InvalidParams
-      required:
-      - code
-      - name
-      - reason
-      type: object
-      properties:
-        type:
-          type: string
-          description: Een url naar een beschrijving van de fout in de parameter.
-            De hier gerefereeerde foutbeschrijving is specifieker dan type op het
-            hoofdniveau van het bericht.
-          format: uri
-        name:
-          type: string
-          description: De naam van de parameter waar de fout in zit.
-          example: geldigOp
-        code:
-          type: string
-          description: Een vaste waarde afhankelijk van het soort fout.
-          example: date
-        reason:
-          type: string
-          description: Een vaste omschrijving afhankelijk van het soort fout.
-          example: Waarde is geen geldige datum.
-      description: 'Wanneer de fout is veroorzaakt door fouten in requestparameters
-        (of request body), wordt invalid-params gevuld met details over elke foute
-        parameter. Wanneer er fouten zitten op meerdere parameters, wordt er per validatiefout
-        een invalid-params instantie opgenomen in het antwoord. Alle fouten worden
-        dus teruggegeven. Een gedetailleerde beschrijving hoe de onderstaande attributen
-        ingevuld moeten worden staat op: https://github.com/VNG-Realisatie/Haal-Centraal-BRP-bevragen/blob/master/features/foutafhandeling.feature'
-    Point:
-      title: GeoJSON Point
+    pointGeoJSON:
       required:
       - coordinates
       - type
@@ -4461,129 +4205,38 @@ components:
           type: array
           items:
             type: number
-      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
     HalLink:
-      title: HalLink
       required:
       - href
       type: object
       properties:
         href:
-          type: string
-          format: uri
-          example: datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcename/{resource-identificatie}
+          $ref: '#/components/schemas/Href'
         templated:
           type: boolean
         title:
           type: string
           description: Voor mens leesbaar label bij de link
       description: De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5
+    Href:
+      type: string
+      example: datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcename/{resource-identificatie}
     HalPaginationLinks:
       allOf:
       - $ref: '#/components/schemas/HalCollectionLinks'
       - type: object
         properties:
           first:
-            title: first
-            type: object
-            properties:
-              href:
-                type: string
-                format: uri
-                example: https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=1
-              templated:
-                type: boolean
-              title:
-                type: string
-                example: Eerste pagina
-            description: uri voor het opvragen van de eerste pagina van deze collectie
+            $ref: '#/components/schemas/HalPaginationLinks_first'
           previous:
-            title: previous
-            type: object
-            properties:
-              href:
-                type: string
-                format: uri
-                example: https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=3
-              templated:
-                type: boolean
-              title:
-                type: string
-                example: Vorige pagina
-            description: uri voor het opvragen van de vorige pagina van deze collectie
+            $ref: '#/components/schemas/HalPaginationLinks_previous'
           next:
-            title: next
-            type: object
-            properties:
-              href:
-                type: string
-                format: uri
-                example: https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=5
-              templated:
-                type: boolean
-              title:
-                type: string
-                example: Volgende pagina
-            description: uri voor het opvragen van de volgende pagina van deze collectie
+            $ref: '#/components/schemas/HalPaginationLinks_next'
     HalCollectionLinks:
-      title: HalCollectionLinks
       type: object
       properties:
         self:
           $ref: '#/components/schemas/HalLink'
-    TypeAdresseerbaarObject:
-      title: TypeAdresseerbaarObject
-      type: string
-      description: De aard van een als zodanig benoemde Nummeraanduiding.
-      enum:
-      - Verblijfsobject
-      - Standplaats
-      - Ligplaats
-    StatusPlaats:
-      title: StatusPlaats
-      type: string
-      enum:
-      - Plaats aangewezen
-      - Plaats ingetrokken
-    Surface:
-      title: Surface
-      example:
-        type: Polygon
-      allOf:
-      - $ref: '#/components/schemas/Polygon'
-    Polygon:
-      title: GeoJSON Polygon
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - Polygon
-        coordinates:
-          type: array
-          items:
-            minItems: 4
-            type: array
-            items:
-              minItems: 2
-              type: array
-              items:
-                type: number
-      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
-    PuntOfVlak:
-      title: PuntOfVlak
-      type: object
-      properties:
-        punt:
-          $ref: '#/components/schemas/Point'
-        vlak:
-          $ref: '#/components/schemas/Surface'
-      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
-        dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een
-        vlak.
     Gebruiksdoel:
       title: Gebruiksdoel
       type: string
@@ -4599,18 +4252,17 @@ components:
       - sportfunctie
       - winkelfunctie
       - overige gebruiksfunctie
-    StatusVerblijfsobject:
-      title: StatusVerblijfsobject
-      type: string
-      enum:
-      - Verblijfsobject gevormd
-      - Niet gerealiseerd verblijfsobject
-      - Verblijfsobject in gebruik (niet ingemeten)
-      - Verblijfsobject in gebruik
-      - Verbouwing verblijfsobject
-      - Verblijfsobject ingetrokken
-      - Verblijfsobject buiten gebruik
-      - Verblijfsobject ten onrechte opgevoerd
+    PuntOfVlak:
+      title: PuntOfVlak
+      type: object
+      properties:
+        punt:
+          $ref: '#/components/schemas/Point'
+        vlak:
+          $ref: '#/components/schemas/Surface'
+      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
+        dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een
+        vlak.
     TypeOpenbareRuimte:
       title: TypeOpenbareRuimte
       type: string
@@ -4651,6 +4303,26 @@ components:
       description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
         dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface)
         of een multivlak (GM_MultiSurface).
+    polygonGeoJSON:
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - Polygon
+        coordinates:
+          type: array
+          items:
+            minItems: 4
+            type: array
+            items:
+              minItems: 2
+              type: array
+              items:
+                type: number
     StatusPand:
       title: StatusPand
       type: string
@@ -4667,6 +4339,51 @@ components:
       - Pand gesloopt
       - Pand buiten gebruik
       - Pand ten onrechte opgevoerd
+    Point:
+      title: GeoJSON Point
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+        coordinates:
+          minItems: 2
+          type: array
+          items:
+            type: number
+      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+    Surface:
+      title: Surface
+      example:
+        type: Polygon
+      allOf:
+      - $ref: '#/components/schemas/Polygon'
+    Polygon:
+      title: GeoJSON Polygon
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - Polygon
+        coordinates:
+          type: array
+          items:
+            minItems: 4
+            type: array
+            items:
+              minItems: 2
+              type: array
+              items:
+                type: number
+      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
     MultiSurface:
       title: MultiSurface
       example:
@@ -4697,6 +4414,70 @@ components:
                 items:
                   type: number
       description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/multipolygonGeoJSON.yaml'
+    ZoekResultaatHalCollectie__embedded:
+      type: object
+      properties:
+        zoekresultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoekResultaatHal'
+    AdresseerbaarobjectHalCollectie__embedded:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
+    AdresseerbaarobjectHalCollectie__links:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          $ref: '#/components/schemas/HalPaginationLinks'
+        self:
+          $ref: '#/components/schemas/HalLink'
+    PandHalCollectie__embedded:
+      type: object
+      properties:
+        panden:
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHal'
+    HalPaginationLinks_first:
+      type: object
+      properties:
+        href:
+          type: string
+          example: https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=1
+        templated:
+          type: boolean
+        title:
+          type: string
+          example: Eerste pagina
+      description: uri voor het opvragen van de eerste pagina van deze collectie
+    HalPaginationLinks_previous:
+      type: object
+      properties:
+        href:
+          type: string
+          example: https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=3
+        templated:
+          type: boolean
+        title:
+          type: string
+          example: Vorige pagina
+      description: uri voor het opvragen van de vorige pagina van deze collectie
+    HalPaginationLinks_next:
+      type: object
+      properties:
+        href:
+          type: string
+          example: https://datapunt.voorbeeldgemeente.nl/api/{major-versie}/resourcenaam?page=5
+        templated:
+          type: boolean
+        title:
+          type: string
+          example: Volgende pagina
+      description: uri voor het opvragen van de volgende pagina van deze collectie
   parameters:
     zoek:
       name: zoek
@@ -4852,15 +4633,11 @@ components:
         type: integer
         description: Aantal resultaten per pagina.
         example: 20
-    acceptCrs:
-      description: Gewenste CRS van de coördinaten in de response.
+    contentCrs:
+      description: CRS van de meegegeven geometrie.
       required: false
       schema:
         type: string
-        description: CRS van de coördinaten in de response.
-        default: epsg:28992
-        enum:
-        - epsg:28992
   securitySchemes:
     apiKeyBAG:
       type: apiKey
