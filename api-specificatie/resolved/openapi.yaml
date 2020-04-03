@@ -3517,15 +3517,60 @@ components:
             gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg
             van een feitelijke constatering, zonder dat er op het moment van opname
             sprake was van een regulier brondocument voor deze opname.
-        indicatieMogelijkOnjuist:
-          type: boolean
-          description: Een aanduiding dat één of meerdere attributen van objecten
-            gerelateerd aan een adres in onderzoek of mogelijk onjuist is/zijn.
+        MogelijkOnjuist:
+          $ref: '#/components/schemas/AdresMogelijkOnjuist'
       description: 'Het adres is de benaming van een adreswaardige locatie bestaande
         uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en
         woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving
         gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding.
         Wat tussen haakjes staat is optioneel '
+    AdresMogelijkOnjuist:
+      type: object
+      properties:
+        naamWoonplaats:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        woonplaatsBestaatMogelijkNiet:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de status van de gerelateerde Woonplaats.
+        mogelijkVerkeerdeWoonplaatsGebruikt:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            relatie met de gerelateerdde Woonplaats.
+        straatnaam:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        straatBestaatMogelijkNiet:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de status van de gerelateerde Openbare Ruimte.
+        mogelijkVerkeerdeStraatGebruikt:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            relatie met de gerelateerde Openbare Ruimte.
+        huisnummer:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        huisletter:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        huisnummertoevoeging:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        postcode:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        adresBestaatMogelijkNiet:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de status van de gerelateerde Nummeraanduiding.
     AdresHal:
       allOf:
       - $ref: '#/components/schemas/AdresHalBasis'
@@ -3592,7 +3637,7 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
-        gebruiksdoel:
+        gebruiksdoelen:
           type: array
           items:
             $ref: '#/components/schemas/Gebruiksdoel'
@@ -3761,20 +3806,33 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
-        naamMogelijkOnjuist:
-          type: boolean
-        typeMogelijkOnjuist:
-          type: boolean
-        statusMogelijkOnjuist:
-          type: boolean
-        gerelateerdeWoonplaatsMogelijkOnjuist:
-          type: boolean
         ligtInWoonplaats:
           $ref: '#/components/schemas/NEN3610ID'
+        mogelijkOnjuist:
+          $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
       description: Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan
         als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één
         woonplaats is gelegen. Deze definitie is herleidbaar naar maar niet conform
         de BAG Catalogus 2018.
+    OpenbareRuimteMogelijkOnjuist:
+      type: object
+      properties:
+        naamMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        typeMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        statusMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        mogelijkVerkeerdeWoonplaatsGebruikt:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            relatie met de gerelateerdde Woonplaats.
     OpenbareRuimteHalBasis:
       allOf:
       - $ref: '#/components/schemas/OpenbareRuimte'
@@ -3860,26 +3918,47 @@ components:
           $ref: '#/components/schemas/NEN3610ID'
         ligtAanOpenbareRuimte:
           $ref: '#/components/schemas/NEN3610ID'
-        huisnummerMogelijkOnjuist:
-          type: boolean
-        huisletterMogelijkOnjuist:
-          type: boolean
-        huisnummertoevoegingMogelijkOnjuist:
-          type: boolean
-        postcodeMogelijkOnjuist:
-          type: boolean
-        typeAdresseerbaarObjectMogelijkOnjuist:
-          type: boolean
-        statusMogelijkOnjuist:
-          type: boolean
-        ligtInWoonplaatsMogelijkOnjuist:
-          type: boolean
-        ligtAanOpenbareRuimteMogelijkOnjuist:
-          type: boolean
+        mogelijkOnjuist:
+          $ref: '#/components/schemas/NummeraanduidingMogelijkOnjuist'
       description: Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan
         als zodanig toegekende aanduiding van een verblijfsobject, een standplaats
         of een ligplaats. Deze definitie is herleidbaar naar maar niet conform de
         BAG Catalogus 2018.
+    NummeraanduidingMogelijkOnjuist:
+      type: object
+      properties:
+        huisnummerMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        huisletterMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        huisnummertoevoegingMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        postcodeMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        typeAdresseerbaarObjectMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        statusMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        mogelijkVerkeerdeWoonplaatsGebruikt:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            relatie met de gerelateerdde Woonplaats.
+        mogelijkVerkeerdeStraatGebruikt:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            relatie met de gerelateerde Openbare Ruimte.
     NummeraanduidingHalBasis:
       allOf:
       - $ref: '#/components/schemas/Nummeraanduiding'
@@ -3953,16 +4032,27 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
-        naamMogelijkOnjuist:
-          type: boolean
-        geometrieMogelijkOnjuist:
-          type: boolean
-        statusMogelijkOnjuist:
-          type: boolean
+        mogelijkOnjuist:
+          $ref: '#/components/schemas/WoonplaatsMogelijkOnjuist'
       description: Een Woonplaats is een door het bevoegde gemeentelijke orgaan als
         zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van
         de gemeente. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus
         2018.
+    WoonplaatsMogelijkOnjuist:
+      type: object
+      properties:
+        naamMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        geometrieMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        statusMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
     WoonplaatsHalBasis:
       allOf:
       - $ref: '#/components/schemas/Woonplaats'
@@ -4033,16 +4123,27 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
-        geometrieMogelijkOnjuist:
-          type: boolean
-        oorspronkelijkBouwjaarMogelijkOnjuist:
-          type: boolean
-        statusMogelijkOnjuist:
-          type: boolean
+        mogelijkOnjuist:
+          $ref: '#/components/schemas/PandMogelijkOnjuist'
       description: Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief
         zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar
         en afsluitbaar is. Deze definitie is herleidbaar naar maar niet conform de
         BAG Catalogus 2018.
+    PandMogelijkOnjuist:
+      type: object
+      properties:
+        geometrieMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        oorspronkelijkBouwjaarMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
+        statusMogelijkOnjuist:
+          type: boolean
+          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
+            juistheid van de waarde in het corresponderende gegeven.
     PandHal:
       allOf:
       - $ref: '#/components/schemas/Pand'
