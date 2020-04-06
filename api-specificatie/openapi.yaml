@@ -1006,25 +1006,26 @@ components:
           type: boolean
         MogelijkOnjuist:
           $ref: '#/components/schemas/AdresMogelijkOnjuist'
+          description: "Bij het controleren of een property mogelijkOnjuist is kan het zijn dat er meerdere indicaties voor een property opgenomen zijn. In dat geval zijn er meerdere indicaties waarvan de naam begint met de property-naam"
     AdresMogelijkOnjuist:
       type: object
       properties:
-        naamWoonplaats:
+        woonplaatsNaam:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         woonplaatsBestaatMogelijkNiet:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Woonplaats."
           type: boolean
-        mogelijkVerkeerdeWoonplaatsGebruikt:
+        woonplaatsMogelijkVerkeerdeGebruikt:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
           type: boolean
-        straatnaam:
+        straat:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         straatBestaatMogelijkNiet:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Openbare Ruimte."
           type: boolean
-        mogelijkVerkeerdeStraatGebruikt: 
+        straatMogelijkVerkeerdeGebruikt: 
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
           type: boolean
         huisnummer:
@@ -1079,7 +1080,6 @@ components:
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           minItems: 1
-
     Adres_embedded:
       type: object
       properties:
@@ -1164,13 +1164,13 @@ components:
     AdresseerbaarObjectMogelijkOnjuist:
       type: object
       properties:
-        gebruiksdoel:
+        gebruiksdoelen:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         geometrie:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
-        hoofdadresidentificatie:
+        hoofdadresIdentificatie:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         nevenadresIdentificaties:
@@ -1188,7 +1188,7 @@ components:
     AdresseerbaarObject_embedded:
       type: object
       properties:
-        adres:
+        hoofdAdres:
           $ref: '#/components/schemas/AdresHalBasis'
         panden:
           $ref: '#/components/schemas/PandHalCollectie'
@@ -1285,16 +1285,16 @@ components:
     OpenbareRuimteMogelijkOnjuist:
         type: object
         properties: 
-          naamMogelijkOnjuist:
+          naam:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          typeMogelijkOnjuist:
+          type:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          statusMogelijkOnjuist:
+          status:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          mogelijkVerkeerdeWoonplaatsGebruikt:
+          ligtInWoonplaats:
             type: boolean  
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
     OpenbareRuimteHalBasis:
@@ -1384,28 +1384,28 @@ components:
     NummeraanduidingMogelijkOnjuist:
         type: object
         properties: 
-          huisnummerMogelijkOnjuist:
+          huisnummer:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          huisletterMogelijkOnjuist:
+          huisletter:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          huisnummertoevoegingMogelijkOnjuist:
+          huisnummertoevoeging:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          postcodeMogelijkOnjuist:
+          postcode:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          typeAdresseerbaarObjectMogelijkOnjuist:
+          typeAdresseerbaarObject:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          statusMogelijkOnjuist:
+          status:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          mogelijkVerkeerdeWoonplaatsGebruikt:
+          ligtInWoonplaats:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
-          mogelijkVerkeerdeStraatGebruikt: 
+          ligtAanOpenbareRuimte: 
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
     NummeraanduidingHalBasis:
@@ -1488,13 +1488,13 @@ components:
     WoonplaatsMogelijkOnjuist:
       type: object
       properties: 
-        naamMogelijkOnjuist:
+        naam:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-        geometrieMogelijkOnjuist:
+        geometrie:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-        statusMogelijkOnjuist:
+        status:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
     WoonplaatsHalBasis:
@@ -1564,13 +1564,13 @@ components:
     PandMogelijkOnjuist:
       type: object
       properties:
-        geometrieMogelijkOnjuist:
+        geometrie:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-        oorspronkelijkBouwjaarMogelijkOnjuist:
+        oorspronkelijkBouwjaar:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-        statusMogelijkOnjuist:
+        status:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
     
