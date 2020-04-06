@@ -3527,7 +3527,7 @@ components:
     AdresMogelijkOnjuist:
       type: object
       properties:
-        naamWoonplaats:
+        woonplaatsNaam:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
@@ -3535,11 +3535,11 @@ components:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de status van de gerelateerde Woonplaats.
-        mogelijkVerkeerdeWoonplaatsGebruikt:
+        woonplaatsMogelijkVerkeerdeGebruikt:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             relatie met de gerelateerdde Woonplaats.
-        straatnaam:
+        straat:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
@@ -3547,7 +3547,7 @@ components:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de status van de gerelateerde Openbare Ruimte.
-        mogelijkVerkeerdeStraatGebruikt:
+        straatMogelijkVerkeerdeGebruikt:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             relatie met de gerelateerde Openbare Ruimte.
@@ -3688,7 +3688,7 @@ components:
     AdresseerbaarObjectMogelijkOnjuist:
       type: object
       properties:
-        gebruiksdoel:
+        gebruiksdoelen:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
@@ -3696,7 +3696,7 @@ components:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        hoofdadresidentificatie:
+        hoofdadresIdentificatie:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
@@ -3719,7 +3719,7 @@ components:
     AdresseerbaarObject_embedded:
       type: object
       properties:
-        adres:
+        hoofdAdres:
           $ref: '#/components/schemas/AdresHalBasis'
         panden:
           $ref: '#/components/schemas/PandHalCollectie'
@@ -3817,19 +3817,19 @@ components:
     OpenbareRuimteMogelijkOnjuist:
       type: object
       properties:
-        naamMogelijkOnjuist:
+        naam:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        typeMogelijkOnjuist:
+        type:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        statusMogelijkOnjuist:
+        status:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        mogelijkVerkeerdeWoonplaatsGebruikt:
+        ligtInWoonplaats:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             relatie met de gerelateerdde Woonplaats.
@@ -3927,35 +3927,35 @@ components:
     NummeraanduidingMogelijkOnjuist:
       type: object
       properties:
-        huisnummerMogelijkOnjuist:
+        huisnummer:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        huisletterMogelijkOnjuist:
+        huisletter:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        huisnummertoevoegingMogelijkOnjuist:
+        huisnummertoevoeging:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        postcodeMogelijkOnjuist:
+        postcode:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        typeAdresseerbaarObjectMogelijkOnjuist:
+        typeAdresseerbaarObject:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        statusMogelijkOnjuist:
+        status:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        mogelijkVerkeerdeWoonplaatsGebruikt:
+        ligtInWoonplaats:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             relatie met de gerelateerdde Woonplaats.
-        mogelijkVerkeerdeStraatGebruikt:
+        ligtAanOpenbareRuimte:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             relatie met de gerelateerde Openbare Ruimte.
@@ -4041,15 +4041,15 @@ components:
     WoonplaatsMogelijkOnjuist:
       type: object
       properties:
-        naamMogelijkOnjuist:
+        naam:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        geometrieMogelijkOnjuist:
+        geometrie:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        statusMogelijkOnjuist:
+        status:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
@@ -4132,15 +4132,15 @@ components:
     PandMogelijkOnjuist:
       type: object
       properties:
-        geometrieMogelijkOnjuist:
+        geometrie:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        oorspronkelijkBouwjaarMogelijkOnjuist:
+        oorspronkelijkBouwjaar:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        statusMogelijkOnjuist:
+        status:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
