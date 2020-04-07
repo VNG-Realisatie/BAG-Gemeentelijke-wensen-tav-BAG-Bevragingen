@@ -3943,10 +3943,6 @@ components:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
             juistheid van de waarde in het corresponderende gegeven.
-        typeAdresseerbaarObject:
-          type: boolean
-          description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
-            juistheid van de waarde in het corresponderende gegeven.
         status:
           type: boolean
           description: Indicator die aangeeft of er onderzoek wordt gedaan naar de
