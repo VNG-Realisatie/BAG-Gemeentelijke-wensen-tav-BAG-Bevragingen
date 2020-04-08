@@ -67,6 +67,8 @@ paths:
         in: query
         description: Pagina nummer
         required: false
+        style: form
+        explode: true
         schema:
           minimum: 1
           type: integer
@@ -74,6 +76,8 @@ paths:
       - name: pageSize
         in: query
         required: false
+        style: form
+        explode: true
         schema:
           maximum: 100
           minimum: 1
@@ -335,6 +339,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -346,12 +352,16 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -648,6 +658,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -659,12 +671,16 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -960,6 +976,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -971,12 +989,16 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -1283,6 +1305,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -1294,12 +1318,16 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -1592,6 +1620,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -1603,12 +1633,16 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -1900,6 +1934,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -1911,6 +1947,8 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       responses:
@@ -2199,6 +2237,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -2210,6 +2250,8 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       responses:
@@ -2496,6 +2538,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -2507,12 +2551,16 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -2818,6 +2866,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -2829,12 +2879,16 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -3113,6 +3167,8 @@ paths:
           van resource kunnen worden opgegeven door het opgeven van de resource-naam
           gevolgd door de veldnaam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/expand.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: fields
@@ -3124,18 +3180,24 @@ paths:
           worden alle gedefinieerde velden die een waarde hebben teruggegeven. Zie
           [functionele specificaties](https://github.com/VNG-Realisatie/Bevragingen-ingeschreven-personen/blob/master/features/fields.feature)
         required: false
+        style: form
+        explode: true
         schema:
           type: string
       - name: Content-Crs
         in: header
         description: CRS van de meegegeven geometrie.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
         required: false
+        style: simple
+        explode: false
         schema:
           type: string
           description: CRS van de coördinaten in de response.
@@ -3581,7 +3643,6 @@ components:
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             object heeft plaatsgevonden.
           format: date
-          example: 2019-08-14
         documentnummer:
           maxLength: 40
           type: string
@@ -3758,7 +3819,6 @@ components:
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             object heeft plaatsgevonden.
           format: date
-          example: 2019-08-14
         documentnummer:
           title: documentnummer
           maxLength: 40
@@ -3853,7 +3913,6 @@ components:
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             object heeft plaatsgevonden.
           format: date
-          example: 2019-08-14
         documentnummer:
           title: documentnummer
           maxLength: 40
@@ -3946,7 +4005,6 @@ components:
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             object heeft plaatsgevonden.
           format: date
-          example: 2019-08-14
         documentnummer:
           title: documentnummer
           maxLength: 40
@@ -4024,7 +4082,6 @@ components:
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             object heeft plaatsgevonden.
           format: date
-          example: 2019-08-14
         documentnummer:
           title: documentnummer
           maxLength: 40
@@ -4603,12 +4660,16 @@ components:
         example: "0518300000000001"
   headers:
     api_version:
+      style: simple
+      explode: false
       schema:
         type: string
         description: Geeft een specifieke API-versie aan in de context van een specifieke
           aanroep.
         example: 1.0.0
     warning:
+      style: simple
+      explode: false
       schema:
         type: string
         description: zie RFC 7234. In het geval een major versie wordt uitgefaseerd,
@@ -4619,20 +4680,30 @@ components:
           en zal uit dienst worden genomen op 2018-02-01. Raadpleeg voor meer informatie
           hier de documentatie: https://omgevingswet.../api/.../v1".'
     X_Rate_Limit_Limit:
+      style: simple
+      explode: false
       schema:
         type: integer
     X_Rate_Limit_Remaining:
+      style: simple
+      explode: false
       schema:
         type: integer
     X_Rate_Limit_Reset:
+      style: simple
+      explode: false
       schema:
         type: integer
     X_Pagination_Page:
+      style: simple
+      explode: false
       schema:
         type: integer
         description: Huidige pagina.
         example: 3
     X_Pagination_Limit:
+      style: simple
+      explode: false
       schema:
         type: integer
         description: Aantal resultaten per pagina.
@@ -4640,6 +4711,8 @@ components:
     contentCrs:
       description: CRS van de meegegeven geometrie.
       required: false
+      style: simple
+      explode: false
       schema:
         type: string
   securitySchemes:
