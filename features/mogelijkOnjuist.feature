@@ -1,0 +1,128 @@
+# language: nl
+Functionaliteit: Mogelijk onjuist
+  In de resource wordt aangegeven of bepaalde teruggegeven waarden in de resource mogelijk onjuist zijn. Waarden in de resource zijn mogelijk onjuist wanneer er onderzoek wordt gedaan naar de juistheid van onderliggende gegevens in de registratie.
+
+  Scenario: wanneer de status van een object in onderzoek is, zijn alle daaruit afgeleide properties van de resource mogelijk onjuist
+    Gegeven een resource adressen wordt opgevraagd
+    En in object nummeraanduiding is gegeven Status nummeraanduiding in onderzoek
+    Dan bevat het antwoord
+      """
+          "mogelijkOnjuist": {
+              "korteNaam": true,
+              "straat": true,
+              "huisnummer": true,
+              "huisletter": true,
+              "huisnummertoevoeging": true,
+              "postcode": true,
+              "woonplaats": true,
+              "woonplaatsIdentificatie": true,
+              "nummeraanduidingIdentificatie": true,
+              "openbareRuimteIdentificatie": true,
+              "adresseerbaarObjectIdentificatie": true,
+              "toelichting": [ "Adres bestaat mogelijk niet (meer)." ]
+          }
+      """
+
+  Scenario: wanneer meerdere properties in de resource afgeleid zijn van hetzelfde gegeven in de registratie zijn al deze properties van de resource mogelijk onjuist
+    Gegeven een resource adressen wordt opgevraagd
+    En in object Woonplaats is gegeven Status woonplaats in onderzoek
+    Dan bevat het antwoord
+      """
+          "mogelijkOnjuist": {
+              "woonplaats": true,
+              "woonplaatsIdentificatie": true,
+              "toelichting": [ "Woonplaats bestaat mogelijk niet." ]
+          }
+      """
+
+
+  Abstract Scenario: mogelijkOnjuist wordt gevuld op basis van in onderzoek staan van gegevens in de registratie
+    Gegeven een resource <Resource> wordt opgevraagd
+    En in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
+    Dan bevat het antwoord in property mogelijkOnjuist de property of properties <mogelijkOnjuist property> met de boolean waarde true
+    En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<toelichting>"
+    En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
+
+    Voorbeelden:
+      | Objecttype       | Attribuut in de BAG                      | Resource              | mogelijkOnjuist property | toelichting |
+      | Woonplaats       | Naam woonplaats                          | adressen              | woonplaats               | Woonplaatsnaam is mogelijk onjuist geschreven. |
+      | Woonplaats       | Status woonplaats                        | adressen              | woonplaats,woonplaatsIdentificatie | Woonplaats bestaat mogelijk niet. |
+      | Woonplaats       | Geometrie                                | adressen              | woonplaats,woonplaatsIdentificatie | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
+      | Openbare ruimte  | Naam openbare ruimte                     | adressen              | straat,korteNaam         | Straatnaam komt niet overeen met de vermelding in het straatnaambesluit. |
+      | Openbare ruimte  | Status openbare ruimte                   | adressen              | straat,korteNaam,openbareRuimteIdentificatie | Straat bestaat mogelijk niet (meer). |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats,woonplaatsIdentificatie | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
+      | Nummeraanduiding | Huisnummer                               | adressen              | huisnummer               | Mogelijk is het verkeerde huisnummer geregistreerd. |
+      | Nummeraanduiding | Huisletter                               | adressen              | huisletter               | Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend. |
+      | Nummeraanduiding | Huisnummertoevoeging                     | adressen              | huisnummertoevoeging     | Mogelijk is ten onrechte een huislettertoevoeging toegekend, ontbreekt de huislettertoevoeging ten onrechte, of is een verkeerde huislettertoevoeging toegekend. |
+      | Nummeraanduiding | Postcode                                 | adressen              | postcode                 | Mogelijk is ten onrechte een postcode toegekend, ontbreekt de postcode ten onrechte, of is een verkeerde postcode toegekend. |
+      | Nummeraanduiding | Status nummeraanduiding                  | adressen              | straat,korteNaam,huisnummer,huisletter,huisnummertoevoeging,postcode,woonplaats,nummeraanduidingIdentificatie,woonplaatsIdentificatie,openbareRuimteIdentificatie,adresseerbaarObjectIdentificatie | Adres bestaat mogelijk niet (meer). |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaatsnummeraanduidingIdentificatie | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | straat,korteNaam,openbareRuimteIdentificatie | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
+      | Pand             | Geometrie                                | panden                | geometrie                | Mogelijk is de locatie van de contouren onjuist. Mogelijk is de contour onjuist, bijvoorbeeld omdat een uitbouw of een gedeeltelijke sloop niet verwerkt is. |
+      | Pand             | Bouwjaar                                 | panden                | oorspronkelijkBouwjaar   | Bouwjaar is mogelijk onjuist. |
+      | Pand             | Status                                   | panden                | status                   | De meest voor de handliggende mogelijke onjuistheden zijn: Bouwvergunning verleend: mogelijk is de bouw al gestart; mogelijk is de bouw al gereed; mogelijk is het pand niet gerealiseerd. Niet gerealiseerd pand: mogelijk is het pand toch gerealiseerd. Bouw gestart: mogelijk is de bouw al gereed; mogelijk is het pand niet gerealiseerd. Pand in gebruik (niet ingemeten): mogelijk is de geometrie al ingemeten. Pand in gebruik: mogelijk is het pand nog niet in gebruik; mogelijk is het pand al gesloopt; mogelijk is er een vergunning tot verbouw verleend; mogelijk is er een sloopmelding gedaan. Sloopvergunning verleend: Mogelijk wordt het pand toch niet gesloopt; Mogelijk is het pand al gesloopt. |
+      | Verblijfsobject  | Geometrie                                | adresseerbareobjecten | geometrie                | Locatie/contour mogelijk onjuist. |
+      | Standplaats      | Geometrie                                | adresseerbareobjecten | geometrie                | Locatie/contour mogelijk onjuist. |
+      | Ligplaats        | Geometrie                                | adresseerbareobjecten | geometrie                | Locatie/contour mogelijk onjuist. |
+      | Verblijfsobject  | Gebruiksdoel                             | adresseerbareobjecten | gebruiksdoel             | Het gebruiksdoel is mogelijk onjuist. In de BAG wordt het vergunde gebruik geregistreerd. Het gebruiksdoel moet overeenkomen met het gebruik zoals beschreven in de vergunning. |
+      | Verblijfsobject  | Oppervlakte                              | adresseerbareobjecten | oppervlakte              | De oppervlakte is mogelijk onjuist. |
+      | Verblijfsobject  | Status                                   | adresseerbareobjecten | status                   | De meest voor de handliggende mogelijke onjuistheden zijn: Bij verblijfsobject gevormd: mogelijk is de bouw al gereed; mogelijk is het verblijfsobject niet gerealiseerd. Niet gerealiseerd verblijfsobject: mogelijk is het verblijfsobject toch gerealiseerd. Verblijfsobject in gebruik (niet ingemeten): mogelijk is de geometrie al ingemeten. Verblijfsobject in gebruik: mogelijk is het verblijfsobject nog niet in gebruik; mogelijk is het verblijfsobject al ingetrokken; mogelijk is er een vergunning tot verbouw verleend. |
+      | Standplaats      | Status                                   | adresseerbareobjecten | status                   | De standplaats bestaat mogelijk niet (meer). |
+      | Ligplaats        | Status                                   | adresseerbareobjecten | status                   | De ligplaats bestaat mogelijk niet (meer). |
+      | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | pandIdentificaties       | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
+      | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | hoofdAdresIdentificatie  | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | hoofdAdresIdentificatie  | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Ligplaats        | Heeft als hoofdadres                     | adresseerbareobjecten | hoofdAdresIdentificatie  | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | nevenAdresIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | nevenAdresIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | nevenAdresIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+
+  Scenario: wanneer meerdere gegevens in onderzoek zijn, worden de toelichtingen van beide onderzoeken toegevoegd.
+    Gegeven een resource adressen wordt opgevraagd
+    En in object nummeraanduiding is gegeven huisnummer in onderzoek
+    En in object nummeraanduiding is gegeven huisletter in onderzoek
+    Dan bevat het antwoord
+      """
+          "mogelijkOnjuist": {
+              "huisnummer": true,
+              "huisletter": true,
+              "toelichting": [
+                "Mogelijk is het verkeerde huisnummer geregistreerd.",
+                "Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend."
+              ]
+          }
+      """
+
+    Scenario: mogelijkOnjuist wordt ook geleverd wanneer het gegeven geen waarde heeft
+      Gegeven een resource adressen wordt opgevraagd
+      En in object nummeraanduiding is gegeven huisnummer in onderzoek
+      En in object nummeraanduiding heeft huisletter geen waarde of is leeg
+      Dan bevat het antwoord geen property huisletter
+      En bevat het antwoord
+        """
+            "mogelijkOnjuist": {
+                "huisletter": true,
+                "toelichting": [
+                  "Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend."
+                ]
+            }
+        """
+
+    Scenario: mogelijkOnjuist wordt niet geleverd voor velden die niet gevraagd zijn met fields
+      Gegeven een resource adressen wordt opgevraagd met fields=postcode,huisnummer
+      En in object Woonplaats is gegeven Status woonplaats in onderzoek
+      Dan bevat het antwoord geen property mogelijkOnjuist
+      En bevat het antwoord property postcode met een waarde
+      En bevat het antwoord property huisnummer met een waarde
+
+    Scenario: mogelijkOnjuist bij objectstatus in onderzoek en gebruik fields
+      Gegeven een resource adressen wordt opgevraagd met fields=postcode,huisnummer
+      En in object nummeraanduiding is gegeven Status nummeraanduiding in onderzoek
+      Dan bevat het antwoord
+        """
+            "mogelijkOnjuist": {
+                "huisnummer": true,
+                "postcode": true,
+                "toelichting": [ "Adres bestaat mogelijk niet (meer)." ]
+            }
+        """
