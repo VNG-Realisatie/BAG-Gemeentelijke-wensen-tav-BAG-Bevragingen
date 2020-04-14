@@ -60,13 +60,11 @@ Functionaliteit: Mogelijk onjuist
       | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | straat,korteNaam,openbareRuimteIdentificatie | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
       | Pand             | Geometrie                                | panden                | geometrie                | Mogelijk is de locatie van de contouren onjuist. Mogelijk is de contour onjuist, bijvoorbeeld omdat een uitbouw of een gedeeltelijke sloop niet verwerkt is. |
       | Pand             | Bouwjaar                                 | panden                | oorspronkelijkBouwjaar   | Bouwjaar is mogelijk onjuist. |
-      | Pand             | Status                                   | panden                | status                   | De meest voor de handliggende mogelijke onjuistheden zijn: Bouwvergunning verleend: mogelijk is de bouw al gestart; mogelijk is de bouw al gereed; mogelijk is het pand niet gerealiseerd. Niet gerealiseerd pand: mogelijk is het pand toch gerealiseerd. Bouw gestart: mogelijk is de bouw al gereed; mogelijk is het pand niet gerealiseerd. Pand in gebruik (niet ingemeten): mogelijk is de geometrie al ingemeten. Pand in gebruik: mogelijk is het pand nog niet in gebruik; mogelijk is het pand al gesloopt; mogelijk is er een vergunning tot verbouw verleend; mogelijk is er een sloopmelding gedaan. Sloopvergunning verleend: Mogelijk wordt het pand toch niet gesloopt; Mogelijk is het pand al gesloopt. |
       | Verblijfsobject  | Geometrie                                | adresseerbareobjecten | geometrie                | Locatie/contour mogelijk onjuist. |
       | Standplaats      | Geometrie                                | adresseerbareobjecten | geometrie                | Locatie/contour mogelijk onjuist. |
       | Ligplaats        | Geometrie                                | adresseerbareobjecten | geometrie                | Locatie/contour mogelijk onjuist. |
       | Verblijfsobject  | Gebruiksdoel                             | adresseerbareobjecten | gebruiksdoel             | Het gebruiksdoel is mogelijk onjuist. In de BAG wordt het vergunde gebruik geregistreerd. Het gebruiksdoel moet overeenkomen met het gebruik zoals beschreven in de vergunning. |
       | Verblijfsobject  | Oppervlakte                              | adresseerbareobjecten | oppervlakte              | De oppervlakte is mogelijk onjuist. |
-      | Verblijfsobject  | Status                                   | adresseerbareobjecten | status                   | De meest voor de handliggende mogelijke onjuistheden zijn: Bij verblijfsobject gevormd: mogelijk is de bouw al gereed; mogelijk is het verblijfsobject niet gerealiseerd. Niet gerealiseerd verblijfsobject: mogelijk is het verblijfsobject toch gerealiseerd. Verblijfsobject in gebruik (niet ingemeten): mogelijk is de geometrie al ingemeten. Verblijfsobject in gebruik: mogelijk is het verblijfsobject nog niet in gebruik; mogelijk is het verblijfsobject al ingetrokken; mogelijk is er een vergunning tot verbouw verleend. |
       | Standplaats      | Status                                   | adresseerbareobjecten | status                   | De standplaats bestaat mogelijk niet (meer). |
       | Ligplaats        | Status                                   | adresseerbareobjecten | status                   | De ligplaats bestaat mogelijk niet (meer). |
       | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | pandIdentificaties       | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
@@ -76,6 +74,29 @@ Functionaliteit: Mogelijk onjuist
       | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | nevenAdresIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
       | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | nevenAdresIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
       | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | nevenAdresIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+
+  Abstract Scenario: mogelijkOnjuist vullen bij onderzoek naar de status van het object
+    Gegeven een resource <Resource> wordt opgevraagd
+    En in object <Objecttype> is gegeven status in onderzoek
+    En in object <Objecttype> heeft status de waarde <Status>
+    Dan bevat het antwoord in property mogelijkOnjuist de property of properties <mogelijkOnjuist property> met de boolean waarde true
+    En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<toelichting>"
+    En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
+
+    Voorbeelden:
+      | Objecttype       | Status                                      | Resource              | mogelijkOnjuist property | toelichting |
+      | Pand             | Bouwvergunning verleend                     | panden                | status                   | Mogelijk is de bouw al gestart, is de bouw al gereed of is het pand niet gerealiseerd. |
+      | Pand             | Niet gerealiseerd pand                      | panden                | status                   | Mogelijk is het pand toch gerealiseerd. |
+      | Pand             | Bouw gestart                                | panden                | status                   | Mogelijk is de bouw al gereed of is het pand niet gerealiseerd. |
+      | Pand             | Pand in gebruik (niet ingemeten)            | panden                | status                   | Mogelijk is de geometrie al ingemeten. |
+      | Pand             | Pand in gebruik                             | panden                | status                   | Mogelijk is het pand nog niet in gebruik, is het pand al gesloopt, is er een vergunning tot verbouw verleend of is er een sloopmelding gedaan. |
+      | Pand             | Sloopvergunning verleend                    | panden                | status                   | Mogelijk wordt het pand toch niet gesloopt of is het pand al gesloopt. |
+      | Pand             | Verbouwing pand                             | panden                | status                   | Mogelijk is de verbouwing al afgerond of wordt de verbouwing niet uitgevoerd. |
+      | Verblijfsobject  | Verblijfsobject gevormd                     | adresseerbareobjecten | status                   | Mogelijk is de bouw al gereed of is het verblijfsobject niet gerealiseerd. |
+      | Verblijfsobject  | Niet gerealiseerd verblijfsobject           | adresseerbareobjecten | status                   | Mogelijk is het verblijfsobject toch gerealiseerd. |
+      | Verblijfsobject  | Verblijfsobject in gebruik (niet ingemeten) | adresseerbareobjecten | status                   | Mogelijk is de geometrie al ingemeten. |
+      | Verblijfsobject  | Verblijfsobject in gebruik                  | adresseerbareobjecten | status                   | Mogelijk is het verblijfsobject nog niet in gebruik, is het verblijfsobject al ingetrokken of is er een vergunning tot verbouw verleend. |
+      | Verblijfsobject  | Verbouwing verblijfsobject                  | adresseerbareobjecten | status                   | Mogelijk is de verbouwing al afgerond of wordt de verbouwing niet uitgevoerd. |
 
   Scenario: wanneer meerdere gegevens in onderzoek zijn, worden de toelichtingen van beide onderzoeken toegevoegd.
     Gegeven een resource adressen wordt opgevraagd
