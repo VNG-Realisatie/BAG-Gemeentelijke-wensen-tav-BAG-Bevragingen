@@ -129,7 +129,7 @@ Functionaliteit: Mogelijk onjuist
             }
         """
     Scenario: mogelijkOnjuist wordt geleverd voor velden die gevraagd zijn met fields
-      Gegeven in object Woonplaats is gegeven huisnummer in onderzoek
+      Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
       Als de resource adressen wordt opgevraagd met fields=postcode,huisnummer
       Dan bevat het antwoord property mogelijkOnjuist.huisnummer met de waarde true
       En bevat het antwoord geen property mogelijkOnjuist.postcode
@@ -154,3 +154,26 @@ Functionaliteit: Mogelijk onjuist
                 "toelichting": [ "Adres bestaat mogelijk niet (meer)." ]
             }
         """
+
+    Scenario: mogelijkOnjuist properties vragen met fields
+      Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
+      En in object nummeraanduiding is gegeven huisletter in onderzoek
+      En in object nummeraanduiding is gegeven postcode niet in onderzoek
+      Als de resource adressen wordt opgevraagd met fields=huisnummer,mogelijkOnjuist.huisletter,mogelijkOnjuist.postcode
+      Dan bevat het antwoord property mogelijkOnjuist.huisnummer met de waarde true
+      En bevat het antwoord property mogelijkOnjuist.huisletter met de waarde true
+      En bevat het antwoord geen property mogelijkOnjuist.postcode
+      En bevat het antwoord property postcode met een waarde
+      En bevat het antwoord property huisnummer met een waarde
+      En bevat het antwoord geen property huisletter
+
+    Scenario: mogelijkOnjuist vragen met fields
+      Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
+      En in object nummeraanduiding is gegeven huisletter in onderzoek
+      Als de resource adressen wordt opgevraagd met fields=mogelijkOnjuist
+      Dan bevat het antwoord property mogelijkOnjuist.huisnummer met de waarde true
+      En bevat het antwoord property mogelijkOnjuist.huisletter met de waarde true
+      En bevat het antwoord geen property mogelijkOnjuist.postcode
+      En bevat het antwoord geen property postcode
+      En bevat het antwoord geen property huisnummer
+      En bevat het antwoord geen property huisletter
