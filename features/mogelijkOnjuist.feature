@@ -3,8 +3,8 @@ Functionaliteit: Mogelijk onjuist
   In de resource wordt aangegeven of bepaalde teruggegeven waarden in de resource mogelijk onjuist zijn. Waarden in de resource zijn mogelijk onjuist wanneer er onderzoek wordt gedaan naar de juistheid van onderliggende gegevens in de registratie.
 
   Scenario: wanneer de status van een object in onderzoek is, zijn alle daaruit afgeleide properties van de resource mogelijk onjuist
-    Gegeven een resource adressen wordt opgevraagd
-    En in object nummeraanduiding is gegeven Status nummeraanduiding in onderzoek
+    Gegeven in object nummeraanduiding is gegeven Status nummeraanduiding in onderzoek
+    Als de resource adressen wordt opgevraagd
     Dan bevat het antwoord
       """
           "mogelijkOnjuist": {
@@ -24,8 +24,8 @@ Functionaliteit: Mogelijk onjuist
       """
 
   Scenario: wanneer meerdere properties in de resource afgeleid zijn van hetzelfde gegeven in de registratie zijn al deze properties van de resource mogelijk onjuist
-    Gegeven een resource adressen wordt opgevraagd
-    En in object Woonplaats is gegeven Status woonplaats in onderzoek
+    Gegeven in object Woonplaats is gegeven Status woonplaats in onderzoek
+    Als de resource adressen wordt opgevraagd
     Dan bevat het antwoord
       """
           "mogelijkOnjuist": {
@@ -37,8 +37,8 @@ Functionaliteit: Mogelijk onjuist
 
 
   Abstract Scenario: mogelijkOnjuist wordt gevuld op basis van in onderzoek staan van gegevens in de registratie
-    Gegeven een resource <Resource> wordt opgevraagd
-    En in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
+    Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
+    Als de resource <Resource> wordt opgevraagd
     Dan bevat het antwoord in property mogelijkOnjuist de property of properties <mogelijkOnjuist property> met de boolean waarde true
     En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<toelichting>"
     En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
@@ -76,9 +76,9 @@ Functionaliteit: Mogelijk onjuist
       | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | nevenAdresIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
 
   Abstract Scenario: mogelijkOnjuist vullen bij onderzoek naar de status van het object
-    Gegeven een resource <Resource> wordt opgevraagd
-    En in object <Objecttype> is gegeven status in onderzoek
+    Gegeven in object <Objecttype> is gegeven status in onderzoek
     En in object <Objecttype> heeft status de waarde <Status>
+    Als de resource <Resource> wordt opgevraagd
     Dan bevat het antwoord in property mogelijkOnjuist de property of properties <mogelijkOnjuist property> met de boolean waarde true
     En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<toelichting>"
     En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
@@ -99,9 +99,9 @@ Functionaliteit: Mogelijk onjuist
       | Verblijfsobject  | Verbouwing verblijfsobject                  | adresseerbareobjecten | status                   | Mogelijk is de verbouwing al afgerond of wordt de verbouwing niet uitgevoerd. |
 
   Scenario: wanneer meerdere gegevens in onderzoek zijn, worden de toelichtingen van beide onderzoeken toegevoegd.
-    Gegeven een resource adressen wordt opgevraagd
-    En in object nummeraanduiding is gegeven huisnummer in onderzoek
+    Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
     En in object nummeraanduiding is gegeven huisletter in onderzoek
+    Als de resource adressen wordt opgevraagd
     Dan bevat het antwoord
       """
           "mogelijkOnjuist": {
@@ -115,9 +115,9 @@ Functionaliteit: Mogelijk onjuist
       """
 
     Scenario: mogelijkOnjuist wordt ook geleverd wanneer het gegeven geen waarde heeft
-      Gegeven een resource adressen wordt opgevraagd
-      En in object nummeraanduiding is gegeven huisnummer in onderzoek
+      Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
       En in object nummeraanduiding heeft huisletter geen waarde of is leeg
+      Als de resource adressen wordt opgevraagd
       Dan bevat het antwoord geen property huisletter
       En bevat het antwoord
         """
@@ -130,15 +130,15 @@ Functionaliteit: Mogelijk onjuist
         """
 
     Scenario: mogelijkOnjuist wordt niet geleverd voor velden die niet gevraagd zijn met fields
-      Gegeven een resource adressen wordt opgevraagd met fields=postcode,huisnummer
-      En in object Woonplaats is gegeven Status woonplaats in onderzoek
+      Gegeven in object Woonplaats is gegeven Status woonplaats in onderzoek
+      Als de resource adressen wordt opgevraagd met fields=postcode,huisnummer
       Dan bevat het antwoord geen property mogelijkOnjuist
       En bevat het antwoord property postcode met een waarde
       En bevat het antwoord property huisnummer met een waarde
 
     Scenario: mogelijkOnjuist bij objectstatus in onderzoek en gebruik fields
-      Gegeven een resource adressen wordt opgevraagd met fields=postcode,huisnummer
-      En in object nummeraanduiding is gegeven Status nummeraanduiding in onderzoek
+      Gegeven in object nummeraanduiding is gegeven Status nummeraanduiding in onderzoek
+      Als de resource adressen wordt opgevraagd met fields=postcode,huisnummer
       Dan bevat het antwoord
         """
             "mogelijkOnjuist": {
