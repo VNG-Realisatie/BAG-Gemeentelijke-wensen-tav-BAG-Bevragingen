@@ -128,6 +128,13 @@ Functionaliteit: Mogelijk onjuist
                 ]
             }
         """
+    Scenario: mogelijkOnjuist wordt geleverd voor velden die gevraagd zijn met fields
+      Gegeven in object Woonplaats is gegeven huisnummer in onderzoek
+      Als de resource adressen wordt opgevraagd met fields=postcode,huisnummer
+      Dan bevat het antwoord property mogelijkOnjuist.huisnummer met de waarde true
+      En bevat het antwoord geen property mogelijkOnjuist.postcode
+      En bevat het antwoord property postcode met een waarde
+      En bevat het antwoord property huisnummer met een waarde
 
     Scenario: mogelijkOnjuist wordt niet geleverd voor velden die niet gevraagd zijn met fields
       Gegeven in object Woonplaats is gegeven Status woonplaats in onderzoek
