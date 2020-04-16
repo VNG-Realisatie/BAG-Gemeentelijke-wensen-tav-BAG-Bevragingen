@@ -35,7 +35,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/API-info'
         default:
-          description: Onverwacht probleem
+          description: Er is een onverwachte fout opgetreden
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
           content:
             application/problem+json:
               schema:
@@ -3428,7 +3431,6 @@ components:
         self:
           $ref: '#/components/schemas/HalLink'
         adressen:
-          minItems: 1
           type: array
           items:
             $ref: '#/components/schemas/HalLink'
@@ -3502,7 +3504,6 @@ components:
         adresseerbaarObjectIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
         pandIdentificaties:
-          minItems: 1
           type: array
           items:
             $ref: '#/components/schemas/NEN3610ID'
@@ -3584,8 +3585,6 @@ components:
           _links:
             $ref: '#/components/schemas/Adres_links'
     Adres_links:
-      required:
-      - self
       type: object
       properties:
         self:
@@ -3599,7 +3598,6 @@ components:
         adresseerbareObject:
           $ref: '#/components/schemas/HalLink'
         panden:
-          minItems: 1
           type: array
           description: Het/de aan het adres gerelateerde pand(en).
           items:
@@ -3620,7 +3618,7 @@ components:
           type: string
           description: unieke identificatie van het adresseerbaar object
           example: "01230167890123456"
-        adresseerbaarObjectType:
+        type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
         documentdatum:
           type: string
@@ -3640,7 +3638,7 @@ components:
         gebruiksdoelen:
           type: array
           items:
-            $ref: '#/components/schemas/Gebruiksdoel'
+            $ref: '#/components/schemas/Gebruiksdoel_enum'
         geconstateerd:
           type: boolean
           description: Een aanduiding waarmee kan worden aangegeven dat een object
@@ -3746,16 +3744,26 @@ components:
     AdresseerbaarObjectStatus_enum:
       type: string
       enum:
+      - Plaats aangewezen
       - Verblijfsobject gevormd
-      - Niet gerealiseerd verblijfsobject
       - Verblijfsobject in gebruik (niet ingemeten)
       - Verblijfsobject in gebruik
       - Verbouwing verblijfsobject
-      - Verblijfsobject ingetrokken
       - Verblijfsobject buiten gebruik
-      - Verblijfsobject ten onrechte opgevoerd
-      - Plaats aangewezen
-      - Plaats ingetrokken
+    Gebruiksdoel_enum:
+      type: string
+      enum:
+      - woonfunctie
+      - bijeenkomstfunctie
+      - celfunctie
+      - gezondheidszorgfunctie
+      - industriefunctie
+      - kantoorfunctie
+      - logiesfunctie
+      - onderwijsfunctie
+      - sportfunctie
+      - winkelfunctie
+      - overige gebruiksfunctie
     OpenbareRuimte:
       title: OpenbareRuimte
       type: object
@@ -3771,9 +3779,9 @@ components:
             strekkend formeel gemeentelijk besluit.
           example: Laan van de landinrichtingscommissie Duiven-Westervoort
         type:
-          $ref: '#/components/schemas/TypeOpenbareRuimte'
+          $ref: '#/components/schemas/TypeOpenbareRuimte_enum'
         status:
-          $ref: '#/components/schemas/StatusNaamgeving'
+          $ref: '#/components/schemas/StatusNaamgeving_enum'
         korteNaam:
           title: korteNaam
           maxLength: 24
@@ -3846,8 +3854,6 @@ components:
           _embedded:
             $ref: '#/components/schemas/OpenbareRuimte_embedded'
     OpenbareRuimte_links:
-      required:
-      - self
       type: object
       properties:
         self:
@@ -3892,7 +3898,7 @@ components:
             combinatie van een straatnaam en een huisnummer.
           example: 7500AA
         status:
-          $ref: '#/components/schemas/StatusNaamgeving'
+          $ref: '#/components/schemas/StatusNaamgeving_enum'
         geconstateerd:
           type: boolean
           description: Indicator dat een object in de registratie is opgenomen op
@@ -3968,8 +3974,6 @@ components:
           _embedded:
             $ref: '#/components/schemas/Nummeraanduiding_embedded'
     Nummeraanduiding_links:
-      required:
-      - self
       type: object
       properties:
         self:
@@ -4003,7 +4007,7 @@ components:
           description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
           example: Apeldoorn
         status:
-          $ref: '#/components/schemas/StatusWoonplaats'
+          $ref: '#/components/schemas/StatusWoonplaats_enum'
         geconstateerd:
           type: boolean
           description: Een aanduiding waarmee kan worden aangegeven dat een object
@@ -4062,8 +4066,6 @@ components:
           _embedded:
             $ref: '#/components/schemas/Woonplaats_embedded'
     Woonplaats_links:
-      required:
-      - self
       type: object
       properties:
         self:
@@ -4094,7 +4096,7 @@ components:
             niet tot wijziging van het bouwjaar.
           example: "1972"
         status:
-          $ref: '#/components/schemas/StatusPand'
+          $ref: '#/components/schemas/StatusPand_enum'
         geconstateerd:
           type: boolean
           description: Een aanduiding waarmee kan worden aangegeven dat een object
@@ -4154,7 +4156,6 @@ components:
         self:
           $ref: '#/components/schemas/HalLink'
         adressen:
-          minItems: 1
           type: array
           items:
             $ref: '#/components/schemas/HalLink'
@@ -4172,11 +4173,55 @@ components:
           $ref: '#/components/schemas/HalCollectionLinks'
         _embedded:
           $ref: '#/components/schemas/PandHalCollectie__embedded'
+    StatusNaamgeving_enum:
+      type: string
+      description: Een aanduiding van alle waarden die de status van een openbare
+        ruimte of een nummeraanduiding kan aannemen.
+      enum:
+      - Naamgeving uitgegeven
+      - Naamgeving ingetrokken
+    StatusPand_enum:
+      type: string
+      description: Een codering van de verschillende waarden die de status van een
+        pand kan aannemen.
+      enum:
+      - Bouwvergunning verleend
+      - Niet gerealiseerd pand
+      - Bouw gestart
+      - Pand in gebruik (niet ingemeten)
+      - Pand in gebruik
+      - Verbouwing pand
+      - Sloopvergunning verleend
+      - Pand gesloopt
+      - Pand buiten gebruik
+      - Pand ten onrechte opgevoerd
+    StatusWoonplaats_enum:
+      type: string
+      description: Een aanduiding van alle waarden die de status van een woonplaats
+        kan aannemen.
+      enum:
+      - Woonplaats aangewezen
+      - Woonplaats ingetrokken
+    TypeAdresseerbaarObject_enum:
+      type: string
+      enum:
+      - verblijfsobject
+      - standplaats
+      - ligplaats
+    TypeOpenbareRuimte_enum:
+      type: string
+      description: Een codering van de verschillende waarden die de typering van een
+        openbare ruimte kan aannemen.
+      enum:
+      - Weg
+      - Water
+      - Spoorbaan
+      - Terrein
+      - Kunstwerk
+      - Landschappelijk gebied
+      - Administratief gebied
     NEN3610ID:
       title: NEN3610ID
-      required:
-      - lokaalID
-      - namespace
       type: object
       properties:
         lokaalID:
@@ -4196,12 +4241,28 @@ components:
           example: NL.IMBAG.Woonplaats
       description: De identificatie van een (voorkomen van een) object, conform de
         NEN3610 standaard.
-    TypeAdresseerbaarObject_enum:
-      type: string
-      enum:
-      - verblijfsobject
-      - standplaats
-      - ligplaats
+    PuntOfVlak:
+      title: PuntOfVlak
+      type: object
+      properties:
+        punt:
+          $ref: '#/components/schemas/pointGeoJSON'
+        vlak:
+          $ref: '#/components/schemas/polygonGeoJSON'
+      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
+        dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een
+        vlak.
+    VlakOfMultivlak:
+      title: VlakOfMultivlak
+      type: object
+      properties:
+        vlak:
+          $ref: '#/components/schemas/polygonGeoJSON'
+        multivlak:
+          $ref: '#/components/schemas/geometrycollectionGeoJSON'
+      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
+        dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface)
+        of een multivlak (GM_MultiSurface).
     API-info:
       title: API-info
       type: object
@@ -4334,72 +4395,6 @@ components:
       properties:
         self:
           $ref: '#/components/schemas/HalLink'
-    Gebruiksdoel:
-      title: Gebruiksdoel
-      type: string
-      enum:
-      - woonfunctie
-      - bijeenkomstfunctie
-      - celfunctie
-      - gezondheidszorgfunctie
-      - industriefunctie
-      - kantoorfunctie
-      - logiesfunctie
-      - onderwijsfunctie
-      - sportfunctie
-      - winkelfunctie
-      - overige gebruiksfunctie
-    PuntOfVlak:
-      title: PuntOfVlak
-      type: object
-      properties:
-        punt:
-          $ref: '#/components/schemas/Point'
-        vlak:
-          $ref: '#/components/schemas/Surface'
-      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
-        dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een
-        vlak.
-    TypeOpenbareRuimte:
-      title: TypeOpenbareRuimte
-      type: string
-      description: Een codering van de verschillende waarden die de typering van een
-        openbare ruimte kan aannemen.
-      enum:
-      - Weg
-      - Water
-      - Spoorbaan
-      - Terrein
-      - Kunstwerk
-      - Landschappelijk gebied
-      - Administratief gebied
-    StatusNaamgeving:
-      title: StatusNaamgeving
-      type: string
-      description: Een aanduiding van alle waarden die de status van een openbare
-        ruimte of een nummeraanduiding kan aannemen.
-      enum:
-      - Naamgeving uitgegeven
-      - Naamgeving ingetrokken
-    StatusWoonplaats:
-      title: StatusWoonplaats
-      type: string
-      description: Een aanduiding van alle waarden die de status van een woonplaats
-        kan aannemen.
-      enum:
-      - Woonplaats aangewezen
-      - Woonplaats ingetrokken
-    VlakOfMultivlak:
-      title: VlakOfMultivlak
-      type: object
-      properties:
-        vlak:
-          $ref: '#/components/schemas/Surface'
-        multivlak:
-          $ref: '#/components/schemas/MultiSurface'
-      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
-        dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface)
-        of een multivlak (GM_MultiSurface).
     polygonGeoJSON:
       required:
       - coordinates
@@ -4420,24 +4415,30 @@ components:
               type: array
               items:
                 type: number
-    StatusPand:
-      title: StatusPand
-      type: string
-      description: Een codering van de verschillende waarden die de status van een
-        pand kan aannemen.
-      enum:
-      - Bouwvergunning verleend
-      - Niet gerealiseerd pand
-      - Bouw gestart
-      - Pand in gebruik (niet ingemeten)
-      - Pand in gebruik
-      - Verbouwing pand
-      - Sloopvergunning verleend
-      - Pand gesloopt
-      - Pand buiten gebruik
-      - Pand ten onrechte opgevoerd
-    Point:
-      title: GeoJSON Point
+    geometrycollectionGeoJSON:
+      required:
+      - geometries
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - GeometryCollection
+        geometries:
+          type: array
+          items:
+            $ref: '#/components/schemas/geometryGeoJSON'
+    geometryGeoJSON:
+      oneOf:
+      - $ref: '#/components/schemas/pointGeoJSON'
+      - $ref: '#/components/schemas/multipointGeoJSON'
+      - $ref: '#/components/schemas/linestringGeoJSON'
+      - $ref: '#/components/schemas/multilinestringGeoJSON'
+      - $ref: '#/components/schemas/polygonGeoJSON'
+      - $ref: '#/components/schemas/multipolygonGeoJSON'
+      - $ref: '#/components/schemas/geometrycollectionGeoJSON'
+    multipointGeoJSON:
       required:
       - coordinates
       - type
@@ -4446,21 +4447,33 @@ components:
         type:
           type: string
           enum:
-          - Point
+          - MultiPoint
+        coordinates:
+          type: array
+          items:
+            minItems: 2
+            type: array
+            items:
+              type: number
+    linestringGeoJSON:
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - LineString
         coordinates:
           minItems: 2
           type: array
           items:
-            type: number
-      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
-    Surface:
-      title: Surface
-      example:
-        type: Polygon
-      allOf:
-      - $ref: '#/components/schemas/Polygon'
-    Polygon:
-      title: GeoJSON Polygon
+            minItems: 2
+            type: array
+            items:
+              type: number
+    multilinestringGeoJSON:
       required:
       - coordinates
       - type
@@ -4469,26 +4482,18 @@ components:
         type:
           type: string
           enum:
-          - Polygon
+          - MultiLineString
         coordinates:
           type: array
           items:
-            minItems: 4
+            minItems: 2
             type: array
             items:
               minItems: 2
               type: array
               items:
                 type: number
-      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
-    MultiSurface:
-      title: MultiSurface
-      example:
-        type: MultiPolygon
-      allOf:
-      - $ref: '#/components/schemas/MultiPolygon'
-    MultiPolygon:
-      title: GeoJSON MultiPolygon
+    multipolygonGeoJSON:
       required:
       - coordinates
       - type
@@ -4510,7 +4515,6 @@ components:
                 type: array
                 items:
                   type: number
-      description: 'Deze definitie is gekopieerd van: http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/multipolygonGeoJSON.yaml'
     ZoekResultaatHalCollectie__embedded:
       type: object
       properties:
@@ -4732,7 +4736,6 @@ components:
         example: 20
     contentCrs:
       description: CRS van de meegegeven geometrie.
-      required: false
       schema:
         type: string
   securitySchemes:
