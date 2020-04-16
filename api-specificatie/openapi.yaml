@@ -1373,10 +1373,10 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        woonplaats:
+        woonplaatsIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een nummeraanduiding ligt in een woonplaats.'
-        openbareRuimte:
+        openbareRuimteIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een nummeraanduiding ligt aan een openbare ruimte.'
         mogelijkOnjuist:
