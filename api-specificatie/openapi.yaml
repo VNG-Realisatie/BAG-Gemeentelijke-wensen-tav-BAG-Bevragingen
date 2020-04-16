@@ -1195,7 +1195,7 @@ components:
     AdresseerbaarObject_links:
       type: object
       properties:
-        hoofdAdres:
+        adressen:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         panden:
           description: link(s) naar het pand of de panden waar het verblijfsobject
@@ -1277,7 +1277,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtInWoonplaats:
+        woonplaatsIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een openbare ruimte ligt in een woonplaats.'
         mogelijkOnjuist:
@@ -1294,7 +1294,7 @@ components:
           status:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          ligtInWoonplaats:
+          woonplaats:
             type: boolean  
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
     OpenbareRuimteHalBasis:
@@ -1317,14 +1317,14 @@ components:
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-        ligtInWoonplaats:
+        woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
 
     OpenbareRuimte_embedded:
       type: object
       properties:
-        ligtInWoonplaats:
+        woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
           description: 'De aan het oenbareruimte gerelateerde woonplaats (object(en)).'
 
@@ -1373,10 +1373,10 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtInWoonplaats:
+        woonplaats:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een nummeraanduiding ligt in een woonplaats.'
-        ligtAanOpenbareRuimte:
+        openbareRuimte:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een nummeraanduiding ligt aan een openbare ruimte.'
         mogelijkOnjuist:
@@ -1399,10 +1399,10 @@ components:
           status:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          ligtInWoonplaats:
+          woonplaats:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
-          ligtAanOpenbareRuimte: 
+          openbareRuimte: 
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
     NummeraanduidingHalBasis:
@@ -1427,10 +1427,10 @@ components:
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'Het aan de nummeraanduiding gerelateerde adres (link).'
-        ligtAanOpenbareRuimte:
+        openbareRuimte:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan de nummeraanduiding gerelateerde openbareruimte (link).'
-        ligtInWoonplaats:
+        woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
 
@@ -1440,10 +1440,10 @@ components:
         adres:
           $ref: '#/components/schemas/AdresHalBasis'
           description: 'De aan de nummeraanduiding gerelateerde adres (object).'
-        ligtAanOpenbareRuimte:
+        openbareRuimte:
           $ref: '#/components/schemas/OpenbareRuimteHalBasis'
           description: 'De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).'
-        ligtInWoonplaats:
+        woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
           description: 'De aan de nummeraanduiding gerelateerde woonplaats (object(en)).'
 
