@@ -1280,6 +1280,8 @@ components:
         properties:
           naam:
             type: boolean
+          type:
+            type: boolean
           status:
             type: boolean
           woonplaatsIdentificatie:

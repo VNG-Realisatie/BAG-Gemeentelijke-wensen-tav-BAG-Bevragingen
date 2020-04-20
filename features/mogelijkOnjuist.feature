@@ -80,6 +80,7 @@ Functionaliteit: Mogelijk onjuist
       | Openbare ruimte  | Naam openbare ruimte                     | Openbare ruimte      | naam                     | Openbare ruimtenaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
       | Openbare ruimte  | Status openbare ruimte                   | Openbare ruimte      | status                   | Openbare ruimte bestaat mogelijk niet (meer). |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | Openbare ruimte      | woonplaatsIdentificatie  | Mogelijk verkeerde woonplaats gebruikt. |
+      | Openbare ruimte  | Type                                     | Openbare ruimte      | type                     | Type openbare ruimte mogelijk onjuist. |
       | Nummeraanduiding | Huisnummer                               | Nummeraanduiding     | huisnummer               | Mogelijk is het verkeerde huisnummer geregistreerd. |
       | Nummeraanduiding | Huisletter                               | Nummeraanduiding     | huisletter               | Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend. |
       | Nummeraanduiding | Huisnummertoevoeging                     | Nummeraanduiding     | huisnummertoevoeging     | Mogelijk is ten onrechte een huislettertoevoeging toegekend, ontbreekt de huislettertoevoeging ten onrechte, of is een verkeerde huislettertoevoeging toegekend. |
