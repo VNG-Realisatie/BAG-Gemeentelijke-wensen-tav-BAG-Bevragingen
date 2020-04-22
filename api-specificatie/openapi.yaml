@@ -992,7 +992,7 @@ components:
           minLength: 1
           maxLength: 80
           example: 'Apeldoorn'
-        adresIdentificatie:
+        Identificatie:
           type: string
         openbareRuimteIdentificatie:
           type: string
