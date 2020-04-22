@@ -63,7 +63,7 @@ Functionaliteit: Mogelijk onjuist
       | Verblijfsobject  | Geometrie                                | Adresseerbaar object | geometrie                | Locatie/contour mogelijk onjuist. |
       | Standplaats      | Geometrie                                | Adresseerbaar object | geometrie                | Locatie/contour mogelijk onjuist. |
       | Ligplaats        | Geometrie                                | Adresseerbaar object | geometrie                | Locatie/contour mogelijk onjuist. |
-      | Verblijfsobject  | Gebruiksdoel                             | Adresseerbaar object | gebruiksdoel             | Het gebruiksdoel is mogelijk onjuist. In de BAG wordt het vergunde gebruik geregistreerd. Het gebruiksdoel moet overeenkomen met het gebruik zoals beschreven in de vergunning. |
+      | Verblijfsobject  | Gebruiksdoel                             | Adresseerbaar object | gebruiksdoelen           | Het gebruiksdoel is mogelijk onjuist. In de BAG wordt het vergunde gebruik geregistreerd. Het gebruiksdoel moet overeenkomen met het gebruik zoals beschreven in de vergunning. |
       | Verblijfsobject  | Oppervlakte                              | Adresseerbaar object | oppervlakte              | De oppervlakte is mogelijk onjuist. |
       | Standplaats      | Status                                   | Adresseerbaar object | status                   | De standplaats bestaat mogelijk niet (meer). |
       | Ligplaats        | Status                                   | Adresseerbaar object | status                   | De ligplaats bestaat mogelijk niet (meer). |
