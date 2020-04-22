@@ -1321,7 +1321,7 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
+          description: 'De aan het openbareruimte gerelateerde woonplaats (link).'
 
     OpenbareRuimte_embedded:
       type: object
