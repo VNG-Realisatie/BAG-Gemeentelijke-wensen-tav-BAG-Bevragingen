@@ -992,7 +992,7 @@ components:
           minLength: 1
           maxLength: 80
           example: 'Apeldoorn'
-        Identificatie:
+        identificatie:
           type: string
         openbareRuimteIdentificatie:
           type: string
@@ -1108,7 +1108,7 @@ components:
       type: object
       description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
       properties:
-        adresseerbaarObjectIdentificatie:
+        identificatie:
           description: unieke identificatie van het adresseerbaar object
           type: string
           example: "01230167890123456"
