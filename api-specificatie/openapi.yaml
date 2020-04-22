@@ -44,11 +44,7 @@ paths:
               schema:
                 $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/generiek/api-info.yaml#/API-info'
         default:
-          description: 'Onverwacht probleem'
-          content:
-            application/problem+json:
-              schema:
-                $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/Foutbericht'
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default'
 
   /adressen/zoek:
     get:
@@ -911,7 +907,6 @@ components:
         - properties:
             _links:
               $ref: '#/components/schemas/ZoekResultaat_links'
-
     ZoekResultaat_links:
       type: object
       properties:
@@ -921,8 +916,6 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          minItems: 1
-
     ZoekResultaatHalCollectie:
       type: object
       description: 'resulaten als lijst'
@@ -997,7 +990,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NEN3610ID'
-          minItems: 1
         indicatieNevenadres:
           description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
           type: boolean
@@ -1050,8 +1042,6 @@ components:
             $ref: '#/components/schemas/Adres_links'
     Adres_links:
       type: object
-      required:
-        - self
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
@@ -1072,7 +1062,6 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          minItems: 1
     Adres_embedded:
       type: object
       properties:
@@ -1090,7 +1079,7 @@ components:
           description: unieke identificatie van het adresseerbaar object
           type: string
           example: "01230167890123456"
-        adresseerbaarObjectType:
+        type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
         documentdatum:
           description: De datum waarop het brondocument is vastgesteld, op basis waarvan
@@ -1109,7 +1098,7 @@ components:
           type: string
         gebruiksdoelen:
           items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/verblijfsobject.yaml#/Gebruiksdoel'
+            $ref: '#/components/schemas/Gebruiksdoel_enum'
           type: array
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object
@@ -1118,7 +1107,7 @@ components:
             voor deze opname.
           type: boolean
         geometrie:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
+          $ref: '#/components/schemas/PuntOfVlak'
         hoofdAdresIdentificatie:
           description: identificatie van het hoofdadres
           type: string
@@ -1187,8 +1176,10 @@ components:
     AdresseerbaarObject_links:
       type: object
       properties:
-        hoofdAdres:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+        adressen:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         panden:
           description: link(s) naar het pand of de panden waar het verblijfsobject
             deel van uitmaakt
@@ -1215,17 +1206,32 @@ components:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: object
     AdresseerbaarObjectStatus_enum:
+      type: string
       enum:
-      - Verblijfsobject gevormd
-      - Niet gerealiseerd verblijfsobject
-      - Verblijfsobject in gebruik (niet ingemeten)
-      - Verblijfsobject in gebruik
-      - Verbouwing verblijfsobject
-      - Verblijfsobject ingetrokken
-      - Verblijfsobject buiten gebruik
-      - Verblijfsobject ten onrechte opgevoerd
-      - Plaats aangewezen
-      - Plaats ingetrokken
+        # Ligplaats / standplaats huidige statussen
+        - 'Plaats aangewezen'
+        # Verblijfsobject huidige statussen
+        - 'Verblijfsobject gevormd'
+        - 'Verblijfsobject in gebruik (niet ingemeten)'
+        - 'Verblijfsobject in gebruik'
+        - 'Verbouwing verblijfsobject'
+        - 'Verblijfsobject buiten gebruik'
+    Gebruiksdoel_enum:
+      type: string
+      enum:
+        - 'woonfunctie'
+        - 'bijeenkomstfunctie'
+        - 'celfunctie'
+        - 'gezondheidszorgfunctie'
+        - 'industriefunctie'
+        - 'kantoorfunctie'
+        - 'logiesfunctie'
+        - 'onderwijsfunctie'
+        - 'sportfunctie'
+        - 'winkelfunctie'
+        - 'overige gebruiksfunctie'
+
+
     OpenbareRuimte:
       type: object
       title: OpenbareRuimte
@@ -1241,10 +1247,10 @@ components:
           maxLength: 80
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         type:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/openbareruimte.yaml#/TypeOpenbareRuimte'
+          $ref: '#/components/schemas/TypeOpenbareRuimte_enum'
           description: 'De aard van de als zodanig benoemde openbare ruimte.'
         status:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
+          $ref: '#/components/schemas/StatusNaamgeving_enum'
           desciption: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
         korteNaam:
           title: korteNaam
@@ -1269,7 +1275,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtInWoonplaats:
+        woonplaatsIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een openbare ruimte ligt in een woonplaats.'
         mogelijkOnjuist:
@@ -1306,21 +1312,19 @@ components:
       
     OpenbareRuimte_links:
       type: object
-      required:
-        - self
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-        ligtInWoonplaats:
+        woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
+          description: 'De aan het openbareruimte gerelateerde woonplaats (link).'
 
     OpenbareRuimte_embedded:
       type: object
       properties:
-        ligtInWoonplaats:
+        woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-          description: 'De aan het oenbareruimte gerelateerde woonplaats (object(en)).'
+          description: 'De aan het oenbareruimte gerelateerde woonplaats (object).'
 
     Nummeraanduiding:
       type: object
@@ -1350,7 +1354,7 @@ components:
           type: string
           example: '7500AA'
         status:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/datatypes.yaml#/StatusNaamgeving'
+          $ref: '#/components/schemas/StatusNaamgeving_enum'
         geconstateerd:
           description: "Indicator dat een object in de registratie is opgenomen op basis van een feitelijke constatering, zonder dat er een besluit en brondocument aan ten grondslag ligt."
           type: boolean
@@ -1367,10 +1371,10 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        ligtInWoonplaats:
+        woonplaatsIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een nummeraanduiding ligt in een woonplaats.'
-        ligtAanOpenbareRuimte:
+        openbareRuimteIdentificatie:
           $ref: '#/components/schemas/NEN3610ID'
           description: 'Een nummeraanduiding ligt aan een openbare ruimte.'
         mogelijkOnjuist:
@@ -1412,20 +1416,18 @@ components:
             $ref: '#/components/schemas/Nummeraanduiding_embedded'
     Nummeraanduiding_links:
       type: object
-      required:
-        - self
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'Het aan de nummeraanduiding gerelateerde adres (link).'
-        ligtAanOpenbareRuimte:
+        openbareRuimte:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan de nummeraanduiding gerelateerde openbareruimte (link).'
-        ligtInWoonplaats:
+        woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het openbareruimte gerelateerde woonplaats (lnik).'
+          description: 'De aan het openbareruimte gerelateerde woonplaats (link).'
 
     Nummeraanduiding_embedded:
       type: object
@@ -1433,12 +1435,12 @@ components:
         adres:
           $ref: '#/components/schemas/AdresHalBasis'
           description: 'De aan de nummeraanduiding gerelateerde adres (object).'
-        ligtAanOpenbareRuimte:
+        openbareRuimte:
           $ref: '#/components/schemas/OpenbareRuimteHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde openbareruimte (object(en)).'
-        ligtInWoonplaats:
+          description: 'De aan de nummeraanduiding gerelateerde openbareruimte (object).'
+        woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde woonplaats (object(en)).'
+          description: 'De aan de nummeraanduiding gerelateerde woonplaats (object).'
 
     Woonplaats:
       type: object
@@ -1455,7 +1457,7 @@ components:
           maxLength: 80
           example: 'Apeldoorn'
         status:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/woonplaats.yaml#/StatusWoonplaats'
+          $ref: '#/components/schemas/StatusWoonplaats_enum'
           description: 'De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
@@ -1504,8 +1506,6 @@ components:
               $ref: '#/components/schemas/Woonplaats_embedded'
     Woonplaats_links:
       type: object
-      required:
-        - self
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
@@ -1514,7 +1514,7 @@ components:
       type: object
       properties:
         geometrie:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/VlakOfMultivlak'
+          $ref: '#/components/schemas/VlakOfMultivlak'
 
     Pand:
       type: object
@@ -1534,7 +1534,7 @@ components:
           maxLength: 4
           example: '1972'
         status:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/pand.yaml#/StatusPand'
+          $ref: '#/components/schemas/StatusPand_enum'
           description: 'Een codering van de verschillende waarden die de status van een pand kan aannemen.'
         geconstateerd:
           description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
@@ -1587,7 +1587,6 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          minItems: 1
 
     Pand_embedded:
       type: object
@@ -1609,13 +1608,53 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PandHal'
+    StatusNaamgeving_enum:
+      description: Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen.
+      type: string
+      enum:
+        - 'Naamgeving uitgegeven'
+        - 'Naamgeving ingetrokken'
+    StatusPand_enum:
+      description: Een codering van de verschillende waarden die de status van een pand kan aannemen.
+      type: string
+      enum:
+        - 'Bouwvergunning verleend'
+        - 'Niet gerealiseerd pand'
+        - 'Bouw gestart'
+        - 'Pand in gebruik (niet ingemeten)'
+        - 'Pand in gebruik'
+        - 'Verbouwing pand'
+        - 'Sloopvergunning verleend'
+        - 'Pand gesloopt'
+        - 'Pand buiten gebruik'
+        - 'Pand ten onrechte opgevoerd'
+    StatusWoonplaats_enum:
+      description: Een aanduiding van alle waarden die de status van een woonplaats kan aannemen.
+      type: string
+      enum:
+        - 'Woonplaats aangewezen'
+        - 'Woonplaats ingetrokken'
+    TypeAdresseerbaarObject_enum:
+      type: string
+      enum:
+        - 'verblijfsobject'
+        - 'standplaats'
+        - 'ligplaats'
+    TypeOpenbareRuimte_enum:
+      description: Een codering van de verschillende waarden die de typering van een openbare ruimte kan aannemen.
+      type: string
+      enum:
+        - 'Weg'
+        - 'Water'
+        - 'Spoorbaan'
+        - 'Terrein'
+        - 'Kunstwerk'
+        - 'Landschappelijk gebied'
+        - 'Administratief gebied'
     NEN3610ID:
       type: object
       title: NEN3610ID
       description: 'De identificatie van een (voorkomen van een) object, conform de NEN3610 standaard.'
-      required:
-        - lokaalID
-        - namespace
       properties:
         lokaalID:
           description: 'De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018).'
@@ -1628,8 +1667,21 @@ components:
           type: string
           minLength: 1
           example: 'NL.IMBAG.Woonplaats'
-    TypeAdresseerbaarObject_enum:
-      enum:
-      - verblijfsobject
-      - standplaats
-      - ligplaats
+    PuntOfVlak:
+      title: PuntOfVlak
+      type: object
+      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een vlak.
+      properties:
+        punt:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+        vlak:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
+    VlakOfMultivlak:
+      title: VlakOfMultivlak
+      type: object
+      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface) of een multivlak (GM_MultiSurface).
+      properties:
+        vlak:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
+        multivlak:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/geometrycollectionGeoJSON.yaml'
