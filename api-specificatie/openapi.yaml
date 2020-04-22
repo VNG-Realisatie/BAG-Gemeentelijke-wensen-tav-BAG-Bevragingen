@@ -815,8 +815,8 @@ components:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
         example: '1234200000000001'
-        
-    pandidentificatie-query:    
+
+    pandidentificatie-query:
       description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
       name: pandidentificatie
       in: query
@@ -904,7 +904,7 @@ components:
           description: 'Identificatie van het zoekresultaat'
           title: identificatie
           type: string
-          
+
     ZoekResultaatHal:
       allOf:
         - $ref: '#/components/schemas/ZoekResultaat'
@@ -937,19 +937,10 @@ components:
               items:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
-    Adres:
+    AdresBasis:
       type: object
-      title: Adres
-      description: 'Het adres is de benaming van een adreswaardige locatie bestaande uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding. Wat tussen haakjes staat is optioneel
-'
+      description: "De properties van het adres die als adres hergebuikt kunnen worden in andere apis als er adresgegevens in de betreffende API opgenomen worden. "
       properties:
-        korteNaam:
-          title: korteNaam
-          description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
-          type: string
-          minLength: 1
-          maxLength: 24
-          example: 'Ln vd l D Westervoort'
         straat:
           title: openbareruimte naam
           description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
@@ -984,29 +975,41 @@ components:
           minLength: 1
           maxLength: 80
           example: 'Apeldoorn'
-        nummeraanduidingIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
-          description: 'Fungeert ook als identificatie van het adres.'
-        openbareRuimteIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
-        woonplaatsIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
-        adresseerbaarObjectIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
-        pandIdentificaties:
-          type: array
-          items:
+    Adres:
+      allOf:
+      - $ref: "#/components/schemas/AdresBasis"
+      - description: "Het adres is de benaming van een adreswaardige locatie bestaande uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding. Wat tussen haakjes staat is optioneel"
+        properties:
+          korteNaam:
+            title: korteNaam
+            description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
+            type: string
+            minLength: 1
+            maxLength: 24
+            example: 'Ln vd l D Westervoort'
+          nummeraanduidingIdentificatie:
             $ref: '#/components/schemas/NEN3610ID'
-          minItems: 1
-        indicatieNevenadres:
-          description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
-          type: boolean
-        indicatieGeconstateerd:
-          description: 'Een aanduiding waarmee kan worden aangegeven dat één of meerdere gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
-          type: boolean
-        MogelijkOnjuist:
-          $ref: '#/components/schemas/AdresMogelijkOnjuist'
-          description: "Bij het controleren of een property mogelijkOnjuist is kan het zijn dat er meerdere indicaties voor een property opgenomen zijn. In dat geval zijn er meerdere indicaties waarvan de naam begint met de property-naam"
+            description: 'Fungeert ook als identificatie van het adres.'
+          openbareRuimteIdentificatie:
+            $ref: '#/components/schemas/NEN3610ID'
+          woonplaatsIdentificatie:
+            $ref: '#/components/schemas/NEN3610ID'
+          adresseerbaarObjectIdentificatie:
+            $ref: '#/components/schemas/NEN3610ID'
+          pandIdentificaties:
+            type: array
+            items:
+              $ref: '#/components/schemas/NEN3610ID'
+            minItems: 1
+          indicatieNevenadres:
+            description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
+            type: boolean
+          indicatieGeconstateerd:
+            description: 'Een aanduiding waarmee kan worden aangegeven dat één of meerdere gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
+            type: boolean
+          MogelijkOnjuist:
+            $ref: '#/components/schemas/AdresMogelijkOnjuist'
+            description: "Bij het controleren of een property mogelijkOnjuist is kan het zijn dat er meerdere indicaties voor een property opgenomen zijn. In dat geval zijn er meerdere indicaties waarvan de naam begint met de property-naam"
     AdresMogelijkOnjuist:
       type: object
       properties:
@@ -1025,7 +1028,7 @@ components:
         straatBestaatMogelijkNiet:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Openbare Ruimte."
           type: boolean
-        straatMogelijkVerkeerdeGebruikt: 
+        straatMogelijkVerkeerdeGebruikt:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
           type: boolean
         huisnummer:
@@ -1042,7 +1045,7 @@ components:
           type: boolean
         adresBestaatMogelijkNiet:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Nummeraanduiding."
-          type: boolean          
+          type: boolean
     AdresHal:
       allOf:
       - $ref: '#/components/schemas/AdresHalBasis'
@@ -1284,7 +1287,7 @@ components:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
     OpenbareRuimteMogelijkOnjuist:
         type: object
-        properties: 
+        properties:
           naam:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
@@ -1295,7 +1298,7 @@ components:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           ligtInWoonplaats:
-            type: boolean  
+            type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
     OpenbareRuimteHalBasis:
       allOf:
@@ -1309,7 +1312,7 @@ components:
       - properties:
           _embedded:
             $ref: '#/components/schemas/OpenbareRuimte_embedded'
-      
+
     OpenbareRuimte_links:
       type: object
       required:
@@ -1383,7 +1386,7 @@ components:
           $ref: '#/components/schemas/NummeraanduidingMogelijkOnjuist'
     NummeraanduidingMogelijkOnjuist:
         type: object
-        properties: 
+        properties:
           huisnummer:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
@@ -1402,7 +1405,7 @@ components:
           ligtInWoonplaats:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
-          ligtAanOpenbareRuimte: 
+          ligtAanOpenbareRuimte:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
     NummeraanduidingHalBasis:
@@ -1484,7 +1487,7 @@ components:
           $ref: "#/components/schemas/WoonplaatsMogelijkOnjuist"
     WoonplaatsMogelijkOnjuist:
       type: object
-      properties: 
+      properties:
         naam:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
@@ -1556,7 +1559,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        mogelijkOnjuist: 
+        mogelijkOnjuist:
           $ref: '#/components/schemas/PandMogelijkOnjuist'
     PandMogelijkOnjuist:
       type: object
@@ -1570,7 +1573,7 @@ components:
         status:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-    
+
     PandHal:
       allOf:
         - $ref: '#/components/schemas/Pand'
