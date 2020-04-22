@@ -1158,7 +1158,7 @@ components:
       type: object
       description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
       properties:
-        gebruiksdoel:
+        gebruiksdoelen:
           type: boolean
         geometrie:
           type: boolean
