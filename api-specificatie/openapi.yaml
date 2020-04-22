@@ -117,13 +117,7 @@ paths:
       operationId: raadpleegAdresMetZoekResultaatIdentificatie
       tags:
         - Adres
-      summary: De API levert huidige gegevens van een adres.
-      description: "Raadpleeg het adres met de identificatie van het gekozen item verkregen via de zoek-operatie.
-        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
-        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
-        Parameter zoekresultaatidentificatie bevat identificatie van een gekozen item verkregen uit een zoek-operatie."
+      description: "Vind een adres met de identificatie van het zoekresultaat uit zoek-operatie get/adressen/zoek."
       parameters:
         - $ref: '#/components/parameters/zoekresultaatidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
@@ -185,13 +179,7 @@ paths:
       operationId: raadpleegAdresMetNumId
       tags:
         - Adres
-      summary: Raadpleeg adres met een sleutel
-      description: "Raadpleeg het adres met de nummeraanduiding identificatie verkregen via de zoek-operatie
-        Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
-        Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
-        Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
+      description: "Raadpleeg een adres met de identificatie van het adres. Dit is de nummeraanduiding identificatie."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
@@ -253,12 +241,7 @@ paths:
       operationId: raadpleegAdresseerbaarobjectMetAdoId
       tags:
         - Adresseerbaar object
-      summary: Raadpleeg adresseerbaar object met een identificatie van een adresseerbaar object
-      description: "Raadpleeg het adresseerbaar object met de identificatie verkregen via de zoek-operatie
-        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
-        Parameter adresseerbaarobjectidentificatie bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject."
+      description: "Raadpleeg een adresseerbaar object met de identificatie van het adresseerbaar object. Dit is de identificatie van een verblijfsobject, ligplaats of standplaats."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
@@ -320,13 +303,7 @@ paths:
       operationId: raadpleegAdresseerbaarobject
       tags:
         - Adresseerbaar object
-      summary: Raadpleeg adresseerbaar object met een identificatie van een nummeraanduiding of pand object
-      description: "Raadpleeg het adresseerbaar object met de identificatie van een nummeraanduiding of pand via de zoek-operatie.
-        Geleverd worden de huidige gegevens van een adresseerbaarobject evt. met adres en pand.
-        Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
-        Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
-        Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
-        Parameter pandidentificatie-query bevat de 16 cijferige identificatie van een pand"
+      description: "Zoek een adresseerbaar object met een adresidentificatie, nummeraanduidingidentificatie of pandidentificatie."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
         - $ref: '#/components/parameters/pandidentificatie-query'
@@ -389,7 +366,6 @@ paths:
       operationId: raadpleegWoonplaats
       tags:
         - Woonplaats
-      summary: Raadpleeg Woonplaats met een woonplaats identificatie
       description: "Raadpleeg een Woonplaats met en woonplaats identificatie
         Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres.
         Parameter woonplaatsidentificatie bevat de 4 cijferige identificatie van een woonplaats."
@@ -454,7 +430,6 @@ paths:
       operationId: raadpleegOpenbareRuimte
       tags:
         - Openbare ruimte
-      summary: Raadpleeg openbareruimte met een openbareruimte identificatie
       description: "Raadpleeg een openbareruimte met en openbareruimte identificatie
         Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres.
         Parameter openbareruimteidentificatie bevat de 16 cijferige identificatie van een openbareruimte."
@@ -516,7 +491,6 @@ paths:
       operationId: raadpleegNummeraanduiding
       tags:
         - Nummeraanduiding
-      summary: Raadpleeg nummeraanduiding met een nummeraanduiding identificatie
       description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
         Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres.
         Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
@@ -578,7 +552,6 @@ paths:
       operationId: raadpleegPand
       tags:
         - Pand
-      summary: Raadpleeg Pand met een pand identificatie
       description: "Raadpleeg een pand met de pand identificatie
         Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.
         Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand."
@@ -649,7 +622,6 @@ paths:
         - apiKeyBAG: []
       tags:
         - Pand
-      summary: bevragen van één of meer panden, met een geometrische locatie.
       operationId: raadpleegPandOpLocatie
       description: "Raadpleeg een pand met een geometrische locatie (punt).
         Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
@@ -714,7 +686,6 @@ paths:
       operationId: raadpleegPanden
       tags:
         - Pand
-      summary: Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identificatie vekregen uit een zoek-operatie
       description: "Raadplegen van één of meer panden met een nummeraanduiding of adresseerbaarobject identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).
         Parameter nummeraanduidingidentificatie-query bevat de 16 cijferige identificatie van een nummeraanduiding.
         Parameter adresseerbaarobjectidentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
@@ -815,8 +786,8 @@ components:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
         example: '1234200000000001'
-        
-    pandidentificatie-query:    
+
+    pandidentificatie-query:
       description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
       name: pandidentificatie
       in: query
@@ -904,7 +875,7 @@ components:
           description: 'Identificatie van het zoekresultaat'
           title: identificatie
           type: string
-          
+
     ZoekResultaatHal:
       allOf:
         - $ref: '#/components/schemas/ZoekResultaat'
@@ -1025,7 +996,7 @@ components:
         straatBestaatMogelijkNiet:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Openbare Ruimte."
           type: boolean
-        straatMogelijkVerkeerdeGebruikt: 
+        straatMogelijkVerkeerdeGebruikt:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
           type: boolean
         huisnummer:
@@ -1042,7 +1013,7 @@ components:
           type: boolean
         adresBestaatMogelijkNiet:
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Nummeraanduiding."
-          type: boolean          
+          type: boolean
     AdresHal:
       allOf:
       - $ref: '#/components/schemas/AdresHalBasis'
@@ -1284,7 +1255,7 @@ components:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
     OpenbareRuimteMogelijkOnjuist:
         type: object
-        properties: 
+        properties:
           naam:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
@@ -1295,7 +1266,7 @@ components:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           ligtInWoonplaats:
-            type: boolean  
+            type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
     OpenbareRuimteHalBasis:
       allOf:
@@ -1309,7 +1280,7 @@ components:
       - properties:
           _embedded:
             $ref: '#/components/schemas/OpenbareRuimte_embedded'
-      
+
     OpenbareRuimte_links:
       type: object
       required:
@@ -1383,7 +1354,7 @@ components:
           $ref: '#/components/schemas/NummeraanduidingMogelijkOnjuist'
     NummeraanduidingMogelijkOnjuist:
         type: object
-        properties: 
+        properties:
           huisnummer:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
@@ -1402,7 +1373,7 @@ components:
           ligtInWoonplaats:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
-          ligtAanOpenbareRuimte: 
+          ligtAanOpenbareRuimte:
             type: boolean
             description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
     NummeraanduidingHalBasis:
@@ -1484,7 +1455,7 @@ components:
           $ref: "#/components/schemas/WoonplaatsMogelijkOnjuist"
     WoonplaatsMogelijkOnjuist:
       type: object
-      properties: 
+      properties:
         naam:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
@@ -1556,7 +1527,7 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        mogelijkOnjuist: 
+        mogelijkOnjuist:
           $ref: '#/components/schemas/PandMogelijkOnjuist'
     PandMogelijkOnjuist:
       type: object
@@ -1570,7 +1541,7 @@ components:
         status:
           type: boolean
           description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-    
+
     PandHal:
       allOf:
         - $ref: '#/components/schemas/Pand'
