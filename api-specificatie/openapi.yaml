@@ -1112,7 +1112,7 @@ components:
           description: unieke identificatie van het adresseerbaar object
           type: string
           example: "01230167890123456"
-        adresseerbaarObjectType:
+        type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
         documentdatum:
           description: De datum waarop het brondocument is vastgesteld, op basis waarvan
