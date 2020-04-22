@@ -803,7 +803,7 @@ components:
       description: de identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie
       name: zoekresultaatidentificatie
       in: query
-      required: true
+      required: false
       schema:
         type: string
 
