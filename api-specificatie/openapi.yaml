@@ -1001,40 +1001,33 @@ components:
           description: "Bij het controleren of een property mogelijkOnjuist is kan het zijn dat er meerdere indicaties voor een property opgenomen zijn. In dat geval zijn er meerdere indicaties waarvan de naam begint met de property-naam"
     AdresMogelijkOnjuist:
       type: object
+      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
       properties:
-        woonplaatsNaam:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          type: boolean
-        woonplaatsBestaatMogelijkNiet:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Woonplaats."
-          type: boolean
-        woonplaatsMogelijkVerkeerdeGebruikt:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
+        korteNaam:
           type: boolean
         straat:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          type: boolean
-        straatBestaatMogelijkNiet:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Openbare Ruimte."
-          type: boolean
-        straatMogelijkVerkeerdeGebruikt: 
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
           type: boolean
         huisnummer:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         huisletter:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         huisnummertoevoeging:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         postcode:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
-        adresBestaatMogelijkNiet:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de status van de gerelateerde Nummeraanduiding."
-          type: boolean          
+        woonplaats:
+          type: boolean
+        nummeraanduidingIdentificatie:
+          type: boolean
+        openbareRuimteIdentificatie:
+          type: boolean
+        woonplaatsIdentificatie:
+          type: boolean
+        toelichting:
+          type: array
+          items:
+            type: string
+            example: "Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt."
     AdresHal:
       allOf:
       - $ref: '#/components/schemas/AdresHalBasis'
@@ -1152,28 +1145,27 @@ components:
             $ref: '#/components/schemas/AdresseerbaarObject_links'
     AdresseerbaarObjectMogelijkOnjuist:
       type: object
+      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
       properties:
         gebruiksdoelen:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         geometrie:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         hoofdadresIdentificatie:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         nevenadresIdentificaties:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         pandIdentificaties:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         oppervlakte:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
         status:
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type: boolean
+        toelichting:
+          type: array
+          items:
+            type: string
+            example: "Locatie/contour mogelijk onjuist."
     AdresseerbaarObject_embedded:
       type: object
       properties:
@@ -1290,19 +1282,21 @@ components:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
     OpenbareRuimteMogelijkOnjuist:
         type: object
-        properties: 
+        description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
+        properties:
           naam:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           type:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           status:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          woonplaats:
-            type: boolean  
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
+          woonplaatsIdentificatie:
+            type: boolean
+          toelichting:
+            type: array
+            items:
+              type: string
+              example: "Openbare ruimtenaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit."
     OpenbareRuimteHalBasis:
       allOf:
       - $ref: '#/components/schemas/OpenbareRuimte'
@@ -1387,28 +1381,27 @@ components:
           $ref: '#/components/schemas/NummeraanduidingMogelijkOnjuist'
     NummeraanduidingMogelijkOnjuist:
         type: object
-        properties: 
+        description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
+        properties:
           huisnummer:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           huisletter:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           huisnummertoevoeging:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           postcode:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
           status:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-          woonplaats:
+          woonplaatsIdentificatie:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerdde Woonplaats."
-          openbareRuimte: 
+          openbareRuimteIdentificatie:
             type: boolean
-            description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de relatie met de gerelateerde Openbare Ruimte."
+          toelichting:
+            type: array
+            items:
+              type: string
+              example: "Woonplaats bestaat mogelijk niet."
     NummeraanduidingHalBasis:
       allOf:
       - $ref: '#/components/schemas/Nummeraanduiding'
@@ -1486,16 +1479,19 @@ components:
           $ref: "#/components/schemas/WoonplaatsMogelijkOnjuist"
     WoonplaatsMogelijkOnjuist:
       type: object
-      properties: 
+      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven. Wanneer property geometrie is opgenomen met de waarde true, dan is de embedded geometrie mogelijk onjuist.
+      properties:
         naam:
           type: boolean
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
         geometrie:
           type: boolean
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
         status:
           type: boolean
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
+        toelichting:
+          type: array
+          items:
+            type: string
+            example: "Woonplaats bestaat mogelijk niet."
     WoonplaatsHalBasis:
       allOf:
         - $ref: '#/components/schemas/Woonplaats'
@@ -1560,17 +1556,19 @@ components:
           $ref: '#/components/schemas/PandMogelijkOnjuist'
     PandMogelijkOnjuist:
       type: object
+      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
       properties:
         geometrie:
           type: boolean
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
         oorspronkelijkBouwjaar:
           type: boolean
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
         status:
           type: boolean
-          description: "Indicator die aangeeft of er onderzoek wordt gedaan naar de juistheid van de waarde in het corresponderende gegeven."
-    
+        toelichting:
+          type: array
+          items:
+            type: string
+            example: "Mogelijk is de bouw al gereed of is het pand niet gerealiseerd."
     PandHal:
       allOf:
         - $ref: '#/components/schemas/Pand'
