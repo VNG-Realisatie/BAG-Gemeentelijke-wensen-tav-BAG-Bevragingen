@@ -151,7 +151,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/AdresHal'
+                $ref: '#/components/schemas/AdresHalCollectie'
         '204':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204'
         '400':
@@ -1077,6 +1077,16 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/Adres_links'
+    AdresHalCollectie:
+      type: object
+      properties:
+        _embedded:
+          properties:
+            adressen:
+              items:
+                $ref: '#/components/schemas/AdresHal'
+              type: array
+          type: object
     Adres_links:
       type: object
       required:
@@ -1129,6 +1139,7 @@ components:
           example: "01230167890123456"
         type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+          title: adresseerbaarObjectType
         documentdatum:
           description: De datum waarop het brondocument is vastgesteld, op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
