@@ -181,22 +181,22 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default'
 
-  /adressen/{nummeraanduidingidentificatie}:
+  /adressen/{adresidentificatie}:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegAdresMetNumId
+      operationId: raadpleegAdres
       tags:
         - Adres
       summary: Raadpleeg adres met een sleutel
-      description: "Raadpleeg het adres met de nummeraanduiding identificatie verkregen via de zoek-operatie
+      description: "Raadpleeg het adres met de identificatie verkregen via de zoek-operatie
         Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
         Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingidentificatie'
+        - $ref: '#/components/parameters/adresidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -835,7 +835,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{4}10[0-9]{10}$'
-        example: '1234100000000001'
+        example: '1234200000000001'
 
     adresseerbaarobjectidentificatie-query:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
@@ -852,6 +852,16 @@ components:
     nummeraanduidingidentificatie:
       description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
       name: nummeraanduidingidentificatie
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]{4}20[0-9]{10}$'
+        example: '1234200000000001'
+
+    adresidentificatie:
+      description: Identificatie van een adres uit de BAG. Deze is 16 cijfers lang.
+      name: adresidentificatie
       in: path
       required: true
       schema:
@@ -994,18 +1004,22 @@ components:
           example: 'Apeldoorn'
         identificatie:
           type: string
+          example: '1234200000000001'
         openbareRuimteIdentificatie:
           type: string
         woonplaatsIdentificatie:
           type: string
+          example: '0150'
         adresseerbaarObjectIdentificatie:
           type: string
         nummeraanduidingIdentificatie:
           type: string
+          example: '1234200000000001'
         pandIdentificaties:
           type: array
           items:
             type: string
+            example: '1234100000000001'
         indicatieNevenadres:
           description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
           type: boolean
@@ -1102,6 +1116,7 @@ components:
       properties:
         adresIdentificatie:
           type: string
+          example: '1234200000000001'
         indicatieNevenadres:
           type: boolean
     AdresseerbaarObject:
@@ -1142,7 +1157,7 @@ components:
         geometrie:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/master/api-specificatie/lvbag/imbag/v20180601/geometrie.yaml#/components/schemas/PuntOfVlak'
         adresIdentificaties:
-          description: Identificatie(s) van het hoofdadres en/of de nevenadressen
+          description: Identificatie(s) van het hoofdadres en waar van toepassing de nevenadressen
           items:
             $ref: "#/components/schemas/AdresIdentificatiesArray"
           type: array
@@ -1151,9 +1166,10 @@ components:
             deel van uitmaakt
           items:
             type: string
+            example: '1234100000000001'
           type: array
         nummeraanduidingIdentificaties:
-          description: Identificatie(s) van de nummeraanduidingen die als hoofdadres en/of de nevenadressen gerelateerd zijn.
+          description: Identificatie(s) van de nummeraanduidingen die als hoofdadres en waar van toepassing de nevenadressen gerelateerd zijn.
           items:
             $ref: "#/components/schemas/NummeraanduidingIdentificatiesArray"
           type: array
@@ -1218,12 +1234,12 @@ components:
       type: object
       properties:
         adressen:
-          description: link(s) naar het hoofdadres en/of de nebvenadressen van het adresseerbaarobject
+          description: link(s) naar het hoofdadres en waar van toepassing de nebvenadressen van het adresseerbaarobject
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
         nummeraanduidingen:
-          description: link(s) naar de nummeraanduidingen due al hoofdadres en/of de nebvenadressen aan het adresseerbaarobject gerelateerd zijn
+          description: link(s) naar de nummeraanduidingen due al hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
@@ -1310,6 +1326,7 @@ components:
         woonplaatsIdentificatie:
           type: string
           description: 'Een openbare ruimte ligt in een woonplaats.'
+          example: '0150'
         mogelijkOnjuist:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
     OpenbareRuimteMogelijkOnjuist:
@@ -1406,6 +1423,7 @@ components:
         woonplaatsIdentificatie:
           type: string
           description: 'Een nummeraanduiding ligt in een woonplaats.'
+          example: '0150'
         openbareRuimteIdentificatie:
           type: string
           description: 'Een nummeraanduiding ligt aan een openbare ruimte.'
@@ -1416,6 +1434,7 @@ components:
       properties:
         nummeraanduidingIdentificatie:
           type: string
+          example: '1234200000000001'
         indicatieNevenadres:
           type: boolean
     NummeraanduidingMogelijkOnjuist:
@@ -1598,12 +1617,12 @@ components:
           items:
             type: string
         adresIdentificaties:
-          description: Identificatie(s) van het hoofdadres en/of de nevenadressen
+          description: Identificatie(s) van het hoofdadres en waar van toepassing de nevenadressen
           items:
             $ref: "#/components/schemas/AdresIdentificatiesArray"
           type: array
         nummeraanduidingIdentificaties:
-          description: Identificatie(s) van de nummeraanduiding van het hoofdadres en/of de nevenadressen
+          description: Identificatie(s) van de nummeraanduiding van het hoofdadres en waar van toepassing de nevenadressen
           items:
             $ref: "#/components/schemas/NummeraanduidingIdentificatiesArray"
           type: array
