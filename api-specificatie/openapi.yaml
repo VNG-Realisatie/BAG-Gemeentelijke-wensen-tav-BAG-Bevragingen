@@ -54,7 +54,7 @@ paths:
       tags:
         - Adres
       summary: Zoek adressen met verschillende parameters.
-      description: Zoeken van adressen via free query op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging
+      description: "Zoeken van adressen via free query op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging"
       parameters:
         - $ref: '#/components/parameters/zoek'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/page'
@@ -121,6 +121,9 @@ paths:
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
         Parameter zoekresultaatidentificatie bevat identificatie van een gekozen item verkregen uit een zoek-operatie."
       parameters:
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
+        - $ref: '#/components/parameters/pandidentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
         - $ref: '#/components/parameters/zoekresultaatidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
@@ -144,7 +147,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/AdresHal'
+                $ref: '#/components/schemas/AdresHalCollectie'
         '204':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204'
         '400':
@@ -174,22 +177,22 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default'
 
-  /adressen/{nummeraanduidingidentificatie}:
+  /adressen/{adresidentificatie}:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegAdresMetNumId
+      operationId: raadpleegAdres
       tags:
         - Adres
       summary: Raadpleeg adres met een sleutel
-      description: "Raadpleeg het adres met de nummeraanduiding identificatie verkregen via de zoek-operatie
+      description: "Raadpleeg het adres met de identificatie verkregen via de zoek-operatie
         Geleverd worden de huidige gegevens van een adres evt. met embedded woonplaats, openbare ruimte, nummeraanduiding.
         Huidige gegevens zijn actuele gegevens die geen eind status hebben, zoals 'Naamgeving ingetrokken'.
         Als de nummeraanduiding is ingetrokken, dan levert een bevraging geen adres op.
         Relaties met adresseerbaarobject (ligplaats, standplaats of verblijfsobject) en als het adresseerbaare object een verblijfsobject betreft het/de gerelateerde pand(en).
         Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een lnummeraanduiding."
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingidentificatie'
+        - $ref: '#/components/parameters/adresidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -326,6 +329,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
         - $ref: '#/components/parameters/pandidentificatie-query'
+        - $ref: '#/components/parameters/adresidentificatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -602,7 +606,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/PandHal'
+                $ref: '#/components/schemas/PandHalBasis'
         '204':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204'
         '400':
@@ -717,6 +721,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
+        - $ref: '#/components/parameters/adresidentificatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -777,11 +782,7 @@ components:
       type: apiKey
       name: X-Api-Key
       in: header
-      description: >
-        De API-key die je hebt gekregen dient bij elke request via de
-        `X-Api-Key` request header meegestuurd te worden. Indien deze
-        niet juist wordt meegestuurd, of het een ongeldige key betreft,
-        zul je de foutmelding `403 Forbidden` terugkrijgen.
+      description: "De API-key die je hebt gekregen dient bij elke request via de `X-Api-Key` request header meegestuurd te worden. Indien deze niet juist wordt meegestuurd, of het een ongeldige key betreft, zul je de foutmelding `403 Forbidden` terugkrijgen."
 
   parameters:
 
@@ -798,7 +799,7 @@ components:
       description: de identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie
       name: zoekresultaatidentificatie
       in: query
-      required: true
+      required: false
       schema:
         type: string
 
@@ -811,8 +812,8 @@ components:
         type: string
         pattern: '^[0-9]{4}20[0-9]{10}$'
         example: '1234200000000001'
-        
-    pandidentificatie-query:    
+
+    pandidentificatie-query:
       description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
       name: pandidentificatie
       in: query
@@ -821,6 +822,16 @@ components:
         type: string
         pattern: '^[0-9]{4}10[0-9]{10}$'
         example: '1234100000000001'
+
+    adresidentificatie-query:
+      description: Identificatie van een adres uit de BAG. Deze is 16 cijfers lang.
+      name: adresidentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{4}10[0-9]{10}$'
+        example: '1234200000000001'
 
     adresseerbaarobjectidentificatie-query:
       description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
@@ -837,6 +848,16 @@ components:
     nummeraanduidingidentificatie:
       description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
       name: nummeraanduidingidentificatie
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9]{4}20[0-9]{10}$'
+        example: '1234200000000001'
+
+    adresidentificatie:
+      description: Identificatie van een adres uit de BAG. Deze is 16 cijfers lang.
+      name: adresidentificatie
       in: path
       required: true
       schema:
@@ -890,17 +911,17 @@ components:
 
     ZoekResultaat:
       type: object
-      description: 'Dit type bevat een enkel zoekresultaat bestaande uit een weergave tekst en zoekresultaat identificatie'
+      description: 'Dit type bevat een enkel zoekresultaat bestaande uit een omschrijving en zoekresultaat identificatie'
       properties:
-        weergavenaam:
-          description: 'Weergavenaam van het zoekresultaat'
-          title: 'weergavenaam'
+        omschrijving:
+          description: 'Omschrijving van het zoekresultaat'
+          title: 'omschrijving'
           type: string
         identificatie:
           description: 'Identificatie van het zoekresultaat'
           title: identificatie
           type: string
-          
+
     ZoekResultaatHal:
       allOf:
         - $ref: '#/components/schemas/ZoekResultaat'
@@ -912,10 +933,8 @@ components:
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-        adressen:
-          type: array
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+        adres:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
       type: object
       description: 'resulaten als lijst'
@@ -977,19 +996,24 @@ components:
           minLength: 1
           maxLength: 80
           example: 'Apeldoorn'
-        nummeraanduidingIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
-          description: 'Fungeert ook als identificatie van het adres.'
+        identificatie:
+          type: string
+          example: '1234200000000001'
         openbareRuimteIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
         woonplaatsIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
+          example: '0150'
         adresseerbaarObjectIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
+        nummeraanduidingIdentificatie:
+          type: string
+          example: '1234200000000001'
         pandIdentificaties:
           type: array
           items:
-            $ref: '#/components/schemas/NEN3610ID'
+            type: string
+            example: '1234100000000001'
         indicatieNevenadres:
           description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
           type: boolean
@@ -1028,6 +1052,7 @@ components:
           items:
             type: string
             example: "Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt."
+
     AdresHal:
       allOf:
       - $ref: '#/components/schemas/AdresHalBasis'
@@ -1040,12 +1065,22 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/Adres_links'
+    AdresHalCollectie:
+      type: object
+      properties:
+        _embedded:
+          properties:
+            adressen:
+              items:
+                $ref: '#/components/schemas/AdresHal'
+              type: array
+          type: object
     Adres_links:
       type: object
       properties:
         self:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-        openbareruimte:
+        openbareRuimte:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan het adres gerelateerde openbare ruimte.'
         nummeraanduiding:
@@ -1054,7 +1089,7 @@ components:
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan het adres gerelateerde woonplaats.'
-        adresseerbareObject:
+        adresseerbaarObject:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject.'
         panden:
@@ -1071,16 +1106,25 @@ components:
           $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
+    AdresIdentificatiesArray:
+      type: object
+      properties:
+        adresIdentificatie:
+          type: string
+          example: '1234200000000001'
+        indicatieNevenadres:
+          type: boolean
     AdresseerbaarObject:
       type: object
       description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
       properties:
-        adresseerbaarObjectIdentificatie:
+        identificatie:
           description: unieke identificatie van het adresseerbaar object
           type: string
           example: "01230167890123456"
         type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+          title: adresseerbaarObjectType
         documentdatum:
           description: De datum waarop het brondocument is vastgesteld, op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
@@ -1108,22 +1152,22 @@ components:
           type: boolean
         geometrie:
           $ref: '#/components/schemas/PuntOfVlak'
-        hoofdAdresIdentificatie:
-          description: identificatie van het hoofdadres
-          type: string
-          example: "01232067890123456"
-        nevenAdresIdentificaties:
-          description: identificatie(s) van het nevenadres of de nevenadressen
+        adresIdentificaties:
+          description: Identificatie(s) van het hoofdadres en waar van toepassing de nevenadressen
           items:
-            type: string
-            example: "0123201234567890"
+            $ref: "#/components/schemas/AdresIdentificatiesArray"
           type: array
         pandIdentificaties:
           description: identificatie(s) van het pand of de panden waar het verblijfsobject
             deel van uitmaakt
           items:
             type: string
-            example: "01234567890123456"
+            example: '1234100000000001'
+          type: array
+        nummeraanduidingIdentificaties:
+          description: Identificatie(s) van de nummeraanduidingen die als hoofdadres en waar van toepassing de nevenadressen gerelateerd zijn.
+          items:
+            $ref: "#/components/schemas/NummeraanduidingIdentificatiesArray"
           type: array
         oppervlakte:
           type: integer
@@ -1169,19 +1213,33 @@ components:
     AdresseerbaarObject_embedded:
       type: object
       properties:
-        hoofdAdres:
-          $ref: '#/components/schemas/AdresHalBasis'
+        adressen:
+          type: "array"
+          items:
+            $ref: '#/components/schemas/AdresHalBasis'
+        nummeraanduidingen:
+          type: "array"
+          items:
+            $ref: '#/components/schemas/NummeraanduidingHalBasis'
         panden:
-          $ref: '#/components/schemas/PandHalCollectie'
+          type: "array"
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
     AdresseerbaarObject_links:
       type: object
       properties:
         adressen:
-          type: array
+          description: link(s) naar het hoofdadres en waar van toepassing de nebvenadressen van het adresseerbaarobject
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+          type: array
+        nummeraanduidingen:
+          description: link(s) naar de nummeraanduidingen due al hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+          type: array
         panden:
-          description: link(s) naar het pand of de panden waar het verblijfsobject
+          description: link(s) naar het pand of de panden waar het adresseerbaar object
             deel van uitmaakt
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
@@ -1276,8 +1334,9 @@ components:
           maxLength: 40
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
           description: 'Een openbare ruimte ligt in een woonplaats.'
+          example: '0150'
         mogelijkOnjuist:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
     OpenbareRuimteMogelijkOnjuist:
@@ -1309,7 +1368,7 @@ components:
       - properties:
           _embedded:
             $ref: '#/components/schemas/OpenbareRuimte_embedded'
-      
+
     OpenbareRuimte_links:
       type: object
       properties:
@@ -1372,13 +1431,22 @@ components:
           maxLength: 40
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
           description: 'Een nummeraanduiding ligt in een woonplaats.'
+          example: '0150'
         openbareRuimteIdentificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
           description: 'Een nummeraanduiding ligt aan een openbare ruimte.'
         mogelijkOnjuist:
           $ref: '#/components/schemas/NummeraanduidingMogelijkOnjuist'
+    NummeraanduidingIdentificatiesArray:
+      type: object
+      properties:
+        nummeraanduidingIdentificatie:
+          type: string
+          example: '1234200000000001'
+        indicatieNevenadres:
+          type: boolean
     NummeraanduidingMogelijkOnjuist:
         type: object
         description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
@@ -1552,7 +1620,21 @@ components:
           minLength: 1
           maxLength: 40
           example: 'AV-2019-08-19-00'
-        mogelijkOnjuist: 
+        adresseerbaarObjectIdentificaties:
+          type: array
+          items:
+            type: string
+        adresIdentificaties:
+          description: Identificatie(s) van het hoofdadres en waar van toepassing de nevenadressen
+          items:
+            $ref: "#/components/schemas/AdresIdentificatiesArray"
+          type: array
+        nummeraanduidingIdentificaties:
+          description: Identificatie(s) van de nummeraanduiding van het hoofdadres en waar van toepassing de nevenadressen
+          items:
+            $ref: "#/components/schemas/NummeraanduidingIdentificatiesArray"
+          type: array
+        mogelijkOnjuist:
           $ref: '#/components/schemas/PandMogelijkOnjuist'
     PandMogelijkOnjuist:
       type: object
@@ -1569,14 +1651,12 @@ components:
           items:
             type: string
             example: "Mogelijk is de bouw al gereed of is het pand niet gerealiseerd."
-    PandHal:
+    PandHalBasis:
       allOf:
         - $ref: '#/components/schemas/Pand'
         - properties:
             _links:
               $ref: '#/components/schemas/Pand_links'
-            _embedded:
-              $ref: '#/components/schemas/Pand_embedded'
 
     Pand_links:
       type: object
@@ -1587,14 +1667,14 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-
-    Pand_embedded:
-      type: object
-      properties:
-        adressen:
+        adresseerbareObjecten:
           type: array
           items:
-            $ref: '#/components/schemas/AdresHalBasis'
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
+        nummeraanduidingen:
+          type: array
+          items:
+            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
 
     PandHalCollectie:
       type: object
@@ -1607,7 +1687,7 @@ components:
             panden:
               type: array
               items:
-                $ref: '#/components/schemas/PandHal'
+                $ref: '#/components/schemas/PandHalBasis'
     StatusNaamgeving_enum:
       description: Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen.
       type: string
