@@ -117,7 +117,7 @@ paths:
       operationId: raadpleegAdresMetZoekResultaatIdentificatie
       tags:
         - Adres
-      description: "Vind een adres met de identificatie van het zoekresultaat uit zoek-operatie get/adressen/zoek."
+      description: "Vind een adres met de identificatie van het zoekresultaat uit zoek-operatie get /adressen/zoek."
       parameters:
         - $ref: '#/components/parameters/zoekresultaatidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
