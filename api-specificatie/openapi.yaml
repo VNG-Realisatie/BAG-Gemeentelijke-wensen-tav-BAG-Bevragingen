@@ -241,7 +241,7 @@ paths:
       operationId: raadpleegAdresseerbaarobjectMetAdoId
       tags:
         - Adresseerbaar object
-      description: "Raadpleeg een adresseerbaar object met de identificatie van het adresseerbaar object. Dit is de identificatie van een verblijfsobject, ligplaats of standplaats."
+      description: "Een adresseerbaar object is een verblijfsobject, ligplaats of standplaats waaraan adressen kunnen worden toegekend."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
@@ -303,7 +303,7 @@ paths:
       operationId: raadpleegAdresseerbaarobject
       tags:
         - Adresseerbaar object
-      description: "Zoek een adresseerbaar object met een adresidentificatie, nummeraanduidingidentificatie of pandidentificatie."
+      description: "Zoek een adresseerbaar object. Een adresseerbaar object is een verblijfsobject, ligplaats of standplaats waaraan adressen kunnen worden toegekend."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
         - $ref: '#/components/parameters/pandidentificatie-query'
