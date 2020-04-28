@@ -776,7 +776,7 @@ components:
       required: false
       schema:
         type: string
-        pattern: '^[0-9]{4}20[0-9]{10}$'
+        pattern: '^[0-9]{16}$'
         example: '1234200000000001'
 
     pandidentificatie-query:
@@ -786,7 +786,7 @@ components:
       required: false
       schema:
         type: string
-        pattern: '^[0-9]{4}10[0-9]{10}$'
+        pattern: '^[0-9]{16}$'
         example: '1234100000000001'
 
     adresseerbaarobjectidentificatie-query:
@@ -797,7 +797,7 @@ components:
       schema:
         title: identificatie van een adresseerbaarobject
         type: string
-        pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
+        pattern: '^[0-9]{16}$'
         example: '1234010000000001'
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
@@ -808,7 +808,7 @@ components:
       required: true
       schema:
         type: string
-        pattern: '^[0-9]{4}20[0-9]{10}$'
+        pattern: '^[0-9]{16}$'
         example: '1234200000000001'
 
     adresseerbaarobjectidentificatie:
@@ -819,7 +819,7 @@ components:
       schema:
         title: identificatie van een adresseerbaarobject
         type: string
-        pattern: '^[0-9]{4}01[0-9]{10}|[0-9]{4}02[0-9]{10}|[0-9]{4}03[0-9]{10}$'
+        pattern: '^[0-9]{16}$'
         example: '1234010000000001'
 
     pandidentificatie:
@@ -829,7 +829,7 @@ components:
       required: true
       schema:
         type: string
-        pattern: '^[0-9]{4}10[0-9]{10}$'
+        pattern: '^[0-9]{16}$'
         example: '1234100000000001'
 
     woonplaatsidentificatie:
@@ -850,7 +850,7 @@ components:
       required: true
       schema:
         type: string
-        pattern: '^[0-9]{4}30[0-9]{10}$'
+        pattern: '^[0-9]{16}$'
         example: '0518300000000001'
 
   schemas:
