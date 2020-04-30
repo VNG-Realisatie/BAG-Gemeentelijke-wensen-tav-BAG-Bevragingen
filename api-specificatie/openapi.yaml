@@ -910,7 +910,7 @@ components:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
           type: integer
-          example: '12'
+          example: 12
         huisletter:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
           title: huisletter
@@ -1328,7 +1328,7 @@ components:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
           type: integer
-          example: '12'
+          example: 12
         huisletter:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
           title: huisletter
