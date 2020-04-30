@@ -963,7 +963,6 @@ components:
             items:
               type: string
               example: '1234100000000001'
-            minItems: 1
           indicatieNevenadres:
             description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
             type: boolean
