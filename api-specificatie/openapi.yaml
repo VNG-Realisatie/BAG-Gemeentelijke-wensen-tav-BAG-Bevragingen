@@ -1662,27 +1662,22 @@ components:
       type: string
       enum:
         - 'Naamgeving uitgegeven'
-        - 'Naamgeving ingetrokken'
     StatusPand_enum:
       description: Een codering van de verschillende waarden die de status van een pand kan aannemen.
       type: string
       enum:
         - 'Bouwvergunning verleend'
-        - 'Niet gerealiseerd pand'
         - 'Bouw gestart'
         - 'Pand in gebruik (niet ingemeten)'
         - 'Pand in gebruik'
         - 'Verbouwing pand'
         - 'Sloopvergunning verleend'
-        - 'Pand gesloopt'
         - 'Pand buiten gebruik'
-        - 'Pand ten onrechte opgevoerd'
     StatusWoonplaats_enum:
       description: Een aanduiding van alle waarden die de status van een woonplaats kan aannemen.
       type: string
       enum:
         - 'Woonplaats aangewezen'
-        - 'Woonplaats ingetrokken'
     TypeAdresseerbaarObject_enum:
       type: string
       enum:
