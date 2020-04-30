@@ -1186,10 +1186,6 @@ components:
           type: "array"
           items:
             $ref: '#/components/schemas/AdresHalBasis'
-        nummeraanduidingen:
-          type: "array"
-          items:
-            $ref: '#/components/schemas/NummeraanduidingHalBasis'
         panden:
           type: "array"
           items:
