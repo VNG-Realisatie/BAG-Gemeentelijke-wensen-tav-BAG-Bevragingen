@@ -12,7 +12,7 @@ Achtergrond:
     | 2354agk                   | Dalfsenstraat | 2          |
 
 Scenario: response in HAL, url templating toegepast
-    Als de request GET {baseUrl}/adressen/zoeken?zoek=dalfsenstr wordt verstuurd
+    Als de request GET {baseUrl}/adressen/zoek?zoek=dalfsenstr wordt verstuurd
     Dan bevat de response de volgende keuze items met een link om het adres te bevragen
     """
     {
