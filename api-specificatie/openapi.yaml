@@ -1158,7 +1158,7 @@ components:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
         nummeraanduidingen:
-          description: link(s) naar de nummeraanduidingen due al hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn
+          description: link(s) naar de nummeraanduidingen die als hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
