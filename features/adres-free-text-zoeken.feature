@@ -7,35 +7,67 @@ Reden: Een url voor elke item in de lijst genereren kost meer tijd en maakt de r
 
 Achtergrond:
     Gegeven BAG bevat de volgende adressen
-    |keuze item identificatie | straatnaam    | huisnummer |
-    | 15gaj5y                 | Dalfsenstraat | 1          |
-    | 2354agk                 | Dalfsenstraat | 2          |
+    |zoekresultaatidentificatie | straatnaam    | huisnummer |
+    | 15gaj5y                   | Dalfsenstraat | 1          |
+    | 2354agk                   | Dalfsenstraat | 2          |
 
 Scenario: response in HAL, url templating toegepast
-    Als de request GET {baseUrl}/adressen/zoeken?zoekTerm=dalfsenstr wordt verstuurd
+    Als de request GET {baseUrl}/adressen/zoeken?zoek=dalfsenstr wordt verstuurd
     Dan bevat de response de volgende keuze items met een link om het adres te bevragen
     """
     {
-        "_links": {
+    "_links": {
+      "self": {
+        "href": "{server}/{major-versie}/adressen/zoeken?zoek=dalfsenstr",
+        "templated": true,
+        "title": "string"
+      },
+      "first": {
+        "href": "{server}/{major-versie}/adressenzoek=dalfsenstr?page=1",
+        "templated": true,
+        "title": "Eerste pagina"
+      },
+      "previous": {
+        "href": "{server}/{major-versie}/adressenzoek=dalfsenstr?page=3",
+        "templated": true,
+        "title": "Vorige pagina"
+      },
+      "next": {
+        "href": "{server}/{major-versie}/adressenzoek=dalfsenstr?page=5",
+        "templated": true,
+        "title": "Volgende pagina"
+      }
+    },
+    "_embedded": {
+      "zoekresultaten": [
+        {
+          "omschrijving": "Dalfsenstraat 1",
+          "identificatie": "15gaj5y",
+          "_links": {
             "self": {
-                "href": "/adressen/zoeken?zoekTerm=dalfsenstr"
+              "href": "{server}/{major-versie}/adressen/zoeken?zoek=dalfsenstr",
+              "templated": true
             },
-            "adresMbvTechnischeId": {
-                "href": "/adressen/{technischAdresId}",
-                "templated": true
+            "adres": {
+              "href": "{server}/{major-versie}/adressen/{zoekresultaatidentificatie}",
+              "templated": true
             }
+          }
         },
-        "_embedded": {
-            "keuzeItems": [
-                {
-                    "weergaveNaam": "Dalfsenstraat 1",
-                    "technischAdresId": "15gaj5y"
-                },
-                {
-                    "weergaveNaam": "Dalfsenstraat 2",
-                    "technischAdresId": "2354agk"
-                }
-            ]
+        {
+          "omschrijving": "Dalfsenstraat 2",
+          "identificatie": "2354agk",
+          "_links": {
+            "self": {
+              "href": "{server}/{major-versie}/adressen/zoeken?zoek=dalfsenstr",
+              "templated": true
+            },
+            "adres": {
+              "href": "{server}/{major-versie}/adressen/{zoekresultaatidentificatie}",
+              "templated": true
+            }
+          }
         }
+      ]
     }
     """
