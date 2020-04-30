@@ -983,7 +983,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/NEN3610ID'
-            minItems: 1
           indicatieNevenadres:
             description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
             type: boolean
