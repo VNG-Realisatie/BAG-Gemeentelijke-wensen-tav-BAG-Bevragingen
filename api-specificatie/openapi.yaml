@@ -452,7 +452,6 @@ paths:
         Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
       responses:
         '200':
@@ -465,7 +464,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/NummeraanduidingHal'
+                $ref: '#/components/schemas/NummeraanduidingHalBasis'
         '204':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204'
         '400':
@@ -1325,12 +1324,7 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/Nummeraanduiding_links'
-    NummeraanduidingHal:
-      allOf:
-      - $ref: '#/components/schemas/NummeraanduidingHalBasis'
-      - properties:
-          _embedded:
-            $ref: '#/components/schemas/Nummeraanduiding_embedded'
+
     Nummeraanduiding_links:
       type: object
       properties:
@@ -1345,19 +1339,6 @@ components:
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan het openbareruimte gerelateerde woonplaats (link).'
-
-    Nummeraanduiding_embedded:
-      type: object
-      properties:
-        adres:
-          $ref: '#/components/schemas/AdresHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde adres (object).'
-        openbareRuimte:
-          $ref: '#/components/schemas/OpenbareRuimteHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde openbareruimte (object).'
-        woonplaats:
-          $ref: '#/components/schemas/WoonplaatsHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde woonplaats (object).'
 
     Woonplaats:
       type: object
