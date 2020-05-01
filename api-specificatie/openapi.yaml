@@ -900,8 +900,6 @@ components:
           title: openbareruimte naam
           description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         huisnummer:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
@@ -927,8 +925,6 @@ components:
           description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
           title: woonplaats naam
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Apeldoorn'
     AdresUitgebreid:
       allOf:
@@ -939,7 +935,6 @@ components:
             title: korteNaam
             description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
             type: string
-            minLength: 1
             maxLength: 24
             example: 'Ln vd l D Westervoort'
           nummeraanduidingIdentificatie:
@@ -1076,7 +1071,6 @@ components:
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
           example: AV-2019-08-19-00
-          maxLength: 40
           type: string
         gebruiksdoelen:
           items:
@@ -1161,7 +1155,7 @@ components:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
         nummeraanduidingen:
-          description: link(s) naar de nummeraanduidingen due al hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn
+          description: link(s) naar de nummeraanduidingen die als hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
@@ -1228,8 +1222,6 @@ components:
           title: openbare ruimte naam
           description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         type:
           $ref: '#/components/schemas/TypeOpenbareRuimte_enum'
@@ -1241,7 +1233,6 @@ components:
           title: korteNaam
           description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
           type: string
-          minLength: 1
           maxLength: 24
           example: 'Ln vd l D Westervoort'
         geconstateerd:
@@ -1257,8 +1248,6 @@ components:
           description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
           title: documentnummer
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
           type: string
@@ -1354,8 +1343,6 @@ components:
           description: 'Identificatie van het brondocument dat ten grondslag ligt aan de opname, mutatie of een verwijdering van gegevens.'
           title: documentnummer
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
           type: string
@@ -1449,8 +1436,6 @@ components:
           description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
           title: woonplaats naam
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Apeldoorn'
         status:
           $ref: '#/components/schemas/StatusWoonplaats_enum'
@@ -1468,8 +1453,6 @@ components:
           description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
           title: documentnummer
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         mogelijkOnjuist:
           $ref: "#/components/schemas/WoonplaatsMogelijkOnjuist"
@@ -1526,9 +1509,8 @@ components:
         oorspronkelijkBouwjaar:
           title: Oorspronkelijk bouwjaar
           description: 'De aanduiding van het jaar waarin een pand oorspronkelijk als bouwkundig gereed is of zal worden opgeleverd. Bij het initieel opvoeren van een PAND wordt door de gemeente een reële inschatting gemaakt van het waarschijnlijke bouwjaar van het PAND. Bij het bouwkundig gereed opleveren van het PAND wordt deze waarde in voorkomende gevallen aangepast. Indien in latere jaren wijzigingen aan een pand worden aangebracht, leidt dit niet tot wijziging van het bouwjaar.'
-          type: string
-          maxLength: 4
-          example: '1972'
+          type: integer
+          example: 1972
         status:
           $ref: '#/components/schemas/StatusPand_enum'
           description: 'Een codering van de verschillende waarden die de status van een pand kan aannemen.'
@@ -1545,8 +1527,6 @@ components:
           description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
           title: documentnummer
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         adresseerbaarObjectIdentificaties:
           type: array
