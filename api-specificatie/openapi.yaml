@@ -1206,7 +1206,6 @@ components:
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         type:
           $ref: '#/components/schemas/TypeOpenbareRuimte_enum'
-          description: "Codering van de waarden voor verschillende typen openbare ruimtes."
         status:
           $ref: '#/components/schemas/StatusNaamgeving_enum'
         korteNaam:
@@ -1216,7 +1215,7 @@ components:
           maxLength: 24
           example: 'Ln vd l D Westervoort'
         geconstateerd:
-          description: "Indicatie dat een openbare ruimte in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De openbare ruimte is mogelijk illegaal."
+          description: "Indicator dat een openbare ruimte in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De openbare ruimte is mogelijk illegaal."
           type: boolean
         documentdatum:
           description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
@@ -1272,14 +1271,14 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: "De aan het openbareruimte gerelateerde woonplaats (link)."
+          description: "De aan de openbare ruimte gerelateerde woonplaats (link)."
 
     OpenbareRuimte_embedded:
       type: object
       properties:
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-          description: "De aan het oenbareruimte gerelateerde woonplaats (object)."
+          description: "De aan de openbareruimte gerelateerde woonplaats (object)."
 
     Nummeraanduiding:
       type: object
@@ -1306,7 +1305,7 @@ components:
         status:
           $ref: '#/components/schemas/StatusNaamgeving_enum'
         geconstateerd:
-          description: "Indicatie dat de nummeraanduiding in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. De nummeraanduiding is mogelijk illegaal."
+          description: "Indicator dat de nummeraanduiding in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. De nummeraanduiding is mogelijk illegaal."
           type: boolean
         documentdatum:
           description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
@@ -1407,7 +1406,7 @@ components:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
         naam:
-          description: "De naam van een woonplaats."
+          description: "De naam van de woonplaats."
           type: string
           minLength: 1
           maxLength: 80
@@ -1416,7 +1415,7 @@ components:
           $ref: '#/components/schemas/StatusWoonplaats_enum'
           description: "De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt."
         geconstateerd:
-          description: "Indicatie dat een woonplaats in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De woonplaats is mogelijk illegaal."
+          description: "Indicator dat de woonplaats in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De woonplaats is mogelijk illegaal."
           type: boolean
         documentdatum:
           description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
