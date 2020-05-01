@@ -66,12 +66,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             X-Pagination-Page:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
             X-Pagination-Limit:
@@ -129,12 +123,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -191,12 +179,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -253,12 +235,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -316,12 +292,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -380,12 +350,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -443,12 +407,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
           content:
             application/hal+json:
               schema:
@@ -504,12 +462,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
           content:
             application/hal+json:
               schema:
@@ -565,12 +517,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -635,12 +581,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -696,12 +636,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
