@@ -555,7 +555,6 @@ paths:
         Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand."
       parameters:
         - $ref: '#/components/parameters/pandidentificatie'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
@@ -624,7 +623,6 @@ paths:
       description: "Raadpleeg een pand met een geometrische locatie (punt).
         Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
       parameters:
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/contentCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -688,7 +686,6 @@ paths:
         Parameter adresseerbaarobjectidentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
