@@ -703,15 +703,17 @@ components:
         type: string
 
     locatie-query:
-      description: Coordinaten van een locatie die als query-parmeter gebruikt wordt om een object te zoeken.
+      description: Coordinaten van een locatie die als query-parmeter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=1.2345,5.4321
       name: locatie
       in: query
       required: false
+      explode: false
       schema:
         type: array
         minItems: 2
         items:
           type: number
+
 
     nummeraanduidingidentificatie-query:
       description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
