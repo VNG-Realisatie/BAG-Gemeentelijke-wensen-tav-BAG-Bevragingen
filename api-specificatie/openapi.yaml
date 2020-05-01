@@ -433,7 +433,6 @@ paths:
         Parameter openbareruimteidentificatie bevat de 16 cijferige identificatie van een openbareruimte."
       parameters:
         - $ref: '#/components/parameters/openbareruimteidentificatie'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
       responses:
         '200':
@@ -452,7 +451,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/OpenbareRuimteHal'
+                $ref: '#/components/schemas/OpenbareRuimteHalBasis'
         '204':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/204'
         '400':
@@ -1292,12 +1291,6 @@ components:
       - properties:
           _links:
             $ref: '#/components/schemas/OpenbareRuimte_links'
-    OpenbareRuimteHal:
-      allOf:
-      - $ref: '#/components/schemas/OpenbareRuimteHalBasis'
-      - properties:
-          _embedded:
-            $ref: '#/components/schemas/OpenbareRuimte_embedded'
 
     OpenbareRuimte_links:
       type: object
@@ -1307,13 +1300,6 @@ components:
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           description: 'De aan het openbareruimte gerelateerde woonplaats (link).'
-
-    OpenbareRuimte_embedded:
-      type: object
-      properties:
-        woonplaats:
-          $ref: '#/components/schemas/WoonplaatsHalBasis'
-          description: 'De aan het oenbareruimte gerelateerde woonplaats (object).'
 
     Nummeraanduiding:
       type: object
