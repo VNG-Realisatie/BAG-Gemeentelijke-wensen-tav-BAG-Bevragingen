@@ -1151,7 +1151,7 @@ components:
       description: 'Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
         naam:
           title: openbare ruimte naam
           description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
@@ -1241,7 +1241,7 @@ components:
       description: 'Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
         huisnummer:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
@@ -1365,7 +1365,7 @@ components:
       description: 'Een Woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
         naam:
           description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
           title: woonplaats naam
@@ -1435,7 +1435,7 @@ components:
       description: 'Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
           description: 'De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode.'
         geometrie:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
@@ -1560,22 +1560,7 @@ components:
         - 'Kunstwerk'
         - 'Landschappelijk gebied'
         - 'Administratief gebied'
-    NEN3610ID:
-      type: object
-      title: NEN3610ID
-      description: 'De identificatie van een (voorkomen van een) object, conform de NEN3610 standaard.'
-      properties:
-        lokaalID:
-          description: 'De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018).'
-          title: lokaalID
-          type: string
-          example: '0123'
-        namespace:
-          description: 'De namespace voor een BAG object. Formaat: NL.IMBAG.<object naam>.'
-          title: namespace
-          type: string
-          minLength: 1
-          example: 'NL.IMBAG.Woonplaats'
+
     PuntOfVlak:
       title: PuntOfVlak
       type: object
