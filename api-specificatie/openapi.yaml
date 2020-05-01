@@ -703,7 +703,7 @@ components:
         type: string
 
     locatie-query:
-      description: Coordinaten van een locatie die als query-parmeter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=1.2345,5.4321
+      description: Coordinaten van een locatie die als query-parmeter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
       name: locatie
       in: query
       required: false
@@ -713,6 +713,8 @@ components:
         minItems: 2
         items:
           type: number
+        example: 194602.722
+        example: 464154.308
 
 
     nummeraanduidingidentificatie-query:
