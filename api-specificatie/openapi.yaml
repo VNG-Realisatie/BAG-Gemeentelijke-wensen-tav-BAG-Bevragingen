@@ -713,8 +713,9 @@ components:
         minItems: 2
         items:
           type: number
-        example: 194602.722
-        example: 464154.308
+        example:
+        - 194602.722
+        - 464154.308
 
 
     nummeraanduidingidentificatie-query:
