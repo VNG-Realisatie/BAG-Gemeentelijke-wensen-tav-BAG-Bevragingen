@@ -65,12 +65,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             X-Pagination-Page:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
             X-Pagination-Limit:
@@ -128,12 +122,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -190,12 +178,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -252,12 +234,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -315,12 +291,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -377,12 +347,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -438,12 +402,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
           content:
             application/hal+json:
               schema:
@@ -497,12 +455,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
           content:
             application/hal+json:
               schema:
@@ -546,7 +498,6 @@ paths:
       description: "Raadpleeg een pand met de pand identificatie. Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.         Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand."
       parameters:
         - $ref: '#/components/parameters/pandidentificatie'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
@@ -557,12 +508,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -614,7 +559,6 @@ paths:
       operationId: raadpleegPandOpLocatie
       description: "Raadpleeg een pand met een geometrische locatie (punt). Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
       parameters:
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/contentCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -627,12 +571,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -677,7 +615,6 @@ paths:
       description: "Raadplegen van één of meer panden met een adresseerbaarobject identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen). Parameter adresseerbaarobjectidentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
@@ -688,12 +625,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/warning'
-            X-Rate-Limit-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Limit'
-            X-Rate-Limit-Remaining:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Remaining'
-            X-Rate-Limit-Reset:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/X_Rate_Limit_Reset'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -862,8 +793,6 @@ components:
     ZoekResultaat_links:
       type: object
       properties:
-        self:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
@@ -880,7 +809,7 @@ components:
               items:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
-    AdresBasis:
+    Adres:
       type: object
       description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
       properties:
@@ -888,13 +817,11 @@ components:
           title: openbareruimte naam
           description: "Een naam die door de gemeente aan een openbare ruimte is gegeven."
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         huisnummer:
           description: "Een nummer dat door de gemeente aan een adresseerbaar object is gegeven."
           type: integer
-          example: '12'
+          example: 12
         huisletter:
           description: "Een toevoeging aan een huisnummer in de vorm van een letter of een cijfer die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
@@ -911,10 +838,8 @@ components:
           description: "Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam."
           title: woonplaats naam
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Apeldoorn'
-    Adres:
+    AdresUitgebreid:
       allOf:
       - $ref: "#/components/schemas/AdresBasis"
       - description: "Het adres is de benaming van een locatie bestaande uit straatnaam, huisnummer, (mogelijk met huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op woonplaats, openbare ruimte en nummeraanduiding."
@@ -922,7 +847,6 @@ components:
           korteNaam:
             description: "De officiële openbareruimtenaam of een verkorte versie. Beiden hebben maximaal 24 tekens."
             type: string
-            minLength: 1
             maxLength: 24
             example: 'Ln vd l D Westervoort'
           nummeraanduidingIdentificatie:
@@ -990,7 +914,7 @@ components:
             $ref: '#/components/schemas/Adres_embedded'
     AdresHalBasis:
       allOf:
-      - $ref: '#/components/schemas/Adres'
+      - $ref: '#/components/schemas/AdresUitgebreid'
       - properties:
           _links:
             $ref: '#/components/schemas/Adres_links'
@@ -1055,7 +979,6 @@ components:
         documentnummer:
           description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           example: AV-2019-08-19-00
-          maxLength: 40
           type: string
         gebruiksdoelen:
           items:
@@ -1201,8 +1124,6 @@ components:
           title: openbare ruimte naam
           description: "De naam die door de gemeente aan een openbare ruimte is gegeven."
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         type:
           $ref: '#/components/schemas/TypeOpenbareRuimte_enum'
@@ -1211,7 +1132,6 @@ components:
         korteNaam:
           description: "De officiële openbareruimtenaam of een verkorte versie. Beiden hebben maximaal 24 tekens."
           type: string
-          minLength: 1
           maxLength: 24
           example: 'Ln vd l D Westervoort'
         geconstateerd:
@@ -1225,8 +1145,6 @@ components:
         documentnummer:
           description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
           type: string
@@ -1239,6 +1157,8 @@ components:
         description: "De waarde is mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht (zie toelichting)."
         properties:
           naam:
+            type: boolean
+          korteNaam:
             type: boolean
           type:
             type: boolean
@@ -1289,7 +1209,7 @@ components:
         huisnummer:
           description: "Nummer dat door de gemeente aan een adresseerbaar object is gegeven."
           type: integer
-          example: '12'
+          example: 12
         huisletter:
           description: "Toevoeging aan een huisnummer in de vorm van een letter of een cijfer die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
@@ -1315,8 +1235,6 @@ components:
         documentnummer:
           description: "Identificatie van het brondocument dat ten grondslag ligt aan de opname, mutatie of een verwijdering van gegevens."
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
           type: string
@@ -1408,8 +1326,6 @@ components:
         naam:
           description: "De naam van de woonplaats."
           type: string
-          minLength: 1
-          maxLength: 80
           example: 'Apeldoorn'
         status:
           $ref: '#/components/schemas/StatusWoonplaats_enum'
@@ -1425,8 +1341,6 @@ components:
         documentnummer:
           description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         mogelijkOnjuist:
           $ref: "#/components/schemas/WoonplaatsMogelijkOnjuist"
@@ -1481,9 +1395,8 @@ components:
           description: "De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand."
         oorspronkelijkBouwjaar:
           description: "Het jaar waarin een pand oorspronkelijk als bouwkundig gereed is wordt opgeleverd. Door de gemeente wordt een inschatting gemaakt van het bouwjaar, en aangepast als het pand wordt opgeleverd. Wijzigingen aan een pand na oplevering leiden niet tot wijziging van het bouwjaar."
-          type: string
-          maxLength: 4
-          example: '1972'
+          type: integer
+          example: 1972
         status:
           $ref: '#/components/schemas/StatusPand_enum'
           description: "Een codering van de verschillende waarden die de status van een pand kan aannemen."
@@ -1498,8 +1411,6 @@ components:
         documentnummer:
           description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           type: string
-          minLength: 1
-          maxLength: 40
           example: 'AV-2019-08-19-00'
         adresseerbaarObjectIdentificaties:
           type: array
