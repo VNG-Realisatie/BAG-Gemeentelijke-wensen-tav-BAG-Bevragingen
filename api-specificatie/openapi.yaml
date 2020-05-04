@@ -1,18 +1,17 @@
 openapi: 3.0.0
 # Server specificatie
 servers:
-  - description: LVBAG - TEST
+  - description: "LVBAG - TEST"
     url: https://api.test.kadaster.nl/lvbag/api/huidigebevragingen/v1
-  - description: LVBAG - ACCEPTATIE
+  - description: "LVBAG - ACCEPTATIE"
     url: https://api.acceptatie.kadaster.nl/lvbag/api/huidigebevragingen/v1
-  - description: LVBAG - PRODUCTIE
+  - description: "LVBAG - PRODUCTIE"
     url: https://api.kadaster.nl/lvbag/api/huidigebevragingen/v1
 
 # API specificatie - algemeen
 info:
   title: Huidige bevragingen API
-  description: >-
-    "Dit is de huidige bevragingen API."
+  description: "Dit is de huidige bevragingen API."
   version: "1.0.0"
   # De versie wordt 1.0 als de API naar productie gaat.
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
@@ -38,7 +37,7 @@ paths:
       operationId: getInfo
       responses:
         '200':
-          description: Bevraging getInfo geslaagd
+          description: "Bevraging getInfo geslaagd"
           content:
             application/json:
               schema:
@@ -60,7 +59,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/pageSize'
       responses:
         '200':
-          description: Zoek adres geslaagd
+          description: "Zoek adres geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -117,7 +116,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
         '200':
-          description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
+          description: "Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -173,7 +172,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
         '200':
-          description: raadpleegAdresMetNumId geslaagd
+          description: "raadpleegAdresMetNumId geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -229,7 +228,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -286,7 +285,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -334,9 +333,7 @@ paths:
       operationId: raadpleegWoonplaats
       tags:
         - Woonplaats
-      description: "Raadpleeg een Woonplaats met en woonplaats identificatie
-        Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres.
-        Parameter woonplaatsidentificatie bevat de 4 cijferige identificatie van een woonplaats."
+      description: "Raadpleeg een Woonplaats met en woonplaats identificatie. Geleverd worden de actuele gegevens van een woonplaats en het gerelateerde adres. Parameter woonplaatsidentificatie bevat de 4 cijferige identificatie van een woonplaats."
       parameters:
         - $ref: '#/components/parameters/woonplaatsidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
@@ -344,7 +341,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -392,16 +389,14 @@ paths:
       operationId: raadpleegOpenbareRuimte
       tags:
         - Openbare ruimte
-      description: "Raadpleeg een openbareruimte met en openbareruimte identificatie
-        Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres.
-        Parameter openbareruimteidentificatie bevat de 16 cijferige identificatie van een openbareruimte."
+      description: "Raadpleeg een openbareruimte met en openbareruimte identificatie. Geleverd worden de actuele gegevens van een openbareruimte evt. met gerelateerde woonplaats en adres. Parameter openbareruimteidentificatie bevat de 16 cijferige identificatie van een openbareruimte."
       parameters:
         - $ref: '#/components/parameters/openbareruimteidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -447,16 +442,14 @@ paths:
       operationId: raadpleegNummeraanduiding
       tags:
         - Nummeraanduiding
-      description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie
-        Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres.
-        Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
+      description: "Raadpleeg een nummeraanduiding met en nummeraanduiding identificatie. Geleverd worden de actuele gegevens van een nummeraanduiding evt. met gerelateerde woonplaats, openbare ruimte en adres. Parameter nummeraanduidingidentificatie bevat de 16 cijferige identificatie van een nummeraanduiding."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -502,16 +495,14 @@ paths:
       operationId: raadpleegPand
       tags:
         - Pand
-      description: "Raadpleeg een pand met de pand identificatie
-        Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.
-        Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand."
+      description: "Raadpleeg een pand met de pand identificatie. Geleverd worden de actuele gegevens van een pand evt. met gerelateerde verblijfsobjecten en adressen.         Parameter pandidentificatie bevat de 16 cijferige identificatie van een pand."
       parameters:
         - $ref: '#/components/parameters/pandidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -555,7 +546,7 @@ paths:
   /panden:
     post:
       requestBody:
-        description: Geometrisch punt waarop de panden bepaald moeten worden.
+        description: "Geometrisch punt waarop de panden bepaald moeten worden."
         required: true
         content:
           application/json:
@@ -566,8 +557,7 @@ paths:
       tags:
         - Pand
       operationId: raadpleegPandOpLocatie
-      description: "Raadpleeg een pand met een geometrische locatie (punt).
-        Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
+      description: "Raadpleeg een pand met een geometrische locatie (punt). Geleverd worden de actuele gegevens van één of meer panden evt. met gerelateerde verblijfsobject en adres."
       parameters:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/contentCrs'
@@ -575,7 +565,7 @@ paths:
       # Antwoord pandGeometrie
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -622,15 +612,14 @@ paths:
       operationId: raadpleegPanden
       tags:
         - Pand
-      description: "Raadplegen van één of meer panden met een adresseerbaarobject identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen).
-        Parameter adresseerbaarobjectidentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
+      description: "Raadplegen van één of meer panden met een adresseerbaarobject identificatie vekregen uit een zoek-operatie en indien gevraagd de gerelateerde verblijfsobjecten en het/de adres(sen). Parameter adresseerbaarobjectidentificatie-query bevat de 16 cijferige identificatie van een ligplaats, standplaats of verblijfsobject"
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
       responses:
         '200':
-          description: Geslaagd
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/headers/api_version'
@@ -685,7 +674,7 @@ components:
 
     # Opsomming van request parameters - ?='...' parameters (by name) - specificatie bij operation zelf.
     zoek:
-      description: zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging
+      description: "Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging"
       name: zoek
       in: query
       required: true
@@ -693,7 +682,7 @@ components:
         type: string
 
     zoekresultaatidentificatie:
-      description: de identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie
+      description: "De identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie"
       name: zoekresultaatidentificatie
       in: query
       required: false
@@ -701,7 +690,7 @@ components:
         type: string
 
     nummeraanduidingidentificatie-query:
-      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
       name: nummeraanduidingidentificatie
       in: query
       required: false
@@ -711,7 +700,7 @@ components:
         example: '1234200000000001'
 
     pandidentificatie-query:
-      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
       name: pandidentificatie
       in: query
       required: false
@@ -721,19 +710,18 @@ components:
         example: '1234100000000001'
 
     adresseerbaarobjectidentificatie-query:
-      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
+      description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
       name: adresseerbaarobjectidentificatie
       in: query
       required: false
       schema:
-        title: identificatie van een adresseerbaarobject
         type: string
         pattern: '^[0-9]{16}$'
         example: '1234010000000001'
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
-      description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
+      description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
       name: nummeraanduidingidentificatie
       in: path
       required: true
@@ -743,18 +731,17 @@ components:
         example: '1234200000000001'
 
     adresseerbaarobjectidentificatie:
-      description: De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.
+      description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
       name: adresseerbaarobjectidentificatie
       in: path
       required: true
       schema:
-        title: identificatie van een adresseerbaarobject
         type: string
         pattern: '^[0-9]{16}$'
         example: '1234010000000001'
 
     pandidentificatie:
-      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
       name: pandidentificatie
       in: path
       required: true
@@ -764,18 +751,18 @@ components:
         example: '1234100000000001'
 
     woonplaatsidentificatie:
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
+      description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
       name: woonplaatsidentificatie
       in: path
       required: true
       schema:
-        description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999.'
+        description: "Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999."
         type: string
         pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
         example: '0150'
 
     openbareruimteidentificatie:
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.
+      description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
       name: openbareruimteidentificatie
       in: path
       required: true
@@ -788,15 +775,13 @@ components:
 
     ZoekResultaat:
       type: object
-      description: 'Dit type bevat een enkel zoekresultaat bestaande uit een omschrijving en zoekresultaat identificatie'
+      description: "Resultaat van een zoekoperatie dat je kunt gebruiken om een adres te vinden met /adressen"
       properties:
         omschrijving:
-          description: 'Omschrijving van het zoekresultaat'
-          title: 'omschrijving'
+          description: "Omschrijving van het zoekresultaat"
           type: string
         identificatie:
-          description: 'Identificatie van het zoekresultaat'
-          title: identificatie
+          description: "Identificatie van het zoekresultaat"
           type: string
 
     ZoekResultaatHal:
@@ -812,7 +797,7 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
       type: object
-      description: 'resulaten als lijst'
+      description: "Resulaten als lijst"
       properties:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
@@ -826,52 +811,47 @@ components:
 
     Adres:
       type: object
-      description: "De properties van het adres die als adres hergebuikt kunnen worden in andere apis als er adresgegevens in de betreffende API opgenomen worden. "
+      description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
       properties:
         straat:
           title: openbareruimte naam
-          description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
+          description: "Een naam die door de gemeente aan een openbare ruimte is gegeven."
           type: string
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         huisnummer:
-          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
-          title: huisnummer
+          description: "Een nummer dat door de gemeente aan een adresseerbaar object is gegeven."
           type: integer
           example: 12
         huisletter:
-          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
-          title: huisletter
+          description: "Een toevoeging aan een huisnummer in de vorm van een letter of een cijfer die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
           example: 'A'
         huisnummertoevoeging:
-          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter.
-          title: huisnummer toevoeging
+          description: "Een toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
           example: 'bis'
         postcode:
-          title: postcode
-          description: De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.
+          description: "De door PostNL vastgestelde code die bij een bepaalde combinatie van een straatnaam en een huisnummer hoort."
           type: string
           example: '7500AA'
         woonplaats:
-          description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
+          description: "Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam."
           title: woonplaats naam
           type: string
           example: 'Apeldoorn'
     AdresUitgebreid:
       allOf:
-      - $ref: "#/components/schemas/Adres"
-      - description: "Het adres is de benaming van een adreswaardige locatie bestaande uit straatnaam, huisnummer, (huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op de objecten: Woonplaats, Openbare ruimte en Nummeraanduiding. Wat tussen haakjes staat is optioneel"
+      - $ref: "#/components/schemas/AdresBasis"
+      - description: "Het adres is de benaming van een locatie bestaande uit straatnaam, huisnummer, (mogelijk met huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op woonplaats, openbare ruimte en nummeraanduiding."
         properties:
           korteNaam:
-            title: korteNaam
-            description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
+            description: "De officiële openbareruimtenaam of een verkorte versie. Beiden hebben maximaal 24 tekens."
             type: string
             maxLength: 24
             example: 'Ln vd l D Westervoort'
           nummeraanduidingIdentificatie:
             type: string
-            description: 'Fungeert ook als identificatie van het adres.'
+            description: "Fungeert ook als identificatie van het adres."
             example: '1234200000000001'
           openbareRuimteIdentificatie:
             type: string
@@ -883,22 +863,23 @@ components:
             type: string
             example: '1234010000000001'
           pandIdentificaties:
+            description: "Identificatie(s) van het pand of de panden waar het verblijfsobject deel van is."
             type: array
             items:
               type: string
               example: '1234100000000001'
           indicatieNevenadres:
-            description: 'Een aanduiding die aangeeft of dit adres een nevenadres is van een adresseerbaar object. Als deze boolean niet wordt meegeleverd (of als deze false is) dan is dit een Hoofdadres.'
+            description: "Indicatie dat dit adres een nevenadres is van een adresseerbaar object. Het adres is een hoofdadres als deze indicatie niet wordt meegeleverd."
             type: boolean
           indicatieGeconstateerd:
-            description: 'Een aanduiding waarmee kan worden aangegeven dat één of meerdere gerelateerde object(en) in de registratie is/zijn opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.'
+            description: "Indicatie dat dit adres in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het adres is mogelijk illegaal."
             type: boolean
           mogelijkOnjuist:
             $ref: '#/components/schemas/AdresMogelijkOnjuist'
             description: "Bij het controleren of een property mogelijkOnjuist is kan het zijn dat er meerdere indicaties voor een property opgenomen zijn. In dat geval zijn er meerdere indicaties waarvan de naam begint met de property-naam"
     AdresMogelijkOnjuist:
       type: object
-      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
+      description: "Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven."
       properties:
         korteNaam:
           type: boolean
@@ -954,18 +935,18 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         openbareRuimte:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het adres gerelateerde openbare ruimte.'
+          description: "De aan het adres gerelateerde openbare ruimte."
         nummeraanduiding:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het adres gerelateerde nummeraanduiding. Het (boolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft.'
+          description: " De aan het adres gerelateerde nummeraanduiding. Het (boolean) attribuut nevenaders van Adres geeft aan of het hier een hoofd- of nevenadres betreft."
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het adres gerelateerde woonplaats.'
+          description: "De aan het adres gerelateerde woonplaats."
         adresseerbaarObject:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject.'
+          description: "De aan het adres gerelateerde ligplaats, standplaats of verblijfsobject."
         panden:
-          description: 'Het/de aan het adres gerelateerde pand(en).'
+          description: "Het/de aan het adres gerelateerde pand(en)."
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
@@ -981,27 +962,22 @@ components:
 
     AdresseerbaarObject:
       type: object
-      description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
+      description: "Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject."
       properties:
         identificatie:
-          description: unieke identificatie van het adresseerbaar object
+          description: "Dit is de identificatie van een ligplaats, standplaats of verblijfsobject."
           type: string
           example: "01230167890123456"
         type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
           title: adresseerbaarObjectType
         documentdatum:
-          description: De datum waarop het brondocument is vastgesteld, op basis waarvan
-            een opname, mutatie of een verwijdering van gegevens ten aanzien van een
-            object heeft plaatsgevonden.
+          description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
           example: "2019-08-14"
           format: date
           type: string
         documentnummer:
-          description: De unieke aanduiding van het brondocument op basis waarvan
-            een opname, mutatie of een verwijdering van gegevens ten aanzien van een
-            woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
-            de MES-1 karakterset zijn toegstaan.
+          description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           example: AV-2019-08-19-00
           type: string
         gebruiksdoelen:
@@ -1009,22 +985,18 @@ components:
             $ref: '#/components/schemas/Gebruiksdoel_enum'
           type: array
         geconstateerd:
-          description: Een aanduiding waarmee kan worden aangegeven dat een object
-            in de registratie is opgenomen als gevolg van een feitelijke constatering,
-            zonder dat er op het moment van opname sprake was van een regulier brondocument
-            voor deze opname.
+          description: "Indicatie dat een standplaats, ligplaats of verblijfsobject in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. Het adresseerbaar object is mogelijk illegaal."
           type: boolean
         geometrie:
           $ref: '#/components/schemas/PuntOfVlak'
         pandIdentificaties:
-          description: identificatie(s) van het pand of de panden waar het verblijfsobject
-            deel van uitmaakt
+          description: "Identificatie(s) van het pand of de panden waar het verblijfsobject deel van is."
           items:
             type: string
             example: '1234100000000001'
           type: array
         nummeraanduidingIdentificaties:
-          description: Identificatie(s) van de nummeraanduidingen die als hoofdadres en waar van toepassing de nevenadressen gerelateerd zijn.
+          description: "Identificatie(s) van de hoofd- en nevenadressen van de standplaats, ligplaats of verblijfsobject."
           items:
             $ref: "#/components/schemas/NummeraanduidingIdentificatiesArray"
           type: array
@@ -1048,7 +1020,7 @@ components:
             $ref: '#/components/schemas/AdresseerbaarObject_links'
     AdresseerbaarObjectMogelijkOnjuist:
       type: object
-      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
+      description: "Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven."
       properties:
         gebruiksdoelen:
           type: boolean
@@ -1082,18 +1054,17 @@ components:
       type: object
       properties:
         adressen:
-          description: link(s) naar het hoofdadres en waar van toepassing de nebvenadressen van het adresseerbaarobject
+          description: "Link(s) naar het hoofdadres en waar van toepassing de nebvenadressen van het adresseerbaarobject."
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
         nummeraanduidingen:
-          description: link(s) naar de nummeraanduidingen die als hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn
+          description: "Link(s) naar de nummeraanduidingen due al hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn."
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
         panden:
-          description: link(s) naar het pand of de panden waar het adresseerbaar object
-            deel van uitmaakt
+          description: "Link(s) naar het pand of de panden waar het adresseerbaar object deel van uitmaakt."
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
@@ -1145,51 +1116,45 @@ components:
 
     OpenbareRuimte:
       type: object
-      title: OpenbareRuimte
-      description: 'Een Openbare ruimte is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorziene buitenruimte die binnen één woonplaats is gelegen. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      description: "Een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld een straat of een plein."
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
         naam:
           title: openbare ruimte naam
-          description: Een naam die aan een openbare ruimte is toegekend in een daartoe strekkend formeel gemeentelijk besluit.
+          description: "De naam die door de gemeente aan een openbare ruimte is gegeven."
           type: string
           example: 'Laan van de landinrichtingscommissie Duiven-Westervoort'
         type:
           $ref: '#/components/schemas/TypeOpenbareRuimte_enum'
-          description: 'De aard van de als zodanig benoemde openbare ruimte.'
         status:
           $ref: '#/components/schemas/StatusNaamgeving_enum'
-          desciption: 'De fase van de levenscyclus van een openbare ruimte, waarin de betreffende openbare ruimte zich bevindt.'
         korteNaam:
-          title: korteNaam
-          description: 'De officiële openbare ruimte naam als deze niet langer is dan 24 tekens of de volgens de NEN5825 verkorte naam van maximaal 24 tekens.'
+          description: "De officiële openbareruimtenaam of een verkorte versie. Beiden hebben maximaal 24 tekens."
           type: string
           maxLength: 24
           example: 'Ln vd l D Westervoort'
         geconstateerd:
-          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          description: "Indicator dat een openbare ruimte in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De openbare ruimte is mogelijk illegaal."
           type: boolean
         documentdatum:
-          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-          title: documentdatum
+          description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
           type: string
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
-          title: documentnummer
+          description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           type: string
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
           type: string
-          description: 'Een openbare ruimte ligt in een woonplaats.'
+          description: "Een openbare ruimte ligt in een woonplaats."
           example: '0150'
         mogelijkOnjuist:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
     OpenbareRuimteMogelijkOnjuist:
         type: object
-        description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
+        description: "De waarde is mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht (zie toelichting)."
         properties:
           naam:
             type: boolean
@@ -1226,65 +1191,58 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het openbareruimte gerelateerde woonplaats (link).'
+          description: "De aan de openbare ruimte gerelateerde woonplaats (link)."
 
     OpenbareRuimte_embedded:
       type: object
       properties:
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-          description: 'De aan het oenbareruimte gerelateerde woonplaats (object).'
+          description: "De aan de openbareruimte gerelateerde woonplaats (object)."
 
     Nummeraanduiding:
       type: object
-      title: Nummeraanduiding
-      description: 'Een Nummeraanduiding is een door het bevoegde gemeentelijke orgaan als zodanig toegekende aanduiding van een verblijfsobject, een standplaats of een ligplaats. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      description: "Een postcode, huisnummer met mogelijk een huisletter en -toevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats."
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
         huisnummer:
-          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
-          title: huisnummer
+          description: "Nummer dat door de gemeente aan een adresseerbaar object is gegeven."
           type: integer
           example: 12
         huisletter:
-          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
-          title: huisletter
+          description: "Toevoeging aan een huisnummer in de vorm van een letter of een cijfer die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
           example: 'A'
         huisnummertoevoeging:
-          description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nadere toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter.
-          title: huisnummer toevoeging
+          description: "Toevoeging aan een huisnummer of een combinatie van huisnummer en huisletter die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
           example: 'bis'
         postcode:
-          title: postcode
-          description: De door PostNL vastgestelde code behorende bij een bepaalde combinatie van een straatnaam en een huisnummer.
+          description: "Door PostNL vastgestelde code die bij een bepaalde combinatie van een straatnaam en een huisnummer hoort."
           type: string
           example: '7500AA'
         status:
           $ref: '#/components/schemas/StatusNaamgeving_enum'
         geconstateerd:
-          description: "Indicator dat een object in de registratie is opgenomen op basis van een feitelijke constatering, zonder dat er een besluit en brondocument aan ten grondslag ligt."
+          description: "Indicator dat de nummeraanduiding in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. De nummeraanduiding is mogelijk illegaal."
           type: boolean
         documentdatum:
-          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-          title: documentdatum
+          description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
           type: string
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: 'Identificatie van het brondocument dat ten grondslag ligt aan de opname, mutatie of een verwijdering van gegevens.'
-          title: documentnummer
+          description: "Identificatie van het brondocument dat ten grondslag ligt aan de opname, mutatie of een verwijdering van gegevens."
           type: string
           example: 'AV-2019-08-19-00'
         woonplaatsIdentificatie:
           type: string
-          description: 'Een nummeraanduiding ligt in een woonplaats.'
+          description: "Een nummeraanduiding ligt in een woonplaats."
           example: '0150'
         openbareRuimteIdentificatie:
           type: string
-          description: 'Een nummeraanduiding ligt aan een openbare ruimte.'
+          description: "Een nummeraanduiding ligt aan een openbare ruimte."
           example: '0518300000000001'
         mogelijkOnjuist:
           $ref: '#/components/schemas/NummeraanduidingMogelijkOnjuist'
@@ -1298,7 +1256,7 @@ components:
           type: boolean
     NummeraanduidingMogelijkOnjuist:
         type: object
-        description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
+        description: "De waarde is mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht (zie toelichting)."
         properties:
           huisnummer:
             type: boolean
@@ -1338,61 +1296,57 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'Het aan de nummeraanduiding gerelateerde adres (link).'
+          description: "Het aan de nummeraanduiding gerelateerde adres (link)."
         openbareRuimte:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan de nummeraanduiding gerelateerde openbareruimte (link).'
+          description: "De aan de nummeraanduiding gerelateerde openbareruimte (link)."
         woonplaats:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          description: 'De aan het openbareruimte gerelateerde woonplaats (link).'
+          description: "De aan het openbareruimte gerelateerde woonplaats (link)."
 
     Nummeraanduiding_embedded:
       type: object
       properties:
         adres:
           $ref: '#/components/schemas/AdresHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde adres (object).'
+          description: "De aan de nummeraanduiding gerelateerde adres (object)."
         openbareRuimte:
           $ref: '#/components/schemas/OpenbareRuimteHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde openbareruimte (object).'
+          description: "De aan de nummeraanduiding gerelateerde openbareruimte (object)."
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-          description: 'De aan de nummeraanduiding gerelateerde woonplaats (object).'
+          description: "De aan de nummeraanduiding gerelateerde woonplaats (object)."
 
     Woonplaats:
       type: object
-      title: Woonplaats
-      description: 'Een Woonplaats is een door het bevoegde gemeentelijke orgaan als zodanig aangewezen en van een naam voorzien gedeelte van het grondgebied van de gemeente. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      description: "Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam."
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
         naam:
-          description: De benaming van een door het gemeentebestuur aangewezen woonplaats.
-          title: woonplaats naam
+          description: "De naam van de woonplaats."
           type: string
           example: 'Apeldoorn'
         status:
           $ref: '#/components/schemas/StatusWoonplaats_enum'
-          description: 'De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt.'
+          description: "De fase van de levenscyclus van een woonplaats, waarin de betreffende woonplaats zich bevindt."
         geconstateerd:
-          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          description: "Indicator dat de woonplaats in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De woonplaats is mogelijk illegaal."
           type: boolean
         documentdatum:
-          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-          title: documentdatum
+          description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
           type: string
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
-          title: documentnummer
+          description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           type: string
           example: 'AV-2019-08-19-00'
         mogelijkOnjuist:
           $ref: "#/components/schemas/WoonplaatsMogelijkOnjuist"
     WoonplaatsMogelijkOnjuist:
       type: object
-      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven. Wanneer property geometrie is opgenomen met de waarde true, dan is de embedded geometrie mogelijk onjuist.
+      description: "Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven. Wanneer property geometrie is opgenomen met de waarde true, dan is de embedded geometrie mogelijk onjuist."
       properties:
         naam:
           type: boolean
@@ -1431,35 +1385,31 @@ components:
 
     Pand:
       type: object
-      title: Pand
-      description: 'Een Pand is de kleinste, bij de totstandkoming functioneel en bouwkundig-constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Deze definitie is herleidbaar naar maar niet conform de BAG Catalogus 2018.'
+      description: "Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is."
       properties:
         identificatie:
           $ref: '#/components/schemas/NEN3610ID'
-          description: 'De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode.'
+          description: "De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode."
         geometrie:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
-          description: 'De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand.'
+          description: "De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand."
         oorspronkelijkBouwjaar:
-          title: Oorspronkelijk bouwjaar
-          description: 'De aanduiding van het jaar waarin een pand oorspronkelijk als bouwkundig gereed is of zal worden opgeleverd. Bij het initieel opvoeren van een PAND wordt door de gemeente een reële inschatting gemaakt van het waarschijnlijke bouwjaar van het PAND. Bij het bouwkundig gereed opleveren van het PAND wordt deze waarde in voorkomende gevallen aangepast. Indien in latere jaren wijzigingen aan een pand worden aangebracht, leidt dit niet tot wijziging van het bouwjaar.'
+          description: "Het jaar waarin een pand oorspronkelijk als bouwkundig gereed is wordt opgeleverd. Door de gemeente wordt een inschatting gemaakt van het bouwjaar, en aangepast als het pand wordt opgeleverd. Wijzigingen aan een pand na oplevering leiden niet tot wijziging van het bouwjaar."
           type: integer
           example: 1972
         status:
           $ref: '#/components/schemas/StatusPand_enum'
-          description: 'Een codering van de verschillende waarden die de status van een pand kan aannemen.'
+          description: "Een codering van de verschillende waarden die de status van een pand kan aannemen."
         geconstateerd:
-          description: Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname.
+          description: "Indicatie dat het pand in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het pand is mogelijk illegaal."
           type: boolean
         documentdatum:
-          description: 'De datum waarop het brondocument is vastgesteld, op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een object heeft plaatsgevonden.'
-          title: documentdatum
+          description: "De vaststellingsdatum van het brondocument dat de basis is voor opname, wijziging of een verwijdering van een object."
           type: string
           format: date
           example: '2019-08-14'
         documentnummer:
-          description: 'De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan.'
-          title: documentnummer
+          description: "De unieke aanduiding van het brondocument op basis waarvan een opname, mutatie of een verwijdering van gegevens ten aanzien van een woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit de MES-1 karakterset zijn toegstaan."
           type: string
           example: 'AV-2019-08-19-00'
         adresseerbaarObjectIdentificaties:
@@ -1468,7 +1418,7 @@ components:
             type: string
             example: '1234010000000001'
         nummeraanduidingIdentificaties:
-          description: Identificatie(s) van de nummeraanduiding van het hoofdadres en waar van toepassing de nevenadressen
+          description: "Identificatie(s) van de hoofd- en nevenadressen van het pand."
           items:
             $ref: "#/components/schemas/NummeraanduidingIdentificatiesArray"
           type: array
@@ -1476,7 +1426,7 @@ components:
           $ref: '#/components/schemas/PandMogelijkOnjuist'
     PandMogelijkOnjuist:
       type: object
-      description: Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven.
+      description: "De juistheid van dit gegeven wordt op dit moment onderzocht (zie toelichting)."
       properties:
         geometrie:
           type: boolean
@@ -1523,12 +1473,12 @@ components:
               items:
                 $ref: '#/components/schemas/PandHalBasis'
     StatusNaamgeving_enum:
-      description: Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen.
+      description: "Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen."
       type: string
       enum:
         - 'Naamgeving uitgegeven'
     StatusPand_enum:
-      description: Een codering van de verschillende waarden die de status van een pand kan aannemen.
+      description: "Een codering van de verschillende waarden die de status van een pand kan aannemen."
       type: string
       enum:
         - 'Bouwvergunning verleend'
@@ -1539,7 +1489,7 @@ components:
         - 'Sloopvergunning verleend'
         - 'Pand buiten gebruik'
     StatusWoonplaats_enum:
-      description: Een aanduiding van alle waarden die de status van een woonplaats kan aannemen.
+      description: "Een aanduiding van alle waarden die de status van een woonplaats kan aannemen."
       type: string
       enum:
         - 'Woonplaats aangewezen'
@@ -1550,7 +1500,7 @@ components:
         - 'standplaats'
         - 'ligplaats'
     TypeOpenbareRuimte_enum:
-      description: Een codering van de verschillende waarden die de typering van een openbare ruimte kan aannemen.
+      description: "Een codering van de verschillende waarden die de typering van een openbare ruimte kan aannemen."
       type: string
       enum:
         - 'Weg'
@@ -1562,33 +1512,28 @@ components:
         - 'Administratief gebied'
     NEN3610ID:
       type: object
-      title: NEN3610ID
-      description: 'De identificatie van een (voorkomen van een) object, conform de NEN3610 standaard.'
+      description: "De identificatie van een (voorkomen van een) object, conform de NEN3610 standaard."
       properties:
         lokaalID:
-          description: 'De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018).'
-          title: lokaalID
+          description: "De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018)."
           type: string
           example: '0123'
         namespace:
-          description: 'De namespace voor een BAG object. Formaat: NL.IMBAG.<object naam>.'
-          title: namespace
+          description: "De namespace voor een BAG object. Formaat: NL.IMBAG.<object naam>."
           type: string
           minLength: 1
           example: 'NL.IMBAG.Woonplaats'
     PuntOfVlak:
-      title: PuntOfVlak
       type: object
-      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een vlak.
+      description: "Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een vlak."
       properties:
         punt:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
         vlak:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
     VlakOfMultivlak:
-      title: VlakOfMultivlak
       type: object
-      description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface) of een multivlak (GM_MultiSurface).
+      description: "Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface) of een multivlak (GM_MultiSurface)."
       properties:
         vlak:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
