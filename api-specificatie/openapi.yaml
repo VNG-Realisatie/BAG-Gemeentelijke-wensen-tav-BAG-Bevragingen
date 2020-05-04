@@ -1118,7 +1118,7 @@ components:
       description: "Een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld een straat of een plein."
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
         naam:
           title: openbare ruimte naam
           description: "De naam die door de gemeente aan een openbare ruimte is gegeven."
@@ -1191,7 +1191,7 @@ components:
       description: "Een postcode, huisnummer met mogelijk een huisletter en -toevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats."
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
         huisnummer:
           description: "Nummer dat door de gemeente aan een adresseerbaar object is gegeven."
           type: integer
@@ -1308,7 +1308,7 @@ components:
       description: "Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam."
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
         naam:
           description: "De naam van de woonplaats."
           type: string
@@ -1374,7 +1374,7 @@ components:
       description: "Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is."
       properties:
         identificatie:
-          $ref: '#/components/schemas/NEN3610ID'
+          type: string
           description: "De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode."
         geometrie:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
@@ -1496,19 +1496,7 @@ components:
         - 'Kunstwerk'
         - 'Landschappelijk gebied'
         - 'Administratief gebied'
-    NEN3610ID:
-      type: object
-      description: "De identificatie van een (voorkomen van een) object, conform de NEN3610 standaard."
-      properties:
-        lokaalID:
-          description: "De identificatie van een BAG object. Deze is 4 cijfers lang voor een woonplaats (waarde: 0001-9999) en 16 cijfers voor openbare ruimte, nummeraanduiding, verblijfsobject, ligplaats, standplaats en Pand objecten (waarde zoals gespecificeerd in de BAG Catalogus 2018)."
-          type: string
-          example: '0123'
-        namespace:
-          description: "De namespace voor een BAG object. Formaat: NL.IMBAG.<object naam>."
-          type: string
-          minLength: 1
-          example: 'NL.IMBAG.Woonplaats'
+        
     PuntOfVlak:
       type: object
       description: "Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een vlak."
