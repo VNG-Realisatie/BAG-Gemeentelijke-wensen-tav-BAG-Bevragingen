@@ -44,10 +44,6 @@ Scenario: response in HAL, url templating toegepast
           "omschrijving": "Dalfsenstraat 1",
           "identificatie": "15gaj5y",
           "_links": {
-            "self": {
-              "href": "{server}/{major-versie}/adressen/zoeken?zoek=dalfsenstr",
-              "templated": true
-            },
             "adres": {
               "href": "{server}/{major-versie}/adressen/{zoekresultaatidentificatie}",
               "templated": true
@@ -58,10 +54,6 @@ Scenario: response in HAL, url templating toegepast
           "omschrijving": "Dalfsenstraat 2",
           "identificatie": "2354agk",
           "_links": {
-            "self": {
-              "href": "{server}/{major-versie}/adressen/zoeken?zoek=dalfsenstr",
-              "templated": true
-            },
             "adres": {
               "href": "{server}/{major-versie}/adressen/{zoekresultaatidentificatie}",
               "templated": true
