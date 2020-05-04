@@ -345,7 +345,7 @@ paths:
         - apiKeyBAG: []
       operationId: raadpleegWoonplaats
       tags:
-        - Woonplaats
+        - Adres
       description: "Raadpleeg een actuele woonplaats met de identificatie. Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature). Gebruik de expand parameter als je het antwoord wil uitbreiden met de gerelateerde resource geometrie, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/expand.feature)."
       parameters:
         - $ref: '#/components/parameters/woonplaatsidentificatie'
@@ -407,7 +407,7 @@ paths:
         - apiKeyBAG: []
       operationId: raadpleegOpenbareRuimte
       tags:
-        - Openbare ruimte
+        - Adres
       description: "Raadpleeg een actuele openbare ruimte met de identificatie. Een openbare ruimte is een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld een straat of een plein. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)"
       parameters:
         - $ref: '#/components/parameters/openbareruimteidentificatie'
@@ -466,7 +466,7 @@ paths:
         - apiKeyBAG: []
       operationId: raadpleegNummeraanduiding
       tags:
-        - Nummeraanduiding
+        - Adres
       description: "Raadpleeg actuele nummeraanduidingen. Een nummeraanduiding is een postcode, huisnummer met evt een huisletter en -toevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)"
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie'
