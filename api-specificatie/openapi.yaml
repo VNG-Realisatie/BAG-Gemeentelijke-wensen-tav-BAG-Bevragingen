@@ -841,7 +841,7 @@ components:
           example: 'Apeldoorn'
     AdresUitgebreid:
       allOf:
-      - $ref: "#/components/schemas/AdresBasis"
+      - $ref: "#/components/schemas/Adres"
       - description: "Het adres is de benaming van een locatie bestaande uit straatnaam, huisnummer, (mogelijk met huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op woonplaats, openbare ruimte en nummeraanduiding."
         properties:
           korteNaam:
