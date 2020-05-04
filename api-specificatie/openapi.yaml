@@ -808,8 +808,6 @@ components:
     ZoekResultaat_links:
       type: object
       properties:
-        self:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
@@ -839,7 +837,7 @@ components:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
           type: integer
-          example: '12'
+          example: 12
         huisletter:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
           title: huisletter
@@ -1195,6 +1193,8 @@ components:
         properties:
           naam:
             type: boolean
+          korteNaam:
+            type: boolean
           type:
             type: boolean
           status:
@@ -1246,7 +1246,7 @@ components:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende nummering.
           title: huisnummer
           type: integer
-          example: '12'
+          example: 12
         huisletter:
           description: Een door of namens het gemeentebestuur ten aanzien van een adresseerbaar object toegekende toevoeging aan een huisnummer in de vorm van een alfanumeriek teken.
           title: huisletter
