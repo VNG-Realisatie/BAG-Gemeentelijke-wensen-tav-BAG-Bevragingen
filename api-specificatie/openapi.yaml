@@ -1,12 +1,10 @@
 openapi: 3.0.0
 # Server specificatie
 servers:
-  - description: "LVBAG - TEST"
-    url: https://api.test.kadaster.nl/lvbag/api/huidigebevragingen/v1
-  - description: "LVBAG - ACCEPTATIE"
-    url: https://api.acceptatie.kadaster.nl/lvbag/api/huidigebevragingen/v1
-  - description: "LVBAG - PRODUCTIE"
-    url: https://api.kadaster.nl/lvbag/api/huidigebevragingen/v1
+  - description: LVBAG - ACCEPTATIE
+    url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1
+  - description: LVBAG - PRODUCTIE
+    url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1
 
 # API specificatie - algemeen
 info:
