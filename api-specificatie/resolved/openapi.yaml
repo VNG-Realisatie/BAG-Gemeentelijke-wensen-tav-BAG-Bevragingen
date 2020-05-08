@@ -3075,7 +3075,7 @@ components:
             type: string
             description: De officiële openbareruimtenaam of een verkorte versie. Beiden
               hebben maximaal 24 tekens.
-            example: Ln vd l D Westervoort
+            example: Ln vd l D-Westervoort
           nummeraanduidingIdentificatie:
             type: string
             description: Fungeert ook als identificatie van het adres.
@@ -3366,7 +3366,7 @@ components:
           type: string
           description: De officiële openbareruimtenaam of een verkorte versie. Beiden
             hebben maximaal 24 tekens.
-          example: Ln vd l D Westervoort
+          example: Ln vd l D-Westervoort
         geconstateerd:
           type: boolean
           description: Indicator dat een openbare ruimte in de registratie is opgenomen
