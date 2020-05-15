@@ -94,7 +94,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -380,7 +380,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -683,7 +683,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -987,7 +987,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -1301,7 +1301,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -1606,7 +1606,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -1889,7 +1889,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -2172,7 +2172,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -2462,7 +2462,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
@@ -2713,16 +2713,6 @@ paths:
           - 464154.308
           items:
             type: number
-      - name: expand
-        in: query
-        description: Hiermee kun je opgeven welke gerelateerde resources meegeleverd
-          moeten worden, en hun inhoud naar behoefte aanpassen. Hele resources of
-          enkele properties geef je in de expand parameter kommagescheiden op. Properties
-          die je wil ontvangen geef je op met de resource-naam gevolgd door de property
-          naam, met daartussen een punt. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/expand.feature)
-        required: false
-        schema:
-          type: string
       - name: fields
         in: query
         description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
@@ -2783,7 +2773,7 @@ paths:
                   syntax. The client SHOULD NOT repeat the request without modification.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: paramsRequired
-                invalid-params:
+                invalidParams:
                 - type: https://www.vng.nl/realisatie/api/validaties/integer
                   name: verblijfplaats__huisnummer
                   code: integer
