@@ -866,6 +866,8 @@ components:
     AdresHalCollectie:
       type: object
       properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks'
         _embedded:
           properties:
             adressen:
@@ -1026,12 +1028,7 @@ components:
               type: array
           type: object
         _links:
-          properties:
-            adresseerbareObjecten:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
-            self:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          type: object
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
     AdresseerbaarObjectStatus_enum:
       type: string
       enum:
