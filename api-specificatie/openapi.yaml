@@ -429,7 +429,7 @@ paths:
       tags:
         - Adres
       summary: "levert BAG details van een nummeraanduiding"
-      description: "Raadpleeg actuele nummeraanduidingen. Een nummeraanduiding is een postcode, huisnummer met evt een huisletter en -toevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)"
+      description: "Raadpleeg een actuele nummeraanduiding met de identificatie. Een nummeraanduiding is een postcode, huisnummer met evt een huisletter en -toevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)"
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
@@ -482,7 +482,7 @@ paths:
       tags:
         - Pand
       summary: "levert een pand"
-      description: "Raadpleeg een actueel pand. Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)."
+      description: "Raadpleeg een actueel pand met de identificatie. Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)."
       parameters:
         - $ref: '#/components/parameters/pandidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
