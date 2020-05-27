@@ -543,6 +543,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/acceptCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/contentCrs'
@@ -630,8 +631,8 @@ components:
         items:
           type: number
         example:
-        - 196733.510
-        - 439931.890
+        - 194602.722
+        - 464154.308
 
     nummeraanduidingidentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
@@ -641,7 +642,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0226200000038923'
+        example: '1234200000000001'
 
     pandidentificatie-query:
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
@@ -651,7 +652,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0226100000008856'
+        example: '1234100000000001'
 
     adresseerbaarobjectidentificatie-query:
       description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
@@ -661,7 +662,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0226010000038820'
+        example: '1234010000000001'
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
@@ -672,7 +673,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0226200000038923'
+        example: '1234200000000001'
 
     adresseerbaarobjectidentificatie:
       description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
@@ -682,7 +683,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0226010000038820'
+        example: '1234010000000001'
 
     pandidentificatie:
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
@@ -692,7 +693,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0226100000008856'
+        example: '1234100000000001'
 
     woonplaatsidentificatie:
       description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
@@ -702,8 +703,8 @@ components:
       schema:
         description: "Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999."
         type: string
-        pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
-        example: '2096'
+        pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
+        example: '3560'
 
     openbareruimteidentificatie:
       description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
@@ -713,7 +714,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0226300000136166'
+        example: '0518300000000001'
 
   schemas:
 
