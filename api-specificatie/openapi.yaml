@@ -631,8 +631,8 @@ components:
         items:
           type: number
         example:
-        - 194602.722
-        - 464154.308
+        - 196733.510
+        - 439931.890
 
     nummeraanduidingidentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
@@ -642,7 +642,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '1234200000000001'
+        example: '0226200000038923'
 
     pandidentificatie-query:
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
@@ -652,7 +652,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '1234100000000001'
+        example: '0226100000008856'
 
     adresseerbaarobjectidentificatie-query:
       description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
@@ -662,7 +662,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '1234010000000001'
+        example: '0226010000038820'
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
@@ -673,7 +673,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '1234200000000001'
+        example: '0226200000038923'
 
     adresseerbaarobjectidentificatie:
       description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
@@ -683,7 +683,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '1234010000000001'
+        example: '0226010000038820'
 
     pandidentificatie:
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
@@ -693,7 +693,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '1234100000000001'
+        example: '0226100000008856'
 
     woonplaatsidentificatie:
       description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
@@ -704,7 +704,7 @@ components:
         description: "Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999."
         type: string
         pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
-        example: '3560'
+        example: '2096'
 
     openbareruimteidentificatie:
       description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
@@ -714,7 +714,7 @@ components:
       schema:
         type: string
         pattern: '^[0-9]{16}$'
-        example: '0518300000000001'
+        example: '0226300000136166'
 
   schemas:
 
