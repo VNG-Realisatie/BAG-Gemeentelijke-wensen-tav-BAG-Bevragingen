@@ -2,7 +2,7 @@
 Functionaliteit: Mogelijk onjuist
   In de resource wordt aangegeven of bepaalde teruggegeven waarden in de resource mogelijk onjuist zijn. Waarden in de resource zijn mogelijk onjuist wanneer er onderzoek wordt gedaan naar de juistheid van onderliggende gegevens in de registratie.
 
-  Scenario: wanneer de status van een object in onderzoek is, zijn alle daaruit afgeleide properties van de resource mogelijk onjuist
+  Scenario: wanneer de status van een object in onderzoek is, zijn alle uit dat object afgeleide properties van de resource mogelijk onjuist
     Gegeven in object nummeraanduiding is gegeven Status nummeraanduiding in onderzoek
     Als de afgeleide Adres resource wordt opgevraagd
     Dan bevat het antwoord:
@@ -48,14 +48,15 @@ Functionaliteit: Mogelijk onjuist
       | Woonplaats       | Naam woonplaats                          | Adres                | woonplaats               | Woonplaatsnaam is mogelijk onjuist geschreven. |
       | Woonplaats       | Status woonplaats                        | Adres                | woonplaats,woonplaatsIdentificatie | Woonplaats bestaat mogelijk niet. |
       | Woonplaats       | Geometrie                                | Adres                | woonplaats,woonplaatsIdentificatie | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
-      | Openbare ruimte  | Naam openbare ruimte                     | Adres                | straat,korteNaam         | Straatnaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
+      | Openbare ruimte  | Naam openbare ruimte                     | Adres                | straat                   | Straatnaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
+      | Openbare ruimte  | Naam openbare ruimte                     | Adres                | korteNaam                | Korte naam is mogelijk onjuist, omdat de straatnaam mogelijk niet overeen komt met de vermelding in het straatnaambesluit. Dit is geen indicatie dat de straatnaam mogelijk onjuist is verkort. |
       | Openbare ruimte  | Status openbare ruimte                   | Adres                | straat,korteNaam,openbareRuimteIdentificatie | Straat bestaat mogelijk niet (meer). |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | Adres                | woonplaats,woonplaatsIdentificatie | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
       | Nummeraanduiding | Huisnummer                               | Adres                | huisnummer               | Mogelijk is het verkeerde huisnummer geregistreerd. |
       | Nummeraanduiding | Huisletter                               | Adres                | huisletter               | Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend. |
       | Nummeraanduiding | Huisnummertoevoeging                     | Adres                | huisnummertoevoeging     | Mogelijk is ten onrechte een huislettertoevoeging toegekend, ontbreekt de huislettertoevoeging ten onrechte, of is een verkeerde huislettertoevoeging toegekend. |
       | Nummeraanduiding | Postcode                                 | Adres                | postcode                 | Mogelijk is ten onrechte een postcode toegekend, ontbreekt de postcode ten onrechte, of is een verkeerde postcode toegekend. |
-      | Nummeraanduiding | Status nummeraanduiding                  | Adres                | straat,korteNaam,huisnummer,huisletter,huisnummertoevoeging,postcode,woonplaats,nummeraanduidingIdentificatie,woonplaatsIdentificatie,openbareRuimteIdentificatie | Adres bestaat mogelijk niet (meer). |
+      | Nummeraanduiding | Status nummeraanduiding                  | Adres                | straat,korteNaam,huisnummer,huisletter,huisnummertoevoeging,postcode,woonplaats,nummeraanduidingIdentificatie,woonplaatsIdentificatie,openbareRuimteIdentificatie | Adres bestaat mogelijk niet (meer), omdat de nummeraanduiding mogelijk niet (meer) bestaat. |
       | Nummeraanduiding | Ligt in gerelateerde woonplaats          | Adres                | woonplaats,woonplaatsIdentificatie | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
       | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | Adres                | straat,korteNaam,openbareRuimteIdentificatie | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
       | Pand             | Geometrie                                | Pand                 | geometrie                | Mogelijk is de locatie van de contouren onjuist. Mogelijk is de contour onjuist, bijvoorbeeld omdat een uitbouw of een gedeeltelijke sloop niet verwerkt is. |
@@ -77,7 +78,8 @@ Functionaliteit: Mogelijk onjuist
       | Woonplaats       | Naam woonplaats                          | Woonplaats           | naam                     | Woonplaatsnaam is mogelijk onjuist geschreven. |
       | Woonplaats       | Status woonplaats                        | Woonplaats           | status                   | Woonplaats bestaat mogelijk niet. |
       | Woonplaats       | Geometrie                                | Woonplaats           | geometrie                | Geometrie van de woonplaats is mogelijk onjuist. |
-      | Openbare ruimte  | Naam openbare ruimte                     | Openbare ruimte      | naam,korteNaam           | Openbare ruimtenaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
+      | Openbare ruimte  | Naam openbare ruimte                     | Openbare ruimte      | naam                     | Openbare ruimtenaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
+      | Openbare ruimte  | Naam openbare ruimte                     | Openbare ruimte      | korteNaam                | Korte naam is mogelijk onjuist, omdat de openbare ruimtenaam mogelijk niet overeen komt met de vermelding in het straatnaambesluit. Dit is geen indicatie dat de straatnaam mogelijk onjuist is verkort. |
       | Openbare ruimte  | Status openbare ruimte                   | Openbare ruimte      | status                   | Openbare ruimte bestaat mogelijk niet (meer). |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | Openbare ruimte      | woonplaatsIdentificatie  | Mogelijk verkeerde woonplaats gebruikt. |
       | Openbare ruimte  | Type                                     | Openbare ruimte      | type                     | Type openbare ruimte mogelijk onjuist. |
@@ -103,13 +105,13 @@ Functionaliteit: Mogelijk onjuist
       | Pand             | Bouwvergunning verleend                     | Pand                 | status                   | Mogelijk is de bouw al gestart, is de bouw al gereed of is het pand niet gerealiseerd. |
       | Pand             | Niet gerealiseerd pand                      | Pand                 | status                   | Mogelijk is het pand toch gerealiseerd. |
       | Pand             | Bouw gestart                                | Pand                 | status                   | Mogelijk is de bouw al gereed of is het pand niet gerealiseerd. |
-      | Pand             | Pand in gebruik (niet ingemeten)            | Pand                 | status                   | Mogelijk is de geometrie al ingemeten. |
+      | Pand             | Pand in gebruik (niet ingemeten)            | Pand                 | status                   | Mogelijk is de geometrie al ingemeten, of is de bouw ten onrechte gereedgemeld. |
       | Pand             | Pand in gebruik                             | Pand                 | status                   | Mogelijk is het pand nog niet in gebruik, is het pand al gesloopt, is er een vergunning tot verbouw verleend of is er een sloopmelding gedaan. |
       | Pand             | Sloopvergunning verleend                    | Pand                 | status                   | Mogelijk wordt het pand toch niet gesloopt of is het pand al gesloopt. |
       | Pand             | Verbouwing pand                             | Pand                 | status                   | Mogelijk is de verbouwing al afgerond of wordt de verbouwing niet uitgevoerd. |
       | Verblijfsobject  | Verblijfsobject gevormd                     | Adresseerbaar object | status                   | Mogelijk is de bouw al gereed of is het verblijfsobject niet gerealiseerd. |
       | Verblijfsobject  | Niet gerealiseerd verblijfsobject           | Adresseerbaar object | status                   | Mogelijk is het verblijfsobject toch gerealiseerd. |
-      | Verblijfsobject  | Verblijfsobject in gebruik (niet ingemeten) | Adresseerbaar object | status                   | Mogelijk is de geometrie al ingemeten. |
+      | Verblijfsobject  | Verblijfsobject in gebruik (niet ingemeten) | Adresseerbaar object | status                   | Mogelijk is de geometrie al ingemeten, of is de bouw ten onrechte gereedgemeld. |
       | Verblijfsobject  | Verblijfsobject in gebruik                  | Adresseerbaar object | status                   | Mogelijk is het verblijfsobject nog niet in gebruik, is het verblijfsobject al ingetrokken of is er een vergunning tot verbouw verleend. |
       | Verblijfsobject  | Verbouwing verblijfsobject                  | Adresseerbaar object | status                   | Mogelijk is de verbouwing al afgerond of wordt de verbouwing niet uitgevoerd. |
 
