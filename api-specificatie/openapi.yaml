@@ -429,7 +429,7 @@ paths:
       tags:
         - Adres
       summary: "levert BAG details van een nummeraanduiding"
-      description: "Raadpleeg een actuele nummeraanduiding met de identificatie. Een nummeraanduiding is een postcode, huisnummer met evt een huisletter en -toevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)"
+      description: "Raadpleeg een actuele nummeraanduiding met de identificatie. Een nummeraanduiding is een postcode, huisnummer met evt een huisletter en huisnummertoevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)"
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingidentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/parameters/fields'
@@ -767,7 +767,7 @@ components:
           type: integer
           example: 1
         huisletter:
-          description: "Een toevoeging aan een huisnummer in de vorm van een letter of een cijfer die door de gemeente aan een adresseerbaar object is gegeven."
+          description: "Een toevoeging aan een huisnummer in de vorm van een letter die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
           example: 'A'
         huisnummertoevoeging:
@@ -1132,7 +1132,7 @@ components:
 
     Nummeraanduiding:
       type: object
-      description: "Een postcode, huisnummer met mogelijk een huisletter en -toevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats."
+      description: "Een postcode, huisnummer met mogelijk een huisletter en huisnummertoevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats."
       properties:
         identificatie:
           type: string
@@ -1141,7 +1141,7 @@ components:
           type: integer
           example: 1
         huisletter:
-          description: "Toevoeging aan een huisnummer in de vorm van een letter of een cijfer die door de gemeente aan een adresseerbaar object is gegeven."
+          description: "Toevoeging aan een huisnummer in de vorm van een letter die door de gemeente aan een adresseerbaar object is gegeven."
           type: string
           example: 'A'
         huisnummertoevoeging:
