@@ -1,7 +1,9 @@
 openapi: 3.0.0
 info:
   title: Huidige bevragingen API
-  description: Dit is de huidige bevragingen API.
+  description: Deze API levert actuele gegevens over adressen, adresseerbaar objecten
+    en panden. Actueel betekent in deze API zonder eindstatus. De bron voor deze API
+    is de basisregistratie adressen en gebouwen (BAG).
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
   contact:
     name: Kadaster - Beheerder Landelijke Voorziening BAG
@@ -276,7 +278,7 @@ paths:
     get:
       tags:
       - Adres
-      summary: levert adressen
+      summary: vindt adressen
       description: Vind een actueel adres met de identificatie van het zoekresultaat
         uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie.
         Gebruik de fields parameter als je alleen specifieke velden in het antwoord
@@ -295,7 +297,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234100000000001"
+          example: "0226100000008856"
       - name: adresseerbaarobjectidentificatie
         in: query
         description: De identificatie van een adresserbaar object uit de BAG. Dit
@@ -306,7 +308,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234010000000001"
+          example: "0226010000038820"
       - name: zoekresultaatidentificatie
         in: query
         description: De identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie
@@ -342,7 +344,27 @@ paths:
         required: false
         schema:
           type: string
-          description: CRS van de coördinaten in de response.
+          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
+            RD New Nederlands coordinatenstelsel.
+          default: epsg:28992
+          enum:
+          - epsg:28992
+      - name: page
+        in: query
+        description: Pagina nummer
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 20
       responses:
         "200":
           description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
@@ -618,7 +640,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234200000000001"
+          example: "0226200000038923"
       - name: expand
         in: query
         description: Hiermee kun je opgeven welke gerelateerde resources meegeleverd
@@ -645,7 +667,11 @@ paths:
         required: false
         schema:
           type: string
-          description: CRS van de coördinaten in de response.
+          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
+            RD New Nederlands coordinatenstelsel.
+          default: epsg:28992
+          enum:
+          - epsg:28992
       responses:
         "200":
           description: raadpleegAdresMetNumId geslaagd
@@ -922,7 +948,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234010000000001"
+          example: "0226010000038820"
       - name: expand
         in: query
         description: Hiermee kun je opgeven welke gerelateerde resources meegeleverd
@@ -949,7 +975,11 @@ paths:
         required: false
         schema:
           type: string
-          description: CRS van de coördinaten in de response.
+          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
+            RD New Nederlands coordinatenstelsel.
+          default: epsg:28992
+          enum:
+          - epsg:28992
       responses:
         "200":
           description: Geslaagd
@@ -1206,7 +1236,7 @@ paths:
     get:
       tags:
       - Adresseerbaar object
-      summary: levert verblijfsobjecten, ligplaatsen, standplaatsen
+      summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
       description: Zoek actuele adresseerbaar objecten (verblijfsobjecten, standplaatsen
         of ligplaatsen) met een nummeraanduiding identificatie of pand identificatie.
         Gebruik de fields parameter als je alleen specifieke velden in het antwoord
@@ -1226,7 +1256,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234200000000001"
+          example: "0226200000038923"
       - name: pandidentificatie
         in: query
         description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
@@ -1236,7 +1266,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234100000000001"
+          example: "0226100000008856"
       - name: expand
         in: query
         description: Hiermee kun je opgeven welke gerelateerde resources meegeleverd
@@ -1263,7 +1293,27 @@ paths:
         required: false
         schema:
           type: string
-          description: CRS van de coördinaten in de response.
+          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
+            RD New Nederlands coordinatenstelsel.
+          default: epsg:28992
+          enum:
+          - epsg:28992
+      - name: page
+        in: query
+        description: Pagina nummer
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 20
       responses:
         "200":
           description: Geslaagd
@@ -1541,7 +1591,7 @@ paths:
           type: string
           description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123.
             Waarde: 0001-9999.'
-          example: "3560"
+          example: "2096"
       - name: expand
         in: query
         description: Hiermee kun je opgeven welke gerelateerde resources meegeleverd
@@ -1568,7 +1618,11 @@ paths:
         required: false
         schema:
           type: string
-          description: CRS van de coördinaten in de response.
+          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
+            RD New Nederlands coordinatenstelsel.
+          default: epsg:28992
+          enum:
+          - epsg:28992
       responses:
         "200":
           description: Geslaagd
@@ -1843,7 +1897,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "0518300000000001"
+          example: "0226300000136166"
       - name: fields
         in: query
         description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
@@ -2109,11 +2163,11 @@ paths:
       tags:
       - Adres
       summary: levert BAG details van een nummeraanduiding
-      description: Raadpleeg actuele nummeraanduidingen. Een nummeraanduiding is een
-        postcode, huisnummer met evt een huisletter en -toevoeging die hoort bij een
-        verblijfsobject, een standplaats of een ligplaats. Gebruik de fields parameter
-        als je alleen specifieke velden in het antwoord wil zien, zie [functionele
-        specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)
+      description: Raadpleeg een actuele nummeraanduiding met de identificatie. Een
+        nummeraanduiding is een postcode, huisnummer met evt een huisletter en huisnummertoevoeging
+        die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik
+        de fields parameter als je alleen specifieke velden in het antwoord wil zien,
+        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature)
       operationId: raadpleegNummeraanduiding
       parameters:
       - name: nummeraanduidingidentificatie
@@ -2126,7 +2180,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234200000000001"
+          example: "0226200000038923"
       - name: fields
         in: query
         description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
@@ -2392,10 +2446,11 @@ paths:
       tags:
       - Pand
       summary: levert een pand
-      description: Raadpleeg een actueel pand. Een pand is een bouwkundige, constructief
-        zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar
-        en afsluitbaar is. Gebruik de fields parameter als je alleen specifieke velden
-        in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature).
+      description: Raadpleeg een actueel pand met de identificatie. Een pand is een
+        bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met
+        de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields
+        parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele
+        specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature).
       operationId: raadpleegPand
       parameters:
       - name: pandidentificatie
@@ -2407,7 +2462,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234100000000001"
+          example: "0226100000008856"
       - name: fields
         in: query
         description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
@@ -2424,7 +2479,11 @@ paths:
         required: false
         schema:
           type: string
-          description: CRS van de coördinaten in de response.
+          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
+            RD New Nederlands coordinatenstelsel.
+          default: epsg:28992
+          enum:
+          - epsg:28992
       responses:
         "200":
           description: Geslaagd
@@ -2681,7 +2740,7 @@ paths:
     get:
       tags:
       - Pand
-      summary: levert panden
+      summary: vindt panden
       description: Zoek actuele panden met de identificatie van een nummeraanduiding
         of adresseerbaar object. Gebruik de fields parameter als je alleen specifieke
         velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/master/features/fields.feature).
@@ -2697,7 +2756,7 @@ paths:
         schema:
           pattern: ^[0-9]{16}$
           type: string
-          example: "1234010000000001"
+          example: "0226010000038820"
       - name: locatie
         in: query
         description: Coordinaten van een locatie die als query-parmeter gebruikt wordt
@@ -2709,8 +2768,8 @@ paths:
           minItems: 2
           type: array
           example:
-          - 194602.722
-          - 464154.308
+          - 196733.51
+          - 439931.89
           items:
             type: number
       - name: fields
@@ -2729,13 +2788,21 @@ paths:
         required: false
         schema:
           type: string
-          description: CRS van de coördinaten in de response.
+          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
+            RD New Nederlands coordinatenstelsel.
+          default: epsg:28992
+          enum:
+          - epsg:28992
       - name: Content-Crs
         in: header
-        description: CRS van de meegegeven geometrie.
+        description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
+          Nederlands coordinatenstelsel.
         required: false
         schema:
           type: string
+          default: epsg:28992
+          enum:
+          - epsg:28992
       responses:
         "200":
           description: Geslaagd
@@ -3032,11 +3099,11 @@ components:
           type: integer
           description: Een nummer dat door de gemeente aan een adresseerbaar object
             is gegeven.
-          example: 12
+          example: 1
         huisletter:
           type: string
           description: Een toevoeging aan een huisnummer in de vorm van een letter
-            of een cijfer die door de gemeente aan een adresseerbaar object is gegeven.
+            die door de gemeente aan een adresseerbaar object is gegeven.
           example: A
         huisnummertoevoeging:
           type: string
@@ -3047,13 +3114,13 @@ components:
           type: string
           description: De door PostNL vastgestelde code die bij een bepaalde combinatie
             van een straatnaam en een huisnummer hoort.
-          example: 7500AA
+          example: 6922KZ
         woonplaats:
           title: woonplaats naam
           type: string
           description: Een woonplaats is een gedeelte van het grondgebied van de gemeente
             met een naam.
-          example: Apeldoorn
+          example: Duiven
       description: 'Eigenschappen van het adres die kunnen worden hergebruikt in andere
         API''s waarin adresgegevens worden opgenomen. '
     AdresUitgebreid:
@@ -3069,23 +3136,23 @@ components:
           nummeraanduidingIdentificatie:
             type: string
             description: Fungeert ook als identificatie van het adres.
-            example: "1234200000000001"
+            example: "0226200000038923"
           openbareRuimteIdentificatie:
             type: string
-            example: "0518300000000001"
+            example: "0226300000136166"
           woonplaatsIdentificatie:
             type: string
-            example: "3560"
+            example: "2096"
           adresseerbaarObjectIdentificatie:
             type: string
-            example: "1234010000000001"
+            example: "0226010000038820"
           pandIdentificaties:
             type: array
             description: Identificatie(s) van het pand of de panden waar het verblijfsobject
               deel van is.
             items:
               type: string
-              example: "1234100000000001"
+              example: "0226100000008856"
           indicatieNevenadres:
             type: boolean
             description: Indicatie dat dit adres een nevenadres is van een adresseerbaar
@@ -3152,6 +3219,8 @@ components:
     AdresHalCollectie:
       type: object
       properties:
+        _links:
+          $ref: '#/components/schemas/HalPaginationLinks'
         _embedded:
           $ref: '#/components/schemas/AdresHalCollectie__embedded'
     Adres_links:
@@ -3187,7 +3256,7 @@ components:
         identificatie:
           type: string
           description: Dit is de identificatie van een ligplaats, standplaats of verblijfsobject.
-          example: "01230167890123456"
+          example: "0226010000038820"
         type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
         documentdatum:
@@ -3195,14 +3264,14 @@ components:
           description: De vaststellingsdatum van het brondocument dat de basis is
             voor opname, wijziging of een verwijdering van een object.
           format: date
-          example: 2019-08-14
+          example: 2019-11-22
         documentnummer:
           type: string
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
-          example: AV-2019-08-19-00
+          example: 19SZ2048
         gebruiksdoelen:
           type: array
           items:
@@ -3221,7 +3290,7 @@ components:
             deel van is.
           items:
             type: string
-            example: "1234100000000001"
+            example: "0226100000008856"
         nummeraanduidingIdentificaties:
           type: array
           description: Identificatie(s) van de hoofd- en nevenadressen van de standplaats,
@@ -3313,7 +3382,7 @@ components:
         _embedded:
           $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie__embedded'
         _links:
-          $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie__links'
+          $ref: '#/components/schemas/HalPaginationLinks'
     AdresseerbaarObjectStatus_enum:
       type: string
       enum:
@@ -3367,18 +3436,18 @@ components:
           description: De vaststellingsdatum van het brondocument dat de basis is
             voor opname, wijziging of een verwijdering van een object.
           format: date
-          example: 2019-08-14
+          example: 2010-02-09
         documentnummer:
           type: string
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
-          example: AV-2019-08-19-00
+          example: BAG-21
         woonplaatsIdentificatie:
           type: string
           description: Een openbare ruimte ligt in een woonplaats.
-          example: "3560"
+          example: "2096"
         mogelijkOnjuist:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
       description: Een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld
@@ -3426,11 +3495,11 @@ components:
           type: integer
           description: Nummer dat door de gemeente aan een adresseerbaar object is
             gegeven.
-          example: 12
+          example: 1
         huisletter:
           type: string
-          description: Toevoeging aan een huisnummer in de vorm van een letter of
-            een cijfer die door de gemeente aan een adresseerbaar object is gegeven.
+          description: Toevoeging aan een huisnummer in de vorm van een letter die
+            door de gemeente aan een adresseerbaar object is gegeven.
           example: A
         huisnummertoevoeging:
           type: string
@@ -3441,7 +3510,7 @@ components:
           type: string
           description: Door PostNL vastgestelde code die bij een bepaalde combinatie
             van een straatnaam en een huisnummer hoort.
-          example: 7500AA
+          example: 6922KZ
         status:
           $ref: '#/components/schemas/StatusNaamgeving_enum'
         geconstateerd:
@@ -3454,30 +3523,30 @@ components:
           description: De vaststellingsdatum van het brondocument dat de basis is
             voor opname, wijziging of een verwijdering van een object.
           format: date
-          example: 2019-08-14
+          example: 2019-11-25
         documentnummer:
           type: string
           description: Identificatie van het brondocument dat ten grondslag ligt aan
             de opname, mutatie of een verwijdering van gegevens.
-          example: AV-2019-08-19-00
+          example: Duiven 25112019
         woonplaatsIdentificatie:
           type: string
           description: Een nummeraanduiding ligt in een woonplaats.
-          example: "3560"
+          example: "2096"
         openbareRuimteIdentificatie:
           type: string
           description: Een nummeraanduiding ligt aan een openbare ruimte.
-          example: "0518300000000001"
+          example: "0226300000136166"
         mogelijkOnjuist:
           $ref: '#/components/schemas/NummeraanduidingMogelijkOnjuist'
-      description: Een postcode, huisnummer met mogelijk een huisletter en -toevoeging
+      description: Een postcode, huisnummer met mogelijk een huisletter en huisnummertoevoeging
         die hoort bij een verblijfsobject, een standplaats of een ligplaats.
     NummeraanduidingIdentificatiesArray:
       type: object
       properties:
         nummeraanduidingIdentificatie:
           type: string
-          example: "1234200000000001"
+          example: "0226200000038923"
         indicatieNevenadres:
           type: boolean
     NummeraanduidingMogelijkOnjuist:
@@ -3529,7 +3598,7 @@ components:
         naam:
           type: string
           description: De naam van de woonplaats.
-          example: Apeldoorn
+          example: Duiven
         status:
           $ref: '#/components/schemas/StatusWoonplaats_enum'
         geconstateerd:
@@ -3542,14 +3611,14 @@ components:
           description: De vaststellingsdatum van het brondocument dat de basis is
             voor opname, wijziging of een verwijdering van een object.
           format: date
-          example: 2019-08-14
+          example: 2009-02-09
         documentnummer:
           type: string
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
-          example: AV-2019-08-19-00
+          example: "09.0898"
         mogelijkOnjuist:
           $ref: '#/components/schemas/WoonplaatsMogelijkOnjuist'
       description: Een woonplaats is een gedeelte van het grondgebied van de gemeente
@@ -3611,7 +3680,7 @@ components:
             is wordt opgeleverd. Door de gemeente wordt een inschatting gemaakt van
             het bouwjaar, en aangepast als het pand wordt opgeleverd. Wijzigingen
             aan een pand na oplevering leiden niet tot wijziging van het bouwjaar.
-          example: 1972
+          example: 1991
         status:
           $ref: '#/components/schemas/StatusPand_enum'
         geconstateerd:
@@ -3624,19 +3693,19 @@ components:
           description: De vaststellingsdatum van het brondocument dat de basis is
             voor opname, wijziging of een verwijdering van een object.
           format: date
-          example: 2019-08-14
+          example: 2009-05-12
         documentnummer:
           type: string
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
             de MES-1 karakterset zijn toegstaan.
-          example: AV-2019-08-19-00
+          example: 09.BW.0273
         adresseerbaarObjectIdentificaties:
           type: array
           items:
             type: string
-            example: "1234010000000001"
+            example: "0226010000038820"
         nummeraanduidingIdentificaties:
           type: array
           description: Identificatie(s) van de hoofd- en nevenadressen van het pand.
@@ -3918,13 +3987,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AdresseerbaarObjectHal'
-    AdresseerbaarobjectHalCollectie__links:
-      type: object
-      properties:
-        adresseerbareObjecten:
-          $ref: '#/components/schemas/HalPaginationLinks'
-        self:
-          $ref: '#/components/schemas/HalLink'
     PandHalCollectie__embedded:
       type: object
       properties:
@@ -4001,8 +4063,8 @@ components:
         minItems: 2
         type: array
         example:
-        - 194602.722
-        - 464154.308
+        - 196733.51
+        - 439931.89
         items:
           type: number
     nummeraanduidingidentificatie-query:
@@ -4016,7 +4078,7 @@ components:
       schema:
         pattern: ^[0-9]{16}$
         type: string
-        example: "1234200000000001"
+        example: "0226200000038923"
     pandidentificatie-query:
       name: pandidentificatie
       in: query
@@ -4027,7 +4089,7 @@ components:
       schema:
         pattern: ^[0-9]{16}$
         type: string
-        example: "1234100000000001"
+        example: "0226100000008856"
     adresseerbaarobjectidentificatie-query:
       name: adresseerbaarobjectidentificatie
       in: query
@@ -4039,7 +4101,7 @@ components:
       schema:
         pattern: ^[0-9]{16}$
         type: string
-        example: "1234010000000001"
+        example: "0226010000038820"
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path
@@ -4051,7 +4113,7 @@ components:
       schema:
         pattern: ^[0-9]{16}$
         type: string
-        example: "1234200000000001"
+        example: "0226200000038923"
     adresseerbaarobjectidentificatie:
       name: adresseerbaarobjectidentificatie
       in: path
@@ -4063,7 +4125,7 @@ components:
       schema:
         pattern: ^[0-9]{16}$
         type: string
-        example: "1234010000000001"
+        example: "0226010000038820"
     pandidentificatie:
       name: pandidentificatie
       in: path
@@ -4074,7 +4136,7 @@ components:
       schema:
         pattern: ^[0-9]{16}$
         type: string
-        example: "1234100000000001"
+        example: "0226100000008856"
     woonplaatsidentificatie:
       name: woonplaatsidentificatie
       in: path
@@ -4088,7 +4150,7 @@ components:
         type: string
         description: 'Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123.
           Waarde: 0001-9999.'
-        example: "3560"
+        example: "2096"
     openbareruimteidentificatie:
       name: openbareruimteidentificatie
       in: path
@@ -4100,7 +4162,7 @@ components:
       schema:
         pattern: ^[0-9]{16}$
         type: string
-        example: "0518300000000001"
+        example: "0226300000136166"
   headers:
     api_version:
       schema:
@@ -4129,9 +4191,13 @@ components:
         description: Aantal resultaten per pagina.
         example: 20
     contentCrs:
-      description: CRS van de meegegeven geometrie.
+      description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
+        Nederlands coordinatenstelsel.
       schema:
         type: string
+        default: epsg:28992
+        enum:
+        - epsg:28992
   securitySchemes:
     apiKeyBAG:
       type: apiKey
