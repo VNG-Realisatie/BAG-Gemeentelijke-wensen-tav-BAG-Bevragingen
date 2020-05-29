@@ -9,7 +9,7 @@ servers:
 # API specificatie - algemeen
 info:
   title: Huidige bevragingen API
-  description: "Deze API levert actuele gegevens over adressen, adresseerbaar objecten en panden. Actueel betekent in deze API zonder eindstatus. De bron voor deze API is de basisregistratie adressen en gebouwen (BAG)."
+  description: "Deze API levert actuele gegevens over adressen, adresseerbaar objecten en panden. Actueel betekent in deze API `zonder eindstatus`. De bron voor deze API is de basisregistratie adressen en gebouwen (BAG)."
   version: "1.0.0"
   # De versie wordt 1.0 als de API naar productie gaat.
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
@@ -84,7 +84,7 @@ paths:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegAdresMetZoekResultaatIdentificatie
+      operationId: raadpleegAdressen
       tags:
         - Adres
       summary: "vindt adressen"
@@ -145,7 +145,7 @@ paths:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegAdres
+      operationId: raadpleegAdresMetNumId
       tags:
         - Adres
       summary: "levert een adres"
@@ -202,7 +202,7 @@ paths:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegAdresseerbaarobjectMetAdoId
+      operationId: raadpleegAdresseerbaarobject
       tags:
         - Adresseerbaar object
       summary: "levert een verblijfsobject, standplaats of ligplaats"
@@ -259,7 +259,7 @@ paths:
     get:
       security:
         - apiKeyBAG: []
-      operationId: raadpleegAdresseerbaarobject
+      operationId: raadpleegAdresseerbareobjecten
       tags:
         - Adresseerbaar object
       summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
@@ -535,7 +535,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/responses/default'
 
   /panden:
-
     get:
       security:
         - apiKeyBAG: []
@@ -706,7 +705,7 @@ components:
       schema:
         description: "Deze wordt gebruikt in de operation, bv. /woonplaatsen/0123. Waarde: 0001-9999."
         type: string
-        pattern: '[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}'
+        pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
         example: '2096'
 
     openbareruimteidentificatie:
