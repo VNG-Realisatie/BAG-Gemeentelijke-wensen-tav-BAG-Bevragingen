@@ -917,6 +917,9 @@ components:
           description: "Dit is de identificatie van een ligplaats, standplaats of verblijfsobject."
           type: string
           example: "0226010000038820"
+        domein:
+          type: "string"
+          description: "Het domein waartoe de identificatie behoort."
         type:
           $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
           title: adresseerbaarObjectType
@@ -1063,6 +1066,9 @@ components:
       properties:
         identificatie:
           type: string
+        domein:
+          type: "string"
+          description: "Het domein waartoe de identificatie behoort."
         naam:
           title: openbare ruimte naam
           description: "De naam die door de gemeente aan een openbare ruimte is gegeven."
@@ -1136,6 +1142,9 @@ components:
       properties:
         identificatie:
           type: string
+        domein:
+          type: "string"
+          description: "Het domein waartoe de identificatie behoort."
         huisnummer:
           description: "Nummer dat door de gemeente aan een adresseerbaar object is gegeven."
           type: integer
@@ -1235,6 +1244,9 @@ components:
       properties:
         identificatie:
           type: string
+        domein:
+          type: "string"
+          description: "Het domein waartoe de identificatie behoort."
         naam:
           description: "De naam van de woonplaats."
           type: string
@@ -1302,6 +1314,9 @@ components:
         identificatie:
           type: string
           description: "De unieke aanduiding van een pand. Elk pand waarvan gegevens zijn opgenomen in de BAG wordt uniek aangeduid door middel van een identificatiecode."
+        domein:
+          type: "string"
+          description: "Het domein waartoe de identificatie behoort."
         geometrie:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
           description: "De minimaal tweedimensionale geometrische representatie van het bovenzicht van de omtrekken van een pand."
