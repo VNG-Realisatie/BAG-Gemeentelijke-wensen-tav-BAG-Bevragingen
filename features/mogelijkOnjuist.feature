@@ -234,3 +234,47 @@ Functionaliteit: Mogelijk onjuist
                 ]
             }
         """
+
+    Scenario: niet leveren mogelijkOnjuist voor een property dat niet gevraagd is in fields
+      Gegeven in object Openbare Ruimte is gegeven "Ligt in gerelateerde woonplaats" in onderzoek
+      Als de afgeleide resource Adres wordt opgevraagd met fields=postcode,huisnummer
+      Dan bevat het antwoord property "postcode"
+      En bevat het antwoord property "huisnummer"
+      En bevat het antwoord geen property "woonplaats"
+      En bevat het antwoord geen property "woonplaatsIdentificatie"
+      En bevat het antwoord geen property "mogelijkOnjuist"
+
+      Als de afgeleide resource Adres wordt opgevraagd met fields=postcode,straat,huisnummer,woonplaats
+      Dan bevat het antwoord property "postcode"
+      En bevat het antwoord property "straat"
+      En bevat het antwoord property "huisnummer"
+      En bevat het antwoord property "woonplaats"
+      En bevat het antwoord geen property "woonplaatsIdentificatie"
+      En bevat het antwoord:
+        """
+            "mogelijkOnjuist": {
+                "woonplaats": true,
+                "toelichting": [
+                  "Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt."
+                ]
+            }
+        """
+      En bevat het antwoord geen property "mogelijkOnjuist.woonplaatsIdentificatie"
+
+    Scenario: leveren mogelijkOnjuist voor een property dat verplicht wordt meegeleverd bij een ander property dat gevraagd is met fields
+      Gegeven in object Nummeraanduiding is gegeven "Huisletter" in onderzoek
+      En heeft gegeven "Huisletter" geen waarde
+      Als de afgeleide resource Adres wordt opgevraagd met fields=postcode,huisnummer
+      Dan bevat het antwoord property "postcode"
+      En bevat het antwoord property "huisnummer"
+      En bevat het antwoord geen property "huisletter"
+      En bevat het antwoord:
+        """
+            "mogelijkOnjuist": {
+                "huisletter": true,
+                "toelichting": [
+                  "Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend."
+                ]
+            }
+        """
+      En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
