@@ -1010,11 +1010,6 @@ components:
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
           type: array
-        nummeraanduidingen:
-          description: "Link(s) naar de nummeraanduidingen due al hoofdadres en waar van toepassing de nevenadressen aan het adresseerbaarobject gerelateerd zijn."
-          items:
-            $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/master/api-specificatie/common.yaml#/components/schemas/HalLink'
-          type: array
         panden:
           description: "Link(s) naar het pand of de panden waar het adresseerbaar object deel van uitmaakt."
           items:
