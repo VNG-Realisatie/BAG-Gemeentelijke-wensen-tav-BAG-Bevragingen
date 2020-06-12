@@ -902,7 +902,7 @@ components:
     Adres_embedded:
       type: object
       properties:
-        openbareruimte:
+        openbareRuimte:
           $ref: '#/components/schemas/OpenbareRuimteHalBasis'
         nummeraanduiding:
           $ref: '#/components/schemas/NummeraanduidingHalBasis'
