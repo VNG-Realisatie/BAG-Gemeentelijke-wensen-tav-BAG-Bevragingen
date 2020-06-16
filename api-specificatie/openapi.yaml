@@ -542,7 +542,7 @@ paths:
       tags:
         - Pand
       summary: "vindt panden"
-      description: "Zoek actuele panden met de identificatie van een adresseerbaar of een locatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
+      description: "Zoek actuele panden met de identificatie van een adresseerbaar object of een locatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
