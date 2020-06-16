@@ -542,7 +542,7 @@ paths:
       tags:
         - Pand
       summary: "vindt panden"
-      description: "Zoek actuele panden met de identificatie van een nummeraanduiding of adresseerbaar object. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
+      description: "Zoek actuele panden met de identificatie van een adresseerbaar of een locatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
@@ -815,10 +815,10 @@ components:
             items:
               type: string
               example: '0226100000008856'
-          indicatieNevenadres:
+          isNevenadres:
             description: "Indicatie dat dit adres een nevenadres is van een adresseerbaar object. Het adres is een hoofdadres als deze indicatie niet wordt meegeleverd."
             type: boolean
-          indicatieGeconstateerd:
+          geconstateerd:
             description: "Indicatie dat dit adres in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het adres is mogelijk illegaal."
             type: boolean
           mogelijkOnjuist:
@@ -1186,7 +1186,7 @@ components:
         nummeraanduidingIdentificatie:
           type: string
           example: '0226200000038923'
-        indicatieNevenadres:
+        isNevenadres:
           type: boolean
     NummeraanduidingMogelijkOnjuist:
         type: object
