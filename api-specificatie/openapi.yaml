@@ -90,9 +90,9 @@ paths:
       summary: "vindt adressen"
       description: "Vind een actueel adres met de identificatie van het zoekresultaat uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature). Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/expand.feature)."
       parameters:
-        - $ref: '#/components/parameters/pandidentificatie-query'
-        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
-        - $ref: '#/components/parameters/zoekresultaatidentificatie'
+        - $ref: '#/components/parameters/pandIdentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
+        - $ref: '#/components/parameters/zoekresultaatIdentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -265,8 +265,8 @@ paths:
       summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
       description: "Zoek actuele adresseerbaar objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduiding identificatie of pand identificatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature). Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/expand.feature)."
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
-        - $ref: '#/components/parameters/pandidentificatie-query'
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
+        - $ref: '#/components/parameters/pandIdentificatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -544,7 +544,7 @@ paths:
       summary: "vindt panden"
       description: "Zoek actuele panden met de identificatie van een adresseerbaar object of een locatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
       parameters:
-        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -613,9 +613,9 @@ components:
       schema:
         type: string
 
-    zoekresultaatidentificatie:
+    zoekresultaatIdentificatie:
       description: "De identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie"
-      name: zoekresultaatidentificatie
+      name: zoekresultaatIdentificatie
       in: query
       required: false
       schema:
@@ -636,9 +636,9 @@ components:
         - 196733.510
         - 439931.890
 
-    nummeraanduidingidentificatie-query:
+    nummeraanduidingIdentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
-      name: nummeraanduidingidentificatie
+      name: nummeraanduidingIdentificatie
       in: query
       required: false
       schema:
@@ -646,9 +646,9 @@ components:
         pattern: '^[0-9]{16}$'
         example: '0226200000038923'
 
-    pandidentificatie-query:
+    pandIdentificatie-query:
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
-      name: pandidentificatie
+      name: pandIdentificatie
       in: query
       required: false
       schema:
@@ -656,9 +656,9 @@ components:
         pattern: '^[0-9]{16}$'
         example: '0226100000008856'
 
-    adresseerbaarobjectidentificatie-query:
+    adresseerbaarObjectIdentificatie-query:
       description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
-      name: adresseerbaarobjectidentificatie
+      name: adresseerbaarObjectIdentificatie
       in: query
       required: false
       schema:
