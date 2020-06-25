@@ -437,6 +437,7 @@ paths:
       description: "Zoek actuele panden met de identificatie van een nummeraanduiding of adresseerbaar object. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
+        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -626,7 +627,7 @@ components:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
       type: object
-      description: "Resulaten als lijst"
+      description: "Resultaten als lijst"
       properties:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinks'
