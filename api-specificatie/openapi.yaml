@@ -61,8 +61,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401'
         '403':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403'
-        '404':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404'
         '406':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406'
         '500':
@@ -80,9 +78,9 @@ paths:
       summary: "vindt adressen"
       description: "Vind een actueel adres met de identificatie van het zoekresultaat uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature). Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/expand.feature)."
       parameters:
-        - $ref: '#/components/parameters/pandidentificatie-query'
-        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
-        - $ref: '#/components/parameters/zoekresultaatidentificatie'
+        - $ref: '#/components/parameters/pandIdentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
+        - $ref: '#/components/parameters/zoekresultaatIdentificatie'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/page'
@@ -107,8 +105,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401'
         '403':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403'
-        '404':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404'
         '406':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406'
         '500':
@@ -213,8 +209,8 @@ paths:
       summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
       description: "Zoek actuele adresseerbaar objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduiding identificatie of pand identificatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature). Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/expand.feature)."
       parameters:
-        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
-        - $ref: '#/components/parameters/pandidentificatie-query'
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
+        - $ref: '#/components/parameters/pandIdentificatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -240,8 +236,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401'
         '403':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403'
-        '404':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404'
         '406':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406'
         '412':
@@ -426,10 +420,10 @@ paths:
       tags:
         - Pand
       summary: "vindt panden"
-      description: "Zoek actuele panden met de identificatie van een nummeraanduiding of adresseerbaar object. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
+      description: "Zoek actuele panden met de identificatie van een adresseerbaar object, nummeraanduiding of een locatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)."
       parameters:
-        - $ref: '#/components/parameters/adresseerbaarobjectidentificatie-query'
-        - $ref: '#/components/parameters/nummeraanduidingidentificatie-query'
+        - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -454,8 +448,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/401'
         '403':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/403'
-        '404':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/404'
         '406':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.0.0/api-specificatie/common.yaml#/components/responses/406'
         '412':
@@ -488,9 +480,9 @@ components:
       schema:
         type: string
 
-    zoekresultaatidentificatie:
+    zoekresultaatIdentificatie:
       description: "De identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie"
-      name: zoekresultaatidentificatie
+      name: zoekresultaatIdentificatie
       in: query
       required: false
       schema:
@@ -505,15 +497,16 @@ components:
       schema:
         type: array
         minItems: 2
+        maxItems: 2
         items:
           type: number
         example:
         - 196733.510
         - 439931.890
 
-    nummeraanduidingidentificatie-query:
+    nummeraanduidingIdentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
-      name: nummeraanduidingidentificatie
+      name: nummeraanduidingIdentificatie
       in: query
       required: false
       schema:
@@ -521,9 +514,9 @@ components:
         pattern: '^[0-9]{16}$'
         example: '0226200000038923'
 
-    pandidentificatie-query:
+    pandIdentificatie-query:
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
-      name: pandidentificatie
+      name: pandIdentificatie
       in: query
       required: false
       schema:
@@ -531,9 +524,9 @@ components:
         pattern: '^[0-9]{16}$'
         example: '0226100000008856'
 
-    adresseerbaarobjectidentificatie-query:
+    adresseerbaarObjectIdentificatie-query:
       description: "De identificatie van een adresserbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
-      name: adresseerbaarobjectidentificatie
+      name: adresseerbaarObjectIdentificatie
       in: query
       required: false
       schema:
@@ -690,10 +683,10 @@ components:
             items:
               type: string
               example: '0226100000008856'
-          indicatieNevenadres:
+          isNevenadres:
             description: "Indicatie dat dit adres een nevenadres is van een adresseerbaar object. Het adres is een hoofdadres als deze indicatie niet wordt meegeleverd."
             type: boolean
-          indicatieGeconstateerd:
+          geconstateerd:
             description: "Indicatie dat dit adres in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het adres is mogelijk illegaal."
             type: boolean
           mogelijkOnjuist:
@@ -1061,7 +1054,7 @@ components:
         nummeraanduidingIdentificatie:
           type: string
           example: '0226200000038923'
-        indicatieNevenadres:
+        isNevenadres:
           type: boolean
     NummeraanduidingMogelijkOnjuist:
         type: object
