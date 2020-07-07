@@ -29,12 +29,12 @@ Voor de verschillende resources wordt de uri samengesteld met de identificatie (
 De identificatie kan voorloopnullen bevatten, dus het is geen integer.
 
 #### Zoeken van een adres
-Een adres kan gezocht worden met parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.  
+Een adres kan gezocht worden met endpoint /adressen/zoek en parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.  
 Deze zoekfunctie, via endpoint /adressen/zoek levert voor elk gevonden adres een combinatie van een zoekresultaat identificatie en een omschrijving, plus een link voor het ophalen van de volledige adresgegevens.
 
 Deze zoekfunctie kan soms veel zoekresultaten opleveren. Daarom wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature) toegepast.
 
-Op basis van de zoekresultaten kan een adres worden opgehaald met endpoint /adressen?zoekresultaatIdentificatie={zoekresultaatIdentificatie}, waarbij {zoekresultaatIdentificatie} moet worden vervangen een waarde voor identificatie in de zoekresultaten van /adressen/zoek.
+Op basis van de zoekresultaten kan een adres worden opgehaald met endpoint /adressen?zoekresultaatIdentificatie={zoekresultaatIdentificatie}, waarbij {zoekresultaatIdentificatie} vervangen moet worden door een waarde voor identificatie in de zoekresultaten van /adressen/zoek.
 
 Bijvoorbeeld zoeken op "/adressen/zoek?zoek=nootdorp 15c dorpsstraat" levert:
 ```
