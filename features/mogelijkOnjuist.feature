@@ -180,7 +180,7 @@ Functionaliteit: Mogelijk onjuist
       Dan bevat het antwoord property mogelijkOnjuist.huisnummer met de waarde true
       En bevat het antwoord property mogelijkOnjuist.huisletter met de waarde true
       En bevat het antwoord geen property mogelijkOnjuist.postcode
-      En bevat het antwoord property postcode met een waarde
+      En bevat het antwoord geen property postcode
       En bevat het antwoord property huisnummer met een waarde
       En bevat het antwoord geen property huisletter
 
