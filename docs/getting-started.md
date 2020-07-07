@@ -25,11 +25,11 @@ De API kent de volgende resources:
 - woonplaatsen
 - panden
 
-Voor de verschillende resources wordt de uri samengesteld met de identificatie (lokaal id) van het onderliggende BAG-object. Dit is een 16 cijferige, of in geval van woonplaats 4 cijferige identificatie. Voor adressen wordt de nummeraanduiding identificatie gebruikt in de uri.
+Voor de verschillende resources wordt de uri samengesteld met de identificatie (lokaal id) van het onderliggende BAG-object. Dit is een 16 cijferige, of in geval van woonplaats 4 cijferige identificatie. Voor adressen wordt de nummeraanduiding identificatie gebruikt in de uri.  
 De identificatie kan voorloopnullen bevatten, dus het is geen integer.
 
 #### Zoeken van een adres
-Een adres kan gezocht worden met parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.
+Een adres kan gezocht worden met parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.  
 Deze zoekfunctie, via endpoint /adressen/zoek levert voor elk gevonden adres een combinatie van een zoekresultaat identificatie en een omschrijving, plus een link voor het ophalen van de volledige adresgegevens.
 
 Deze zoekfunctie kan soms veel zoekresultaten opleveren. Daarom wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/paginering.feature) toegepast.
@@ -86,6 +86,7 @@ Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opg
 Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de werking van de API kan worden getest.
 
 | Resource              | Testsituatie                                                                     | uri                                     |
+| --------------------- | -------------------------------------------------------------------------------- | --------------------------------------- |
 | adressen              | Adres met diakriet in straatnaam, huisnummer, huisletter en huisnummertoevoeging | /adressen/0484200002040489              |
 | adressen              | Lange straatnaam                                                                 | /adressen/0417200000000354              |
 | adressen              | Nevenadres                                                                       | /adressen/0014200022197986              |
