@@ -1,5 +1,8 @@
 # Haal Centraal BAG bevragen
 
+## Getting started
+Wil je een aansluiting ontwikkelen? Dan is de [getting started](./docs/getting-started.md) een goed begin.
+
 ## Planning
 https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
 
