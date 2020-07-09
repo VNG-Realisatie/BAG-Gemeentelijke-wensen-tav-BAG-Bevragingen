@@ -103,17 +103,17 @@ Functionaliteit: Mogelijk onjuist
     Voorbeelden:
       | Objecttype       | Status                                      | Resource             | mogelijkOnjuist property | toelichting |
       | Pand             | Bouwvergunning verleend                     | Pand                 | status                   | Mogelijk is de bouw al gestart, is de bouw al gereed of is het pand niet gerealiseerd. |
-      | Pand             | Niet gerealiseerd pand                      | Pand                 | status                   | Mogelijk is het pand toch gerealiseerd. |
       | Pand             | Bouw gestart                                | Pand                 | status                   | Mogelijk is de bouw al gereed of is het pand niet gerealiseerd. |
       | Pand             | Pand in gebruik (niet ingemeten)            | Pand                 | status                   | Mogelijk is de geometrie al ingemeten, of is de bouw ten onrechte gereedgemeld. |
       | Pand             | Pand in gebruik                             | Pand                 | status                   | Mogelijk is het pand nog niet in gebruik, is het pand al gesloopt, is er een vergunning tot verbouw verleend of is er een sloopmelding gedaan. |
       | Pand             | Sloopvergunning verleend                    | Pand                 | status                   | Mogelijk wordt het pand toch niet gesloopt of is het pand al gesloopt. |
       | Pand             | Verbouwing pand                             | Pand                 | status                   | Mogelijk is de verbouwing al afgerond of wordt de verbouwing niet uitgevoerd. |
+      | Pand             | Pand buiten gebruik                         | Pand                 | status                   | Mogelijk is het pand weer in gebruik of is het pand gesloopt. |
       | Verblijfsobject  | Verblijfsobject gevormd                     | Adresseerbaar object | status                   | Mogelijk is de bouw al gereed of is het verblijfsobject niet gerealiseerd. |
-      | Verblijfsobject  | Niet gerealiseerd verblijfsobject           | Adresseerbaar object | status                   | Mogelijk is het verblijfsobject toch gerealiseerd. |
       | Verblijfsobject  | Verblijfsobject in gebruik (niet ingemeten) | Adresseerbaar object | status                   | Mogelijk is de geometrie al ingemeten, of is de bouw ten onrechte gereedgemeld. |
       | Verblijfsobject  | Verblijfsobject in gebruik                  | Adresseerbaar object | status                   | Mogelijk is het verblijfsobject nog niet in gebruik, is het verblijfsobject al ingetrokken of is er een vergunning tot verbouw verleend. |
       | Verblijfsobject  | Verbouwing verblijfsobject                  | Adresseerbaar object | status                   | Mogelijk is de verbouwing al afgerond of wordt de verbouwing niet uitgevoerd. |
+      | Verblijfsobject  | Verblijfsobject buiten gebruik              | Adresseerbaar object | status                   | Mogelijk is het verblijfsobject weer in gebruik of is het verblijfsobject ingetrokken. |
 
   Scenario: wanneer meerdere gegevens in onderzoek zijn, worden de toelichtingen van beide onderzoeken toegevoegd.
     Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
