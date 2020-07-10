@@ -4,12 +4,13 @@ De 'BAG Bevragen' API levert actuele gegevens uit de Basisregistratie Adressen e
 De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 
 Om aan te sluiten kun je de volgende stappen doorlopen:
-1. [Meld je aan bij het kadaster om toegang te krijgen](#Aanmelden-om-aan-te-sluiten)
+1. [Meld je aan bij het kadaster om toegang te krijgen tot de testomgeving](#Aanmelden-om-aan-te-sluiten)
 2. [Bekijk de functionaliteit en specificaties](#Functionaliteit)
 3. [Probeer en test de API](#Probeer-en-test-de-API)
+4. [Sluit aan op productie](#Sluit-aan-op-productie)
 
 ## Aanmelden om aan te sluiten
-Vraag [een API-key aan](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) om toegang te krijgen tot de BAG API.
+Vraag [een API-key aan](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) om toegang te krijgen tot de testomgeving van de BAG API.
 
 ## Functionaliteit
 U kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/api-specificatie/openapi.yaml).
@@ -25,7 +26,7 @@ De API kent de volgende resources:
 - woonplaatsen
 - panden
 
-Voor de verschillende resources wordt de uri samengesteld met de identificatie (lokaal id) van het onderliggende BAG-object. Dit is een 16 cijferige, of in geval van woonplaats 4 cijferige identificatie. Voor adressen wordt de nummeraanduiding identificatie gebruikt in de uri.  
+Voor de verschillende resources wordt de uri samengesteld met de identificatie van het onderliggende BAG-object. Dit is een 16 cijferige, of in geval van woonplaats 4 cijferige identificatie. Voor adressen wordt de nummeraanduiding identificatie gebruikt in de uri.  
 De identificatie kan voorloopnullen bevatten, dus het is geen integer.
 
 #### Zoeken van een adres
@@ -64,23 +65,23 @@ De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt bij het r
 
 ### Algemene functionaliteit
 Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande aanvragen:
-- Gebruik van de **fields** parameter om de response te filteren. Voor werking, zie feature [fields](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/fields.feature)
-- Gebruik van de **expand** parameter om subresources te ontsluiten. Voor werking, zie feature [expand](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/expand.feature)
+- Gebruik van de **fields** parameter om de response te filteren. Voor werking, zie feature [fields](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature)
+- Gebruik van de **expand** parameter om subresources te ontsluiten. Voor werking, zie feature [expand](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature)
 - Gebruik van paginering om het aantal zoekresultaten per zoekvraag te beperken. Met de **page** parameter kan een volgende pagina worden gevraagd. Met de **pageSize** parameter kan gekozen worden voor meer of minder zoekresultaten per pagina (standaard is 20, maximum is 100). Voor werking, zie feature [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature)
 - Soms kan er een onderzoek lopen of een gegeven wel correct is. Er zijn dan twijfels over de juistheid van de geregistreerde waarde. De API levert deze waarde wel, maar neemt die velden dan op in **mogelijkOnjuist** met de waarde True.
 - Sommige resources bevatten geometrie. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992). Bij een aanvraag die geometrie teruglevert moet de request header **Accept-Crs** worden meegestuurd.
 - Bij het zoeken van een pand op **locatie** moet de header **Content-Crs** worden meegestuurd. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992).
-- [HAL links](https://tools.ietf.org/html/draft-kelly-json-hal-08), die soms [templated](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.0.0/features/uri-templating.feature) worden geleverd.
+- [HAL links](https://tools.ietf.org/html/draft-kelly-json-hal-08), die soms [templated](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/uri-templating.feature) worden geleverd.
 
 ## Probeer en test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/).
 De [openapi.yaml](../api-specificatie/resolved/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
 
-### URL
-De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
-
 ### API key
-Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key". Wanneer je je aanmeldt voor het gebruiken van de API ontvang je de API key.
+Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key". Wanneer je je [aanmeldt](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) voor het gebruiken van de API ontvang je de API key.
+
+### URL
+De API is te benaderen via de volgende url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1.
 
 ### Testgevallen
 Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de werking van de API kan worden getest.
@@ -103,3 +104,11 @@ Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de
 | panden                | Zonder adres                                                                     | /panden/0503100000034877                |
 
 Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html) gebruiken om meer testgevallen te zoeken.
+
+## Sluit aan op productie
+
+### API key
+Vraag [een API-key aan](https://formulieren.kadaster.nl/aanvragen_bag_api_key_productieomgeving) om toegang te krijgen tot de testomgeving van de BAG API. Voor de productieomgeving wordt dus een andere API-key gebruikt dan in de testomgeving.
+
+### URL
+De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
