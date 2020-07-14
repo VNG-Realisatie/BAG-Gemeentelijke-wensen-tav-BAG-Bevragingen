@@ -131,7 +131,7 @@ Functionaliteit: Mogelijk onjuist
       """
 
     Scenario: mogelijkOnjuist wordt ook geleverd wanneer het gegeven geen waarde heeft
-      Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
+      Gegeven in object nummeraanduiding is gegeven huisletter in onderzoek
       En in object nummeraanduiding heeft huisletter geen waarde of is leeg
       Als de afgeleide Adres resource wordt opgevraagd
       Dan bevat het antwoord geen property huisletter
@@ -277,3 +277,38 @@ Functionaliteit: Mogelijk onjuist
             }
         """
       En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
+
+    Scenario: leveren mogelijkOnjuist bij een relatie die mogelijk onjuist is en vragen expand van gerelateerde resource
+      Gegeven bij nummeraanduiding 0018200000152130 is “ligt aan” (openbare ruimte) in onderzoek
+      En voor gerelateerde openbare ruimte 0018300000000271 is niets in onderzoek
+      Als het request wordt gedaan /adressen/0018200000152130?fields=huisnummer,woonplaats&expand=openbareRuimte
+      Dan bevat het antwoord:
+        """
+            "mogelijkOnjuist": {
+                "openbareRuimteIdentificatie": true,
+                "toelichting": [ "Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt." ]
+            }
+        """
+      En bevat het antwoord geen property _embedded.openbareRuimte.mogelijkOnjuist
+      En bevat het antwoord geen property openbareRuimteIdentificatie
+      En bevat het antwoord property "huisnummer"
+      En bevat het antwoord property "woonplaats"
+
+    Abstract Scenario: leveren mogelijkOnjuist bij een relatie die mogelijk onjuist is die niet wordt gevraagd met fields en gerelateerde resource wordt gevraagd met expand
+      Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
+      Als ik de resource <Resource> opvraag met identificatie <Identificatie> met parameters fields=<Fields> en expand=<Expand>
+      Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
+      En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde <Toelichting>
+
+      Voorbeelden:
+      | Objecttype       | Attribuut in de BAG                      | Resource              | identificatie    | Fields              | Expand         | Property                       | Toelichting |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | 0935200000002553 | huisnummer,postcode | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | 0014200010793696 | huisnummer,postcode | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | 0018200000152130 | huisnummer,postcode | openbareRuimte | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
+      | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | 0005018888889105 | documentdatum       | panden         | pandIdentificaties             | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
+      | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | 0014010011038456 | documentdatum       | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | 0301030000017627 | documentdatum       | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Ligplaats        | Heeft als hoofdadres                     | adresseerbareobjecten | 0301020000024208 | documentdatum       | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | 0015010001006109 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | 0301030000017617 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | 0301020000024211 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
