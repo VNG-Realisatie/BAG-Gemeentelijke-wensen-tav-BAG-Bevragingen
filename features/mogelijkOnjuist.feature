@@ -18,7 +18,6 @@ Functionaliteit: Mogelijk onjuist
               "woonplaatsIdentificatie": true,
               "nummeraanduidingIdentificatie": true,
               "openbareRuimteIdentificatie": true,
-              "adresseerbaarObjectIdentificatie": true,
               "toelichting": [ "Adres bestaat mogelijk niet (meer)." ]
           }
       """
