@@ -7,7 +7,7 @@ Wil je een aansluiting ontwikkelen? Dan is de [getting started](./docs/getting-s
 https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
 
 ## APIlab-specificatie 26-03-2020
-* De openapi.yaml voor het apilab op 26-03-2020 is [hier](./specificatie/resolved/openapi.yaml) te vinden. en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/resolved/openapi.yaml)
+* De openapi.yaml voor het apilab op 26-03-2020 is [hier](./specificatie/genereervariant/openapi.yaml) te vinden. en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/genereervariant/openapi.yaml)
 
 ## Introductie
 Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten.
