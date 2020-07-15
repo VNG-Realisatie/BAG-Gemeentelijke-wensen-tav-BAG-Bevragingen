@@ -277,11 +277,12 @@ Functionaliteit: Mogelijk onjuist
             }
         """
       En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
-      
+
     Abstract Scenario: leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk onjuiste identificatie bevat
       Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
       Als ik de resource <Resource> opvraag met fields=_links.<Fields>
       Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
+      En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde
 
       Voorbeelden:
       | Objecttype       | <Attribuut in de BAG>                    | <Resource>            | Fields                      | Property                       |
