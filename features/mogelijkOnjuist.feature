@@ -175,11 +175,13 @@ Functionaliteit: Mogelijk onjuist
       Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
       En in object nummeraanduiding is gegeven huisletter in onderzoek
       En in object nummeraanduiding is gegeven postcode niet in onderzoek
+      En hebben gegevens postcode en huisnummer een waarde
+      En hebben gegevens huisletter en huisnummertoevoeging geen waarde
       Als de afgeleide Adres resource wordt opgevraagd met fields=huisnummer,mogelijkOnjuist.huisletter,mogelijkOnjuist.postcode
       Dan bevat het antwoord property mogelijkOnjuist.huisnummer met de waarde true
       En bevat het antwoord property mogelijkOnjuist.huisletter met de waarde true
       En bevat het antwoord geen property mogelijkOnjuist.postcode
-      En bevat het antwoord property postcode met een waarde
+      En bevat het antwoord geen property postcode
       En bevat het antwoord property huisnummer met een waarde
       En bevat het antwoord geen property huisletter
 
