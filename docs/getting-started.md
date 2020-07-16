@@ -13,9 +13,9 @@ Om aan te sluiten kun je de volgende stappen doorlopen:
 Vraag [een API-key aan](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) om toegang te krijgen tot de testomgeving van de BAG API.
 
 ## Functionaliteit
-U kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/api-specificatie/openapi.yaml).
+U kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/openapi.yaml).
 
-De (resolved) OAS3 is hier te downloaden: [openapi.yaml](../api-specificatie/resolved/openapi.yaml).
+De (resolved) OAS3 is hier te downloaden: [openapi.yaml](../specificatie/genereervariant/openapi.yaml).
 
 ### Beschikbare resources
 De API kent de volgende resources:
@@ -75,7 +75,7 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 
 ## Probeer en test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/).
-De [openapi.yaml](../api-specificatie/resolved/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
+De [openapi.yaml](../specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
 
 ### API key
 Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key". Wanneer je je [aanmeldt](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) voor het gebruiken van de API ontvang je de API key.
