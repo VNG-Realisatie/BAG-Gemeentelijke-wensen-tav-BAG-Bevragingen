@@ -78,7 +78,7 @@ De werking van de API is het makkelijkst te testen met behulp van [Postman](http
 De [openapi.yaml](../specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
 
 ### API key
-Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key". Wanneer je je [aanmeldt](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) voor het gebruiken van de API ontvang je de API key.
+#Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key". Wanneer je je [aanmeldt](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) voor het gebruiken van de API ontvang je de API key.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1.
