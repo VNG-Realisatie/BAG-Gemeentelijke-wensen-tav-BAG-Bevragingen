@@ -1,4 +1,4 @@
-# Haal Centraal BAG bevragen
+# Haal Centraal BAG Huidige Bevragingen
 
 ## Getting started
 Wil je een aansluiting ontwikkelen? Dan is de [getting started](./docs/getting-started.md) een goed begin.
