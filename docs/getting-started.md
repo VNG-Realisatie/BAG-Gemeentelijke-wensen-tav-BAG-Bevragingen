@@ -10,7 +10,7 @@ Om aan te sluiten kun je de volgende stappen doorlopen:
 4. [Sluit aan op productie](#Sluit-aan-op-productie)
 
 ## Aanmelden om aan te sluiten
-Vraag [een API-key aan](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) om toegang te krijgen tot de testomgeving van de BAG API.
+Neem contact op met de [BAG beheerder](https://zakelijk.kadaster.nl/bag) om een API key aan te vragen voor de testomgeving van de BAG API.
 
 ## Functionaliteit
 U kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/openapi.yaml).
@@ -78,7 +78,7 @@ De werking van de API is het makkelijkst te testen met behulp van [Postman](http
 De [openapi.yaml](../specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
 
 ### API key
-#Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key". Wanneer je je [aanmeldt](https://formulieren.kadaster.nl/aanvragen_bag_api_key_testomgeving) voor het gebruiken van de API ontvang je de API key.
+Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key". Om een API key aan te vragen, kun je contact opnemen met de [BAG beheerder](https://zakelijk.kadaster.nl/bag).
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1.
@@ -108,7 +108,7 @@ Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/i
 ## Sluit aan op productie
 
 ### API key
-Vraag [een API-key aan](https://formulieren.kadaster.nl/aanvragen_bag_api_key_productieomgeving) om toegang te krijgen tot de testomgeving van de BAG API. Voor de productieomgeving wordt dus een andere API-key gebruikt dan in de testomgeving.
+Neem contact op met de [BAG beheerder](https://zakelijk.kadaster.nl/bag) om een API key aan te vragen voor de productie omgeving van de BAG API. Voor de productieomgeving wordt dus een andere API-key gebruikt dan in de testomgeving.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
