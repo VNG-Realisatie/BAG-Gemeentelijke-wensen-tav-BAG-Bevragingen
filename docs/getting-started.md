@@ -1,5 +1,5 @@
-# Getting Started - BAG Bevragen API
-De 'BAG Bevragen' API levert actuele gegevens uit de Basisregistratie Adressen en Gebouwen. Dit betekent dat geen historische gegevens kunnen worden gevraagd en dat gegevens met een eindstatus niet worden geleverd.
+# Getting Started - BAG Huidige Bevragingen API
+De 'BAG Huidige Bevragingen' API levert actuele gegevens zonder eind status uit de Basisregistratie Adressen en Gebouwen. Dit betekent dat geen historische gegevens kunnen worden gevraagd en dat gegevens met een eindstatus niet worden geleverd.
 
 De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 
