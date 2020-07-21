@@ -27,8 +27,8 @@ Haal Centraal wil voor iedere activiteit op een lokale kopie een Haal Centraal a
 ## Context
 Haal Centraal is een G5 initiatief (Amsterdam, Rotterdam, Den Haag, Utrecht en Eindhoven). Het concept is getoetst in de BRK pilot van de gemeente Den Haag met het Kadaster op basis van de RSGB bevragingen standaard (voorloper BRP- en BRK-bevragen). De businesscase is gebaseerd op ervaringscijfers van de gemeente Den Haag en de softwareontwikkeling gedurende de pilot.
 
-## BAG bevragen
-Deze repository bevat alle info over de ontwikkeling van de Haal Centraal BAG bevragen API.
+## BAG Huidige Bevragingen
+Deze repository bevat alle info over de ontwikkeling van de Haal Centraal BAG Huidige Bevragingen API.
 
 ## Technische specificaties
 
