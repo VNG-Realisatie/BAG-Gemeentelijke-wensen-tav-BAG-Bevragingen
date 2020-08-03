@@ -279,3 +279,29 @@ Functionaliteit: Mogelijk onjuist
             }
         """
       En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
+
+    Abstract Scenario: leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk onjuiste identificatie bevat
+      Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
+      Als ik de resource <Resource> opvraag met fields=_links.<Fields>
+      Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
+      En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde
+
+      Voorbeelden:
+      | Objecttype       | <Attribuut in de BAG>                    | <Resource>            | Fields                      | Property                       |
+      | Openbare ruimte  | Status openbare ruimte                   | adressen              | openbareRuimte              | openbareRuimteIdentificatie    |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | openbareRuimte              | openbareRuimteIdentificatie    |
+      | Nummeraanduiding | Status nummeraanduiding                  | adressen              | nummeraanduiding            | nummeraanduidingIdentificatie  |
+      | Woonplaats       | Status woonplaats                        | adressen              | woonplaats                  | woonplaatsIdentificatie        |
+      | Woonplaats       | Geometrie                                | adressen              | woonplaats                  | woonplaatsIdentificatie        |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | openbareruimten       | woonplaats                  | woonplaatsIdentificatie        |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | nummeraanduidingen    | woonplaats                  | woonplaatsIdentificatie        |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | nummeraanduidingen    | openbareRuimte              | openbareRuimteIdentificatie    |
+      | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | panden                      | pandIdentificaties             |
+      | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
+      | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
+      | Ligplaats        | Heeft als hoofdadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
+      | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
+      | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
+      | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
