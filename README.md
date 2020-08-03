@@ -1,13 +1,10 @@
-# Haal Centraal BAG bevragen
+# Haal Centraal BAG Huidige Bevragingen
 
 ## Getting started
 Wil je een aansluiting ontwikkelen? Dan is de [getting started](./docs/getting-started.md) een goed begin.
 
 ## Planning
 https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
-
-## APIlab-specificatie 26-03-2020
-* De openapi.yaml voor het apilab op 26-03-2020 is [hier](./api-specificatie/resolved/openapi.yaml) te vinden. en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/api-specificatie/resolved/openapi.yaml)
 
 ## Introductie
 Doel van het programma Haal Centraal is om de verstrekking van basisgegevens aan binnengemeentelijke afnemers te outsourcen naar Landelijke Registraties (RvIG, Kadaster, KVK). Dit moet leiden tot een forse reductie van lokale kopieën bij gemeenten.
@@ -30,12 +27,12 @@ Haal Centraal wil voor iedere activiteit op een lokale kopie een Haal Centraal a
 ## Context
 Haal Centraal is een G5 initiatief (Amsterdam, Rotterdam, Den Haag, Utrecht en Eindhoven). Het concept is getoetst in de BRK pilot van de gemeente Den Haag met het Kadaster op basis van de RSGB bevragingen standaard (voorloper BRP- en BRK-bevragen). De businesscase is gebaseerd op ervaringscijfers van de gemeente Den Haag en de softwareontwikkeling gedurende de pilot.
 
-## BAG bevragen
-Deze repository bevat alle info over de ontwikkeling van de Haal Centraal BAG bevragen API.
+## BAG Huidige Bevragingen
+Deze repository bevat alle info over de ontwikkeling van de Haal Centraal BAG Huidige Bevragingen API.
 
 ## Technische specificaties
 
-* [Technische specificaties van zoeken en ophalen van een ADRES met gerelateerde BAG-objecten](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/tree/master/api-specificatie/) (Open API Specificaties en JSON schema) en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/api-specificatie/openapi.yaml)
+* [Technische specificaties van zoeken en ophalen van een ADRES met gerelateerde BAG-objecten](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/tree/master/specificatie/) (Open API Specificaties en JSON schema) en in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/openapi.yaml)
 
 ## Licentie
 Copyright &copy; VNG Realisatie 2018
