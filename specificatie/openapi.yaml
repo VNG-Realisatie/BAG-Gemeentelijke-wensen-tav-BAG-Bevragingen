@@ -492,7 +492,7 @@ components:
         type: string
 
     zoekresultaatIdentificatie:
-      description: "De identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie verkregen bij een zoek-operatie"
+      description: "De identificatie van een zoekresultaat van het endpoint get /adressen/zoek"
       name: zoekresultaatIdentificatie
       in: query
       required: false
@@ -705,7 +705,7 @@ components:
             description: "Bij het controleren of een property mogelijkOnjuist is kan het zijn dat er meerdere indicaties voor een property opgenomen zijn. In dat geval zijn er meerdere indicaties waarvan de naam begint met de property-naam"
     AdresMogelijkOnjuist:
       type: object
-      description: "Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven."
+      description: "Wanneer "true" is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
       properties:
         korteNaam:
           type: boolean
@@ -851,7 +851,7 @@ components:
             $ref: '#/components/schemas/AdresseerbaarObject_links'
     AdresseerbaarObjectMogelijkOnjuist:
       type: object
-      description: "Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven."
+      description: "Wanneer "true" is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
       properties:
         gebruiksdoelen:
           type: boolean
@@ -977,7 +977,7 @@ components:
           $ref: '#/components/schemas/OpenbareRuimteMogelijkOnjuist'
     OpenbareRuimteMogelijkOnjuist:
         type: object
-        description: "De waarde is mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht (zie toelichting)."
+        description: "Wanneer "true" is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
         properties:
           naam:
             type: boolean
@@ -1069,7 +1069,7 @@ components:
           type: boolean
     NummeraanduidingMogelijkOnjuist:
         type: object
-        description: "De waarde is mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht (zie toelichting)."
+        description: "Wanneer "true" is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
         properties:
           huisnummer:
             type: boolean
@@ -1144,7 +1144,7 @@ components:
           $ref: "#/components/schemas/WoonplaatsMogelijkOnjuist"
     WoonplaatsMogelijkOnjuist:
       type: object
-      description: "Wanneer hier een property is opgenomen met de waarde true, dan is de waarde van het gelijknamige property in de resource mogelijk onjuist. De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende gegeven. Wanneer property geometrie is opgenomen met de waarde true, dan is de embedded geometrie mogelijk onjuist."
+      description: "Wanneer "true" is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
       properties:
         naam:
           type: boolean
@@ -1227,7 +1227,7 @@ components:
           $ref: '#/components/schemas/PandMogelijkOnjuist'
     PandMogelijkOnjuist:
       type: object
-      description: "De juistheid van dit gegeven wordt op dit moment onderzocht (zie toelichting)."
+      description: "Wanneer "true" is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
       properties:
         geometrie:
           type: boolean
