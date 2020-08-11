@@ -41,7 +41,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/pageSize'
       responses:
         '200':
-          description: "Zoek adres geslaagd"
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/headers/api_version'
@@ -85,7 +85,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/pageSize'
       responses:
         '200':
-          description: "Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd"
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/headers/api_version'
@@ -125,7 +125,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/fields'
       responses:
         '200':
-          description: "raadpleegAdresMetNumId geslaagd"
+          description: "Geslaagd"
           headers:
             api-version:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/headers/api_version'
