@@ -4,7 +4,8 @@ We doen ons uiterste best om de API evolvable door te ontwikkelen en geen breaki
 
 ## Getting started
 Wil je een aansluiting ontwikkelen? Dan is de [getting started](./docs/getting-started.md) een goed begin.
-Meld je aan bij het kadaster om aan te sluiten, of voor toegang tot de testomgeving.
+Meld je aan bij het kadaster [om aan te sluiten](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie), of voor [toegang tot de testomgeving](
+https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test).
 
 ## Planning
 https://eu-rm.roadmunk.com/publish/29a13c572a0dfc79f1d0386fc572e15383afe11f
