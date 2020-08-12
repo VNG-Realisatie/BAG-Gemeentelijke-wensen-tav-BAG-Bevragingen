@@ -13,7 +13,7 @@ Om aan te sluiten kun je de volgende stappen doorlopen:
 [Vraag een API key voor de testomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test).
 
 ## Functionaliteit
-U kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/openapi.yaml).
+Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/openapi.yaml).
 
 De (resolved) OAS3 is hier te downloaden: [openapi.yaml](../specificatie/genereervariant/openapi.yaml).
 
@@ -30,12 +30,12 @@ Voor de verschillende resources wordt de uri samengesteld met de identificatie v
 De identificatie kan voorloopnullen bevatten, dus het is geen integer.
 
 #### Zoeken van een adres
-Een adres kan gezocht worden met endpoint /adressen/zoek en parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.  
+Je kan een adres zoeken met endpoint /adressen/zoek en parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.  
 Deze zoekfunctie, via endpoint /adressen/zoek levert voor elk gevonden adres een combinatie van een zoekresultaat identificatie en een omschrijving, plus een link voor het ophalen van de volledige adresgegevens.
 
 Deze zoekfunctie kan soms veel zoekresultaten opleveren. Daarom wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature) toegepast.
 
-Op basis van de zoekresultaten kan een adres worden opgehaald met endpoint /adressen?zoekresultaatIdentificatie={zoekresultaatIdentificatie}, waarbij {zoekresultaatIdentificatie} vervangen moet worden door een waarde voor identificatie in de zoekresultaten van /adressen/zoek.
+Op basis van de zoekresultaten kan je een gevonden adres ophalen met endpoint /adressen?zoekresultaatIdentificatie={zoekresultaatIdentificatie}, waarbij je {zoekresultaatIdentificatie} moet vervangen door een waarde voor identificatie in de zoekresultaten van /adressen/zoek.
 
 Bijvoorbeeld zoeken op "/adressen/zoek?zoek=nootdorp 15c dorpsstraat" levert:
 ```
@@ -53,7 +53,7 @@ Bijvoorbeeld zoeken op "/adressen/zoek?zoek=nootdorp 15c dorpsstraat" levert:
    ]
 }
 ```
-Het adres kan vervolgens worden opgehaald met "/adressen?zoekresultaatIdentificatie=adr-89d5a4d96f09c60716c4671fdb9334b8".
+Het adres haal je vervolgens op met "/adressen?zoekresultaatIdentificatie=adr-89d5a4d96f09c60716c4671fdb9334b8".
 
 #### Zoeken van adressen in een pand
 Wanneer je alle adressen in een pand wilt zoeken, kan je dit doen met /adressen?pandIdentificatie={pandIdentificatie}, waarbij {pandIdentificatie} moet worden vervangen door de identificatie van het betreffende pand. Bijvoorbeeld /adressen?pandIdentificatie=0826100000000467.
@@ -75,10 +75,11 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 
 ## Probeer en test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/).
-De [openapi.yaml](../specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt. We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](../test/BAG-Bevragen-postman-collection.json). Hierin moet je alleen de endpoints en authenticatie (API-key) nog invullen.
+De [openapi.yaml](../specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
+We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](../test/BAG-Bevragen-postman-collection.json). Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
 
 ### API key
-Om de API te kunnen bevragen is een API key nodig. Deze wordt bij de request opgenomen in request header "X-Api-Key".
+Om de API te kunnen bevragen is een API key nodig. Deze moet je bij het request opnemen in request header "X-Api-Key".
 Vraag een API key aan voor de [testomgeving](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test).
 
 ### URL
@@ -109,7 +110,7 @@ Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/i
 ## Sluit aan op productie
 
 ### API key
-[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie). Voor de productieomgeving wordt dus een andere API-key gebruikt dan in de testomgeving.
+[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie). Voor de productieomgeving gebruik je dus een andere API-key dan in de testomgeving.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
