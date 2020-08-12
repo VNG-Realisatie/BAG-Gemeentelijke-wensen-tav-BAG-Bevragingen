@@ -59,16 +59,12 @@ paths:
           default: 20
       responses:
         "200":
-          description: Zoek adres geslaagd
+          description: Geslaagd
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
-            X-Pagination-Page:
-              $ref: '#/components/headers/X_Pagination_Page'
-            X-Pagination-Limit:
-              $ref: '#/components/headers/X_Pagination_Limit'
           content:
             application/hal+json:
               schema:
@@ -236,8 +232,7 @@ paths:
           example: "0226010000038820"
       - name: zoekresultaatIdentificatie
         in: query
-        description: De identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie
-          verkregen bij een zoek-operatie
+        description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek
         required: false
         style: form
         explode: true
@@ -283,14 +278,12 @@ paths:
           default: 20
       responses:
         "200":
-          description: Bevraging raadpleegAdresMetZoekResultaatIdentificatie geslaagd
+          description: Geslaagd
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
-            Content-Crs:
-              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -469,14 +462,12 @@ paths:
           type: string
       responses:
         "200":
-          description: raadpleegAdresMetNumId geslaagd
+          description: Geslaagd
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
-            Content-Crs:
-              $ref: '#/components/headers/contentCrs'
           content:
             application/hal+json:
               schema:
@@ -1929,9 +1920,8 @@ paths:
       - Pand
       summary: vindt panden
       description: Zoek actuele panden met de identificatie van een adresseerbaar
-        object, nummeraanduiding of een locatie. Gebruik de fields parameter als je
-        alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
+        object of een locatie. Gebruik de fields parameter als je alleen specifieke
+        velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
       operationId: raadpleegPanden
       parameters:
       - name: adresseerbaarObjectIdentificatie
@@ -1945,17 +1935,6 @@ paths:
           pattern: ^[0-9]{16}$
           type: string
           example: "0226010000038820"
-      - name: nummeraanduidingIdentificatie
-        in: query
-        description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
-          cijfers lang.
-        required: false
-        style: form
-        explode: true
-        schema:
-          pattern: ^[0-9]{16}$
-          type: string
-          example: "0226200000038923"
       - name: locatie
         in: query
         description: Coordinaten van een locatie die als query-parmeter gebruikt wordt
@@ -2322,11 +2301,8 @@ components:
               of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg
               kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen,
               of in geen enkele woonplaats ligt.
-      description: Wanneer hier een property is opgenomen met de waarde true, dan
-        is de waarde van het gelijknamige property in de resource mogelijk onjuist.
-        De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property
-        toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende
-        gegeven.
+      description: Wanneer true is de waarde mogelijk onjuist en wordt juistheid op
+        dit moment onderzocht. Zie toelichting.
     AdresHal:
       allOf:
       - $ref: '#/components/schemas/AdresHalBasis'
@@ -2462,11 +2438,8 @@ components:
           items:
             type: string
             example: Locatie/contour mogelijk onjuist.
-      description: Wanneer hier een property is opgenomen met de waarde true, dan
-        is de waarde van het gelijknamige property in de resource mogelijk onjuist.
-        De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property
-        toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende
-        gegeven.
+      description: Wanneer true is de waarde mogelijk onjuist en wordt juistheid op
+        dit moment onderzocht. Zie toelichting.
     AdresseerbaarObject_embedded:
       type: object
       properties:
@@ -2593,8 +2566,8 @@ components:
             type: string
             example: Openbare ruimtenaam komt mogelijk niet overeen met de vermelding
               in het straatnaambesluit.
-      description: De waarde is mogelijk onjuist. De juistheid van dit gegeven wordt
-        op dit moment onderzocht (zie toelichting).
+      description: Wanneer true is de waarde mogelijk onjuist en wordt juistheid op
+        dit moment onderzocht. Zie toelichting.
     OpenbareRuimteHalBasis:
       allOf:
       - $ref: '#/components/schemas/OpenbareRuimte'
@@ -2696,8 +2669,8 @@ components:
           items:
             type: string
             example: Woonplaats bestaat mogelijk niet.
-      description: De waarde is mogelijk onjuist. De juistheid van dit gegeven wordt
-        op dit moment onderzocht (zie toelichting).
+      description: Wanneer true is de waarde mogelijk onjuist en wordt juistheid op
+        dit moment onderzocht. Zie toelichting.
     NummeraanduidingHalBasis:
       allOf:
       - $ref: '#/components/schemas/Nummeraanduiding'
@@ -2765,12 +2738,8 @@ components:
           items:
             type: string
             example: Woonplaats bestaat mogelijk niet.
-      description: Wanneer hier een property is opgenomen met de waarde true, dan
-        is de waarde van het gelijknamige property in de resource mogelijk onjuist.
-        De juistheid van dit gegeven wordt op dit moment onderzocht. Onder property
-        toelichting wordt toegelicht wat er mogelijk onjuist is aan het betreffende
-        gegeven. Wanneer property geometrie is opgenomen met de waarde true, dan is
-        de embedded geometrie mogelijk onjuist.
+      description: Wanneer true is de waarde mogelijk onjuist en wordt juistheid op
+        dit moment onderzocht. Zie toelichting.
     WoonplaatsHalBasis:
       allOf:
       - $ref: '#/components/schemas/Woonplaats'
@@ -2861,8 +2830,8 @@ components:
           items:
             type: string
             example: Mogelijk is de bouw al gereed of is het pand niet gerealiseerd.
-      description: De juistheid van dit gegeven wordt op dit moment onderzocht (zie
-        toelichting).
+      description: Wanneer true is de waarde mogelijk onjuist en wordt juistheid op
+        dit moment onderzocht. Zie toelichting.
     PandHalBasis:
       allOf:
       - $ref: '#/components/schemas/Pand'
@@ -3194,8 +3163,7 @@ components:
     zoekresultaatIdentificatie:
       name: zoekresultaatIdentificatie
       in: query
-      description: De identificatie van een gekozen zoekresultaat uit de zoekResultatenHalCollectie
-        verkregen bij een zoek-operatie
+      description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek
       required: false
       style: form
       explode: true
@@ -3331,16 +3299,6 @@ components:
         example: '299 https://service.../api/.../v1 "Deze versie van de API is verouderd
           en zal uit dienst worden genomen op 2018-02-01. Raadpleeg voor meer informatie
           hier de documentatie: https://omgevingswet.../api/.../v1".'
-    X_Pagination_Page:
-      schema:
-        type: integer
-        description: Huidige pagina.
-        example: 3
-    X_Pagination_Limit:
-      schema:
-        type: integer
-        description: Aantal resultaten per pagina.
-        example: 20
     contentCrs:
       description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
         Nederlands coordinatenstelsel.
