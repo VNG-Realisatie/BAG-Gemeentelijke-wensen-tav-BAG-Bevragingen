@@ -19,6 +19,7 @@
   De volgende functionaliteiten zijn nog niet beschikbaar, dit volgt in een latere versie:
 
   | Link Github	| Beschrijving |
+  | --- | --- |
   | [307](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/307) | Adres bevragen met adresseerbaarobject-identificatie |
   | [271](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/271) | Panden bevragen met nummeraanduiding-identificatie |
   | [288](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/288) | Toelichtingen bij de "mogelijk onjuist" |
