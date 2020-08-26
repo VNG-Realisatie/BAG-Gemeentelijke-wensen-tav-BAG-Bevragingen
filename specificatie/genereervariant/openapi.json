@@ -2336,7 +2336,7 @@
       "get" : {
         "tags" : [ "Pand" ],
         "summary" : "vindt panden",
-        "description" : "Zoek actuele panden met de identificatie van een adresseerbaar object of een locatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).",
+        "description" : "Zoek actuele panden met de identificatie van een adresseerbaar object, nummeraanduiding of een locatie. Gebruik de fields parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).",
         "operationId" : "raadpleegPanden",
         "parameters" : [ {
           "name" : "adresseerbaarObjectIdentificatie",
@@ -2349,6 +2349,18 @@
             "pattern" : "^[0-9]{16}$",
             "type" : "string",
             "example" : "0226010000038820"
+          }
+        }, {
+          "name" : "nummeraanduidingIdentificatie",
+          "in" : "query",
+          "description" : "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "pattern" : "^[0-9]{16}$",
+            "type" : "string",
+            "example" : "0226200000038923"
           }
         }, {
           "name" : "locatie",
