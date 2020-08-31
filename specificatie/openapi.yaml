@@ -10,8 +10,7 @@ servers:
 info:
   title: Huidige bevragingen API
   description: "Deze API levert actuele gegevens over adressen, adresseerbaar objecten en panden. Actueel betekent in deze API `zonder eindstatus`. De bron voor deze API is de basisregistratie adressen en gebouwen (BAG)."
-  version: "1.0.0"
-  # De versie wordt 1.0 als de API naar productie gaat.
+  version: "1.1.0"
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
   contact:
     name: Kadaster - Beheerder Landelijke Voorziening BAG
