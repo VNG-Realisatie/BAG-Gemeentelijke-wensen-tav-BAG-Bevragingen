@@ -1,4 +1,4 @@
-# Haal Centraal BAG Huidige Bevragingen v1.0 is live!
+# Haal Centraal BAG Huidige Bevragingen v1.1 is live!
 BAG Huidige bevragingen is een Haal Centraal API voor het zoeken en raadplegen van gegevens in de basisregistratie Adressen en Gebouwen voor alle binnengemeentelijke afnemers in NL, maar ook voor waterschappen, belastingsamenwerkingen en andere overheden.
 We doen ons uiterste best om de API evolvable door te ontwikkelen en geen breaking changes te introduceren.
 
