@@ -6,6 +6,7 @@
 
   ### Opgeloste issues
   De volgende issues zijn in deze release opgelost.
+  
     | Link Github	| Beschrijving |
     | --- | --- |
     | [305](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/305) | Juiste foutmelding bij niet-toegestane combinatie van queryparameters |
