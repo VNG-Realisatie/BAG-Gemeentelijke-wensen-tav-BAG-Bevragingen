@@ -7,12 +7,12 @@
   ### Opgeloste issues
   De volgende issues zijn in deze release opgelost.
   
-    | Link Github	| Beschrijving |
-    | --- | --- |
-    | [305](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/305) | Juiste foutmelding bij niet-toegestane combinatie van queryparameters |
-    | [308](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/308) | Toelichtingen bij mogelijkOnjuist |
-    | [310](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/310) | Pagination headers niet correct |
-    | [320](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/320)	| Controle Accept-Crs nauwkeuriger maken bij vragen specifieke velden uit een gerelateerde resource met de expand parameter |
+  | Link Github	| Beschrijving |
+  | --- | --- |
+  | [305](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/305) | Juiste foutmelding bij niet-toegestane combinatie van queryparameters |
+  | [308](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/308) | Toelichtingen bij mogelijkOnjuist |
+  | [310](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/310) | Pagination headers niet correct |
+  | [320](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/320)	| Controle Accept-Crs nauwkeuriger maken bij vragen specifieke velden uit een gerelateerde resource met de expand parameter |
 
 
   ### Known issues
