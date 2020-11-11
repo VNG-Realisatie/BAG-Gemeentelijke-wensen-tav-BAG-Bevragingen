@@ -502,6 +502,8 @@ components:
       required: true
       schema:
         type: string
+        minLength: 1
+        maxLength: 255
 
     zoekresultaatIdentificatie:
       description: "De identificatie van een zoekresultaat van het endpoint get /adressen/zoek"
@@ -510,6 +512,8 @@ components:
       required: false
       schema:
         type: string
+        minLength: 1
+        maxLength: 255
 
     locatie-query:
       description: Coordinaten van een locatie die als query-parmeter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
