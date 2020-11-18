@@ -2215,12 +2215,7 @@ components:
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            zoekresultaten:
-              type: array
-              items:
-                $ref: '#/components/schemas/ZoekResultaatHal'
+          $ref: '#/components/schemas/ZoekResultaatHalCollectie__embedded'
       description: Resultaten als lijst
     Adres:
       type: object
@@ -2354,12 +2349,7 @@ components:
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            adressen:
-              type: array
-              items:
-                $ref: '#/components/schemas/AdresHal'
+          $ref: '#/components/schemas/AdresHalCollectie__embedded'
     Adres_links:
       type: object
       properties:
@@ -2510,12 +2500,7 @@ components:
       type: object
       properties:
         _embedded:
-          type: object
-          properties:
-            adresseerbareObjecten:
-              type: array
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
+          $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie__embedded'
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
     AdresseerbaarObjectStatus_enum:
@@ -2900,12 +2885,7 @@ components:
         _links:
           $ref: '#/components/schemas/HalCollectionLinks'
         _embedded:
-          type: object
-          properties:
-            panden:
-              type: array
-              items:
-                $ref: '#/components/schemas/PandHalBasis'
+          $ref: '#/components/schemas/PandHalCollectie__embedded'
     StatusNaamgeving_enum:
       type: string
       description: Een aanduiding van alle waarden die de status van een openbare
@@ -3047,58 +3027,18 @@ components:
       - type: object
         properties:
           last:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /resourcenaam?page=8
-              templated:
-                type: boolean
-              title:
-                type: string
-                example: Laatste pagina
-            description: uri voor het opvragen van de laatste pagina van deze collectie
+            $ref: '#/components/schemas/HalPaginationLinksMetLast_last'
     HalPaginationLinks:
       allOf:
       - $ref: '#/components/schemas/HalCollectionLinks'
       - type: object
         properties:
           first:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /resourcenaam?page=1
-              templated:
-                type: boolean
-              title:
-                type: string
-                example: Eerste pagina
-            description: uri voor het opvragen van de eerste pagina van deze collectie
+            $ref: '#/components/schemas/HalPaginationLinks_first'
           previous:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /resourcenaam?page=3
-              templated:
-                type: boolean
-              title:
-                type: string
-                example: Vorige pagina
-            description: uri voor het opvragen van de vorige pagina van deze collectie
+            $ref: '#/components/schemas/HalPaginationLinks_previous'
           next:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /resourcenaam?page=5
-              templated:
-                type: boolean
-              title:
-                type: string
-                example: Volgende pagina
-            description: uri voor het opvragen van de volgende pagina van deze collectie
+            $ref: '#/components/schemas/HalPaginationLinks_next'
     HalCollectionLinks:
       type: object
       properties:
@@ -3161,6 +3101,82 @@ components:
                 type: array
                 items:
                   type: number
+    ZoekResultaatHalCollectie__embedded:
+      type: object
+      properties:
+        zoekresultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoekResultaatHal'
+    AdresHalCollectie__embedded:
+      type: object
+      properties:
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresHal'
+    AdresseerbaarobjectHalCollectie__embedded:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
+    PandHalCollectie__embedded:
+      type: object
+      properties:
+        panden:
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
+    HalPaginationLinksMetLast_last:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /resourcenaam?page=8
+        templated:
+          type: boolean
+        title:
+          type: string
+          example: Laatste pagina
+      description: uri voor het opvragen van de laatste pagina van deze collectie
+    HalPaginationLinks_first:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /resourcenaam?page=1
+        templated:
+          type: boolean
+        title:
+          type: string
+          example: Eerste pagina
+      description: uri voor het opvragen van de eerste pagina van deze collectie
+    HalPaginationLinks_previous:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /resourcenaam?page=3
+        templated:
+          type: boolean
+        title:
+          type: string
+          example: Vorige pagina
+      description: uri voor het opvragen van de vorige pagina van deze collectie
+    HalPaginationLinks_next:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /resourcenaam?page=5
+        templated:
+          type: boolean
+        title:
+          type: string
+          example: Volgende pagina
+      description: uri voor het opvragen van de volgende pagina van deze collectie
   parameters:
     zoek:
       name: zoek
