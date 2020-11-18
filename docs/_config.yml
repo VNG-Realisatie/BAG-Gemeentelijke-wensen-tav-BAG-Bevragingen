@@ -1,0 +1,3 @@
+baseurl: "/Haal-Centraal-BAG-bevragen"
+apiname: "BAG Bevragen"
+url: "http://localhost:4000"
