@@ -1,3 +1,7 @@
+---
+layout: page-with-side-nav
+title: Getting Started
+---
 # Getting Started - BAG Huidige Bevragingen API
 De 'BAG Huidige Bevragingen' API levert actuele gegevens zonder eind status uit de Basisregistratie Adressen en Gebouwen. Dit betekent dat geen historische gegevens kunnen worden gevraagd en dat gegevens met een eindstatus niet worden geleverd.
 
