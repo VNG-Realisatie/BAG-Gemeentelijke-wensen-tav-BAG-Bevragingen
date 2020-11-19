@@ -5,23 +5,26 @@ nav:
   - title: BAG Bevragen
     subnav:
       - title: Home
-        url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen
+        path: 
         subpath: /
       - title: Getting started
-        url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen/getting-started
+        path: /getting-started
         subpath: /getting-started.html
       - title: User stories
         url: https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues?q=is%3Aopen+is%3Aissue+label%3A%22user+story%22
         subpath: /user-stories.html
         target: blank
-   - title: Specificaties
-     subnav:
+#      - title: Goals canvas
+#        path: /getting-started
+#        subpath: /goals-canvas.html
+  - title: Specificaties
+    subnav:
       - title: Bevragen API (swagger-ui)
-        url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen/swagger-ui
+        path: /swagger-ui
         subpath: /swagger-ui.html
       - title: Bevragen API (redoc)
-        url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen/redoc
+        path: /redoc
         subpath: /redoc.html
       - title: Features
-        url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen/features
+        path: /features
         subpath: /features.html
