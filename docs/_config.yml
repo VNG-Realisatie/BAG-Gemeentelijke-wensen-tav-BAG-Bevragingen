@@ -4,7 +4,7 @@ url: "http://localhost:4000"
 nav:
   - title: BAG Bevragen
     subnav:
-      - title: Home
+      - title: Home3
         url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen
         subpath: /
       - title: Getting started
