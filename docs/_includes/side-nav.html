@@ -1,8 +1,5 @@
 <div class="header">{{ site.apiname }}</div>
-<nav class="nav flex-column">
-  {% include nav.html nav=page.nav %}
-</nav>
+{% include nav.html nav=page.nav %}
 <div class="header">Specificaties</div>
-<nav class="nav flex-column">
-  {% include specificatiesnav.html nav=page.specificatiesnav %}
-</nav>
+{% include specificatiesnav.html specificatiesnav=page.specificatiesnav %}
+

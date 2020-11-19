@@ -1,3 +1,4 @@
+<nav class="nav flex-column">
   {% for item in include.specificatiesnav %}
 	<a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
 
@@ -6,3 +7,4 @@
       {% include nav.html nav=item.subnav %}
     {% endif %} -->
   {% endfor %}
+</nav>
