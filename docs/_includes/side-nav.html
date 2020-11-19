@@ -1,5 +1,22 @@
 <div class="header">{{ site.apiname }}</div>
-{% include nav.html nav=page.nav %}
-<div class="header">Specificaties</div>
-{% include specificatiesnav.html specificatiesnav=page.specificatiesnav %}
+<nav class="nav flex-column">
+  {% for item in site.data.sidenavigation.nav %}
+	<a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
 
+	<!-- Te enablen zodra er sprake is van subnav items  
+	{% if item.subnav %}
+	  {% include nav.html nav=item.subnav %}
+	{% endif %} -->
+  {% endfor %}
+</nav>
+<div class="header">Specificaties</div>
+<nav class="nav flex-column">
+  {% for item in site.data.sidenavigation.specificatiesnav %}
+	<a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
+
+	<!-- Te enablen zodra er sprake is van subnav items  
+    {% if item.subnav %}
+      {% include nav.html nav=item.subnav %}
+    {% endif %} -->
+  {% endfor %}
+</nav>
