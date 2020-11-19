@@ -5,7 +5,7 @@ nav:
   - title: BAG Bevragen
     subnav:
       - title: Home
-        path: 
+        path: /
         subpath: /
       - title: Getting started
         path: /getting-started
