@@ -3,7 +3,7 @@ apiname: "BAG Bevragen"
 url: "http://localhost:4000"
 nav:
   - title: Home
-    url: {{ site.baseurl }}/
+    url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen/
   - title: Getting started
     url: {{ site.baseurl }}/getting-started
   - title: User stories
