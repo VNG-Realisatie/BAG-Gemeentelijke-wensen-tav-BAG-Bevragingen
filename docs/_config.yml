@@ -15,7 +15,7 @@ nav:
         subpath: /user-stories.html
         target: blank
    - title: Specificaties
-    subnav:
+     subnav:
       - title: Bevragen API (swagger-ui)
         url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen/swagger-ui
         subpath: /swagger-ui.html
