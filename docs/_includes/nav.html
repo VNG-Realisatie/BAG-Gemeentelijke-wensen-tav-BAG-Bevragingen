@@ -1,0 +1,8 @@
+  {% for item in include.nav %}
+	<a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
+
+	<!-- Te enablen zodra er sprake is van subnav items  
+    {% if item.subnav %}
+      {% include nav.html nav=item.subnav %}
+    {% endif %} -->
+  {% endfor %}
