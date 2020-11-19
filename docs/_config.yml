@@ -2,7 +2,7 @@ baseurl: "/Haal-Centraal-BAG-bevragen"
 apiname: "BAG Bevragen"
 url: "http://localhost:4000"
 nav:
-  - title: Home
+  - title: Home2
     url: {{ site.baseurl }}/
   - title: Getting started
     url: {{ site.baseurl }}/getting-started
