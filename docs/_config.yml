@@ -7,9 +7,6 @@ nav:
       - title: Home
         path: /
         subpath: /
-      - title: Home2
-        path: /test
-        subpath: /test.html
       - title: Getting started
         path: /getting-started
         subpath: /getting-started.html
