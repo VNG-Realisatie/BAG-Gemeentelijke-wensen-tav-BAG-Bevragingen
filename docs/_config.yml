@@ -5,13 +5,13 @@ nav:
   - title: Home2
     url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen/
   - title: Getting started
-    url: {{ site.baseurl }}/getting-started
+    url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen//getting-started
   - title: User stories
     url: https://github.com/VNG-Realisatie{{ site.baseurl }}/issues?q=is%3Aopen+is%3Aissue+label%3A%22user+story%22
 specificatiesnav:
   - title: Bevragen API (swagger-ui)
-    url: {{ site.baseurl }}/swagger-ui
+    url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen//swagger-ui
   - title: Bevragen API (redoc)
-    url: {{ site.baseurl }}/redoc
+    url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen//redoc
   - title: Features
-    url: {{ site.baseurl }}/features
+    url: https://melsk-r.github.io/Haal-Centraal-BAG-bevragen//features
