@@ -1,3 +1,3 @@
 {% for item in include.nav %}
-	<a class="nav-link{% if page.url == item.path %} active{% endif %}" href="{%if item.url %}{{item.url}}{% elsif item.path %}{{ site.baseurl }}{{ item.path }}{% endif %}" target="{%if item.target == 'blank' %}_blank{% endif %}">{{ item.title }}</a>
+	<a class="nav-link{% if page.url == item.path | append: '.html' %} active{% endif %}" href="{%if item.url %}{{item.url}}{% elsif item.path %}{{ site.baseurl }}{{ item.path }}{% endif %}" target="{%if item.target == 'blank' %}_blank{% endif %}">{{ item.title }}</a>
 {% endfor %}
