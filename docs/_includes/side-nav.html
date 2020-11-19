@@ -1,7 +1,7 @@
 <div class="header">{{ site.apiname }}</div>
 <nav class="nav flex-column">
   {% for item in site.nav %}
-	<a class="nav-link{% if page.url == item.subpath %} active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
+	<a class="nav-link{% if page.url == item.subpath %} active{% endif %}" href="{{ item.url }}" target="{%if item.target == 'blank' %} _blank{% endif %}">{{ item.title }}</a>
 
 	<!-- Te enablen zodra er sprake is van subnav items  
 	{% if item.subnav %}
@@ -12,7 +12,7 @@
 <div class="header">Specificaties</div>
 <nav class="nav flex-column">
   {% for item in site.specificatiesnav %}
-	<a class="nav-link{% if page.url == item.subpath %} active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
+	<a class="nav-link{% if page.url == item.subpath %} active{% endif %}" href="{{ item.url }}" target="{%if item.target == 'blank' %} _blank{% endif %}">{{ item.title }}</a>
 
 	<!-- Te enablen zodra er sprake is van subnav items  
     {% if item.subnav %}
