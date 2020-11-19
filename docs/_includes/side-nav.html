@@ -1,12 +1,8 @@
-<div class="header">{{ site.apiname }}</div>
-<nav class="nav flex-column">
-  {% for item in site.nav %}
-	<a class="nav-link{% if page.url == item.subpath %} active{% endif %}" href="{{ item.url }}" target="{%if item.target == 'blank' %}_blank{% endif %}">{{ item.title }}</a>
-  {% endfor %}
-</nav>
-<div class="header">Specificaties</div>
-<nav class="nav flex-column">
-  {% for item in site.specificatiesnav %}
-	<a class="nav-link{% if page.url == item.subpath %} active{% endif %}" href="{{ item.url }}" target="{%if item.target == 'blank' %}_blank{% endif %}">{{ item.title }}</a>
+{% for item in site.nav %}
+	<div class="header">{{ item.title }}</div>
+	<nav class="nav flex-column">
+    {% if item.subnav %}
+      {% include nav.html nav=item.subnav %}
+    {% endif %}
   {% endfor %}
 </nav>
