@@ -17,8 +17,8 @@ nav:
         url: https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues?q=is%3Aopen+is%3Aissue+label%3A%22user+story%22
         path: /user-stories
         target: blank
-#      - title: Goals canvas
-#        path: /getting-started
+      - title: Goals canvas
+        path: /goals-canvas
   - title: Specificaties
     subnav:
       - title: Bevragen API (swagger-ui)
