@@ -1,3 +1,7 @@
+---
+layout: page-with-side-nav
+title: Releasenotes
+---
 # Release notes BAG Huidige bevragingen API
 
 ## Versie 1.1.0 (16-09-2020)
