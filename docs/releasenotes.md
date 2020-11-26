@@ -9,7 +9,7 @@ title: Releasenotes
 
   In deze release is functionaliteit toegevoegd voor het raadplegen van een adres op basis van de adresseerbaar object identificatie ([307](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/307)), en voor het zoeken van panden op basis van de nummeraanduiding identificatie ([271](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/271)).
 
-  ### Opgeloste issues
+### Opgeloste issues
   De volgende issues zijn in deze release opgelost.
   
   | Link Github	| Beschrijving |
@@ -20,7 +20,7 @@ title: Releasenotes
   | [320](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/320)	| Controle Accept-Crs nauwkeuriger maken bij vragen specifieke velden uit een gerelateerde resource met de expand parameter |
 
 
-  ### Known issues
+### Known issues
   De volgende functionaliteiten zijn nog niet beschikbaar, dit volgt in een latere versie:
 
   | Link Github	| Beschrijving |
@@ -48,7 +48,7 @@ title: Releasenotes
   -	/panden/{pandidentificatie}
   -	/panden
 
-  ### Known issues
+### Known issues
   De volgende functionaliteiten zijn nog niet beschikbaar, dit volgt in een latere versie:
 
   | Link Github	| Beschrijving |
