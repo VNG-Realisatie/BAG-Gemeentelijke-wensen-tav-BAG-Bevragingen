@@ -6,6 +6,8 @@ title: Haal Centraal BAG Huidige Bevragingen v1.1 is live!
 BAG Huidige bevragingen is een Haal Centraal API voor het zoeken en raadplegen van gegevens in de basisregistratie Adressen en Gebouwen voor alle binnengemeentelijke afnemers in NL, maar ook voor waterschappen, belastingsamenwerkingen en andere overheden.
 We doen ons uiterste best om de API evolvable door te ontwikkelen en geen breaking changes te introduceren.
 
+Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/releasenotes) van deze release.
+
 ## Direct aan de slag?
 
 * Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/redoc)
@@ -21,6 +23,10 @@ We doen ons uiterste best om de API evolvable door te ontwikkelen en geen breaki
 * [API Design Visie](https://github.com/Geonovum/KP-APIs/tree/master/Werkgroep%20Design%20Visie){:target="_blank" rel="noopener"}
 * [REST API Design Rules](https://docs.geostandaarden.nl/api/API-Designrules/){:target="_blank" rel="noopener"}
 * [Landelijke API strategie voor de overheid](https://geonovum.github.io/KP-APIs/){:target="_blank" rel="noopener"}
+
+## Contact
+
+* Product Owner: Cathy Dingemanse, cathy.dingemanse@denhaag.nl
 
 ## Licentie
 
