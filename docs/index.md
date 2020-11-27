@@ -3,7 +3,7 @@ layout: page-with-side-nav
 title: Haal Centraal BAG Huidige Bevragingen v1.1 is live!
 ---
 # Haal Centraal BAG Huidige Bevragingen v1.1 is live!
-API voor het zoeken en raadplegen van adressen, adresseerbaar objecten en panden uit de basisregistratie Adressen en Gebouwen.
+API voor het zoeken en raadplegen van adressen, adresseerbaar objecten en panden uit de Basisregistratie Adressen en Gebouwen (BAG).
 Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/releasenotes) van deze release.
 
 ## Direct aan de slag?
