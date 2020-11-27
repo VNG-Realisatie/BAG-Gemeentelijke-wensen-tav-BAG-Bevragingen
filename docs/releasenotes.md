@@ -21,7 +21,7 @@ title: Releasenotes
 
 
 ### Known issues
-  De volgende functionaliteiten zijn nog niet beschikbaar, dit volgt in een latere versie:
+  De volgende issues staan nog open, oplossing volgt in een latere versie:
 
   | Link Github	| Beschrijving |
   | --- | --- |
