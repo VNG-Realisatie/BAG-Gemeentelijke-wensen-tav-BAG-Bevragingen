@@ -8,18 +8,18 @@ De 'BAG Huidige Bevragingen' API levert actuele gegevens zonder eind status uit 
 De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 
 Om aan te sluiten kun je de volgende stappen doorlopen:
-1. [Meld je aan bij het kadaster om toegang te krijgen tot de testomgeving](#Aanmelden-om-aan-te-sluiten)
-2. [Bekijk de functionaliteit en specificaties](#Functionaliteit)
-3. [Probeer en test de API](#Probeer-en-test-de-API)
-4. [Sluit aan op productie](#Sluit-aan-op-productie)
+1. [Meld je aan bij het kadaster om toegang te krijgen tot de testomgeving](#aanmelden-om-aan-te-sluiten)
+2. [Bekijk de functionaliteit en specificaties](#functionaliteit)
+3. [Probeer en test de API](#probeer-en-test-de-api)
+4. [Sluit aan op productie](#sluit-aan-op-productie)
 
 ## Aanmelden om aan te sluiten
 [Vraag een API key voor de testomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test).
 
 ## Functionaliteit
-Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/openapi.yaml).
+Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui) of [Redoc](./redoc).
 
-De (resolved) OAS3 is hier te downloaden: [openapi.yaml](../specificatie/genereervariant/openapi.yaml).
+De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
 
 ### Beschikbare resources
 De API kent de volgende resources:
@@ -79,8 +79,8 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 
 ## Probeer en test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/).
-De [openapi.yaml](../specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
-We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](../test/BAG-Bevragen-postman-collection.json). Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
+De [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
+We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/test/BAG-Bevragen-postman-collection.json). Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
 
 ### API key
 Om de API te kunnen bevragen is een API key nodig. Deze moet je bij het request opnemen in request header "X-Api-Key".
