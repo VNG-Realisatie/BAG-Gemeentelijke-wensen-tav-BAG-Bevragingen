@@ -552,7 +552,7 @@ components:
         example: '0226100000008856'
 
     adresseerbaarObjectIdentificatie-query:
-      description: "De identificatie van een adresseerbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn."
+      description: "De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn."
       name: adresseerbaarObjectIdentificatie
       in: query
       required: false
@@ -593,7 +593,7 @@ components:
         example: '0226100000008856'
 
     woonplaatsidentificatie:
-      description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
+      description: "Identificatie van een object uit de BAG. Deze is 4 cijfers lang."
       name: woonplaatsidentificatie
       in: path
       required: true
@@ -604,7 +604,7 @@ components:
         example: '2096'
 
     openbareruimteidentificatie:
-      description: "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten."
+      description: "Identificatie van een object uit de BAG. Deze is 16 cijfers lang."
       name: openbareruimteidentificatie
       in: path
       required: true

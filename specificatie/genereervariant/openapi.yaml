@@ -227,8 +227,9 @@ paths:
           example: "0226100000008856"
       - name: adresseerbaarObjectIdentificatie
         in: query
-        description: De identificatie van een adresseerbaar object uit de BAG. Dit
-          kan een verblijfsobject, een standplaats of een ligplaats zijn.
+        description: De identificatie van een adresseerbaar object uit de BAG. Deze
+          is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+          zijn.
         required: false
         style: form
         explode: true
@@ -1120,8 +1121,7 @@ paths:
       parameters:
       - name: woonplaatsidentificatie
         in: path
-        description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-          woonplaats en 16 lang bij de andere objecten.
+        description: Identificatie van een object uit de BAG. Deze is 4 cijfers lang.
         required: true
         style: simple
         explode: false
@@ -1352,8 +1352,7 @@ paths:
       parameters:
       - name: openbareruimteidentificatie
         in: path
-        description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-          woonplaats en 16 lang bij de andere objecten.
+        description: Identificatie van een object uit de BAG. Deze is 16 cijfers lang.
         required: true
         style: simple
         explode: false
@@ -1944,8 +1943,9 @@ paths:
       parameters:
       - name: adresseerbaarObjectIdentificatie
         in: query
-        description: De identificatie van een adresseerbaar object uit de BAG. Dit
-          kan een verblijfsobject, een standplaats of een ligplaats zijn.
+        description: De identificatie van een adresseerbaar object uit de BAG. Deze
+          is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+          zijn.
         required: false
         style: form
         explode: true
@@ -3231,8 +3231,9 @@ components:
     adresseerbaarObjectIdentificatie-query:
       name: adresseerbaarObjectIdentificatie
       in: query
-      description: De identificatie van een adresseerbaar object uit de BAG. Dit kan
-        een verblijfsobject, een standplaats of een ligplaats zijn.
+      description: De identificatie van een adresseerbaar object uit de BAG. Deze
+        is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+        zijn.
       required: false
       style: form
       explode: true
@@ -3279,8 +3280,7 @@ components:
     woonplaatsidentificatie:
       name: woonplaatsidentificatie
       in: path
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-        woonplaats en 16 lang bij de andere objecten.
+      description: Identificatie van een object uit de BAG. Deze is 4 cijfers lang.
       required: true
       style: simple
       explode: false
@@ -3293,8 +3293,7 @@ components:
     openbareruimteidentificatie:
       name: openbareruimteidentificatie
       in: path
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-        woonplaats en 16 lang bij de andere objecten.
+      description: Identificatie van een object uit de BAG. Deze is 16 cijfers lang.
       required: true
       style: simple
       explode: false

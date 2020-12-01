@@ -295,7 +295,7 @@
           {
             "name": "adresseerbaarObjectIdentificatie",
             "in": "query",
-            "description": "De identificatie van een adresseerbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.",
+            "description": "De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn.",
             "required": false,
             "style": "form",
             "explode": true,
@@ -1417,7 +1417,7 @@
           {
             "name": "woonplaatsidentificatie",
             "in": "path",
-            "description": "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.",
+            "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
             "required": true,
             "style": "simple",
             "explode": false,
@@ -1709,7 +1709,7 @@
           {
             "name": "openbareruimteidentificatie",
             "in": "path",
-            "description": "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.",
+            "description": "Identificatie van een object uit de BAG. Deze is 16 cijfers lang.",
             "required": true,
             "style": "simple",
             "explode": false,
@@ -2477,7 +2477,7 @@
           {
             "name": "adresseerbaarObjectIdentificatie",
             "in": "query",
-            "description": "De identificatie van een adresseerbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.",
+            "description": "De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn.",
             "required": false,
             "style": "form",
             "explode": true,
@@ -4203,7 +4203,7 @@
       "adresseerbaarObjectIdentificatie-query": {
         "name": "adresseerbaarObjectIdentificatie",
         "in": "query",
-        "description": "De identificatie van een adresseerbaar object uit de BAG. Dit kan een verblijfsobject, een standplaats of een ligplaats zijn.",
+        "description": "De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn.",
         "required": false,
         "style": "form",
         "explode": true,
@@ -4255,7 +4255,7 @@
       "woonplaatsidentificatie": {
         "name": "woonplaatsidentificatie",
         "in": "path",
-        "description": "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.",
+        "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
         "required": true,
         "style": "simple",
         "explode": false,
@@ -4269,7 +4269,7 @@
       "openbareruimteidentificatie": {
         "name": "openbareruimteidentificatie",
         "in": "path",
-        "description": "Identificatie van een object uit de BAG. Deze is 4 lang bij een woonplaats en 16 lang bij de andere objecten.",
+        "description": "Identificatie van een object uit de BAG. Deze is 16 cijfers lang.",
         "required": true,
         "style": "simple",
         "explode": false,
