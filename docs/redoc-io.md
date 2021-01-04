@@ -2,6 +2,6 @@
 layout: page-with-side-nav
 title: redoc
 body_include: redoc-body.html
-spec-url: https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/develop/specificatie/openapi.yaml
+spec-url: https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/develop/specificatie/genereervariant/openapi.yaml
 ---
 <redoc spec-url='{{ page.spec-url}}'></redoc>
