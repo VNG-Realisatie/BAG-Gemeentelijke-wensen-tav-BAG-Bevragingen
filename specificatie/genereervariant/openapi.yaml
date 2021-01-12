@@ -40,8 +40,6 @@ paths:
         style: form
         explode: true
         schema:
-          maxLength: 255
-          minLength: 1
           type: string
       - name: page
         in: query
@@ -244,8 +242,6 @@ paths:
         style: form
         explode: true
         schema:
-          maxLength: 255
-          minLength: 1
           type: string
       - name: expand
         in: query
@@ -3174,8 +3170,6 @@ components:
       style: form
       explode: true
       schema:
-        maxLength: 255
-        minLength: 1
         type: string
     zoekresultaatIdentificatie:
       name: zoekresultaatIdentificatie
@@ -3185,8 +3179,6 @@ components:
       style: form
       explode: true
       schema:
-        maxLength: 255
-        minLength: 1
         type: string
     locatie-query:
       name: locatie

@@ -48,8 +48,6 @@
             "style": "form",
             "explode": true,
             "schema": {
-              "maxLength": 255,
-              "minLength": 1,
               "type": "string"
             }
           },
@@ -313,8 +311,6 @@
             "style": "form",
             "explode": true,
             "schema": {
-              "maxLength": 255,
-              "minLength": 1,
               "type": "string"
             }
           },
@@ -4136,8 +4132,6 @@
         "style": "form",
         "explode": true,
         "schema": {
-          "maxLength": 255,
-          "minLength": 1,
           "type": "string"
         }
       },
@@ -4149,8 +4143,6 @@
         "style": "form",
         "explode": true,
         "schema": {
-          "maxLength": 255,
-          "minLength": 1,
           "type": "string"
         }
       },
