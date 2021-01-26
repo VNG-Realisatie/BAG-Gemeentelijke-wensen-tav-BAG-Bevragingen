@@ -16,7 +16,7 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 ## Bronnen
 
 * [Productvisie Haal Centraal](https://vng-realisatie.github.io/Haal-Centraal)
-* [API Design Visie](https://github.com/Geonovum/KP-APIs/tree/master/Werkgroep%20Design%20Visie)
+* [API Design Visie](https://github.com/Geonovum/KP-APIs/tree/master/Werkgroep%20API%20design%20visie)
 * [REST API Design Rules](https://docs.geostandaarden.nl/api/API-Designrules/)
 * [Landelijke API strategie voor de overheid](https://geonovum.github.io/KP-APIs/)
 
