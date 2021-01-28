@@ -8,18 +8,18 @@ De 'BAG Huidige Bevragingen' API levert actuele gegevens zonder eind status uit 
 De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 
 Om aan te sluiten kun je de volgende stappen doorlopen:
-1. [Meld je aan bij het kadaster om toegang te krijgen tot de testomgeving](#Aanmelden-om-aan-te-sluiten)
-2. [Bekijk de functionaliteit en specificaties](#Functionaliteit)
-3. [Probeer en test de API](#Probeer-en-test-de-API)
-4. [Sluit aan op productie](#Sluit-aan-op-productie)
+1. [Meld je aan bij het kadaster om toegang te krijgen tot de testomgeving](#aanmelden-om-aan-te-sluiten)
+2. [Bekijk de functionaliteit en specificaties](#functionaliteit)
+3. [Probeer en test de API](#probeer-en-test-de-api)
+4. [Sluit aan op productie](#sluit-aan-op-productie)
 
 ## Aanmelden om aan te sluiten
 [Vraag een API key voor de testomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test).
 
 ## Functionaliteit
-Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-BAG-Bevragen/master/specificatie/openapi.yaml).
+Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui) of [Redoc](./redoc).
 
-De (resolved) OAS3 is hier te downloaden: [openapi.yaml](../specificatie/genereervariant/openapi.yaml).
+De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
 
 ### Beschikbare resources
 De API kent de volgende resources:
@@ -37,7 +37,7 @@ De identificatie kan voorloopnullen bevatten, dus het is geen integer.
 Je kan een adres zoeken met endpoint /adressen/zoek en parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.  
 Deze zoekfunctie, via endpoint /adressen/zoek levert voor elk gevonden adres een combinatie van een zoekresultaat identificatie en een omschrijving, plus een link voor het ophalen van de volledige adresgegevens.
 
-Deze zoekfunctie kan soms veel zoekresultaten opleveren. Daarom wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature) toegepast.
+Deze zoekfunctie kan soms veel zoekresultaten opleveren. Daarom wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"} toegepast.
 
 Op basis van de zoekresultaten kan je een gevonden adres ophalen met endpoint /adressen?zoekresultaatIdentificatie={zoekresultaatIdentificatie}, waarbij je {zoekresultaatIdentificatie} moet vervangen door een waarde voor identificatie in de zoekresultaten van /adressen/zoek.
 
@@ -62,29 +62,29 @@ Het adres haal je vervolgens op met "/adressen?zoekresultaatIdentificatie=adr-89
 #### Zoeken van adressen in een pand
 Wanneer je alle adressen in een pand wilt zoeken, kan je dit doen met /adressen?pandIdentificatie={pandIdentificatie}, waarbij {pandIdentificatie} moet worden vervangen door de identificatie van het betreffende pand. Bijvoorbeeld /adressen?pandIdentificatie=0826100000000467.
 
-Aangezien dit veel adressen kan opleveren, wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature) toegepast.
+Aangezien dit veel adressen kan opleveren, wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"} toegepast.
 
 #### Geometrie van een woonplaats
 De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt bij het raadplegen van een woonplaats standaard de geometrie niet meegeleverd. Wanneer je de geometrie van de woonplaats wel geleverd wilt krijgen, dan moet bij de aanvraag de expand parameter worden gebruikt. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
 
 ### Algemene functionaliteit
 Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande aanvragen:
-- Gebruik van de **fields** parameter om de response te filteren. Voor werking, zie feature [fields](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature)
-- Gebruik van de **expand** parameter om subresources te ontsluiten. Voor werking, zie feature [expand](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature)
-- Gebruik van paginering om het aantal zoekresultaten per zoekvraag te beperken. Met de **page** parameter kan een volgende pagina worden gevraagd. Met de **pageSize** parameter kan gekozen worden voor meer of minder zoekresultaten per pagina (standaard is 20, maximum is 100). Voor werking, zie feature [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature)
+- Gebruik van de **fields** parameter om de response te filteren. Voor werking, zie feature [fields](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature){:target="_blank"}
+- Gebruik van de **expand** parameter om subresources te ontsluiten. Voor werking, zie feature [expand](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature){:target="_blank"}
+- Gebruik van paginering om het aantal zoekresultaten per zoekvraag te beperken. Met de **page** parameter kan een volgende pagina worden gevraagd. Met de **pageSize** parameter kan gekozen worden voor meer of minder zoekresultaten per pagina (standaard is 20, maximum is 100). Voor werking, zie feature [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"}
 - Soms kan er een onderzoek lopen of een gegeven wel correct is. Er zijn dan twijfels over de juistheid van de geregistreerde waarde. De API levert deze waarde wel, maar neemt die velden dan op in **mogelijkOnjuist** met de waarde True.
 - Sommige resources bevatten geometrie. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992). Bij een aanvraag die geometrie teruglevert moet de request header **Accept-Crs** worden meegestuurd.
 - Bij het zoeken van een pand op **locatie** moet de header **Content-Crs** worden meegestuurd. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992).
-- [HAL links](https://tools.ietf.org/html/draft-kelly-json-hal-08), die soms [templated](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/uri-templating.feature) worden geleverd.
+- [HAL links](https://tools.ietf.org/html/draft-kelly-json-hal-08){:target="_blank"}, die soms [templated](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/uri-templating.feature){:target="_blank"} worden geleverd.
 
 ## Probeer en test de API
-De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/).
-De [openapi.yaml](../specificatie/genereervariant/openapi.yaml) kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
-We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](../test/BAG-Bevragen-postman-collection.json). Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
+De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/){:target="_blank"}.
+De [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"} kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
+We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
 
 ### API key
 Om de API te kunnen bevragen is een API key nodig. Deze moet je bij het request opnemen in request header "X-Api-Key".
-Vraag een API key aan voor de [testomgeving](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test).
+Vraag een API key aan voor de [testomgeving](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test){:target="_blank"}.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1.
@@ -109,12 +109,12 @@ Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de
 | panden                | Met nevenadres                                                                   | /panden/0014100010921152                |
 | panden                | Zonder adres                                                                     | /panden/0503100000034877                |
 
-Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html) gebruiken om meer testgevallen te zoeken.
+Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken.
 
 ## Sluit aan op productie
 
 ### API key
-[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie). Voor de productieomgeving gebruik je dus een andere API-key dan in de testomgeving.
+[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. Voor de productieomgeving gebruik je dus een andere API-key dan in de testomgeving.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
