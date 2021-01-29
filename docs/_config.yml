@@ -18,7 +18,7 @@ nav:
       - title: Getting started
         path: /getting-started
       - title: User stories
-        url: https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues?q=is%3Aissue+label%3A%22user+story%22+label%3A%22v1.1%22
+        url: https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/user-stories-prod
         path: /user-stories
         target: blank
       - title: Bevragen API (swagger-ui)
@@ -30,7 +30,7 @@ nav:
   - title: Specificaties v. 1.2 (IO)
     subnav:
       - title: User stories
-        url: https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues?q=is%3Aissue+label%3A%22user+story%22+label%3A%22v1.2%22
+        url: https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/user-stories-dev
         path: /user-stories
         target: blank
       - title: Bevragen API (swagger-ui)
