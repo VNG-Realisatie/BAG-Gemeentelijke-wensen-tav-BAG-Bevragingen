@@ -5,6 +5,16 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
+## Versie 1.1.1 (03-03-2021)
+In deze release zijn enkele bugs in productie opgelost. Er zijn geen wijzigingen gedaan aan de API specificaties.
+
+  | Link Github	| Beschrijving |
+  | --- | --- |
+  | [340](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/340) | Links geven http in plaats van https |
+  | [376](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/376) | last link verwijst niet naar de laatste pagina |
+
+
+
 ## Versie 1.1.0 (16-09-2020)
 
   In deze release is functionaliteit toegevoegd voor het raadplegen van een adres op basis van de adresseerbaar object identificatie ([307](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/307)), en voor het zoeken van panden op basis van de nummeraanduiding identificatie ([271](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/271)).
