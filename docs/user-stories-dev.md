@@ -5,6 +5,7 @@ title: User Stories in Ontwikkeling
 
 # User stories
 
+- [Als medewerker gebiedsontwikkeling wil ik op bouwjaar (range, ouder dan, jonger dan) appartements-adressen in een bepaald gebied kunnen zoeken](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/380){:target="_blank" rel="noopener"}
 - [Als medewerker van de gemeente die personen in een gebied wil zoeken en aanschrijven/contacten wil ik direct een collectie adressen en/of ado's terugkrijgen](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/373){:target="_blank" rel="noopener"}
 - [Als medewerker van de gemeente wil ik dat het zoeken op adressen direct een collectie adressen teruggeeft](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/336){:target="_blank" rel="noopener"}
 - [Als medewerker handhaving vergunningen wil ik panden kunnen zoeken met een contour (vrije vorm) in combinatie met status en geconstateerd](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/335){:target="_blank" rel="noopener"}
