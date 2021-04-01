@@ -27,6 +27,7 @@ paths:
 
   /adressen/zoek:
     get:
+      deprecated: true
       security:
         - apiKeyBAG: []
       operationId: zoek
@@ -82,6 +83,7 @@ paths:
         - $ref: '#/components/parameters/pandIdentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/zoekresultaatIdentificatie'
+        - $ref: '#/components/parameters/zoek'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/page'
@@ -499,11 +501,12 @@ components:
       description: "Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging."
       name: zoek
       in: query
-      required: true
+      required: false
       schema:
         type: string
 
     zoekresultaatIdentificatie:
+      deprecated: true
       description: "De identificatie van een zoekresultaat van het endpoint get /adressen/zoek."
       name: zoekresultaatIdentificatie
       in: query
@@ -612,6 +615,7 @@ components:
   schemas:
 
     ZoekResultaat:
+      deprecated: true
       type: object
       description: "Resultaat van een zoekoperatie dat je kunt gebruiken om een adres te vinden met /adressen."
       properties:
@@ -623,17 +627,20 @@ components:
           type: string
 
     ZoekResultaatHal:
+      deprecated: true
       allOf:
         - $ref: '#/components/schemas/ZoekResultaat'
         - properties:
             _links:
               $ref: '#/components/schemas/ZoekResultaat_links'
     ZoekResultaat_links:
+      deprecated: true
       type: object
       properties:
         adres:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
+      deprecated: true
       type: object
       description: "Resultaten als lijst."
       properties:
