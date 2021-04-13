@@ -4,7 +4,7 @@ info:
     email: bag@kadaster.nl
     name: Kadaster - Beheerder Landelijke Voorziening BAG
     url: https://zakelijk.kadaster.nl/bag
-  description: Deze API levert actuele gegevens over adressen, adresseerbaar objecten
+  description: Deze API levert actuele gegevens over adressen, adresseerbare objecten
     en panden. Actueel betekent in deze API `zonder eindstatus`. De bron voor deze
     API is de basisregistratie adressen en gebouwen (BAG).
   license:
@@ -12,7 +12,7 @@ info:
     url: https://eupl.eu/1.2/nl/
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
   title: Huidige bevragingen API
-  version: 1.0.0
+  version: 1.1.0
 servers:
 - description: LVBAG - ACCEPTATIE
   url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1
@@ -26,11 +26,11 @@ paths:
       description: Free query zoeken van adressen met postcode, woonplaats, straatnaam,
         huisnummer, huisletter, huisnummertoevoeging. Delen van de adressen in het
         antwoord matchen exact met jouw invoer. Je vindt een adres door de zoekresultaatidentificatie
-        uit het antwoord te gebruiken in get/adressen
+        uit het antwoord te gebruiken in get /adressen
       operationId: zoek
       parameters:
       - description: Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter,
-          huisnummertoevoeging
+          huisnummertoevoeging.
         explode: true
         in: query
         name: zoek
@@ -70,6 +70,10 @@ paths:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: '#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: '#/components/headers/X_Pagination_Limit'
         "400":
           content:
             application/problem+json:
@@ -204,9 +208,9 @@ paths:
     get:
       description: Vind een actueel adres met de identificatie van het zoekresultaat
         uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie.
-        Gebruik de fields parameter als je alleen specifieke velden in het antwoord
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
         wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
-        Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,
         zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature).
       operationId: raadpleegAdressen
@@ -221,8 +225,9 @@ paths:
           pattern: ^[0-9]{16}$
           type: string
         style: form
-      - description: De identificatie van een adresserbaar object uit de BAG. Dit
-          kan een verblijfsobject, een standplaats of een ligplaats zijn.
+      - description: De identificatie van een adresseerbaar object uit de BAG. Deze
+          is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+          zijn.
         explode: true
         in: query
         name: adresseerbaarObjectIdentificatie
@@ -232,7 +237,7 @@ paths:
           pattern: ^[0-9]{16}$
           type: string
         style: form
-      - description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek
+      - description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek.
         explode: true
         in: query
         name: zoekresultaatIdentificatie
@@ -298,6 +303,10 @@ paths:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: '#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: '#/components/headers/X_Pagination_Limit'
         "400":
           content:
             application/problem+json:
@@ -430,10 +439,10 @@ paths:
       x-accepts: application/hal+json,application/problem+json
   /adressen/{nummeraanduidingidentificatie}:
     get:
-      description: Raadpleeg een actueel adres met de nummeraanduiding identificatie.
-        Gebruik de fields parameter als je alleen specifieke velden in het antwoord
+      description: Raadpleeg een actueel adres met de nummeraanduidingidentificatie.
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
         wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
-        Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,
         zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature).
       operationId: raadpleegAdresMetNumId
@@ -638,15 +647,16 @@ paths:
     get:
       description: Raadpleeg een actueel adresseerbaar object met de identificatie.
         Dit is de identificatie van een verblijfsobject, ligplaats of standplaats.
-        Gebruik de fields parameter als je alleen specifieke velden in het antwoord
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
         wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
-        Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources adres en pand, zie [functionele specificaties
         expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature).
       operationId: raadpleegAdresseerbaarobject
       parameters:
-      - description: De identificatie van een adresserbaar object uit de BAG. Dit
-          kan een verblijfsobject, een standplaats of een ligplaats zijn.
+      - description: De identificatie van een adresserbaar object uit de BAG. Deze
+          is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+          zijn.
         explode: false
         in: path
         name: adresseerbaarobjectidentificatie
@@ -875,11 +885,11 @@ paths:
       x-accepts: application/hal+json,application/problem+json
   /adresseerbareobjecten:
     get:
-      description: Zoek actuele adresseerbaar objecten (verblijfsobjecten, standplaatsen
-        of ligplaatsen) met een nummeraanduiding identificatie of pand identificatie.
-        Gebruik de fields parameter als je alleen specifieke velden in het antwoord
+      description: Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
+        of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie.
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
         wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
-        Gebruik de expand parameter als je het antwoord wil uitbreiden met (delen
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources adres en pand, zie [functionele specificaties
         expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature).
       operationId: raadpleegAdresseerbareobjecten
@@ -975,6 +985,10 @@ paths:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: '#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: '#/components/headers/X_Pagination_Limit'
             Content-Crs:
               $ref: '#/components/headers/contentCrs'
         "400":
@@ -1129,14 +1143,13 @@ paths:
     get:
       description: Raadpleeg een actuele woonplaats met de identificatie. Een woonplaats
         is een gedeelte van het grondgebied van de gemeente met een naam. Gebruik
-        de fields parameter als je alleen specifieke velden in het antwoord wil zien,
+        de fields-parameter als je alleen specifieke velden in het antwoord wil zien,
         zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
-        Gebruik de expand parameter als je het antwoord wil uitbreiden met de gerelateerde
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met de gerelateerde
         resource geometrie, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature).
       operationId: raadpleegWoonplaats
       parameters:
-      - description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-          woonplaats en 16 lang bij de andere objecten.
+      - description: Identificatie van een object uit de BAG. Deze is 4 cijfers lang.
         explode: false
         in: path
         name: woonplaatsidentificatie
@@ -1369,13 +1382,12 @@ paths:
     get:
       description: Raadpleeg een actuele openbare ruimte met de identificatie. Een
         openbare ruimte is een buitenruimte met een naam die binnen één woonplaats
-        ligt, bijvoorbeeld een straat of een plein. Gebruik de fields parameter als
+        ligt, bijvoorbeeld een straat of een plein. Gebruik de fields-parameter als
         je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature)
+        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
       operationId: raadpleegOpenbareRuimte
       parameters:
-      - description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-          woonplaats en 16 lang bij de andere objecten.
+      - description: Identificatie van een object uit de BAG. Deze is 16 cijfers lang.
         explode: false
         in: path
         name: openbareruimteidentificatie
@@ -1561,8 +1573,8 @@ paths:
       description: Raadpleeg een actuele nummeraanduiding met de identificatie. Een
         nummeraanduiding is een postcode, huisnummer met evt een huisletter en huisnummertoevoeging
         die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik
-        de fields parameter als je alleen specifieke velden in het antwoord wil zien,
-        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature)
+        de fields-parameter als je alleen specifieke velden in het antwoord wil zien,
+        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
       operationId: raadpleegNummeraanduiding
       parameters:
       - description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
@@ -1751,8 +1763,8 @@ paths:
     get:
       description: Raadpleeg een actueel pand met de identificatie. Een pand is een
         bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met
-        de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields
-        parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele
+        de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields-parameter
+        als je alleen specifieke velden in het antwoord wil zien, zie [functionele
         specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
       operationId: raadpleegPand
       parameters:
@@ -1972,12 +1984,14 @@ paths:
   /panden:
     get:
       description: Zoek actuele panden met de identificatie van een adresseerbaar
-        object of een locatie. Gebruik de fields parameter als je alleen specifieke
-        velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
+        object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je
+        alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
+        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
       operationId: raadpleegPanden
       parameters:
-      - description: De identificatie van een adresserbaar object uit de BAG. Dit
-          kan een verblijfsobject, een standplaats of een ligplaats zijn.
+      - description: De identificatie van een adresseerbaar object uit de BAG. Deze
+          is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+          zijn.
         explode: true
         in: query
         name: adresseerbaarObjectIdentificatie
@@ -1987,8 +2001,20 @@ paths:
           pattern: ^[0-9]{16}$
           type: string
         style: form
-      - description: Coordinaten van een locatie die als query-parmeter gebruikt wordt
-          om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+      - description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
+          cijfers lang.
+        explode: true
+        in: query
+        name: nummeraanduidingIdentificatie
+        required: false
+        schema:
+          example: "0226200000038923"
+          pattern: ^[0-9]{16}$
+          type: string
+        style: form
+      - description: Coordinaten van een locatie die als query-parameter gebruikt
+          wordt om een object te zoeken. Let op, explode is false dus het formaat
+          is ?locatie=194602.722,464154.308
         explode: false
         in: query
         name: locatie
@@ -2241,6 +2267,20 @@ components:
           hier de documentatie: https://omgevingswet.../api/.../v1".'
         type: string
       style: simple
+    X_Pagination_Page:
+      explode: false
+      schema:
+        description: Huidige pagina.
+        example: 3
+        type: integer
+      style: simple
+    X_Pagination_Limit:
+      explode: false
+      schema:
+        description: Aantal resultaten per pagina.
+        example: 20
+        type: integer
+      style: simple
     contentCrs:
       description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
         Nederlands coordinatenstelsel.
@@ -2253,7 +2293,7 @@ components:
   parameters:
     zoek:
       description: Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter,
-        huisnummertoevoeging
+        huisnummertoevoeging.
       explode: true
       in: query
       name: zoek
@@ -2262,7 +2302,7 @@ components:
         type: string
       style: form
     zoekresultaatIdentificatie:
-      description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek
+      description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek.
       explode: true
       in: query
       name: zoekresultaatIdentificatie
@@ -2271,7 +2311,7 @@ components:
         type: string
       style: form
     locatie-query:
-      description: Coordinaten van een locatie die als query-parmeter gebruikt wordt
+      description: Coordinaten van een locatie die als query-parameter gebruikt wordt
         om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
       explode: false
       in: query
@@ -2311,8 +2351,9 @@ components:
         type: string
       style: form
     adresseerbaarObjectIdentificatie-query:
-      description: De identificatie van een adresserbaar object uit de BAG. Dit kan
-        een verblijfsobject, een standplaats of een ligplaats zijn.
+      description: De identificatie van een adresseerbaar object uit de BAG. Deze
+        is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+        zijn.
       explode: true
       in: query
       name: adresseerbaarObjectIdentificatie
@@ -2335,8 +2376,9 @@ components:
         type: string
       style: simple
     adresseerbaarobjectidentificatie:
-      description: De identificatie van een adresserbaar object uit de BAG. Dit kan
-        een verblijfsobject, een standplaats of een ligplaats zijn.
+      description: De identificatie van een adresserbaar object uit de BAG. Deze is
+        16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats
+        zijn.
       explode: false
       in: path
       name: adresseerbaarobjectidentificatie
@@ -2358,8 +2400,7 @@ components:
         type: string
       style: simple
     woonplaatsidentificatie:
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-        woonplaats en 16 lang bij de andere objecten.
+      description: Identificatie van een object uit de BAG. Deze is 4 cijfers lang.
       explode: false
       in: path
       name: woonplaatsidentificatie
@@ -2372,8 +2413,7 @@ components:
         type: string
       style: simple
     openbareruimteidentificatie:
-      description: Identificatie van een object uit de BAG. Deze is 4 lang bij een
-        woonplaats en 16 lang bij de andere objecten.
+      description: Identificatie van een object uit de BAG. Deze is 16 cijfers lang.
       explode: false
       in: path
       name: openbareruimteidentificatie
@@ -2386,7 +2426,7 @@ components:
   schemas:
     ZoekResultaat:
       description: Resultaat van een zoekoperatie dat je kunt gebruiken om een adres
-        te vinden met /adressen
+        te vinden met /adressen.
       properties:
         omschrijving:
           description: Omschrijving van het zoekresultaat
@@ -2405,7 +2445,7 @@ components:
           $ref: '#/components/schemas/HalLink'
       type: object
     ZoekResultaatHalCollectie:
-      description: Resultaten als lijst
+      description: Resultaten als lijst.
       properties:
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
@@ -2413,8 +2453,8 @@ components:
           $ref: '#/components/schemas/ZoekResultaatHalCollectie__embedded'
       type: object
     Adres:
-      description: 'Eigenschappen van het adres die kunnen worden hergebruikt in andere
-        API''s waarin adresgegevens worden opgenomen. '
+      description: Eigenschappen van het adres die kunnen worden hergebruikt in andere
+        API's waarin adresgegevens worden opgenomen.
       properties:
         straat:
           description: Een naam die door de gemeente aan een openbare ruimte is gegeven.
@@ -2528,10 +2568,11 @@ components:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
       type: object
     AdresseerbaarObject:
-      description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
+      description: Een adresseerbaar object is een standplaats, ligplaats of verblijfsobject.
       properties:
         identificatie:
-          description: Dit is de identificatie van een ligplaats, standplaats of verblijfsobject.
+          description: Dit is de identificatie van een verblijfsobject, standplaats
+            of ligplaats.
           example: "0226010000038820"
           type: string
         domein:
@@ -2549,7 +2590,7 @@ components:
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
-            de MES-1 karakterset zijn toegstaan.
+            de MES-1 karakterset zijn toegestaan.
           example: 19SZ2048
           type: string
         gebruiksdoelen:
@@ -2628,8 +2669,8 @@ components:
     AdresseerbaarObject_links:
       properties:
         adressen:
-          description: Link(s) naar het hoofdadres en waar van toepassing de nebvenadressen
-            van het adresseerbaarobject.
+          description: Link(s) naar het hoofdadres en waar van toepassing de nevenadressen
+            van het adresseerbaar object.
           items:
             $ref: '#/components/schemas/HalLink'
           type: array
@@ -2711,7 +2752,7 @@ components:
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
-            de MES-1 karakterset zijn toegstaan.
+            de MES-1 karakterset zijn toegestaan.
           example: BAG-21
           type: string
         woonplaatsIdentificatie:
@@ -2737,7 +2778,7 @@ components:
           type: boolean
         toelichting:
           items:
-            example: Openbare ruimtenaam komt mogelijk niet overeen met de vermelding
+            example: Openbareruimtenaam komt mogelijk niet overeen met de vermelding
               in het straatnaambesluit.
             type: string
           type: array
@@ -2888,7 +2929,7 @@ components:
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
-            de MES-1 karakterset zijn toegstaan.
+            de MES-1 karakterset zijn toegestaan.
           example: "09.0898"
           type: string
         mogelijkOnjuist:
@@ -2944,9 +2985,9 @@ components:
           $ref: '#/components/schemas/polygonGeoJSON'
         oorspronkelijkBouwjaar:
           description: Het jaar waarin een pand oorspronkelijk als bouwkundig gereed
-            is wordt opgeleverd. Door de gemeente wordt een inschatting gemaakt van
-            het bouwjaar, en aangepast als het pand wordt opgeleverd. Wijzigingen
-            aan een pand na oplevering leiden niet tot wijziging van het bouwjaar.
+            is opgeleverd. Door de gemeente wordt een inschatting gemaakt van het
+            bouwjaar, en aangepast als het pand wordt opgeleverd. Wijzigingen aan
+            een pand na oplevering leiden niet tot wijziging van het bouwjaar.
           example: 1991
           type: integer
         status:
@@ -2966,7 +3007,7 @@ components:
           description: De unieke aanduiding van het brondocument op basis waarvan
             een opname, mutatie of een verwijdering van gegevens ten aanzien van een
             woonplaats heeft plaatsgevonden, binnen een gemeente. Alle karakters uit
-            de MES-1 karakterset zijn toegstaan.
+            de MES-1 karakterset zijn toegestaan.
           example: 09.BW.0273
           type: string
         adresseerbaarObjectIdentificaties:
@@ -3221,6 +3262,10 @@ components:
       - coordinates
       - type
       type: object
+    ZoekResultaatHal_allOf:
+      properties:
+        _links:
+          $ref: '#/components/schemas/ZoekResultaat_links'
     ZoekResultaatHalCollectie__embedded:
       properties:
         zoekresultaten:
@@ -3228,79 +3273,6 @@ components:
             $ref: '#/components/schemas/ZoekResultaatHal'
           type: array
       type: object
-    AdresHalCollectie__embedded:
-      properties:
-        adressen:
-          items:
-            $ref: '#/components/schemas/AdresHal'
-          type: array
-      type: object
-    AdresseerbaarobjectHalCollectie__embedded:
-      properties:
-        adresseerbareObjecten:
-          items:
-            $ref: '#/components/schemas/AdresseerbaarObjectHal'
-          type: array
-      type: object
-    PandHalCollectie__embedded:
-      properties:
-        panden:
-          items:
-            $ref: '#/components/schemas/PandHalBasis'
-          type: array
-      type: object
-    HalPaginationLinksMetLast_last:
-      description: uri voor het opvragen van de laatste pagina van deze collectie
-      properties:
-        href:
-          example: /resourcenaam?page=8
-          type: string
-        templated:
-          type: boolean
-        title:
-          example: Laatste pagina
-          type: string
-      type: object
-    HalPaginationLinks_first:
-      description: uri voor het opvragen van de eerste pagina van deze collectie
-      properties:
-        href:
-          example: /resourcenaam?page=1
-          type: string
-        templated:
-          type: boolean
-        title:
-          example: Eerste pagina
-          type: string
-      type: object
-    HalPaginationLinks_previous:
-      description: uri voor het opvragen van de vorige pagina van deze collectie
-      properties:
-        href:
-          example: /resourcenaam?page=3
-          type: string
-        templated:
-          type: boolean
-        title:
-          example: Vorige pagina
-          type: string
-      type: object
-    HalPaginationLinks_next:
-      description: uri voor het opvragen van de volgende pagina van deze collectie
-      properties:
-        href:
-          example: /resourcenaam?page=5
-          type: string
-        templated:
-          type: boolean
-        title:
-          example: Volgende pagina
-          type: string
-      type: object
-    ZoekResultaatHal_allOf:
-      properties:
-        _links:
-          $ref: '#/components/schemas/ZoekResultaat_links'
     AdresUitgebreid_allOf:
       description: Het adres is de benaming van een locatie bestaande uit straatnaam,
         huisnummer, (mogelijk met huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam.
@@ -3352,6 +3324,13 @@ components:
       properties:
         _links:
           $ref: '#/components/schemas/Adres_links'
+    AdresHalCollectie__embedded:
+      properties:
+        adressen:
+          items:
+            $ref: '#/components/schemas/AdresHal'
+          type: array
+      type: object
     AdresseerbaarObjectHal_allOf:
       properties:
         _embedded:
@@ -3360,6 +3339,13 @@ components:
       properties:
         _links:
           $ref: '#/components/schemas/AdresseerbaarObject_links'
+    AdresseerbaarobjectHalCollectie__embedded:
+      properties:
+        adresseerbareObjecten:
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
+          type: array
+      type: object
     OpenbareRuimteHalBasis_allOf:
       properties:
         _links:
@@ -3380,6 +3366,13 @@ components:
       properties:
         _links:
           $ref: '#/components/schemas/Pand_links'
+    PandHalCollectie__embedded:
+      properties:
+        panden:
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
+          type: array
+      type: object
     BadRequestFoutbericht_allOf:
       properties:
         invalidParams:
@@ -3388,18 +3381,69 @@ components:
           items:
             $ref: '#/components/schemas/InvalidParams'
           type: array
+      type: object
+    HalPaginationLinksMetLast_allOf_last:
+      description: uri voor het opvragen van de laatste pagina van deze collectie
+      properties:
+        href:
+          example: /resourcenaam?page=8
+          type: string
+        templated:
+          type: boolean
+        title:
+          example: Laatste pagina
+          type: string
+      type: object
     HalPaginationLinksMetLast_allOf:
       properties:
         last:
-          $ref: '#/components/schemas/HalPaginationLinksMetLast_last'
+          $ref: '#/components/schemas/HalPaginationLinksMetLast_allOf_last'
+      type: object
+    HalPaginationLinks_allOf_first:
+      description: uri voor het opvragen van de eerste pagina van deze collectie
+      properties:
+        href:
+          example: /resourcenaam?page=1
+          type: string
+        templated:
+          type: boolean
+        title:
+          example: Eerste pagina
+          type: string
+      type: object
+    HalPaginationLinks_allOf_previous:
+      description: uri voor het opvragen van de vorige pagina van deze collectie
+      properties:
+        href:
+          example: /resourcenaam?page=3
+          type: string
+        templated:
+          type: boolean
+        title:
+          example: Vorige pagina
+          type: string
+      type: object
+    HalPaginationLinks_allOf_next:
+      description: uri voor het opvragen van de volgende pagina van deze collectie
+      properties:
+        href:
+          example: /resourcenaam?page=5
+          type: string
+        templated:
+          type: boolean
+        title:
+          example: Volgende pagina
+          type: string
+      type: object
     HalPaginationLinks_allOf:
       properties:
         first:
-          $ref: '#/components/schemas/HalPaginationLinks_first'
+          $ref: '#/components/schemas/HalPaginationLinks_allOf_first'
         previous:
-          $ref: '#/components/schemas/HalPaginationLinks_previous'
+          $ref: '#/components/schemas/HalPaginationLinks_allOf_previous'
         next:
-          $ref: '#/components/schemas/HalPaginationLinks_next'
+          $ref: '#/components/schemas/HalPaginationLinks_allOf_next'
+      type: object
   securitySchemes:
     apiKeyBAG:
       description: De API-key die je hebt gekregen dient bij elke request via de `X-Api-Key`
