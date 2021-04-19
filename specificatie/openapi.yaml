@@ -159,66 +159,6 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
 
-  #19, 306, 373 
-  /adressen/_zoek:
-    post:
-      requestBody:
-        description: Zoek criteria waarmee naar adressen moet worden gezocht.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AdressenZoekObject'
-      security:
-        - apiKeyBAG: []
-      operationId: zoekAdressenInContour
-      tags:
-        - Adres
-      summary: "Vind adressen die binnen de opgegeven contour vallen, evt. op basis van bouwjaar."
-      description: "Zoek binnen een geometrische contour naar adressen, evt. op. basis van bouwjaar. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature)."
-      parameters:
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/fields'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/page'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/pageSize'
-      responses:
-        '200':
-          description: "Geslaagd"
-          headers:
-            api-version:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/api_version'
-            warning:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/warning'
-            Content-Crs:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/contentCrs'
-            X-Pagination-Page:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
-            X-Pagination-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Limit'
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/AdresHalCollectie'
-        '400':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/400'
-        '401':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/401'
-        '403':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/403'
-        '406':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/406'
-        '412':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/412'
-        '415':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/415'
-        '500':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/500'
-        '503':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/503'
-        default:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
-
   /adresseerbareobjecten/{adresseerbaarobjectidentificatie}:
     get:
       security:
@@ -266,8 +206,65 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
 
-  #7, 331, 332, 334, 373
-  /adresseerbareobjecten/_zoek:
+  /adresseerbareobjecten:
+    #334
+    get:
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegAdresseerbareobjecten
+      tags:
+        - Adresseerbaar object
+      summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
+      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie of met een status geconstateerd en woonplaats identificatie en eventueel een adresseerbare object type en één of meer gebruiksdoelen. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature)."
+      parameters:
+        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
+        - $ref: '#/components/parameters/pandIdentificatie-query'
+        - $ref: '#/components/parameters/geconstateerd'
+        - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
+        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/gebruiksdoel'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/expand'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/fields'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/page'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/pageSize'
+      responses:
+        '200':
+          description: "Geslaagd"
+          headers:
+            api-version:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/api_version'
+            warning:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Limit'
+            Content-Crs:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/contentCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
+        '400':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/400'
+        '401':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/401'
+        '403':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/403'
+        '406':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/406'
+        '412':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/412'
+        '500':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/500'
+        '503':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/503'
+        default:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
+
+  /adresseerbareobjecten/zoek:
+    #7, 331, 332, 334, 373
     post:
       requestBody:
         description: Geometrie waarbinnen naar adresseerbare objecten gezocht moet worden.
@@ -319,58 +316,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/412'
         '415':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/415'
-        '500':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/500'
-        '503':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/503'
-        default:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
-
-  /adresseerbareobjecten:
-    get:
-      security:
-        - apiKeyBAG: []
-      operationId: raadpleegAdresseerbareobjecten
-      tags:
-        - Adresseerbaar object
-      summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
-      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature)."
-      parameters:
-        - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
-        - $ref: '#/components/parameters/pandIdentificatie-query'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/expand'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/fields'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/page'
-        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/pageSize'
-      responses:
-        '200':
-          description: "Geslaagd"
-          headers:
-            api-version:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/api_version'
-            warning:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/warning'
-            X-Pagination-Page:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
-            X-Pagination-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Limit'
-            Content-Crs:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/headers/contentCrs'
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
-        '400':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/400'
-        '401':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/401'
-        '403':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/403'
-        '406':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/406'
-        '412':
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/412'
         '500':
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/500'
         '503':
@@ -603,8 +548,8 @@ paths:
         default:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
 
-  #333, 335 
-  /panden/_zoek:
+  /panden/zoek:
+    #331, 333, 335 
     post:
       requestBody:
         description: Geometrie waarbinnen naar panden gezocht moet worden.
@@ -738,6 +683,43 @@ components:
         pattern: '^[0-9]{16}$'
         example: '0226010000038820'
 
+    woonplaatsIdentificatie-query:
+      description: "De identificatie van een woonplaats uit de BAG. Deze is 4 cijfers lang."
+      name: woonplaatsIdentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
+        example: '2096'
+
+    geconstateerd:
+      description: "Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname."
+      name: geconstateerd
+      in: query
+      required: false
+      schema:
+        type: boolean
+        
+    type:
+      description: "Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname."
+      name: type
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+
+    gebruiksdoel:
+      description: "Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname."
+      name: gebruiksdoel
+      in: query
+      required: false
+      schema:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#/components/schemas/Gebruiksdoel_enum'
+
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
@@ -829,55 +811,69 @@ components:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
     GeoJsonZoekOpdracht:
-      description: 'Zoekobject om te zoeken op geometrie.'
+      description: 'Zoek opdracht voor het zoeken naar resource binnen een geometrie.'
       type: object
+      required:
+        - geometrie
+        - spatialOperator
       properties:      
         geometrie:
-          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
+          description: 'De geometrie waarbinnen gezocht moet worden naar objecten. Alleen Point en Polygon worden ondersteund. Als Point wordt opgegeven, dan moet ook de paramter radius worden opgegeven zodat in een gebied met een straal rond het opgegeven punt wordt gezocht.' 
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/geometryGeoJSON.yaml'
         spatialOperator:
           type: string
-          description: 'Een uit de set van spatial operators die gedefinieerd zijn in ISO 19125-1'
+          description: >-
+            "Een uit de set van spatial operators die gedefinieerd zijn in ISO 19125-1. Ondersteund worden:
+            - intersects  : object geometrie `overlapt` of `raakt` de opgegeven contour
+            - within      : object geometrie valt volledig binnen de opgegeven contour
+            - contains    : object geometrie omsluit de opgegeven contour volledig"
           enum:
-#            - bbox
-#            - equals
-#            - disjoint
             - intersects
-#            - touches
-#            - crosses
             - within
             - contains
-#            - overlaps
-#            - beyond
-#            - dwithin
-        tolerantie:
+          default: intersects
+        radius:
+          description: 'Als geometrie type point wordt meegegeven, dan kan in een straal rondom dat punt worden gezocht door hier de straal op te geven (eenheid meters).'
           type: number
+          default: 100
+          minimum: 1
+          maximum: 280
+        tolerantie:
+          description: 'Een percentage ter indicatie van het gewenste niveau van precisie voor spatial data (in meters).'
+          type: number
+          default: 1
+          minimum: 1
+          maximum: 100
 
-    AdressenZoekObject:
-      type: object
-      description: Een object waarin de benodigde zoek criteria worden opgegeven om naar adressen te zoeken.
-      properties:
-        _geo:
-          $ref: '#/components/schemas/GeoJsonZoekOpdracht'
-        bouwjaar:
-          description: Een aanduiding voor de minimale en/of maximale waarde voor een bouwjaar van een pand op het adres.
+    Waardebereik:
+      description: >-
+        Een generieke aanduiding voor de min en max waarde van een attribuut van een object.
+        Als alleen een min waarde wordt opgegeven, dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan de min waarde.
+        Als alleen een max waarde wordt opgegeven, dan wordt er gezocht naar waarden die kleiner dan of gelijk zijn aan de max waarde.
+        Als zowel min en max waarde worden opgegeven waarbij min < max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die tussen min en max liggen.
+        Als zowel min en max waarde worden opgegeven waarbij min > max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die niet tussen min en max liggen. 
           type: object
           properties:
             min:
-              type: integer
-              minimum: 0
-              maximum: 9999
+          type: number
             max:
-              type: integer
-              minimum: 0
-              maximum: 9999
+          type: number
+
+    LijstOperator:
+      type: string
+      enum:
+        - AND   # alle waarden
+        - OR    # één of meer waarden
+        - XOR   # één van de waarden
+        - NOT   # geen van de waarden
 
     AdresseerbareObjectenZoekObject:
-      type: object
+      allOf:
+        - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
+        - type: object
       description: Een object waarin de benodigde zoek criteria worden opgegeven om naar adresseerbare objecten te zoeken.
       properties:
-        _geo:
-          $ref: '#/components/schemas/GeoJsonZoekOpdracht'
-        statusAdresseerbaarObject:
+        status:
           type: array
           minItems: 1
           items:
@@ -885,36 +881,43 @@ components:
         geconstateerd:
           type: boolean
         oppervlakte:
-          type: object
-          properties:
-            min:
-              type: integer
-            max:
-              type: integer
+              $ref: '#/components/schemas/Waardebereik'
         gebruiksdoel:
+              $ref: '#/components/schemas/GebruiksdoelZoekObject'
+            type:
+          type: array
+          minItems: 1
+          items:
+                $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+
+    GebruiksdoelZoekObject:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/LijstOperator'
+        gebruiksdoelen:
           type: array
           minItems: 1
           items:
             $ref: '#/components/schemas/Gebruiksdoel_enum'
-        typeAdresseerbaarObject:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
 
     PandenZoekObject:
-      type: object
+      allOf:
+        - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
+        - type: object
       description: Een object waarin de benodigde zoek criteria worden opgegeven om naar panden te zoeken.
       properties:
-        _geo:
-          $ref: '#/components/schemas/GeoJsonZoekOpdracht'
         status:
           type: array
           minItems: 1
           items:
             $ref: '#/components/schemas/StatusPand_enum'
         geconstateerd:
+              description: Een indicatie of er naar geconstaeerde resources gezocht moet worden.
           type: boolean
+            bouwjaar:
+              description: Een minimale en/of maximale waarde van het bouwjaar van paden waarnaar gezocht moet worden. 
+              $ref: '#/components/schemas/Waardebereik'
 
     Adres:
       type: object
@@ -1563,7 +1566,7 @@ components:
         _embedded:
           type: object
           properties:
-            zoekresultaten:
+            panden:
               type: array
               items:
                 $ref: '#/components/schemas/PandHalBasis'
