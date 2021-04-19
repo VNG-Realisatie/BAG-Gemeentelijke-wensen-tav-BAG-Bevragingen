@@ -852,11 +852,11 @@ components:
         Als alleen een max waarde wordt opgegeven, dan wordt er gezocht naar waarden die kleiner dan of gelijk zijn aan de max waarde.
         Als zowel min en max waarde worden opgegeven waarbij min < max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die tussen min en max liggen.
         Als zowel min en max waarde worden opgegeven waarbij min > max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die niet tussen min en max liggen. 
-          type: object
-          properties:
-            min:
+      type: object
+      properties:
+        min:
           type: number
-            max:
+        max:
           type: number
 
     LijstOperator:
@@ -871,23 +871,23 @@ components:
       allOf:
         - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
         - type: object
-      description: Een object waarin de benodigde zoek criteria worden opgegeven om naar adresseerbare objecten te zoeken.
-      properties:
-        status:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/AdresseerbaarObjectStatus_enum'
-        geconstateerd:
-          type: boolean
-        oppervlakte:
+          description: Een object waarin de benodigde zoek criteria worden opgegeven om naar adresseerbare objecten te zoeken.
+          properties:
+            status:
+              type: array
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/AdresseerbaarObjectStatus_enum'
+            geconstateerd:
+              type: boolean
+            oppervlakte:
               $ref: '#/components/schemas/Waardebereik'
-        gebruiksdoel:
+            gebruiksdoel:
               $ref: '#/components/schemas/GebruiksdoelZoekObject'
             type:
-          type: array
-          minItems: 1
-          items:
+              type: array
+              minItems: 1
+              items:
                 $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
 
     GebruiksdoelZoekObject:
@@ -905,16 +905,16 @@ components:
       allOf:
         - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
         - type: object
-      description: Een object waarin de benodigde zoek criteria worden opgegeven om naar panden te zoeken.
-      properties:
-        status:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/StatusPand_enum'
-        geconstateerd:
+          description: Een object waarin de benodigde zoek criteria worden opgegeven om naar panden te zoeken.
+          properties:
+            status:
+              type: array
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/StatusPand_enum'
+            geconstateerd:
               description: Een indicatie of er naar geconstaeerde resources gezocht moet worden.
-          type: boolean
+              type: boolean
             bouwjaar:
               description: Een minimale en/of maximale waarde van het bouwjaar van paden waarnaar gezocht moet worden. 
               $ref: '#/components/schemas/Waardebereik'
