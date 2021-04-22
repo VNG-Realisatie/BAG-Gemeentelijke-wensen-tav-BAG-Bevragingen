@@ -686,11 +686,11 @@ components:
           adresregel1:
             type: "string"
             description: "De eerste regel van het adres zoals deze gebruikt kan worden in postadressering."
-            example: "Ln vd l D-Westervoort 1A-bis"
+            example: "Ln vd l D-Westervoort 1"
           adresregel2:
             type: "string"
             description: "De tweede regel van het adres zoals deze gebruikt kan worden in postadressering."
-            example: "6922KZ Duiven"
+            example: "6922 KZ  DUIVEN"
           korteNaam:
             description: "De officiële openbareruimtenaam of een verkorte versie. Beiden hebben maximaal 24 tekens."
             type: string
