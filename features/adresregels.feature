@@ -3,7 +3,9 @@
 Functionaliteit: Als gebruiker wil ik samengestelde adresregels
     zodat ik het samengestelde adres direct en correct kan gebruiken.
 
-    Het adres wordt samengesteld volgens de regels beschreven in NEN 8525:
+    Het adres wordt samengesteld conform NEN 5825:2002. Dit betreft alleen het adresdeel van de adressering, het naamdeel van de adressering komt uit een andere bron (zoals BRP, HR of BRK).
+
+    De adresregels worden samengesteld op basis van de volgende regels
     - Property adresregel1 wordt samengesteld uit korteNaam + huisnummer + huisletter + huisnummertoevoeging
     - Property adresregel2 wordt samengesteld uit postcode + woonplaats
     - Tussen kortenaam en huisnummer wordt een spatie opgenomen
