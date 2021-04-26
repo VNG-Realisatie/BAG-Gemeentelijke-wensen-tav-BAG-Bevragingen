@@ -179,6 +179,20 @@ Rule: Een raadpleeg collectie aanroep mag slechts één identificatie parameter 
         | /adresseerbareobjecten | ?nummeraanduidingIdentificatie=0226200000038923&pandIdentificatie=0226100000008856                | Alleen parameter 'nummeraanduidingIdentificatie' of 'pandIdentificatie' moet zijn opgegeven                |
         | /panden                | ?adresseerbaarObjectIdentificatie=0226010000038820&nummeraanduidingIdentificatie=0226200000038923 | Alleen parameter 'adresseerbaarObjectIdentificatie' of 'nummeraanduidingIdentificatie' moet zijn opgegeven |
 
+Rule: alle parameter fouten in een request worden samen geretourneerd
+
+    Scenario: er zijn meerdere verschillende fout soorten
+        Als '/panden?adresseerbaarObjectIdentificatie=0226010000038820&nummeraanduidingIdentificatie=0226200000038923&fields=bestaatniet&expand=bestaatookniet' wordt aangeroepen
+        Dan bevat de response de volgende kenmerken
+        | naam   | waarde                                                                                                                                                                                |
+        | title  | Een of meerdere parameters zijn niet correct.                                                                                                                                         |
+        | status | 400                                                                                                                                                                                   |
+        | detail | Alleen parameter 'adresseerbaarObjectIdentificatie' of 'nummeraanduidingIdentificatie' moet zijn opgegeven.<br />Parameters 'fields', 'expand' bevatten een (deels) ongeldige waarde. |
+        En bevat de response de volgende invalidParams
+        | name   | reason                                       |
+        | fields | ongeldige waarde: 'bestaatniet' opgegeven    |
+        | expand | ongeldige waarde: 'bestaatookniet' opgegeven |
+
 Abstract Scenario: opgegeven identificatie is niet gekoppeld aan een resource
     Als '<path>/<identificatie>' wordt aangeroepen
     Dan bevat de response de volgende kenmerken
