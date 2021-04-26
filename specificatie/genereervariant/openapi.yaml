@@ -2684,39 +2684,53 @@ components:
     GeoJsonZoekOpdracht:
       required:
       - geometrie
-      - spatialOperator
       type: object
       properties:
         geometrie:
-          $ref: '#/components/schemas/geometryGeoJSON'
+          $ref: '#/components/schemas/Geometrie'
         spatialOperator:
           type: string
-          description: '"Een uit de set van spatial operators die gedefinieerd zijn
-            in ISO 19125-1. Ondersteund worden: - intersects  : object geometrie `overlapt`
-            of `raakt` de opgegeven contour - within      : object geometrie valt
-            volledig binnen de opgegeven contour - contains    : object geometrie
+          description: '"Een operator uit de set van spatial operators die gedefinieerd
+            zijn in ISO 19125-1. Ondersteund worden: - intersects  : object geometrie
+            `overlapt` of `raakt` de opgegeven contour - within      : object geometrie
+            valt volledig binnen de opgegeven contour - contains    : object geometrie
             omsluit de opgegeven contour volledig"'
           default: intersects
           enum:
           - intersects
           - within
           - contains
-        radius:
-          maximum: 280
-          minimum: 1
-          type: number
-          description: Als geometrie type point wordt meegegeven, dan kan in een straal
-            rondom dat punt worden gezocht door hier de straal op te geven (eenheid
-            meters).
-          default: 100
         tolerantie:
-          maximum: 100
-          minimum: 1
+          maximum: 1
+          minimum: 0.000010
           type: number
-          description: Een percentage ter indicatie van het gewenste niveau van precisie
-            voor spatial data (in meters).
-          default: 1
+          description: De maximal afwijking (in meters) tussen twee punten waarbij
+            deze punten nog als één punt worden gezien.
+          format: float
+          default: 0.001
       description: Zoek opdracht voor het zoeken naar resource binnen een geometrie.
+    Geometrie:
+      type: object
+      properties:
+        cirkel:
+          $ref: '#/components/schemas/Cirkel'
+        polygoon:
+          $ref: '#/components/schemas/polygonGeoJSON'
+      description: De geometrie waarbinnen gezocht moet worden naar objecten. Er kan
+        een cirkel of een polygoon worden opgegeven.
+    Cirkel:
+      allOf:
+      - $ref: '#/components/schemas/pointGeoJSON'
+      - type: object
+        properties:
+          radius:
+            maximum: 280
+            minimum: 1
+            type: number
+            default: 100
+        description: Bij een geometrie type point kan een straal (eenheid meters)
+          worden meegegeven, zodat in een gebied met een streal rondom dat punt wordt
+          gezocht.
     Waardebereik:
       type: object
       properties:
@@ -2737,11 +2751,12 @@ components:
         en max liggen. '
     LijstOperator:
       type: string
+      default: or
       enum:
-      - AND
-      - OR
-      - XOR
-      - NOT
+      - and
+      - or
+      - xor
+      - not
     AdresseerbareObjectenZoekObject:
       allOf:
       - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
@@ -3693,15 +3708,6 @@ components:
           $ref: '#/components/schemas/HalLink'
       description: |
         HalCollectionLinks bevat de self link die elke HAL Resource minimaal moet hebben in zijn _links property
-    geometryGeoJSON:
-      oneOf:
-      - $ref: '#/components/schemas/pointGeoJSON'
-      - $ref: '#/components/schemas/multipointGeoJSON'
-      - $ref: '#/components/schemas/linestringGeoJSON'
-      - $ref: '#/components/schemas/multilinestringGeoJSON'
-      - $ref: '#/components/schemas/polygonGeoJSON'
-      - $ref: '#/components/schemas/multipolygonGeoJSON'
-      - $ref: '#/components/schemas/geometrycollectionGeoJSON'
     polygonGeoJSON:
       required:
       - coordinates
@@ -3722,6 +3728,21 @@ components:
               type: array
               items:
                 type: number
+    pointGeoJSON:
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+        coordinates:
+          minItems: 2
+          type: array
+          items:
+            type: number
     HalPaginationLinksMetLast_2:
       allOf:
       - $ref: '#/components/schemas/HalPaginationLinks_2'
@@ -3798,21 +3819,6 @@ components:
           type: string
           description: Voor mens leesbaar label bij de link
       description: De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5
-    pointGeoJSON:
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-        coordinates:
-          minItems: 2
-          type: array
-          items:
-            type: number
     multipolygonGeoJSON:
       required:
       - coordinates
@@ -3835,75 +3841,6 @@ components:
                 type: array
                 items:
                   type: number
-    multipointGeoJSON:
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - MultiPoint
-        coordinates:
-          type: array
-          items:
-            minItems: 2
-            type: array
-            items:
-              type: number
-    linestringGeoJSON:
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - LineString
-        coordinates:
-          minItems: 2
-          type: array
-          items:
-            minItems: 2
-            type: array
-            items:
-              type: number
-    multilinestringGeoJSON:
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - MultiLineString
-        coordinates:
-          type: array
-          items:
-            minItems: 2
-            type: array
-            items:
-              minItems: 2
-              type: array
-              items:
-                type: number
-    geometrycollectionGeoJSON:
-      required:
-      - geometries
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - GeometryCollection
-        geometries:
-          type: array
-          items:
-            $ref: '#/components/schemas/geometryGeoJSON'
   parameters:
     zoek:
       name: zoek

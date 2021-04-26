@@ -815,15 +815,13 @@ components:
       type: object
       required:
         - geometrie
-        - spatialOperator
       properties:      
         geometrie:
-          description: 'De geometrie waarbinnen gezocht moet worden naar objecten. Alleen Point en Polygon worden ondersteund. Als Point wordt opgegeven, dan moet ook de paramter radius worden opgegeven zodat in een gebied met een straal rond het opgegeven punt wordt gezocht.' 
-          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/geometryGeoJSON.yaml'
+          $ref: '#/components/schemas/Geometrie'
         spatialOperator:
           type: string
           description: >-
-            "Een uit de set van spatial operators die gedefinieerd zijn in ISO 19125-1. Ondersteund worden:
+            "Een operator uit de set van spatial operators die gedefinieerd zijn in ISO 19125-1. Ondersteund worden:
             - intersects  : object geometrie `overlapt` of `raakt` de opgegeven contour
             - within      : object geometrie valt volledig binnen de opgegeven contour
             - contains    : object geometrie omsluit de opgegeven contour volledig"
@@ -832,18 +830,34 @@ components:
             - within
             - contains
           default: intersects
-        radius:
-          description: 'Als geometrie type point wordt meegegeven, dan kan in een straal rondom dat punt worden gezocht door hier de straal op te geven (eenheid meters).'
-          type: number
-          default: 100
-          minimum: 1
-          maximum: 280
         tolerantie:
-          description: 'Een percentage ter indicatie van het gewenste niveau van precisie voor spatial data (in meters).'
+          description: 'De maximal afwijking (in meters) tussen twee punten waarbij deze punten nog als één punt worden gezien.'
           type: number
-          default: 1
-          minimum: 1
-          maximum: 100
+          format: float
+          default: 0.001
+          minimum: 0.00001
+          maximum: 1
+
+    Geometrie:
+      type: object
+      description: 'De geometrie waarbinnen gezocht moet worden naar objecten. Er kan een cirkel of een polygoon worden opgegeven.' 
+      properties:
+        cirkel:
+          $ref: '#/components/schemas/Cirkel'
+        polygoon:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
+        
+    Cirkel:
+      allOf: 
+        - $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+        - type: object
+          description: 'Bij een geometrie type point kan een straal (eenheid meters) worden meegegeven, zodat in een gebied met een streal rondom dat punt wordt gezocht.'
+          properties:
+            radius:
+              type: number
+              default: 100
+              minimum: 1
+              maximum: 280
 
     Waardebereik:
       description: >-
@@ -862,10 +876,11 @@ components:
     LijstOperator:
       type: string
       enum:
-        - AND   # alle waarden
-        - OR    # één of meer waarden
-        - XOR   # één van de waarden
-        - NOT   # geen van de waarden
+        - and   # alle waarden
+        - or    # één of meer waarden
+        - xor   # één van de waarden
+        - not   # geen van de waarden
+      default: or
 
     AdresseerbareObjectenZoekObject:
       allOf:
