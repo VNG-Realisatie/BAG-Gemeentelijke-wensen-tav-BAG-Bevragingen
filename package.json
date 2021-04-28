@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "report": "node ./scripts/generate-test-report.js",
+    "verify-features": "cucumber-js -f json:test-result.json features/fout-meldingen.feature",
+    "test": "npm run verify-features && npm run report"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^7.2.1",
+    "axios": "^0.21.1",
+    "chai": "^4.3.4",
+    "cucumber-html-reporter": "^5.4.0"
+  }
+}
