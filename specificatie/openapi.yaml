@@ -811,7 +811,7 @@ components:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
     GeoJsonZoekOpdracht:
-      description: 'Zoek opdracht voor het zoeken naar resource binnen een geometrie.'
+      description: 'Geometrie waarmee gezocht moet worden naar resources.'
       type: object
       required:
         - geometrie
@@ -831,7 +831,7 @@ components:
             - contains
           default: intersects
         tolerantie:
-          description: 'De maximal afwijking (in meters) tussen twee punten waarbij deze punten nog als één punt worden gezien.'
+          description: 'De maximale afwijking (in meters) tussen twee punten waarbij deze punten nog als één punt worden gezien.'
           type: number
           format: float
           default: 0.001
@@ -840,8 +840,10 @@ components:
 
     Geometrie:
       type: object
-      description: 'De geometrie waarbinnen gezocht moet worden naar objecten. Er kan een cirkel of een polygoon worden opgegeven.' 
+      description: 'De geometrie waarmee gezocht moet worden naar objecten. Er kan een punt, cirkel of polygoon worden opgegeven.' 
       properties:
+        locatie:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
         cirkel:
           $ref: '#/components/schemas/Cirkel'
         polygoon:
@@ -851,7 +853,7 @@ components:
       allOf: 
         - $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
         - type: object
-          description: 'Bij een geometrie type point kan een straal (eenheid meters) worden meegegeven, zodat in een gebied met een streal rondom dat punt wordt gezocht.'
+          description: 'Bij een geometrie type cirkel kan naast een punt een straal (eenheid meters) worden meegegeven, zodat in een gebied met een streal rondom dat punt wordt gezocht.'
           properties:
             radius:
               type: number

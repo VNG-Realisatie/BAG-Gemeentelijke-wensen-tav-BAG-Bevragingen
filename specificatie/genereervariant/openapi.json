@@ -3560,16 +3560,19 @@
             "maximum": 1,
             "minimum": 0.00001,
             "type": "number",
-            "description": "De maximal afwijking (in meters) tussen twee punten waarbij deze punten nog als één punt worden gezien.",
+            "description": "De maximale afwijking (in meters) tussen twee punten waarbij deze punten nog als één punt worden gezien.",
             "format": "float",
             "default": 0.001
           }
         },
-        "description": "Zoek opdracht voor het zoeken naar resource binnen een geometrie."
+        "description": "Geometrie waarmee gezocht moet worden naar resources."
       },
       "Geometrie": {
         "type": "object",
         "properties": {
+          "locatie": {
+            "$ref": "#/components/schemas/pointGeoJSON"
+          },
           "cirkel": {
             "$ref": "#/components/schemas/Cirkel"
           },
@@ -3577,7 +3580,7 @@
             "$ref": "#/components/schemas/polygonGeoJSON"
           }
         },
-        "description": "De geometrie waarbinnen gezocht moet worden naar objecten. Er kan een cirkel of een polygoon worden opgegeven."
+        "description": "De geometrie waarmee gezocht moet worden naar objecten. Er kan een punt, cirkel of polygoon worden opgegeven."
       },
       "Cirkel": {
         "allOf": [
@@ -3594,7 +3597,7 @@
                 "default": 100
               }
             },
-            "description": "Bij een geometrie type point kan een straal (eenheid meters) worden meegegeven, zodat in een gebied met een streal rondom dat punt wordt gezocht."
+            "description": "Bij een geometrie type cirkel kan naast een punt een straal (eenheid meters) worden meegegeven, zodat in een gebied met een streal rondom dat punt wordt gezocht."
           }
         ]
       },
@@ -4895,6 +4898,28 @@
         },
         "description": "HalCollectionLinks bevat de self link die elke HAL Resource minimaal moet hebben in zijn _links property\n"
       },
+      "pointGeoJSON": {
+        "required": [
+          "coordinates",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Point"
+            ]
+          },
+          "coordinates": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
       "polygonGeoJSON": {
         "required": [
           "coordinates",
@@ -4920,28 +4945,6 @@
                   "type": "number"
                 }
               }
-            }
-          }
-        }
-      },
-      "pointGeoJSON": {
-        "required": [
-          "coordinates",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "Point"
-            ]
-          },
-          "coordinates": {
-            "minItems": 2,
-            "type": "array",
-            "items": {
-              "type": "number"
             }
           }
         }
