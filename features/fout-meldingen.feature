@@ -23,10 +23,10 @@ Rule: minimaal één optionele parameter is opgegeven
     Abstract Scenario: Er zijn geen parameters opgegeven
         Als '<path>' wordt aangeroepen
         Dan bevat de response de volgende kenmerken
-        | naam   | waarde                                        |
-        | title  | Een of meerdere parameters zijn niet correct. |
-        | status | 400                                           |
-        | detail | <error detail>                                |
+        | naam   | waarde                                          |
+        | title  | Ten minste één parameter moet worden opgegeven. |
+        | status | 400                                             |
+        | detail | <error detail>                                  |
         En bevat de response geen invalidParams
 
         Voorbeelden:
