@@ -222,7 +222,7 @@ paths:
         - $ref: '#/components/parameters/geconstateerd'
         - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
         - $ref: '#/components/parameters/type'
-        - $ref: '#/components/parameters/gebruiksdoel'
+        - $ref: '#/components/parameters/gebruiksdoelen'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -702,16 +702,16 @@ components:
         type: boolean
         
     type:
-      description: "Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname."
+      description: "De aard van het object waaraan een nummeraanduiding is toegekend. Dit kan zijn een ligplaats, standplaats of verblijfsobject."
       name: type
       in: query
       required: false
       schema:
         $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
 
-    gebruiksdoel:
-      description: "Een aanduiding waarmee kan worden aangegeven dat een object in de registratie is opgenomen als gevolg van een feitelijke constatering, zonder dat er op het moment van opname sprake was van een regulier brondocument voor deze opname."
-      name: gebruiksdoel
+    gebruiksdoelen:
+      description: "Een categorisering van de gebruiksdoelen van het betreffende verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld."
+      name: gebruiksdoelen
       in: query
       required: false
       schema:
@@ -840,9 +840,9 @@ components:
 
     Geometrie:
       type: object
-      description: 'De geometrie waarmee gezocht moet worden naar objecten. Er kan een punt, cirkel of polygoon worden opgegeven.' 
+      description: 'De geometrie waarmee gezocht moet worden naar objecten. Er kan een punt, cirkel of polygoon worden opgegeven. De oppervlakte van het gebied waarbinnen gezocht moet worden, mag niet groter zijn dan 250.000 vierkante meter.' 
       properties:
-        locatie:
+        punt:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
         cirkel:
           $ref: '#/components/schemas/Cirkel'
@@ -850,39 +850,16 @@ components:
           $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
         
     Cirkel:
-      allOf: 
-        - $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
-        - type: object
-          description: 'Bij een geometrie type cirkel kan naast een punt een straal (eenheid meters) worden meegegeven, zodat in een gebied met een streal rondom dat punt wordt gezocht.'
+      type: object
+      description: 'Bij een geometrie type cirkel kan een punt en een straal (eenheid meters) worden opgegeven.'
           properties:
+        punt:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
             radius:
               type: number
               default: 100
               minimum: 1
               maximum: 280
-
-    Waardebereik:
-      description: >-
-        Een generieke aanduiding voor de min en max waarde van een attribuut van een object.
-        Als alleen een min waarde wordt opgegeven, dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan de min waarde.
-        Als alleen een max waarde wordt opgegeven, dan wordt er gezocht naar waarden die kleiner dan of gelijk zijn aan de max waarde.
-        Als zowel min en max waarde worden opgegeven waarbij min < max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die tussen min en max liggen.
-        Als zowel min en max waarde worden opgegeven waarbij min > max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die niet tussen min en max liggen. 
-      type: object
-      properties:
-        min:
-          type: number
-        max:
-          type: number
-
-    LijstOperator:
-      type: string
-      enum:
-        - and   # alle waarden
-        - or    # één of meer waarden
-        - xor   # één van de waarden
-        - not   # geen van de waarden
-      default: or
 
     AdresseerbareObjectenZoekObject:
       allOf:
@@ -891,33 +868,49 @@ components:
           description: Een object waarin de benodigde zoek criteria worden opgegeven om naar adresseerbare objecten te zoeken.
           properties:
             status:
-              type: array
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectStatus_enum'
+              $ref: '#/components/schemas/AdresseerbaarObjectStatusZoekObject'
             geconstateerd:
               type: boolean
             oppervlakte:
-              $ref: '#/components/schemas/Waardebereik'
+              $ref: '#/components/schemas/NumberOperator'
             gebruiksdoel:
               $ref: '#/components/schemas/GebruiksdoelZoekObject'
             type:
+              $ref: '#/components/schemas/AdresseerbaarObjectTypeZoekObject'
+
+    AdresseerbaarObjectStatusZoekObject:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/EnumOperator'
+        waarden:    
               type: array
               minItems: 1
               items:
-                $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+            $ref: '#/components/schemas/AdresseerbaarObjectStatus_enum'
 
     GebruiksdoelZoekObject:
       type: object
       properties:
         operator:
-          $ref: '#/components/schemas/LijstOperator'
-        gebruiksdoelen:
+          $ref: '#/components/schemas/ArrayOperator'
+        waarden:
           type: array
           minItems: 1
           items:
             $ref: '#/components/schemas/Gebruiksdoel_enum'
 
+    AdresseerbaarObjectTypeZoekObject:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/EnumOperator'
+        waarden:    
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+    
     PandenZoekObject:
       allOf:
         - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
@@ -925,16 +918,65 @@ components:
           description: Een object waarin de benodigde zoek criteria worden opgegeven om naar panden te zoeken.
           properties:
             status:
-              type: array
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/StatusPand_enum'
+              description: Een lijst met enumeratie waarden waar gezochte panden wel of niet aan moeten voldoen.
+              $ref: '#/components/schemas/PandStatusZoekObject'
             geconstateerd:
               description: Een indicatie of er naar geconstaeerde resources gezocht moet worden.
               type: boolean
             bouwjaar:
               description: Een minimale en/of maximale waarde van het bouwjaar van paden waarnaar gezocht moet worden. 
-              $ref: '#/components/schemas/Waardebereik'
+              $ref: '#/components/schemas/NumberOperator'
+
+    PandStatusZoekObject:
+      type: object
+      required:
+        - waarden
+      properties:
+        operator:
+          $ref: '#/components/schemas/EnumOperator'
+        waarden:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StatusPand_enum'
+
+    NumberOperator:
+      description: >-
+        "Een generieke aanduiding voor de min en max waarde van een attribuut van een object.
+        Als alleen een min waarde wordt opgegeven, dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan de min waarde.
+        Als alleen een max waarde wordt opgegeven, dan wordt er gezocht naar waarden die kleiner dan of gelijk zijn aan de max waarde.
+        Als zowel min en max waarde worden opgegeven waarbij min < max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die tussen min en max liggen.
+        Als zowel min en max waarde worden opgegeven waarbij min > max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die niet tussen min en max liggen." 
+      type: object
+      properties:
+        min:
+          type: number
+        max:
+          type: number
+
+    ArrayOperator:
+      type: string
+      description: >-
+        "Een lijst operatie, de volgende operaties worden ondersteund:
+        - and   : de gezochte resource property moet alle waarden uit de lijst bevatten
+        - or    : de gezochte resource property moet één of meer waarden uit de lijst bevatten
+        - not   : de gezochte resource property bevat geen van de waarde uit de lijst"
+      enum:
+        - and
+        - or
+        - not
+      default: or
+
+    EnumOperator:
+      type: string
+      description: >-
+        "Een enumeratie operatie, de volgende operaties worden ondersteund:
+        - or    : de gezochte resource property moet een waarde hebben die in de lijst met waarden voorkomt 
+        - not   : de gezcohte resource property moet een waarde hebben die niet in de lijst met waarden voorkomt"
+      enum:
+        - or 
+        - not
+      default: or
 
     Adres:
       type: object
@@ -971,6 +1013,14 @@ components:
       - $ref: "#/components/schemas/Adres"
       - description: "Het adres is de benaming van een locatie bestaande uit straatnaam, huisnummer, (mogelijk met huisletter, huisnummertoevoeging, postcode) en woonplaatsnaam. Dit is de vereenvoudigde samenstelling van de officiële naamgeving gebaseerd op woonplaats, openbare ruimte en nummeraanduiding."
         properties:
+          adresregel1:
+            type: "string"
+            description: "De eerste regel van het adres zoals deze gebruikt kan worden in postadressering."
+            example: "Ln vd l D-Westervoort 1A-bis"
+          adresregel2:
+            type: "string"
+            description: "De tweede regel van het adres zoals deze gebruikt kan worden in postadressering."
+            example: "6922KZ Duiven"
           korteNaam:
             description: "De officiële openbareruimtenaam of een verkorte versie. Beiden hebben maximaal 24 tekens."
             type: string
