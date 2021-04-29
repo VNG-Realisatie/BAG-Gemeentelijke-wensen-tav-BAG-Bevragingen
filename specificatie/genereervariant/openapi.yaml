@@ -835,15 +835,14 @@ paths:
       tags:
       - Adresseerbaar object
       summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
-      description: Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
-        of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie
-        of met een status geconstateerd en woonplaats identificatie en eventueel een
-        adresseerbare object type en één of meer gebruiksdoelen. Gebruik de fields-parameter
-        als je alleen specifieke velden in het antwoord wil zien, zie [functionele
-        specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
-        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
-        van) de gerelateerde resources adres en pand, zie [functionele specificaties
-        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+      description: '"Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
+        of ligplaatsen) met een nummeraanduidingidentificatie,  pandidentificatie,
+        of met een status geconstateerd in combinatie met woonplaats identificatie,
+        aangevuld met type en één of meer gebruiksdoelen.  Gebruik de fields-parameter
+        als je alleen specifieke velden in het antwoord wil zien, zie  [functionele
+        specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).  Gebruik
+        de expand-parameter als je het antwoord wil uitbreiden met (delen van) de
+        gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature)."'
       operationId: raadpleegAdresseerbareobjecten
       parameters:
       - name: nummeraanduidingIdentificatie
@@ -869,15 +868,15 @@ paths:
           example: "0226100000008856"
       - name: geconstateerd
         in: query
-        description: Een aanduiding waarmee kan worden aangegeven dat een object in
-          de registratie is opgenomen als gevolg van een feitelijke constatering,
-          zonder dat er op het moment van opname sprake was van een regulier brondocument
-          voor deze opname.
+        description: Indicator dat de woonplaats in de registratie is opgenomen door
+          een feitelijke constatering, zonder dat er een brondocument aan ten grondslag
+          ligt. De woonplaats is mogelijk illegaal.
         required: false
         style: form
         explode: true
         schema:
           type: boolean
+          default: true
       - name: woonplaatsIdentificatie
         in: query
         description: De identificatie van een woonplaats uit de BAG. Deze is 4 cijfers
@@ -1118,8 +1117,8 @@ paths:
     post:
       tags:
       - Adresseerbaar object
-      summary: Vindt adresseerbare objecten die binnen de contour vallen en die voldoen
-        aan de opgegeven status, geconstateerd, oppervlakte, gebruiksdoel en/of type.
+      summary: Vindt adresseerbare objecten die binnen de contour vallen en voldoen
+        aan het opgegeven type, oppervlakte, status, geconstateerd en gebruiksdoel.
       description: Zoek binnen een geometrische contour naar adresseerbare objecten
         die voldoen aan de opgegeven status, geconstateerd, oppervlakte, gebruiksdoel
         en/of type. Gebruik de fields-parameter als je alleen specifieke velden in
@@ -1172,8 +1171,7 @@ paths:
           type: integer
           default: 20
       requestBody:
-        description: Geometrie waarbinnen naar adresseerbare objecten gezocht moet
-          worden.
+        description: Geometrie waarmee je adresseerbare objecten kunt zoeken.
         content:
           application/json:
             schema:
@@ -2400,7 +2398,7 @@ paths:
     post:
       tags:
       - Pand
-      summary: Vindt panden die binnen de contour vallen en die voldoen aan de opgegeven
+      summary: Vindt panden die binnen de contour vallen en voldoen aan de opgegeven
         status en geconstateerd.
       description: Zoek binnen een geometrische contour naar panden die voldoen aan
         de opgegeven status en geconstateerd. Gebruik de fields-parameter als je alleen
@@ -2454,7 +2452,7 @@ paths:
           type: integer
           default: 20
       requestBody:
-        description: Geometrie waarbinnen naar panden gezocht moet worden.
+        description: Geometrie waarmee je panden kunt zoeken.
         content:
           application/json:
             schema:
@@ -2687,16 +2685,15 @@ components:
           $ref: '#/components/schemas/Geometrie'
         spatialOperator:
           type: string
-          description: '"Een operator uit de set van spatial operators die gedefinieerd
-            zijn in ISO 19125-1. Ondersteund worden: - intersects  : object geometrie
-            `overlapt` of `raakt` de opgegeven contour - within      : object geometrie
-            valt volledig binnen de opgegeven contour - contains    : object geometrie
-            omsluit de opgegeven contour volledig"'
+          description: '"Je kunt zoeken met de volgende operators: - intersects  :
+            object geometrie `overlapt` of `raakt` de opgegeven contour - within      :
+            object geometrie valt volledig binnen de opgegeven contour - contains    :
+            object geometrie omsluit de opgegeven contour volledig"'
+          default: intersects
           enum:
           - intersects
           - within
           - contains
-          default: intersects
         tolerantie:
           maximum: 1
           minimum: 0.000010
@@ -2705,7 +2702,7 @@ components:
             deze punten nog als één punt worden gezien.
           format: float
           default: 0.001
-      description: Geometrie waarmee gezocht moet worden naar resources.
+      description: Geometrie waarmee je kunt zoeken.
     Geometrie:
       type: object
       properties:
@@ -2715,10 +2712,8 @@ components:
           $ref: '#/components/schemas/Cirkel'
         polygoon:
           $ref: '#/components/schemas/polygonGeoJSON'
-      description: De geometrie waarmee gezocht moet worden naar objecten. Er kan
-        een punt, cirkel of polygoon worden opgegeven. De oppervlakte van het gebied
-        waarbinnen gezocht moet worden, mag niet groter zijn dan 250.000 vierkante
-        meter.
+      description: De geometrie waarmee je kunt zoeken. Je kunt een punt, cirkel of
+        polygoon opgeven.
     Cirkel:
       type: object
       properties:
@@ -2729,8 +2724,8 @@ components:
           minimum: 1
           type: number
           default: 100
-      description: Bij een geometrie type cirkel kan een punt en een straal (eenheid
-        meters) worden opgegeven.
+      description: Om met een cirkel te zoeken moet je een punt en een straal (in
+        meters) opgeven.
     AdresseerbareObjectenZoekObject:
       allOf:
       - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
@@ -2746,8 +2741,8 @@ components:
             $ref: '#/components/schemas/GebruiksdoelZoekObject'
           type:
             $ref: '#/components/schemas/AdresseerbaarObjectTypeZoekObject'
-        description: Een object waarin de benodigde zoek criteria worden opgegeven
-          om naar adresseerbare objecten te zoeken.
+        description: In dit zoekobject kun je de zoekcriteria opgeven waarmee je adresseerbaar
+          objecten wilt zoeken.
     AdresseerbaarObjectStatusZoekObject:
       type: object
       properties:
@@ -2787,12 +2782,11 @@ components:
             $ref: '#/components/schemas/PandStatusZoekObject'
           geconstateerd:
             type: boolean
-            description: Een indicatie of er naar geconstaeerde resources gezocht
-              moet worden.
+            description: Geeft aan of je naar geconstateerde panden wilt zoeken.
           bouwjaar:
             $ref: '#/components/schemas/NumberOperator'
-        description: Een object waarin de benodigde zoek criteria worden opgegeven
-          om naar panden te zoeken.
+        description: In dit zoekobject kun je de zoekcriteria opgeven waarmee je panden
+          wilt zoeken.
     PandStatusZoekObject:
       required:
       - waarden
@@ -2812,39 +2806,33 @@ components:
           type: number
         max:
           type: number
-      description: '"Een generieke aanduiding voor de min en max waarde van een attribuut
-        van een object. Als alleen een min waarde wordt opgegeven, dan wordt er gezocht
-        naar waarden die groter dan of gelijk zijn aan de min waarde. Als alleen een
-        max waarde wordt opgegeven, dan wordt er gezocht naar waarden die kleiner
-        dan of gelijk zijn aan de max waarde. Als zowel min en max waarde worden opgegeven
-        waarbij min < max dan wordt er gezocht naar waarden die groter dan of gelijk
-        zijn aan min en kleiner dan of gelijk aan max, oftewel waarden die tussen
-        min en max liggen. Als zowel min en max waarde worden opgegeven waarbij min
-        > max dan wordt er gezocht naar waarden die groter dan of gelijk zijn aan
-        min en kleiner dan of gelijk aan max, oftewel waarden die niet tussen min
-        en max liggen." '
+      description: '"Geeft aan met welke minimum en maximum waarde je kunt zoeken.
+        Als je alleen een min waarde opgeeft, dan zoek je naar waarden die groter
+        dan of gelijk zijn aan de min waarde. Als je alleen een max waarde opgeeft,
+        dan zoek je naar waarden die kleiner dan of gelijk zijn aan de max waarde.
+        Als je zowel min als max waarde opgeeft en min < max, dan zoek je naar waarden
+        die  tussen min en max liggen. Als je zowel min als max waarde opgeeft en
+        min > max, dan zoek je naar waarden die niet tussen min en max liggen." '
     ArrayOperator:
       type: string
-      description: '"Een lijst operatie, de volgende operaties worden ondersteund:
-        - and   : de gezochte resource property moet alle waarden uit de lijst bevatten
-        - or    : de gezochte resource property moet één of meer waarden uit de lijst
-        bevatten - not   : de gezochte resource property bevat geen van de waarde
-        uit de lijst"'
+      description: '"Je kunt de volgende operaties gebruiken: - and   : de resource
+        property moet alle waarden uit de lijst bevatten - or    : de resource property
+        moet één of meer waarden uit de lijst bevatten - not   : de resource property
+        mag geen van de waarden uit de lijst bevatten"'
+      default: or
       enum:
       - and
       - or
       - not
-      default: or
     EnumOperator:
       type: string
-      description: '"Een enumeratie operatie, de volgende operaties worden ondersteund:
-        - or    : de gezochte resource property moet een waarde hebben die in de lijst
-        met waarden voorkomt  - not   : de gezcohte resource property moet een waarde
-        hebben die niet in de lijst met waarden voorkomt"'
+      description: '"Je kunt de volgende operaties gebruiken: - or    : de resource
+        property moet een waarde hebben die in de waardenlijst voorkomt  - not   :
+        de resource property mag geen waarde hebben die in de waardenlijst voorkomt."'
+      default: or
       enum:
       - or
       - not
-      default: or
     Adres:
       type: object
       properties:
@@ -2879,8 +2867,8 @@ components:
           description: Een woonplaats is een gedeelte van het grondgebied van de gemeente
             met een naam.
           example: Duiven
-      description: 'Eigenschappen van het adres die kunnen worden hergebruikt in andere
-        API''s waarin adresgegevens worden opgenomen. '
+      description: Eigenschappen van het adres die kunnen worden hergebruikt in andere
+        API's met adresgegevens.
     AdresUitgebreid:
       allOf:
       - $ref: '#/components/schemas/Adres'
@@ -3976,15 +3964,15 @@ components:
     geconstateerd:
       name: geconstateerd
       in: query
-      description: Een aanduiding waarmee kan worden aangegeven dat een object in
-        de registratie is opgenomen als gevolg van een feitelijke constatering, zonder
-        dat er op het moment van opname sprake was van een regulier brondocument voor
-        deze opname.
+      description: Indicator dat de woonplaats in de registratie is opgenomen door
+        een feitelijke constatering, zonder dat er een brondocument aan ten grondslag
+        ligt. De woonplaats is mogelijk illegaal.
       required: false
       style: form
       explode: true
       schema:
         type: boolean
+        default: true
     type:
       name: type
       in: query
