@@ -315,7 +315,7 @@ Functionaliteit: Mogelijk onjuist
       | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | 0301030000017617 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
       | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | 0301020000024211 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
 
-    Abstract Scenario: leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk onjuiste identificatie bevat
+    Abstract Scenario: leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk naar een onjuist object verwijst.
       Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
       Als ik de resource <Resource> opvraag met fields=_links.<Fields>
       Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
@@ -323,11 +323,7 @@ Functionaliteit: Mogelijk onjuist
 
       Voorbeelden:
       | Objecttype       | <Attribuut in de BAG>                    | <Resource>            | Fields                      | Property                       |
-      | Openbare ruimte  | Status openbare ruimte                   | adressen              | openbareRuimte              | openbareRuimteIdentificatie    |
       | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | openbareRuimte              | openbareRuimteIdentificatie    |
-      | Nummeraanduiding | Status nummeraanduiding                  | adressen              | nummeraanduiding            | nummeraanduidingIdentificatie  |
-      | Woonplaats       | Status woonplaats                        | adressen              | woonplaats                  | woonplaatsIdentificatie        |
-      | Woonplaats       | Geometrie                                | adressen              | woonplaats                  | woonplaatsIdentificatie        |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        |
       | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | openbareruimten       | woonplaats                  | woonplaatsIdentificatie        |
