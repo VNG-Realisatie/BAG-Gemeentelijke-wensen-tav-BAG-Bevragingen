@@ -658,11 +658,7 @@ paths:
         description: Gewenste CRS van de coördinaten in de response.
         required: false
         schema:
-          type: string
-          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
-            RD New Nederlands coordinatenstelsel.
-          enum:
-          - epsg:28992
+          $ref: '#/components/schemas/CrsEnum'
       responses:
         "200":
           description: Geslaagd
@@ -892,11 +888,7 @@ paths:
         description: Gewenste CRS van de coördinaten in de response.
         required: false
         schema:
-          type: string
-          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
-            RD New Nederlands coordinatenstelsel.
-          enum:
-          - epsg:28992
+          $ref: '#/components/schemas/CrsEnum'
       - name: page
         in: query
         description: Pagina nummer
@@ -1120,11 +1112,7 @@ paths:
         description: Gewenste CRS van de coördinaten in de response.
         required: false
         schema:
-          type: string
-          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
-            RD New Nederlands coordinatenstelsel.
-          enum:
-          - epsg:28992
+          $ref: '#/components/schemas/CrsEnum'
       responses:
         "200":
           description: Geslaagd
@@ -1690,11 +1678,7 @@ paths:
         description: Gewenste CRS van de coördinaten in de response.
         required: false
         schema:
-          type: string
-          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
-            RD New Nederlands coordinatenstelsel.
-          enum:
-          - epsg:28992
+          $ref: '#/components/schemas/CrsEnum'
       responses:
         "200":
           description: Geslaagd
@@ -1929,20 +1913,14 @@ paths:
         description: Gewenste CRS van de coördinaten in de response.
         required: false
         schema:
-          type: string
-          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
-            RD New Nederlands coordinatenstelsel.
-          enum:
-          - epsg:28992
+          $ref: '#/components/schemas/CrsEnum'
       - name: Content-Crs
         in: header
         description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
           Nederlands coordinatenstelsel.
         required: false
         schema:
-          type: string
-          enum:
-          - epsg:28992
+          $ref: '#/components/schemas/CrsEnum'
       responses:
         "200":
           description: Geslaagd
@@ -2193,12 +2171,12 @@ components:
             type: string
             description: De eerste regel van het adres zoals deze gebruikt kan worden
               in postadressering.
-            example: Ln vd l D-Westervoort 1A-bis
+            example: Ln vd l D-Westervoort 1
           adresregel2:
             type: string
             description: De tweede regel van het adres zoals deze gebruikt kan worden
               in postadressering.
-            example: 6922KZ Duiven
+            example: 6922 KZ  DUIVEN
           korteNaam:
             maxLength: 24
             type: string
@@ -2963,6 +2941,12 @@ components:
           description: Beschrijving van de fout op de parameterwaarde
           example: Waarde is geen geldige integer.
       description: Details over fouten in opgegeven parameters
+    CrsEnum:
+      type: string
+      description: CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.
+      default: epsg:28992
+      enum:
+      - epsg:28992
     HalLink:
       required:
       - href
@@ -3267,9 +3251,7 @@ components:
       description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
         Nederlands coordinatenstelsel.
       schema:
-        type: string
-        enum:
-        - epsg:28992
+        $ref: '#/components/schemas/CrsEnum'
   securitySchemes:
     apiKeyBAG:
       type: apiKey
