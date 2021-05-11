@@ -201,10 +201,10 @@ paths:
       description: Vind een actueel adres met de identificatie van het zoekresultaat
         uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie.
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
-        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
         Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,
-        zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+        zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegAdressen
       parameters:
       - name: pandIdentificatie
@@ -418,10 +418,10 @@ paths:
       summary: levert een adres
       description: Raadpleeg een actueel adres met de nummeraanduidingidentificatie.
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
-        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
         Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,
-        zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+        zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegAdresMetNumId
       parameters:
       - name: nummeraanduidingidentificatie
@@ -613,10 +613,10 @@ paths:
       description: Raadpleeg een actueel adresseerbaar object met de identificatie.
         Dit is de identificatie van een verblijfsobject, ligplaats of standplaats.
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
-        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
         Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources adres en pand, zie [functionele specificaties
-        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegAdresseerbaarobject
       parameters:
       - name: adresseerbaarobjectidentificatie
@@ -834,10 +834,10 @@ paths:
       description: Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
         of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie.
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
-        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
         Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
         van) de gerelateerde resources adres en pand, zie [functionele specificaties
-        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegAdresseerbareobjecten
       parameters:
       - name: nummeraanduidingIdentificatie
@@ -1068,9 +1068,9 @@ paths:
       description: Raadpleeg een actuele woonplaats met de identificatie. Een woonplaats
         is een gedeelte van het grondgebied van de gemeente met een naam. Gebruik
         de fields-parameter als je alleen specifieke velden in het antwoord wil zien,
-        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
         Gebruik de expand-parameter als je het antwoord wil uitbreiden met de gerelateerde
-        resource geometrie, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+        resource geometrie, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegWoonplaats
       parameters:
       - name: woonplaatsidentificatie
@@ -1289,7 +1289,7 @@ paths:
         openbare ruimte is een buitenruimte met een naam die binnen één woonplaats
         ligt, bijvoorbeeld een straat of een plein. Gebruik de fields-parameter als
         je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       operationId: raadpleegOpenbareRuimte
       parameters:
       - name: openbareruimteidentificatie
@@ -1469,7 +1469,7 @@ paths:
         nummeraanduiding is een postcode, huisnummer met evt een huisletter en huisnummertoevoeging
         die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik
         de fields-parameter als je alleen specifieke velden in het antwoord wil zien,
-        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       operationId: raadpleegNummeraanduiding
       parameters:
       - name: nummeraanduidingidentificatie
@@ -1650,7 +1650,7 @@ paths:
         bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met
         de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields-parameter
         als je alleen specifieke velden in het antwoord wil zien, zie [functionele
-        specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       operationId: raadpleegPand
       parameters:
       - name: pandidentificatie
