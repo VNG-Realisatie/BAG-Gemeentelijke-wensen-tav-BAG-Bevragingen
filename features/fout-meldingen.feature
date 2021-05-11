@@ -2,7 +2,7 @@
 Functionaliteit: Gebruiksvriendelijke en duidelijke fout meldingen
 
     Als developer van een consumer applicatie
-    Wil ik gebruikers vriendelijke foutmeldingen
+    Wil ik gebruiksvriendelijke en duidelijke foutmeldingen
     Zodat ik deze één op één kan gebruiken in de UI van mijn applicatie
 
 Rule: verplichte parameter(s) zijn opgegeven
@@ -11,12 +11,25 @@ Rule: verplichte parameter(s) zijn opgegeven
         Als '/adressen/zoek' wordt aangeroepen
         Dan bevat de response de volgende kenmerken
         | naam   | waarde                                         |
-        | title  | Een of meerdere parameters zijn niet correct.  |
+        | title  | Ten minste één parameter moet worden opgegeven |
         | status | 400                                            |
         | detail | Verplichte parameter 'zoek' is niet opgegeven. |
         En bevat de response de volgende invalidParams
-        | name | reason                        |
-        | zoek | parameter 'zoek' is verplicht |
+        | name | reason                 |
+        | zoek | Parameter is verplicht |
+
+Rule: alleen gespecificeerde parameters mogen worden gebruikt
+
+    Scenario: Niet gespecificeerde parameter
+        Als '/adressen?straat=Spui' wordt aangeroepen
+        Dan bevat de response de volgende kenmerken
+        | naam   | waarde                                                |
+        | title  | Een of meerdere parameters zijn niet correct.         |
+        | status | 400                                                   |
+        | detail | Zoeken met parameter 'straat' wordt niet ondersteund. |
+        En bevat de response de volgende invalidParams
+        | name   | reason                 |
+        | straat | wordt niet ondersteund |
 
 Rule: minimaal één optionele parameter is opgegeven
 
@@ -45,8 +58,8 @@ Rule: opgegeven parameter(s) heeft een waarde
         | status | 400                                                         |
         | detail | Waarde voor parameter 'pandIdentificatie' is niet opgegeven |
         En bevat de response de volgende invalidParams
-        | name              | reason                                          |
-        | pandIdentificatie | parameter 'pandIdentificatie' bevat geen waarde |
+        | name              | reason                |
+        | pandIdentificatie | geen waarde opgegeven |
 
     Scenario: Er is geen waarde voor meerdere parameters opgegeven
         Als '/panden?adresseerbaarObjectIdentificatie=&fields=' wordt aangeroepen
