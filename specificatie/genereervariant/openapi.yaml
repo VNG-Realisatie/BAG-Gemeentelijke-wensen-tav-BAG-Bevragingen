@@ -1854,8 +1854,7 @@ paths:
       description: Zoek actuele panden met de identificatie van een adresseerbaar
         object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je
         alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2
-        .0/features/fields.feature).
+        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       operationId: raadpleegPanden
       parameters:
       - name: adresseerbaarObjectIdentificatie
