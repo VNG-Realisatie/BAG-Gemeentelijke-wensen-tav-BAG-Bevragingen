@@ -87,7 +87,7 @@ namespace Org.OpenAPITools.Model
         /// Indicator dat de woonplaats in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De woonplaats is mogelijk illegaal.
         /// </summary>
         /// <value>Indicator dat de woonplaats in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De woonplaats is mogelijk illegaal.</value>
-        [DataMember(Name = "geconstateerd", EmitDefaultValue = false)]
+        [DataMember(Name = "geconstateerd", EmitDefaultValue = true)]
         public bool Geconstateerd { get; set; }
 
         /// <summary>

@@ -30,19 +30,19 @@ import org.openapitools.client.model.WoonplaatsHalBasis;
 /**
  * AdresEmbedded
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-04-16T10:02:13.304775Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-05-20T09:17:18.498281Z[Etc/UTC]")
 public class AdresEmbedded {
   public static final String SERIALIZED_NAME_OPENBARE_RUIMTE = "openbareRuimte";
   @SerializedName(SERIALIZED_NAME_OPENBARE_RUIMTE)
-  private OpenbareRuimteHalBasis openbareRuimte = null;
+  private OpenbareRuimteHalBasis openbareRuimte;
 
   public static final String SERIALIZED_NAME_NUMMERAANDUIDING = "nummeraanduiding";
   @SerializedName(SERIALIZED_NAME_NUMMERAANDUIDING)
-  private NummeraanduidingHalBasis nummeraanduiding = null;
+  private NummeraanduidingHalBasis nummeraanduiding;
 
   public static final String SERIALIZED_NAME_WOONPLAATS = "woonplaats";
   @SerializedName(SERIALIZED_NAME_WOONPLAATS)
-  private WoonplaatsHalBasis woonplaats = null;
+  private WoonplaatsHalBasis woonplaats;
 
 
   public AdresEmbedded openbareRuimte(OpenbareRuimteHalBasis openbareRuimte) {

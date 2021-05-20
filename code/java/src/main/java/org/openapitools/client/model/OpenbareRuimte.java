@@ -32,7 +32,7 @@ import org.openapitools.client.model.TypeOpenbareRuimteEnum;
  * Een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld een straat of een plein.
  */
 @ApiModel(description = "Een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld een straat of een plein.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-04-16T10:02:13.304775Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-05-20T09:17:18.498281Z[Etc/UTC]")
 public class OpenbareRuimte {
   public static final String SERIALIZED_NAME_IDENTIFICATIE = "identificatie";
   @SerializedName(SERIALIZED_NAME_IDENTIFICATIE)

@@ -110,7 +110,7 @@ namespace Org.OpenAPITools.Model
         /// Indicatie dat een standplaats, ligplaats of verblijfsobject in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. Het adresseerbaar object is mogelijk illegaal.
         /// </summary>
         /// <value>Indicatie dat een standplaats, ligplaats of verblijfsobject in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. Het adresseerbaar object is mogelijk illegaal.</value>
-        [DataMember(Name = "geconstateerd", EmitDefaultValue = false)]
+        [DataMember(Name = "geconstateerd", EmitDefaultValue = true)]
         public bool Geconstateerd { get; set; }
 
         /// <summary>

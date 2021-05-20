@@ -30,9 +30,7 @@ namespace Org.OpenAPITools.Model
     /// Een aanduiding van alle waarden die de status van een woonplaats kan aannemen.
     /// </summary>
     /// <value>Een aanduiding van alle waarden die de status van een woonplaats kan aannemen.</value>
-    
     [JsonConverter(typeof(StringEnumConverter))]
-    
     public enum StatusWoonplaatsEnum
     {
         /// <summary>

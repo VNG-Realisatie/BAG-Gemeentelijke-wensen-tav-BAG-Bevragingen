@@ -106,7 +106,7 @@ namespace Org.OpenAPITools.Model
         /// Indicator dat een openbare ruimte in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De openbare ruimte is mogelijk illegaal.
         /// </summary>
         /// <value>Indicator dat een openbare ruimte in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De openbare ruimte is mogelijk illegaal.</value>
-        [DataMember(Name = "geconstateerd", EmitDefaultValue = false)]
+        [DataMember(Name = "geconstateerd", EmitDefaultValue = true)]
         public bool Geconstateerd { get; set; }
 
         /// <summary>

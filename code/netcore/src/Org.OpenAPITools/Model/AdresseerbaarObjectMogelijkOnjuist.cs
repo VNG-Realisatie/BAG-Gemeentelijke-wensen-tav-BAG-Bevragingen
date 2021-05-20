@@ -56,37 +56,37 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets Gebruiksdoelen
         /// </summary>
-        [DataMember(Name = "gebruiksdoelen", EmitDefaultValue = false)]
+        [DataMember(Name = "gebruiksdoelen", EmitDefaultValue = true)]
         public bool Gebruiksdoelen { get; set; }
 
         /// <summary>
         /// Gets or Sets Geometrie
         /// </summary>
-        [DataMember(Name = "geometrie", EmitDefaultValue = false)]
+        [DataMember(Name = "geometrie", EmitDefaultValue = true)]
         public bool Geometrie { get; set; }
 
         /// <summary>
         /// Gets or Sets NummeraanduidingIdentificaties
         /// </summary>
-        [DataMember(Name = "nummeraanduidingIdentificaties", EmitDefaultValue = false)]
+        [DataMember(Name = "nummeraanduidingIdentificaties", EmitDefaultValue = true)]
         public bool NummeraanduidingIdentificaties { get; set; }
 
         /// <summary>
         /// Gets or Sets PandIdentificaties
         /// </summary>
-        [DataMember(Name = "pandIdentificaties", EmitDefaultValue = false)]
+        [DataMember(Name = "pandIdentificaties", EmitDefaultValue = true)]
         public bool PandIdentificaties { get; set; }
 
         /// <summary>
         /// Gets or Sets Oppervlakte
         /// </summary>
-        [DataMember(Name = "oppervlakte", EmitDefaultValue = false)]
+        [DataMember(Name = "oppervlakte", EmitDefaultValue = true)]
         public bool Oppervlakte { get; set; }
 
         /// <summary>
         /// Gets or Sets Status
         /// </summary>
-        [DataMember(Name = "status", EmitDefaultValue = false)]
+        [DataMember(Name = "status", EmitDefaultValue = true)]
         public bool Status { get; set; }
 
         /// <summary>

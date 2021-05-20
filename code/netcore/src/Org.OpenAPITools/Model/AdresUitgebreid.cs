@@ -154,14 +154,14 @@ namespace Org.OpenAPITools.Model
         /// Indicatie dat dit adres een nevenadres is van een adresseerbaar object. Het adres is een hoofdadres als deze indicatie niet wordt meegeleverd.
         /// </summary>
         /// <value>Indicatie dat dit adres een nevenadres is van een adresseerbaar object. Het adres is een hoofdadres als deze indicatie niet wordt meegeleverd.</value>
-        [DataMember(Name = "isNevenadres", EmitDefaultValue = false)]
+        [DataMember(Name = "isNevenadres", EmitDefaultValue = true)]
         public bool IsNevenadres { get; set; }
 
         /// <summary>
         /// Indicatie dat dit adres in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het adres is mogelijk illegaal.
         /// </summary>
         /// <value>Indicatie dat dit adres in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het adres is mogelijk illegaal.</value>
-        [DataMember(Name = "geconstateerd", EmitDefaultValue = false)]
+        [DataMember(Name = "geconstateerd", EmitDefaultValue = true)]
         public bool Geconstateerd { get; set; }
 
         /// <summary>

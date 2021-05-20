@@ -98,7 +98,7 @@ namespace Org.OpenAPITools.Model
         /// Indicatie dat het pand in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het pand is mogelijk illegaal.
         /// </summary>
         /// <value>Indicatie dat het pand in de registratie is opgenomen door een feitelijke constatering, zonder dat er sprake was van een brondocument/vergunning. Het pand is mogelijk illegaal.</value>
-        [DataMember(Name = "geconstateerd", EmitDefaultValue = false)]
+        [DataMember(Name = "geconstateerd", EmitDefaultValue = true)]
         public bool Geconstateerd { get; set; }
 
         /// <summary>

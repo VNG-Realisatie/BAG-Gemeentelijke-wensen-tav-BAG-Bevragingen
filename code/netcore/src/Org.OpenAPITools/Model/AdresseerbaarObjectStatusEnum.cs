@@ -29,9 +29,7 @@ namespace Org.OpenAPITools.Model
     /// <summary>
     /// Defines AdresseerbaarObjectStatus_enum
     /// </summary>
-    
     [JsonConverter(typeof(StringEnumConverter))]
-    
     public enum AdresseerbaarObjectStatusEnum
     {
         /// <summary>

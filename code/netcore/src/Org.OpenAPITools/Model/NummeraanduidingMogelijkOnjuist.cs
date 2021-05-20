@@ -58,43 +58,43 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets Huisnummer
         /// </summary>
-        [DataMember(Name = "huisnummer", EmitDefaultValue = false)]
+        [DataMember(Name = "huisnummer", EmitDefaultValue = true)]
         public bool Huisnummer { get; set; }
 
         /// <summary>
         /// Gets or Sets Huisletter
         /// </summary>
-        [DataMember(Name = "huisletter", EmitDefaultValue = false)]
+        [DataMember(Name = "huisletter", EmitDefaultValue = true)]
         public bool Huisletter { get; set; }
 
         /// <summary>
         /// Gets or Sets Huisnummertoevoeging
         /// </summary>
-        [DataMember(Name = "huisnummertoevoeging", EmitDefaultValue = false)]
+        [DataMember(Name = "huisnummertoevoeging", EmitDefaultValue = true)]
         public bool Huisnummertoevoeging { get; set; }
 
         /// <summary>
         /// Gets or Sets Postcode
         /// </summary>
-        [DataMember(Name = "postcode", EmitDefaultValue = false)]
+        [DataMember(Name = "postcode", EmitDefaultValue = true)]
         public bool Postcode { get; set; }
 
         /// <summary>
         /// Gets or Sets Status
         /// </summary>
-        [DataMember(Name = "status", EmitDefaultValue = false)]
+        [DataMember(Name = "status", EmitDefaultValue = true)]
         public bool Status { get; set; }
 
         /// <summary>
         /// Gets or Sets WoonplaatsIdentificatie
         /// </summary>
-        [DataMember(Name = "woonplaatsIdentificatie", EmitDefaultValue = false)]
+        [DataMember(Name = "woonplaatsIdentificatie", EmitDefaultValue = true)]
         public bool WoonplaatsIdentificatie { get; set; }
 
         /// <summary>
         /// Gets or Sets OpenbareRuimteIdentificatie
         /// </summary>
-        [DataMember(Name = "openbareRuimteIdentificatie", EmitDefaultValue = false)]
+        [DataMember(Name = "openbareRuimteIdentificatie", EmitDefaultValue = true)]
         public bool OpenbareRuimteIdentificatie { get; set; }
 
         /// <summary>

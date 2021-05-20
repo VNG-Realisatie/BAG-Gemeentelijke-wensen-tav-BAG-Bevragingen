@@ -29,9 +29,7 @@ namespace Org.OpenAPITools.Model
     /// <summary>
     /// Defines Gebruiksdoel_enum
     /// </summary>
-    
     [JsonConverter(typeof(StringEnumConverter))]
-    
     public enum GebruiksdoelEnum
     {
         /// <summary>

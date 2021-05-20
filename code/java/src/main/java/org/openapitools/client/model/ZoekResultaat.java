@@ -28,7 +28,7 @@ import java.io.IOException;
  * Resultaat van een zoekoperatie dat je kunt gebruiken om een adres te vinden met /adressen.
  */
 @ApiModel(description = "Resultaat van een zoekoperatie dat je kunt gebruiken om een adres te vinden met /adressen.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-04-16T10:02:13.304775Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-05-20T09:17:18.498281Z[Etc/UTC]")
 public class ZoekResultaat {
   public static final String SERIALIZED_NAME_OMSCHRIJVING = "omschrijving";
   @SerializedName(SERIALIZED_NAME_OMSCHRIJVING)

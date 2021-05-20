@@ -2,7 +2,7 @@
 
 Huidige bevragingen API
 - API version: 1.1.0
-  - Build date: 2021-04-16T10:02:13.304775Z[Etc/UTC]
+  - Build date: 2021-05-20T09:17:18.498281Z[Etc/UTC]
 
 Deze API levert actuele gegevens over adressen, adresseerbare objecten en panden. Actueel betekent in deze API `zonder eindstatus`. De bron voor deze API is de basisregistratie adressen en gebouwen (BAG).
 

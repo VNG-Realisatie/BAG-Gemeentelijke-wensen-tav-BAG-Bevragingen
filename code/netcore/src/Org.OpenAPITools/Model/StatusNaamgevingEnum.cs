@@ -30,9 +30,7 @@ namespace Org.OpenAPITools.Model
     /// Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen.
     /// </summary>
     /// <value>Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen.</value>
-    
     [JsonConverter(typeof(StringEnumConverter))]
-    
     public enum StatusNaamgevingEnum
     {
         /// <summary>

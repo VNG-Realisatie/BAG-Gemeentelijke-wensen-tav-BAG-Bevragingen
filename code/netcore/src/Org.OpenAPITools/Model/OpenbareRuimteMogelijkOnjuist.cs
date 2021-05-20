@@ -54,31 +54,31 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets Naam
         /// </summary>
-        [DataMember(Name = "naam", EmitDefaultValue = false)]
+        [DataMember(Name = "naam", EmitDefaultValue = true)]
         public bool Naam { get; set; }
 
         /// <summary>
         /// Gets or Sets KorteNaam
         /// </summary>
-        [DataMember(Name = "korteNaam", EmitDefaultValue = false)]
+        [DataMember(Name = "korteNaam", EmitDefaultValue = true)]
         public bool KorteNaam { get; set; }
 
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type", EmitDefaultValue = true)]
         public bool Type { get; set; }
 
         /// <summary>
         /// Gets or Sets Status
         /// </summary>
-        [DataMember(Name = "status", EmitDefaultValue = false)]
+        [DataMember(Name = "status", EmitDefaultValue = true)]
         public bool Status { get; set; }
 
         /// <summary>
         /// Gets or Sets WoonplaatsIdentificatie
         /// </summary>
-        [DataMember(Name = "woonplaatsIdentificatie", EmitDefaultValue = false)]
+        [DataMember(Name = "woonplaatsIdentificatie", EmitDefaultValue = true)]
         public bool WoonplaatsIdentificatie { get; set; }
 
         /// <summary>

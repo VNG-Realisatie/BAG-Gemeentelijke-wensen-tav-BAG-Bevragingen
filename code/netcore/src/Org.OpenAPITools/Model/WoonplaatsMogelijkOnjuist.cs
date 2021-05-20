@@ -50,19 +50,19 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets Naam
         /// </summary>
-        [DataMember(Name = "naam", EmitDefaultValue = false)]
+        [DataMember(Name = "naam", EmitDefaultValue = true)]
         public bool Naam { get; set; }
 
         /// <summary>
         /// Gets or Sets Geometrie
         /// </summary>
-        [DataMember(Name = "geometrie", EmitDefaultValue = false)]
+        [DataMember(Name = "geometrie", EmitDefaultValue = true)]
         public bool Geometrie { get; set; }
 
         /// <summary>
         /// Gets or Sets Status
         /// </summary>
-        [DataMember(Name = "status", EmitDefaultValue = false)]
+        [DataMember(Name = "status", EmitDefaultValue = true)]
         public bool Status { get; set; }
 
         /// <summary>

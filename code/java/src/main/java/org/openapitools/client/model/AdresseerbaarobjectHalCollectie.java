@@ -29,7 +29,7 @@ import org.openapitools.client.model.HalPaginationLinksMetLast;
 /**
  * AdresseerbaarobjectHalCollectie
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-04-16T10:02:13.304775Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-05-20T09:17:18.498281Z[Etc/UTC]")
 public class AdresseerbaarobjectHalCollectie {
   public static final String SERIALIZED_NAME_EMBEDDED = "_embedded";
   @SerializedName(SERIALIZED_NAME_EMBEDDED)
@@ -37,7 +37,7 @@ public class AdresseerbaarobjectHalCollectie {
 
   public static final String SERIALIZED_NAME_LINKS = "_links";
   @SerializedName(SERIALIZED_NAME_LINKS)
-  private HalPaginationLinksMetLast links = null;
+  private HalPaginationLinksMetLast links;
 
 
   public AdresseerbaarobjectHalCollectie embedded(AdresseerbaarobjectHalCollectieEmbedded embedded) {

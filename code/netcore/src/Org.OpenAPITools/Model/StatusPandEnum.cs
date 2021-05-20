@@ -30,9 +30,7 @@ namespace Org.OpenAPITools.Model
     /// Een codering van de verschillende waarden die de status van een pand kan aannemen.
     /// </summary>
     /// <value>Een codering van de verschillende waarden die de status van een pand kan aannemen.</value>
-    
     [JsonConverter(typeof(StringEnumConverter))]
-    
     public enum StatusPandEnum
     {
         /// <summary>

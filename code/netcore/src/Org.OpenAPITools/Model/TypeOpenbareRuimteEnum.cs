@@ -30,9 +30,7 @@ namespace Org.OpenAPITools.Model
     /// Een codering van de verschillende waarden die de typering van een openbare ruimte kan aannemen.
     /// </summary>
     /// <value>Een codering van de verschillende waarden die de typering van een openbare ruimte kan aannemen.</value>
-    
     [JsonConverter(typeof(StringEnumConverter))]
-    
     public enum TypeOpenbareRuimteEnum
     {
         /// <summary>

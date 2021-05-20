@@ -52,7 +52,7 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets IsNevenadres
         /// </summary>
-        [DataMember(Name = "isNevenadres", EmitDefaultValue = false)]
+        [DataMember(Name = "isNevenadres", EmitDefaultValue = true)]
         public bool IsNevenadres { get; set; }
 
         /// <summary>

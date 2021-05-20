@@ -54,7 +54,7 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets Templated
         /// </summary>
-        [DataMember(Name = "templated", EmitDefaultValue = false)]
+        [DataMember(Name = "templated", EmitDefaultValue = true)]
         public bool Templated { get; set; }
 
         /// <summary>
