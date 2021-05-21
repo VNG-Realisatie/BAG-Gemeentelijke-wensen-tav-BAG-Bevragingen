@@ -26,3 +26,5 @@ jobs:
         run: npm run oas:resolve
       - name: lint resolved OAS
         run: npm run oas:lint-genereervariant 
+# Het pushen van de genereervariant is in deze workflow t.o.v. die in de andere repo's verwijderd.
+# De verantwoordelijkheid voor het opleveren van de genereervariant ligt hier nl. bij het Kadaster.
