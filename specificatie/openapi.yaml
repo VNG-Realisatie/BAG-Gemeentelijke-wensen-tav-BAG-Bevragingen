@@ -207,6 +207,7 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/default'
 
   /adresseerbareobjecten:
+    #334
     get:
       security:
         - apiKeyBAG: []
@@ -214,10 +215,24 @@ paths:
       tags:
         - Adresseerbaar object
       summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
-      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
+      description: >-
+        "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduidingidentificatie,
+        pandidentificatie, of met een status geconstateerd in combinatie met woonplaats identificatie, aangevuld met type en één of meer gebruiksdoelen.
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie
+        [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie
+        [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/pandIdentificatie-query'
+        - $ref: '#/components/parameters/geconstateerd'
+        - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
+        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/gebruiksdoelen'
+        - $ref: '#/components/parameters/punt'
+# moet de punt net zo gedefinieerd worden als de locatie-query die nu bij /panden gebruikt wordt ?
+        - $ref: '#/components/parameters/boundingbox'
+        - $ref: '#/components/parameters/cirkel'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -441,11 +456,20 @@ paths:
       tags:
         - Pand
       summary: "vindt panden"
-      description: "Zoek actuele panden met de identificatie van een adresseerbaar object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature)."
+      description: "Zoek actuele panden met de identificatie van een adresseerbaar object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2
+      .0/features/fields.feature)."
       parameters:
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
+        - $ref: '#/components/parameters/punt'
+        - $ref: '#/components/parameters/cirkel'
+        - $ref: '#/components/parameters/boundingbox'
+        - $ref: '#/components/parameters/status'
+        - $ref: '#/components/parameters/geconstateerd'
+        - $ref: '#/components/parameters/bouwjaar'
+# Check of de goe goed gemodelleerd is of dat dat op de manier van de locatie-query zou moeten.
+
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
@@ -481,6 +505,7 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/503'
         default:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/default'
+
 
 components:
 
@@ -557,6 +582,64 @@ components:
         pattern: '^[0-9]{16}$'
         example: '0226010000038820'
 
+    woonplaatsIdentificatie-query:
+      description: "De identificatie van een woonplaats uit de BAG. Deze is 4 cijfers lang."
+      name: woonplaatsIdentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
+        example: '2096'
+
+    geconstateerd:
+      description: "Indicator dat de woonplaats in de registratie is opgenomen door een feitelijke constatering, zonder dat er een brondocument aan ten grondslag ligt. De woonplaats is mogelijk illegaal."
+      name: geconstateerd
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+
+    status:
+      description: "Status van het pand."
+      name: status
+      in: query
+      required: false
+      schema:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#/components/schemas/StatusPandEnum'
+
+    bouwjaar:
+      description: "Bouwjaar van het pand."
+      name: bouwjaar
+      in: query
+      required: false
+      schema:
+        type: string
+
+    type:
+      description: "De aard van het object waaraan een nummeraanduiding is toegekend. Dit kan zijn een ligplaats, standplaats of verblijfsobject."
+      name: type
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
+
+    gebruiksdoelen:
+      description: "Een categorisering van de gebruiksdoelen van het betreffende verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld."
+      name: gebruiksdoelen
+      in: query
+      required: false
+      schema:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#/components/schemas/GebruiksdoelEnum'
+# Hier gaan we geen array meer van te maken. Er mag op 1 gebruiksdoel opgegeven worden. Als een padn het betreffende gebruiksdoel heeft voldoet deze aan de selectie.
+
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
@@ -609,6 +692,32 @@ components:
         pattern: '^[0-9]{16}$'
         example: '0226300000136166'
 
+    punt:
+      description: "Een punt dat moet samenvallen met de punt of binnen de contour van een object moet vallem om te voldoen aan het selectiecriterium. "
+      name: punt
+      in: query
+      required: false
+      schema:
+        $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+
+    boundingbox:
+      description: "Een punt dat moet samenvallen met de punt of binnen de contour van een object moet vallem om te voldoen aan het selectiecriterium. "
+      name: boundingbox
+      in: query
+      required: false
+      schema:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
+# De bouncingbox kan ik niet vinden in OGCAPI. Is die gewoon als polygoon gedefinieerd ?
+
+    cirkel:
+      description: "Cirkel waarbinnen het gezochte object zich moet bevinden. Indien een object in de cirkel bevind of de rand raakt voldoet dit object aan dit zoek-criterium. "
+      name: cirkel
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Cirkel'
+
+
   schemas:
 
     ZoekResultaat:
@@ -647,9 +756,22 @@ components:
               items:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
+
+    Cirkel:
+      type: object
+      description: 'Om met een cirkel te zoeken moet je een punt en een straal (in meters) opgeven.'
+      properties:
+        punt:
+          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+        radius:
+          type: number
+          default: 100
+          minimum: 1
+          maximum: 280
+
     Adres:
       type: object
-      description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
+      description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's met adresgegevens."
       properties:
         straat:
           title: openbareruimte naam
@@ -685,11 +807,11 @@ components:
           adresregel1:
             type: "string"
             description: "De eerste regel van het adres zoals deze gebruikt kan worden in postadressering."
-            example: "Ln vd l D-Westervoort 1"
+            example: "Ln vd l D-Westervoort 1A-bis"
           adresregel2:
             type: "string"
             description: "De tweede regel van het adres zoals deze gebruikt kan worden in postadressering."
-            example: "6922 KZ  DUIVEN"
+            example: "6922KZ Duiven"
           korteNaam:
             description: "De officiële openbareruimtenaam of een verkorte versie. Beiden hebben maximaal 24 tekens."
             type: string
@@ -1286,6 +1408,19 @@ components:
       properties:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks'
+        _embedded:
+          type: object
+          properties:
+            panden:
+              type: array
+              items:
+                $ref: '#/components/schemas/PandHalBasis'
+    PandHalPaginationCollectie:
+      type: object
+      description: "Resultaten als lijst."
+      properties:
+        _links:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
           type: object
           properties:
