@@ -835,14 +835,17 @@ paths:
       tags:
       - Adresseerbaar object
       summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
-      description: '"Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
-        of ligplaatsen) met een nummeraanduidingidentificatie,  pandidentificatie,
-        of met een status geconstateerd in combinatie met woonplaats identificatie,
-        aangevuld met type en één of meer gebruiksdoelen.  Gebruik de fields-parameter
-        als je alleen specifieke velden in het antwoord wil zien, zie  [functionele
-        specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).  Gebruik
-        de expand-parameter als je het antwoord wil uitbreiden met (delen van) de
-        gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature)."'
+      description: Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
+        of ligplaatsen):<br> 1. met een nummeraanduidingidentificatie of<br> 2. een
+        pandidentificatie of<br> 3. met een status geconstateerd in combinatie met
+        woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen
+        of<br> 4. met een geometrische contour (punt, rechthoek of cirkel) in combinatie
+        met status geconstateerd, oppervlakte, gebruiksdoel en/of type.<br> Gebruik
+        de fields-parameter als je alleen specifieke velden in het antwoord wil zien,
+        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
+        van) de gerelateerde resources adres en pand, zie [functionele specificaties
+        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
       operationId: raadpleegAdresseerbareobjecten
       parameters:
       - name: nummeraanduidingIdentificatie
@@ -868,9 +871,7 @@ paths:
           example: "0226100000008856"
       - name: geconstateerd
         in: query
-        description: Indicator dat de woonplaats in de registratie is opgenomen door
-          een feitelijke constatering, zonder dat er een brondocument aan ten grondslag
-          ligt. De woonplaats is mogelijk illegaal.
+        description: Geef aan of je naar een geconstateerd object wilt zoeken.
         required: false
         style: form
         explode: true
@@ -888,6 +889,15 @@ paths:
           pattern: ^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$
           type: string
           example: "2096"
+      - name: oppervlakte
+        in: query
+        description: Geef aan vanaf welk oppervlakte en/of tot welk oppervlakte je
+          wilt zoeken.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       - name: type
         in: query
         description: De aard van het object waaraan een nummeraanduiding is toegekend.
@@ -896,7 +906,7 @@ paths:
         style: form
         explode: true
         schema:
-          $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+          $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
       - name: gebruiksdoelen
         in: query
         description: Een categorisering van de gebruiksdoelen van het betreffende
@@ -909,7 +919,44 @@ paths:
           minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/Gebruiksdoel_enum'
+            $ref: '#/components/schemas/GebruiksdoelEnum'
+      - name: locatie
+        in: query
+        description: Coordinaten van een locatie die als query-parameter gebruikt
+          wordt om een object te zoeken. Let op, explode is false dus het formaat
+          is ?locatie=194602.722,464154.308
+        required: false
+        style: form
+        explode: false
+        schema:
+          maxItems: 2
+          minItems: 2
+          type: array
+          example:
+          - 196733.51
+          - 439931.89
+          items:
+            type: number
+      - name: bbox
+        in: query
+        description: Een rechthoek waarbinnen het gezochte object zich moet bevinden.
+          Indien een object zich in de bounding box bevindt, de rand raakt of de rand
+          kruist dan voldoet het object aan het zoek-criterium.
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/BoundingBox'
+      - name: cirkel
+        in: query
+        description: Cirkel waarbinnen het gezochte object zich moet bevinden. Indien
+          een object zich in de cirkel bevindt, de rand raakt of de rand kruist dan
+          voldoet dit object aan het zoek-criterium.
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Cirkel'
       - name: expand
         in: query
         description: Hiermee kun je opgeven welke gerelateerde resources meegeleverd
@@ -972,225 +1019,6 @@ paths:
               $ref: '#/components/headers/X_Pagination_Limit'
             Content-Crs:
               $ref: '#/components/headers/contentCrs'
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
-        "400":
-          description: Bad Request
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/BadRequestFoutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
-                title: Ten minste één parameter moet worden opgegeven.
-                status: 400
-                detail: The request could not be understood by the server due to malformed
-                  syntax. The client SHOULD NOT repeat the request without modification.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: paramsRequired
-                invalidParams:
-                - type: https://www.vng.nl/realisatie/api/validaties/integer
-                  name: verblijfplaats__huisnummer
-                  code: integer
-                  reason: Waarde is geen geldige integer.
-        "401":
-          description: Unauthorized
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
-                title: Niet correct geauthenticeerd.
-                status: 401
-                detail: The request requires user authentication. The response MUST
-                  include a WWW-Authenticate header field (section 14.47) containing
-                  a challenge applicable to the requested resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: authentication
-        "403":
-          description: Forbidden
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
-                title: U bent niet geautoriseerd voor deze operatie.
-                status: 403
-                detail: The server understood the request, but is refusing to fulfill
-                  it.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: autorisation
-        "406":
-          description: Not Acceptable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
-                title: Gevraagde contenttype wordt niet ondersteund.
-                status: 406
-                detail: The resource identified by the request is only capable of
-                  generating response entities which have content characteristics
-                  not acceptable according to thr accept headers sent in the request
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAcceptable
-        "412":
-          description: Precondition failed
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.13
-                title: Precondition Failed
-                status: 412
-                detail: The precondition given in one or more of the request-header
-                  fields evaluated to false when it was tested on the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: preconditionFailed
-        "500":
-          description: Internal Server Error
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
-                title: Interne server fout.
-                status: 500
-                detail: The server encountered an unexpected condition which prevented
-                  it from fulfilling the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: serverError
-        "503":
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
-        default:
-          description: Er is een onverwachte fout opgetreden
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-      security:
-      - apiKeyBAG: []
-  /adresseerbareobjecten/zoek:
-    post:
-      tags:
-      - Adresseerbaar object
-      summary: Vindt adresseerbare objecten die binnen de contour vallen en voldoen
-        aan het opgegeven type, oppervlakte, status, geconstateerd en gebruiksdoel.
-      description: Zoek binnen een geometrische contour naar adresseerbare objecten
-        die voldoen aan de opgegeven status, geconstateerd, oppervlakte, gebruiksdoel
-        en/of type. Gebruik de fields-parameter als je alleen specifieke velden in
-        het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
-      operationId: zoekAdresseerbareObjectenInContour
-      parameters:
-      - name: fields
-        in: query
-        description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
-          door een door komma's gescheiden lijst van property namen op te geven. Bij
-          opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven.
-          Wanneer de fields parameter niet is opgegeven, worden alle properties met
-          een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)
-        required: false
-        schema:
-          type: string
-      - name: Accept-Crs
-        in: header
-        description: Gewenste CRS van de coördinaten in de response.
-        required: false
-        schema:
-          type: string
-          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
-            RD New Nederlands coordinatenstelsel.
-          enum:
-          - epsg:28992
-      - name: Content-Crs
-        in: header
-        description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
-          Nederlands coordinatenstelsel.
-        required: false
-        schema:
-          type: string
-          enum:
-          - epsg:28992
-      - name: page
-        in: query
-        description: Pagina nummer
-        required: false
-        schema:
-          minimum: 1
-          type: integer
-          default: 1
-      - name: pageSize
-        in: query
-        required: false
-        schema:
-          maximum: 100
-          minimum: 1
-          type: integer
-          default: 20
-      requestBody:
-        description: Geometrie waarmee je adresseerbare objecten kunt zoeken.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AdresseerbareObjectenZoekObject'
-        required: true
-      responses:
-        "200":
-          description: Geslaagd
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-            warning:
-              $ref: '#/components/headers/warning'
-            Content-Crs:
-              $ref: '#/components/headers/contentCrs'
-            X-Pagination-Page:
-              $ref: '#/components/headers/X_Pagination_Page'
-            X-Pagination-Limit:
-              $ref: '#/components/headers/X_Pagination_Limit'
           content:
             application/hal+json:
               schema:
@@ -2149,11 +1977,12 @@ paths:
       tags:
       - Pand
       summary: vindt panden
-      description: Zoek actuele panden met de identificatie van een adresseerbaar
-        object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je
+      description: Zoek actuele panden:<br> 1. met de identificatie van een adresseerbaar
+        object of<br> 2. met de identificatie van een nummeraanduiding of<br> 3. binnen
+        een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de opgegeven
+        status, geconstateerd of bouwjaar.<br> Gebruik de fields-parameter als je
         alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2
-        .0/features/fields.feature).
+        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
       operationId: raadpleegPanden
       parameters:
       - name: adresseerbaarObjectIdentificatie
@@ -2196,6 +2025,54 @@ paths:
           - 439931.89
           items:
             type: number
+      - name: cirkel
+        in: query
+        description: Cirkel waarbinnen het gezochte object zich moet bevinden. Indien
+          een object zich in de cirkel bevindt, de rand raakt of de rand kruist dan
+          voldoet dit object aan het zoek-criterium.
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Cirkel'
+      - name: bbox
+        in: query
+        description: Een rechthoek waarbinnen het gezochte object zich moet bevinden.
+          Indien een object zich in de bounding box bevindt, de rand raakt of de rand
+          kruist dan voldoet het object aan het zoek-criterium.
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/BoundingBox'
+      - name: status
+        in: query
+        description: Status van het pand.
+        required: false
+        style: form
+        explode: true
+        schema:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusPandEnum'
+      - name: geconstateerd
+        in: query
+        description: Geef aan of je naar een geconstateerd object wilt zoeken.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      - name: bouwjaar
+        in: query
+        description: Bouwjaar van het pand.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       - name: fields
         in: query
         description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
@@ -2394,251 +2271,6 @@ paths:
                 $ref: '#/components/schemas/Foutbericht'
       security:
       - apiKeyBAG: []
-  /panden/zoek:
-    post:
-      tags:
-      - Pand
-      summary: Vindt panden die binnen de contour vallen en voldoen aan de opgegeven
-        status en geconstateerd.
-      description: Zoek binnen een geometrische contour naar panden die voldoen aan
-        de opgegeven status en geconstateerd. Gebruik de fields-parameter als je alleen
-        specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature).
-      operationId: zoekPandenInContour
-      parameters:
-      - name: fields
-        in: query
-        description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
-          door een door komma's gescheiden lijst van property namen op te geven. Bij
-          opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven.
-          Wanneer de fields parameter niet is opgegeven, worden alle properties met
-          een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature)
-        required: false
-        schema:
-          type: string
-      - name: Accept-Crs
-        in: header
-        description: Gewenste CRS van de coördinaten in de response.
-        required: false
-        schema:
-          type: string
-          description: CRS van de coördinaten in de response. epsg:28992 mapt op het
-            RD New Nederlands coordinatenstelsel.
-          enum:
-          - epsg:28992
-      - name: Content-Crs
-        in: header
-        description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
-          Nederlands coordinatenstelsel.
-        required: false
-        schema:
-          type: string
-          enum:
-          - epsg:28992
-      - name: page
-        in: query
-        description: Pagina nummer
-        required: false
-        schema:
-          minimum: 1
-          type: integer
-          default: 1
-      - name: pageSize
-        in: query
-        required: false
-        schema:
-          maximum: 100
-          minimum: 1
-          type: integer
-          default: 20
-      requestBody:
-        description: Geometrie waarmee je panden kunt zoeken.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PandenZoekObject'
-        required: true
-      responses:
-        "200":
-          description: Geslaagd
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-            warning:
-              $ref: '#/components/headers/warning'
-            Content-Crs:
-              $ref: '#/components/headers/contentCrs'
-            X-Pagination-Page:
-              $ref: '#/components/headers/X_Pagination_Page'
-            X-Pagination-Limit:
-              $ref: '#/components/headers/X_Pagination_Limit'
-          content:
-            application/hal+json:
-              schema:
-                $ref: '#/components/schemas/PandHalPaginationCollectie'
-        "400":
-          description: Bad Request
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/BadRequestFoutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.1
-                  400 Bad Request
-                title: Ten minste één parameter moet worden opgegeven.
-                status: 400
-                detail: The request could not be understood by the server due to malformed
-                  syntax. The client SHOULD NOT repeat the request without modification.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: paramsRequired
-                invalidParams:
-                - type: https://www.vng.nl/realisatie/api/validaties/integer
-                  name: verblijfplaats__huisnummer
-                  code: integer
-                  reason: Waarde is geen geldige integer.
-        "401":
-          description: Unauthorized
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.2
-                  401 Unauthorized
-                title: Niet correct geauthenticeerd.
-                status: 401
-                detail: The request requires user authentication. The response MUST
-                  include a WWW-Authenticate header field (section 14.47) containing
-                  a challenge applicable to the requested resource.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: authentication
-        "403":
-          description: Forbidden
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.4
-                  403 Forbidden
-                title: U bent niet geautoriseerd voor deze operatie.
-                status: 403
-                detail: The server understood the request, but is refusing to fulfill
-                  it.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: autorisation
-        "406":
-          description: Not Acceptable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.7
-                  406 Not Acceptable
-                title: Gevraagde contenttype wordt niet ondersteund.
-                status: 406
-                detail: The resource identified by the request is only capable of
-                  generating response entities which have content characteristics
-                  not acceptable according to thr accept headers sent in the request
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAcceptable
-        "412":
-          description: Precondition failed
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.13
-                  412 Precondition Failed
-                title: Precondition Failed
-                status: 412
-                detail: The precondition given in one or more of the request-header
-                  fields evaluated to false when it was tested on the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: preconditionFailed
-        "415":
-          description: Unsupported Media Type
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.4.16
-                  415 Unsupported Media Type
-                title: Unsupported Media Type
-                status: 415
-                detail: The server is refusing the request because the entity of the
-                  request is in a format not supported by the requested resource for
-                  the requested method.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: unsupported
-        "500":
-          description: Internal Server Error
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.1
-                  500 Internal server error
-                title: Interne server fout.
-                status: 500
-                detail: The server encountered an unexpected condition which prevented
-                  it from fulfilling the request.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: serverError
-        "503":
-          description: Service Unavailable
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#/10.5.4
-                  503 Service Unavailable
-                title: Bronservice {bron} is tijdelijk niet beschikbaar.
-                status: 503
-                detail: The service is currently unable to handle the request due
-                  to a temporary overloading or maintenance of the server.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: notAvailable
-        default:
-          description: Er is een onverwachte fout opgetreden
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-      security:
-      - apiKeyBAG: []
 components:
   schemas:
     ZoekResultaat:
@@ -2676,44 +2308,6 @@ components:
               items:
                 $ref: '#/components/schemas/ZoekResultaatHal'
       description: Resultaten als lijst.
-    GeoJsonZoekOpdracht:
-      required:
-      - geometrie
-      type: object
-      properties:
-        geometrie:
-          $ref: '#/components/schemas/Geometrie'
-        spatialOperator:
-          type: string
-          description: '"Je kunt zoeken met de volgende operators: - intersects  :
-            object geometrie `overlapt` of `raakt` de opgegeven contour - within      :
-            object geometrie valt volledig binnen de opgegeven contour - contains    :
-            object geometrie omsluit de opgegeven contour volledig"'
-          default: intersects
-          enum:
-          - intersects
-          - within
-          - contains
-        tolerantie:
-          maximum: 1
-          minimum: 0.000010
-          type: number
-          description: De maximale afwijking (in meters) tussen twee punten waarbij
-            deze punten nog als één punt worden gezien.
-          format: float
-          default: 0.001
-      description: Geometrie waarmee je kunt zoeken.
-    Geometrie:
-      type: object
-      properties:
-        punt:
-          $ref: '#/components/schemas/pointGeoJSON'
-        cirkel:
-          $ref: '#/components/schemas/Cirkel'
-        polygoon:
-          $ref: '#/components/schemas/polygonGeoJSON'
-      description: De geometrie waarmee je kunt zoeken. Je kunt een punt, cirkel of
-        polygoon opgeven.
     Cirkel:
       type: object
       properties:
@@ -2726,113 +2320,21 @@ components:
           default: 100
       description: Om met een cirkel te zoeken moet je een punt en een straal (in
         meters) opgeven.
-    AdresseerbareObjectenZoekObject:
-      allOf:
-      - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
-      - type: object
-        properties:
-          status:
-            $ref: '#/components/schemas/AdresseerbaarObjectStatusZoekObject'
-          geconstateerd:
-            type: boolean
-          oppervlakte:
-            $ref: '#/components/schemas/NumberOperator'
-          gebruiksdoel:
-            $ref: '#/components/schemas/GebruiksdoelZoekObject'
-          type:
-            $ref: '#/components/schemas/AdresseerbaarObjectTypeZoekObject'
-        description: In dit zoekobject kun je de zoekcriteria opgeven waarmee je adresseerbaar
-          objecten wilt zoeken.
-    AdresseerbaarObjectStatusZoekObject:
+    BoundingBox:
       type: object
       properties:
-        operator:
-          $ref: '#/components/schemas/EnumOperator'
-        waarden:
-          minItems: 1
+        coordinates:
+          maxItems: 2
+          minItems: 2
           type: array
           items:
-            $ref: '#/components/schemas/AdresseerbaarObjectStatus_enum'
-    GebruiksdoelZoekObject:
-      type: object
-      properties:
-        operator:
-          $ref: '#/components/schemas/ArrayOperator'
-        waarden:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/Gebruiksdoel_enum'
-    AdresseerbaarObjectTypeZoekObject:
-      type: object
-      properties:
-        operator:
-          $ref: '#/components/schemas/EnumOperator'
-        waarden:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
-    PandenZoekObject:
-      allOf:
-      - $ref: '#/components/schemas/GeoJsonZoekOpdracht'
-      - type: object
-        properties:
-          status:
-            $ref: '#/components/schemas/PandStatusZoekObject'
-          geconstateerd:
-            type: boolean
-            description: Geeft aan of je naar geconstateerde panden wilt zoeken.
-          bouwjaar:
-            $ref: '#/components/schemas/NumberOperator'
-        description: In dit zoekobject kun je de zoekcriteria opgeven waarmee je panden
-          wilt zoeken.
-    PandStatusZoekObject:
-      required:
-      - waarden
-      type: object
-      properties:
-        operator:
-          $ref: '#/components/schemas/EnumOperator'
-        waarden:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusPand_enum'
-    NumberOperator:
-      type: object
-      properties:
-        min:
-          type: number
-        max:
-          type: number
-      description: '"Geeft aan met welke minimum en maximum waarde je kunt zoeken.
-        Als je alleen een min waarde opgeeft, dan zoek je naar waarden die groter
-        dan of gelijk zijn aan de min waarde. Als je alleen een max waarde opgeeft,
-        dan zoek je naar waarden die kleiner dan of gelijk zijn aan de max waarde.
-        Als je zowel min als max waarde opgeeft en min < max, dan zoek je naar waarden
-        die  tussen min en max liggen. Als je zowel min als max waarde opgeeft en
-        min > max, dan zoek je naar waarden die niet tussen min en max liggen." '
-    ArrayOperator:
-      type: string
-      description: '"Je kunt de volgende operaties gebruiken: - and   : de resource
-        property moet alle waarden uit de lijst bevatten - or    : de resource property
-        moet één of meer waarden uit de lijst bevatten - not   : de resource property
-        mag geen van de waarden uit de lijst bevatten"'
-      default: or
-      enum:
-      - and
-      - or
-      - not
-    EnumOperator:
-      type: string
-      description: '"Je kunt de volgende operaties gebruiken: - or    : de resource
-        property moet een waarde hebben die in de waardenlijst voorkomt  - not   :
-        de resource property mag geen waarde hebben die in de waardenlijst voorkomt."'
-      default: or
-      enum:
-      - or
-      - not
+            maxItems: 2
+            minItems: 2
+            type: array
+            items:
+              type: number
+      description: Om met een bounding box te zoeken moet je de coördinaten van links
+        boven en rechts onder opgeven.
     Adres:
       type: object
       properties:
@@ -3020,7 +2522,7 @@ components:
           type: string
           description: Het domein waartoe de identificatie behoort.
         type:
-          $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+          $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
         documentdatum:
           type: string
           description: De vaststellingsdatum van het brondocument dat de basis is
@@ -3037,7 +2539,7 @@ components:
         gebruiksdoelen:
           type: array
           items:
-            $ref: '#/components/schemas/Gebruiksdoel_enum'
+            $ref: '#/components/schemas/GebruiksdoelEnum'
         geconstateerd:
           type: boolean
           description: Indicatie dat een standplaats, ligplaats of verblijfsobject
@@ -3062,7 +2564,7 @@ components:
         oppervlakte:
           type: integer
         status:
-          $ref: '#/components/schemas/AdresseerbaarObjectStatus_enum'
+          $ref: '#/components/schemas/AdresseerbaarObjectStatusEnum'
         mogelijkOnjuist:
           $ref: '#/components/schemas/AdresseerbaarObjectMogelijkOnjuist'
       description: Een adresseerbaarobject is een standplaats, ligplaats of verblijfsobject.
@@ -3140,7 +2642,7 @@ components:
                 $ref: '#/components/schemas/AdresseerbaarObjectHal'
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
-    AdresseerbaarObjectStatus_enum:
+    AdresseerbaarObjectStatusEnum:
       type: string
       enum:
       - Plaats aangewezen
@@ -3149,7 +2651,7 @@ components:
       - Verblijfsobject in gebruik
       - Verbouwing verblijfsobject
       - Verblijfsobject buiten gebruik
-    Gebruiksdoel_enum:
+    GebruiksdoelEnum:
       type: string
       enum:
       - woonfunctie
@@ -3177,9 +2679,9 @@ components:
           description: De naam die door de gemeente aan een openbare ruimte is gegeven.
           example: Laan van de landinrichtingscommissie Duiven-Westervoort
         type:
-          $ref: '#/components/schemas/TypeOpenbareRuimte_enum'
+          $ref: '#/components/schemas/TypeOpenbareRuimteEnum'
         status:
-          $ref: '#/components/schemas/StatusNaamgeving_enum'
+          $ref: '#/components/schemas/StatusNaamgevingEnum'
         korteNaam:
           maxLength: 24
           type: string
@@ -3275,7 +2777,7 @@ components:
             van een straatnaam en een huisnummer hoort.
           example: 6922KZ
         status:
-          $ref: '#/components/schemas/StatusNaamgeving_enum'
+          $ref: '#/components/schemas/StatusNaamgevingEnum'
         geconstateerd:
           type: boolean
           description: Indicator dat de nummeraanduiding in de registratie is opgenomen
@@ -3366,7 +2868,7 @@ components:
           description: De naam van de woonplaats.
           example: Duiven
         status:
-          $ref: '#/components/schemas/StatusWoonplaats_enum'
+          $ref: '#/components/schemas/StatusWoonplaatsEnum'
         geconstateerd:
           type: boolean
           description: Indicator dat de woonplaats in de registratie is opgenomen
@@ -3447,7 +2949,7 @@ components:
             een pand na oplevering leiden niet tot wijziging van het bouwjaar.
           example: 1991
         status:
-          $ref: '#/components/schemas/StatusPand_enum'
+          $ref: '#/components/schemas/StatusPandEnum'
         geconstateerd:
           type: boolean
           description: Indicatie dat het pand in de registratie is opgenomen door
@@ -3541,13 +3043,13 @@ components:
               items:
                 $ref: '#/components/schemas/PandHalBasis'
       description: Resultaten als lijst.
-    StatusNaamgeving_enum:
+    StatusNaamgevingEnum:
       type: string
       description: Een aanduiding van alle waarden die de status van een openbare
         ruimte of een nummeraanduiding kan aannemen.
       enum:
       - Naamgeving uitgegeven
-    StatusPand_enum:
+    StatusPandEnum:
       type: string
       description: Een codering van de verschillende waarden die de status van een
         pand kan aannemen.
@@ -3559,19 +3061,19 @@ components:
       - Verbouwing pand
       - Sloopvergunning verleend
       - Pand buiten gebruik
-    StatusWoonplaats_enum:
+    StatusWoonplaatsEnum:
       type: string
       description: Een aanduiding van alle waarden die de status van een woonplaats
         kan aannemen.
       enum:
       - Woonplaats aangewezen
-    TypeAdresseerbaarObject_enum:
+    TypeAdresseerbaarObjectEnum:
       type: string
       enum:
       - verblijfsobject
       - standplaats
       - ligplaats
-    TypeOpenbareRuimte_enum:
+    TypeOpenbareRuimteEnum:
       type: string
       description: Een codering van de verschillende waarden die de typering van een
         openbare ruimte kan aannemen.
@@ -3964,15 +3466,34 @@ components:
     geconstateerd:
       name: geconstateerd
       in: query
-      description: Indicator dat de woonplaats in de registratie is opgenomen door
-        een feitelijke constatering, zonder dat er een brondocument aan ten grondslag
-        ligt. De woonplaats is mogelijk illegaal.
+      description: Geef aan of je naar een geconstateerd object wilt zoeken.
       required: false
       style: form
       explode: true
       schema:
         type: boolean
         default: true
+    status:
+      name: status
+      in: query
+      description: Status van het pand.
+      required: false
+      style: form
+      explode: true
+      schema:
+        minItems: 1
+        type: array
+        items:
+          $ref: '#/components/schemas/StatusPandEnum'
+    bouwjaar:
+      name: bouwjaar
+      in: query
+      description: Bouwjaar van het pand.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
     type:
       name: type
       in: query
@@ -3982,7 +3503,7 @@ components:
       style: form
       explode: true
       schema:
-        $ref: '#/components/schemas/TypeAdresseerbaarObject_enum'
+        $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
     gebruiksdoelen:
       name: gebruiksdoelen
       in: query
@@ -3995,7 +3516,39 @@ components:
         minItems: 1
         type: array
         items:
-          $ref: '#/components/schemas/Gebruiksdoel_enum'
+          $ref: '#/components/schemas/GebruiksdoelEnum'
+    oppervlakte:
+      name: oppervlakte
+      in: query
+      description: Geef aan vanaf welk oppervlakte en/of tot welk oppervlakte je wilt
+        zoeken.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+    bbox:
+      name: bbox
+      in: query
+      description: Een rechthoek waarbinnen het gezochte object zich moet bevinden.
+        Indien een object zich in de bounding box bevindt, de rand raakt of de rand
+        kruist dan voldoet het object aan het zoek-criterium.
+      required: false
+      style: form
+      explode: true
+      schema:
+        $ref: '#/components/schemas/BoundingBox'
+    cirkel:
+      name: cirkel
+      in: query
+      description: Cirkel waarbinnen het gezochte object zich moet bevinden. Indien
+        een object zich in de cirkel bevindt, de rand raakt of de rand kruist dan
+        voldoet dit object aan het zoek-criterium.
+      required: false
+      style: form
+      explode: true
+      schema:
+        $ref: '#/components/schemas/Cirkel'
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path
