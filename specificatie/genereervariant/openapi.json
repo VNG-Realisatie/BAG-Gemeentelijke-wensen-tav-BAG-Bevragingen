@@ -1136,13 +1136,13 @@
             "explode": true,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": false
             }
           },
           {
             "name": "woonplaatsIdentificatie",
             "in": "query",
-            "description": "De identificatie van een woonplaats uit de BAG. Deze is 4 cijfers lang.",
+            "description": "De identificatie van een woonplaats.",
             "required": false,
             "style": "form",
             "explode": true,
@@ -1177,7 +1177,7 @@
           {
             "name": "gebruiksdoelen",
             "in": "query",
-            "description": "Een categorisering van de gebruiksdoelen van het betreffende verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld.",
+            "description": "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject teruggegeven.",
             "required": false,
             "style": "form",
             "explode": true,
@@ -1540,7 +1540,7 @@
           {
             "name": "woonplaatsidentificatie",
             "in": "path",
-            "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
+            "description": "De identificatie van een woonplaats.",
             "required": true,
             "style": "simple",
             "explode": false,
@@ -2689,7 +2689,7 @@
             "explode": true,
             "schema": {
               "type": "boolean",
-              "default": true
+              "default": false
             }
           },
           {
@@ -4563,7 +4563,7 @@
       "woonplaatsIdentificatie-query": {
         "name": "woonplaatsIdentificatie",
         "in": "query",
-        "description": "De identificatie van een woonplaats uit de BAG. Deze is 4 cijfers lang.",
+        "description": "De identificatie van een woonplaats.",
         "required": false,
         "style": "form",
         "explode": true,
@@ -4582,7 +4582,7 @@
         "explode": true,
         "schema": {
           "type": "boolean",
-          "default": true
+          "default": false
         }
       },
       "status": {
@@ -4625,7 +4625,7 @@
       "gebruiksdoelen": {
         "name": "gebruiksdoelen",
         "in": "query",
-        "description": "Een categorisering van de gebruiksdoelen van het betreffende verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld.",
+        "description": "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject teruggegeven.",
         "required": false,
         "style": "form",
         "explode": true,
@@ -4712,7 +4712,7 @@
       "woonplaatsidentificatie": {
         "name": "woonplaatsidentificatie",
         "in": "path",
-        "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
+        "description": "De identificatie van een woonplaats.",
         "required": true,
         "style": "simple",
         "explode": false,

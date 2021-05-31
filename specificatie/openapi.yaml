@@ -463,7 +463,7 @@ paths:
       tags:
         - Pand
       summary: "vindt panden"
-      de      description: "Zoek actuele panden:<br>
+      description: "Zoek actuele panden:<br>
         1. met de identificatie van een adresseerbaar object of<br>
         2. met de identificatie van een nummeraanduiding of<br>
         3. binnen een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.<br> 
@@ -597,7 +597,7 @@ components:
         example: '0226010000038820'
 
     woonplaatsIdentificatie-query:
-      description: "De identificatie van een woonplaats uit de BAG. Deze is 4 cijfers lang."
+      description: "De identificatie van een woonplaats."
       name: woonplaatsIdentificatie
       in: query
       required: false
@@ -613,7 +613,7 @@ components:
       required: false
       schema:
         type: boolean
-        default: true
+        default: false
         
     status:
       description: "Status van het pand."
@@ -643,7 +643,7 @@ components:
         $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
 
     gebruiksdoelen:
-      description: "Een categorisering van de gebruiksdoelen van het betreffende verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld."
+      description: "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject teruggegeven."
       name: gebruiksdoelen
       in: query
       required: false
@@ -727,7 +727,7 @@ components:
         example: '0226100000008856'
 
     woonplaatsidentificatie:
-      description: "Identificatie van een object uit de BAG. Deze is 4 cijfers lang."
+      description: "De identificatie van een woonplaats."
       name: woonplaatsidentificatie
       in: path
       required: true
