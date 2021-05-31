@@ -207,7 +207,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
 
   /adresseerbareobjecten:
-    #7, 331, 332, 334, 373
     get:
       security:
         - apiKeyBAG: []
@@ -230,11 +229,9 @@ paths:
         - $ref: '#/components/parameters/geconstateerd'
         - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
         - $ref: '#/components/parameters/oppervlakte'
-# oppervlakte toevoegen?
         - $ref: '#/components/parameters/type'
         - $ref: '#/components/parameters/gebruiksdoelen'
         - $ref: '#/components/parameters/locatie-query'
-# zie opmerking over locatie-query bij /panden
         - $ref: '#/components/parameters/bbox'
         - $ref: '#/components/parameters/cirkel'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/expand'
@@ -455,7 +452,6 @@ paths:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/responses/default'
 
   /panden:
-    #331, 333, 335 
     get:
       security:
         - apiKeyBAG: []
@@ -479,7 +475,6 @@ Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil 
 # Echter kan er niet worden gezocht met een z-coördinaat. 
 # Die z-coördinaat zou aan de server kant genegeerd kunnen worden.
 # Om bovenstaande redenen heb ik hier en bij /adresseerbareobjecten toch locatie-query gebruikt en niet punt. 
-#        - $ref: '#/components/parameters/punt'
         - $ref: '#/components/parameters/cirkel'
         - $ref: '#/components/parameters/bbox'
         - $ref: '#/components/parameters/status'
@@ -632,10 +627,12 @@ components:
       in: query
       required: false
       schema:
-        type: integer
+        $ref: '#/components/schemas/IntegerFilter'
+      explode: true
+      style: deepObject
 
     type:
-      description: "De aard van het object waaraan een nummeraanduiding is toegekend. Dit kan zijn een ligplaats, standplaats of verblijfsobject."
+      description: "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is."
       name: type
       in: query
       required: false
@@ -643,7 +640,7 @@ components:
         $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
 
     gebruiksdoelen:
-      description: "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject teruggegeven."
+      description: "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen."
       name: gebruiksdoelen
       in: query
       required: false
@@ -655,45 +652,33 @@ components:
 
     oppervlakte:
       name: oppervlakte
-      description: 'Geef aan vanaf welk oppervlakte en/of tot welk oppervlakte je wilt zoeken.'
+      description: 'Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).'
       in: query
       required: false
       schema:
-        type: integer
-
-#    adresseerbaarObjectStatus:
-#      description: 'Geef één of meer adresseerbaar object statussen op zoals gespecificeerd in AdresseerbaarObjectStatusEnum.'
-#      name: adresseerbaarObjectStatus
-#      in: query
-#      required: false
-#      schema:
-#        $ref: '#/components/schemas/AdresseerbaarObjectStatusEnum'
-#      explode: true
-#      style: deepObject
-
-#    punt:
-#      description: "Een punt dat op of binnen de contour van een object moet vallem om te voldoen aan het zoek-criterium."
-#      name: punt
-#      in: query
-#      required: false
-#      schema:
-#        $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+        $ref: '#/components/schemas/IntegerFilter'
+      explode: true
+      style: deepObject
 
     bbox:
-      description: "Een rechthoek waarbinnen het gezochte object zich moet bevinden. Indien een object zich in de bounding box bevindt, de rand raakt of de rand kruist dan voldoet het object aan het zoek-criterium."
+      description: "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen."
       name: bbox
       in: query
       required: false
       schema:
         $ref: '#/components/schemas/BoundingBox'
+      explode: true
+      style: deepObject
 
     cirkel:
-      description: "Cirkel waarbinnen het gezochte object zich moet bevinden. Indien een object zich in de cirkel bevindt, de rand raakt of de rand kruist dan voldoet dit object aan het zoek-criterium."
+      description: "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen."
       name: cirkel
       in: query
       required: false
       schema:
         $ref: '#/components/schemas/Cirkel'
+      explode: true
+      style: deepObject
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
@@ -814,6 +799,32 @@ components:
               example:
               - 196733.510
               - 439931.890
+
+    IntegerFilter:
+      description: >-
+        "Geeft aan met welke waarden je kunt zoeken.
+        Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde.
+        Met `max` zoek je naar waarden kleiner dan de opgegeven waarde.
+        Met `not` zoek je naar waarden groter of gelijk aan de opgegeven max waarde en kleiner dan de opgegeven min waarde."
+      anyOf:
+        - type: object
+          required:
+            - max
+          properties:
+            max:
+              type: integer
+        - type: object
+          required:
+            - min
+          properties:
+            min:
+              type: integer
+        - type: object
+          required:
+            - not
+          properties:
+            not:
+              type: integer
 
     Adres:
       type: object

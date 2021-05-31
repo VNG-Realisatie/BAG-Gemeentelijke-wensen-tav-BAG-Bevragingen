@@ -890,17 +890,17 @@ paths:
           example: "2096"
       - name: oppervlakte
         in: query
-        description: Geef aan vanaf welk oppervlakte en/of tot welk oppervlakte je
-          wilt zoeken.
+        description: Geef de minimale en maximale oppervlakte op waarbinnen je wilt
+          zoeken (in m2).
         required: false
-        style: form
+        style: deepObject
         explode: true
         schema:
-          type: integer
+          $ref: '#/components/schemas/IntegerFilter'
       - name: type
         in: query
-        description: De aard van het object waaraan een nummeraanduiding is toegekend.
-          Dit kan zijn een ligplaats, standplaats of verblijfsobject.
+        description: Geeft aan of het adresseerbaar object een ligplaats, standplaats
+          of verblijfsobject is.
         required: false
         style: form
         explode: true
@@ -909,7 +909,7 @@ paths:
       - name: gebruiksdoelen
         in: query
         description: Als een verblijfsobject één van de gebruiksdoelen in deze lijst
-          heeft, dan wordt het verblijfsobject teruggegeven.
+          heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.
         required: false
         style: form
         explode: true
@@ -937,21 +937,19 @@ paths:
             type: number
       - name: bbox
         in: query
-        description: Een rechthoek waarbinnen het gezochte object zich moet bevinden.
-          Indien een object zich in de bounding box bevindt, de rand raakt of de rand
-          kruist dan voldoet het object aan het zoek-criterium.
+        description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
+          de rand van de rechthoek raken worden in het zoekresultaat meegenomen.
         required: false
-        style: form
+        style: deepObject
         explode: true
         schema:
           $ref: '#/components/schemas/BoundingBox'
       - name: cirkel
         in: query
-        description: Cirkel waarbinnen het gezochte object zich moet bevinden. Indien
-          een object zich in de cirkel bevindt, de rand raakt of de rand kruist dan
-          voldoet dit object aan het zoek-criterium.
+        description: Cirkel waarbinnen het object dat je zoekt valt. Objecten die
+          de rand van de cirkel raken worden in het zoekresultaat meegenomen.
         required: false
-        style: form
+        style: deepObject
         explode: true
         schema:
           $ref: '#/components/schemas/Cirkel'
@@ -2025,21 +2023,19 @@ paths:
             type: number
       - name: cirkel
         in: query
-        description: Cirkel waarbinnen het gezochte object zich moet bevinden. Indien
-          een object zich in de cirkel bevindt, de rand raakt of de rand kruist dan
-          voldoet dit object aan het zoek-criterium.
+        description: Cirkel waarbinnen het object dat je zoekt valt. Objecten die
+          de rand van de cirkel raken worden in het zoekresultaat meegenomen.
         required: false
-        style: form
+        style: deepObject
         explode: true
         schema:
           $ref: '#/components/schemas/Cirkel'
       - name: bbox
         in: query
-        description: Een rechthoek waarbinnen het gezochte object zich moet bevinden.
-          Indien een object zich in de bounding box bevindt, de rand raakt of de rand
-          kruist dan voldoet het object aan het zoek-criterium.
+        description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
+          de rand van de rechthoek raken worden in het zoekresultaat meegenomen.
         required: false
-        style: form
+        style: deepObject
         explode: true
         schema:
           $ref: '#/components/schemas/BoundingBox'
@@ -2067,10 +2063,10 @@ paths:
         in: query
         description: Bouwjaar van het pand.
         required: false
-        style: form
+        style: deepObject
         explode: true
         schema:
-          type: integer
+          $ref: '#/components/schemas/IntegerFilter'
       - name: fields
         in: query
         description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
@@ -2333,6 +2329,30 @@ components:
               type: number
       description: Om met een bounding box te zoeken moet je de coördinaten van links
         boven en rechts onder opgeven.
+    IntegerFilter:
+      description: '"Geeft aan met welke waarden je kunt zoeken. Met `min` zoek je
+        naar waarden groter of gelijk aan de opgegeven waarde. Met `max` zoek je naar
+        waarden kleiner dan de opgegeven waarde. Met `not` zoek je naar waarden groter
+        of gelijk aan de opgegeven max waarde en kleiner dan de opgegeven min waarde."'
+      anyOf:
+      - required:
+        - max
+        type: object
+        properties:
+          max:
+            type: integer
+      - required:
+        - min
+        type: object
+        properties:
+          min:
+            type: integer
+      - required:
+        - not
+        type: object
+        properties:
+          not:
+            type: integer
     Adres:
       type: object
       properties:
@@ -3487,15 +3507,15 @@ components:
       in: query
       description: Bouwjaar van het pand.
       required: false
-      style: form
+      style: deepObject
       explode: true
       schema:
-        type: integer
+        $ref: '#/components/schemas/IntegerFilter'
     type:
       name: type
       in: query
-      description: De aard van het object waaraan een nummeraanduiding is toegekend.
-        Dit kan zijn een ligplaats, standplaats of verblijfsobject.
+      description: Geeft aan of het adresseerbaar object een ligplaats, standplaats
+        of verblijfsobject is.
       required: false
       style: form
       explode: true
@@ -3505,7 +3525,7 @@ components:
       name: gebruiksdoelen
       in: query
       description: Als een verblijfsobject één van de gebruiksdoelen in deze lijst
-        heeft, dan wordt het verblijfsobject teruggegeven.
+        heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.
       required: false
       style: form
       explode: true
@@ -3517,32 +3537,30 @@ components:
     oppervlakte:
       name: oppervlakte
       in: query
-      description: Geef aan vanaf welk oppervlakte en/of tot welk oppervlakte je wilt
-        zoeken.
+      description: Geef de minimale en maximale oppervlakte op waarbinnen je wilt
+        zoeken (in m2).
       required: false
-      style: form
+      style: deepObject
       explode: true
       schema:
-        type: integer
+        $ref: '#/components/schemas/IntegerFilter'
     bbox:
       name: bbox
       in: query
-      description: Een rechthoek waarbinnen het gezochte object zich moet bevinden.
-        Indien een object zich in de bounding box bevindt, de rand raakt of de rand
-        kruist dan voldoet het object aan het zoek-criterium.
+      description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
+        de rand van de rechthoek raken worden in het zoekresultaat meegenomen.
       required: false
-      style: form
+      style: deepObject
       explode: true
       schema:
         $ref: '#/components/schemas/BoundingBox'
     cirkel:
       name: cirkel
       in: query
-      description: Cirkel waarbinnen het gezochte object zich moet bevinden. Indien
-        een object zich in de cirkel bevindt, de rand raakt of de rand kruist dan
-        voldoet dit object aan het zoek-criterium.
+      description: Cirkel waarbinnen het object dat je zoekt valt. Objecten die de
+        rand van de cirkel raken worden in het zoekresultaat meegenomen.
       required: false
-      style: form
+      style: deepObject
       explode: true
       schema:
         $ref: '#/components/schemas/Cirkel'
