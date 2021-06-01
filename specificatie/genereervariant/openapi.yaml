@@ -835,17 +835,17 @@ paths:
       tags:
       - Adresseerbaar object
       summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
-      description: Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
-        of ligplaatsen):<br> 1. met een nummeraanduidingidentificatie of<br> 2. een
-        pandidentificatie of<br> 3. met een status geconstateerd in combinatie met
-        woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen
-        of<br> 4. met een geometrische contour (punt, rechthoek of cirkel) in combinatie
-        met status geconstateerd, oppervlakte, gebruiksdoel en/of type.<br> Gebruik
-        de fields-parameter als je alleen specifieke velden in het antwoord wil zien,
-        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
-        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
-        van) de gerelateerde resources adres en pand, zie [functionele specificaties
-        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen\
+        \ of ligplaatsen):\n1. met een nummeraanduidingidentificatie of\n2. een pandidentificatie\
+        \ of\n \n3. met een status geconstateerd in combinatie met woonplaats identificatie\
+        \ aangevuld met type en één of meer gebruiksdoelen of\n4. met een geometrische\
+        \ contour (punt, rechthoek of cirkel) in combinatie met status geconstateerd,\
+        \ oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als\
+        \ je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
+        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).\
+        \  Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
+        \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
+        \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature)."
       operationId: raadpleegAdresseerbareobjecten
       parameters:
       - name: nummeraanduidingIdentificatie
@@ -940,7 +940,7 @@ paths:
         description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
           de rand van de rechthoek raken worden in het zoekresultaat meegenomen.
         required: false
-        style: deepObject
+        style: form
         explode: true
         schema:
           $ref: '#/components/schemas/BoundingBox'
@@ -949,7 +949,7 @@ paths:
         description: Cirkel waarbinnen het object dat je zoekt valt. Objecten die
           de rand van de cirkel raken worden in het zoekresultaat meegenomen.
         required: false
-        style: deepObject
+        style: form
         explode: true
         schema:
           $ref: '#/components/schemas/Cirkel'
@@ -1973,12 +1973,12 @@ paths:
       tags:
       - Pand
       summary: vindt panden
-      description: Zoek actuele panden:<br> 1. met de identificatie van een adresseerbaar
-        object of<br> 2. met de identificatie van een nummeraanduiding of<br> 3. binnen
-        een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de opgegeven
-        status, geconstateerd of bouwjaar.<br> Gebruik de fields-parameter als je
-        alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
+      description: "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar\
+        \ object of\n2. met de identificatie van een nummeraanduiding of\n3. binnen\
+        \ een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de\
+        \ opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter\
+        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
+        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)."
       operationId: raadpleegPanden
       parameters:
       - name: adresseerbaarObjectIdentificatie
@@ -2026,7 +2026,7 @@ paths:
         description: Cirkel waarbinnen het object dat je zoekt valt. Objecten die
           de rand van de cirkel raken worden in het zoekresultaat meegenomen.
         required: false
-        style: deepObject
+        style: form
         explode: true
         schema:
           $ref: '#/components/schemas/Cirkel'
@@ -2035,11 +2035,11 @@ paths:
         description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
           de rand van de rechthoek raken worden in het zoekresultaat meegenomen.
         required: false
-        style: deepObject
+        style: form
         explode: true
         schema:
           $ref: '#/components/schemas/BoundingBox'
-      - name: status
+      - name: statusPand
         in: query
         description: Status van het pand.
         required: false
@@ -2303,56 +2303,41 @@ components:
                 $ref: '#/components/schemas/ZoekResultaatHal'
       description: Resultaten als lijst.
     Cirkel:
-      type: object
-      properties:
-        punt:
-          $ref: '#/components/schemas/pointGeoJSON'
-        radius:
-          maximum: 280
-          minimum: 1
-          type: number
-          default: 100
-      description: Om met een cirkel te zoeken moet je een punt en een straal (in
-        meters) opgeven.
+      allOf:
+      - $ref: '#/components/schemas/pointGeoJSON'
+      - properties:
+          radius:
+            maximum: 280
+            minimum: 1
+            type: number
+            default: 100
+        description: Om met een cirkel te zoeken moet je een punt en een straal (in
+          meters) opgeven.
     BoundingBox:
       type: object
       properties:
-        coordinates:
-          maxItems: 2
-          minItems: 2
-          type: array
-          items:
-            maxItems: 2
-            minItems: 2
-            type: array
-            items:
-              type: number
+        minX:
+          type: number
+        minY:
+          type: number
+        maxX:
+          type: number
+        maxY:
+          type: number
       description: Om met een bounding box te zoeken moet je de coördinaten van links
         boven en rechts onder opgeven.
     IntegerFilter:
+      properties:
+        min:
+          type: integer
+        max:
+          type: integer
+        not:
+          type: boolean
       description: '"Geeft aan met welke waarden je kunt zoeken. Met `min` zoek je
         naar waarden groter of gelijk aan de opgegeven waarde. Met `max` zoek je naar
         waarden kleiner dan de opgegeven waarde. Met `not` zoek je naar waarden groter
         of gelijk aan de opgegeven max waarde en kleiner dan de opgegeven min waarde."'
-      anyOf:
-      - required:
-        - max
-        type: object
-        properties:
-          max:
-            type: integer
-      - required:
-        - min
-        type: object
-        properties:
-          min:
-            type: integer
-      - required:
-        - not
-        type: object
-        properties:
-          not:
-            type: integer
     Adres:
       type: object
       properties:
@@ -3490,8 +3475,8 @@ components:
       schema:
         type: boolean
         default: false
-    status:
-      name: status
+    statusPand:
+      name: statusPand
       in: query
       description: Status van het pand.
       required: false
@@ -3550,7 +3535,7 @@ components:
       description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
         de rand van de rechthoek raken worden in het zoekresultaat meegenomen.
       required: false
-      style: deepObject
+      style: form
       explode: true
       schema:
         $ref: '#/components/schemas/BoundingBox'
@@ -3560,7 +3545,7 @@ components:
       description: Cirkel waarbinnen het object dat je zoekt valt. Objecten die de
         rand van de cirkel raken worden in het zoekresultaat meegenomen.
       required: false
-      style: deepObject
+      style: form
       explode: true
       schema:
         $ref: '#/components/schemas/Cirkel'

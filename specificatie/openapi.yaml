@@ -214,15 +214,22 @@ paths:
       tags:
         - Adresseerbaar object
       summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
-      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen):<br>
-        1. met een nummeraanduidingidentificatie of<br>
-        2. een pandidentificatie of<br> 
-        3. met een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of<br>
-        4. met een geometrische contour (punt, rechthoek of cirkel) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.<br>
+      description: >-
+        Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen):
+        
+        1. met een nummeraanduidingidentificatie of
+        
+        2. een pandidentificatie of
+         
+        3. met een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of
+        
+        4. met een geometrische contour (punt, rechthoek of cirkel) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
+        
+        
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). 
         Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie 
-        [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature)."
+        [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/pandIdentificatie-query'
@@ -459,11 +466,18 @@ paths:
       tags:
         - Pand
       summary: "vindt panden"
-      description: "Zoek actuele panden:<br>
-        1. met de identificatie van een adresseerbaar object of<br>
-        2. met de identificatie van een nummeraanduiding of<br>
-        3. binnen een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.<br> 
-Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)."
+      description: >- 
+        Zoek actuele panden:
+        
+        1. met de identificatie van een adresseerbaar object of
+        
+        2. met de identificatie van een nummeraanduiding of
+        
+        3. binnen een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.
+        
+         
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
+        [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
       parameters:
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
@@ -477,7 +491,7 @@ Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil 
 # Om bovenstaande redenen heb ik hier en bij /adresseerbareobjecten toch locatie-query gebruikt en niet punt. 
         - $ref: '#/components/parameters/cirkel'
         - $ref: '#/components/parameters/bbox'
-        - $ref: '#/components/parameters/status'
+        - $ref: '#/components/parameters/statusPand'
         - $ref: '#/components/parameters/geconstateerd'
         - $ref: '#/components/parameters/bouwjaar'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/fields'
@@ -610,9 +624,9 @@ components:
         type: boolean
         default: false
         
-    status:
+    statusPand:
       description: "Status van het pand."
-      name: status
+      name: statusPand
       in: query
       required: false
       schema:
@@ -667,8 +681,8 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/BoundingBox'
-      explode: true
-      style: deepObject
+#      explode: true
+#      style: deepObject
 
     cirkel:
       description: "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen."
@@ -677,8 +691,8 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/Cirkel'
-      explode: true
-      style: deepObject
+#      explode: true
+#      style: deepObject
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
@@ -771,34 +785,51 @@ components:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
     Cirkel:
-      type: object
-      description: 'Om met een cirkel te zoeken moet je een punt en een straal (in meters) opgeven.'
+      allOf:
+      - $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+      - description: 'Om met een cirkel te zoeken moet je een punt en een straal (in meters) opgeven.'
       properties:
-        punt:
-          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
         radius:
           type: number
           default: 100
           minimum: 1
           maximum: 280
 
+#      type: object
+#      properties:
+#        punt:
+#          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+#        radius:
+#          type: number
+#          default: 100
+#          minimum: 1
+#          maximum: 280
+
     BoundingBox:
       type: object
       description: 'Om met een bounding box te zoeken moet je de coördinaten van links boven en rechts onder opgeven.'
       properties:
-        coordinates:
-          type: array
-          minItems: 2
-          maxItems: 2
-          items:
-          type: array
-            minItems: 2
-            maxItems: 2
-          items:
+        minX:
           type: number
-              example:
-              - 196733.510
-              - 439931.890
+        minY:
+          type: number
+        maxX:
+          type: number
+        maxY:
+          type: number 
+#        coordinates:
+#          type: array
+#          minItems: 2
+#          maxItems: 2
+#          items:
+#            type: array
+#            minItems: 2
+#            maxItems: 2
+#            items:
+#              type: number
+#              example:
+#              - 196733.510
+#              - 439931.890
 
     IntegerFilter:
       description: >-
@@ -806,25 +837,32 @@ components:
         Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde.
         Met `max` zoek je naar waarden kleiner dan de opgegeven waarde.
         Met `not` zoek je naar waarden groter of gelijk aan de opgegeven max waarde en kleiner dan de opgegeven min waarde."
-      anyOf:
-        - type: object
-          required:
-            - max
-          properties:
-            max:
-              type: integer
-        - type: object
-          required:
-            - min
-          properties:
-            min:
-              type: integer
-        - type: object
-          required:
-            - not
-          properties:
-            not:
-              type: integer
+      properties:
+        min:
+          type: integer
+        max:
+          type: integer
+        not:
+          type: boolean
+#      anyOf:
+#        - type: object
+#          required:
+#            - max
+#          properties:
+#            max:
+#              type: integer
+#        - type: object
+#          required:
+#            - min
+#          properties:
+#            min:
+#              type: integer
+#        - type: object
+#          required:
+#            - not
+#          properties:
+#            not:
+#              type: integer
 
     Adres:
       type: object
