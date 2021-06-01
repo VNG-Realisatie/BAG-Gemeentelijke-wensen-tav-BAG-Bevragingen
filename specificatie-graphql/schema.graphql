@@ -1,0 +1,108 @@
+schema {
+  query: Query
+}
+
+type Query {
+  adresseerbareObjecten(where: AdresseerbaarObjectFilterInput, page: Int, pageSize: Int): [AdresseerbaarObject!]!
+  adresseerbaarObjectMetId(id: ID!): AdresseerbaarObject
+  adresseerbareObjectenMetIds(ids: [ID!]!): [AdresseerbaarObject!]!
+  adresseerbareObjectenMetPandId(id: ID!): [AdresseerbaarObject!]!
+  adresseerbareObjectenMetNummeraanduidingId(id: ID!): [AdresseerbaarObject!]!
+}
+
+type GeoJSONPoint {
+  type: String!
+  coordinates: [Float!]!
+}
+
+type GeoJSONPolygon {
+  type: String!
+  coordinates: [[[Float!]!]!]!
+}
+
+enum TypeAdresseerbaarObject {
+  verblijfsobject
+  standplaats
+  ligplaats
+}
+
+union AdresseerbaarObjectGeometrie = GeoJSONPoint | GeoJSONPolygon
+
+type Nummeraanduiding {
+  id: ID!
+  huisnummer: Int!
+  huisletter: String
+  postcode: String
+}
+
+type Pand {
+  id: ID!
+  geometrie: GeoJSONPolygon
+  geconstateerd: Boolean
+  adresseerbareObjecten: [AdresseerbaarObject!]
+  nummeraanduidingen: [Nummeraanduiding!]
+}
+
+type AdresseerbaarObject {
+  id: ID!
+  type: TypeAdresseerbaarObject!
+  geometrie: AdresseerbaarObjectGeometrie
+  nummeraanduidingen(where: NummeraanduidingFilterInput, page: Int, pageSize: Int): [Nummeraanduiding!]
+  panden(where: PandFilterInput, page: Int, pageSize: Int): [Pand!]
+}
+
+input TypeAdresseerbaarObjectFilterInput {
+  eq: TypeAdresseerbaarObject
+  in: [TypeAdresseerbaarObject]
+}
+
+input GeometrieAdresseerbaarObjectFilterInput {
+  """ dit is een"""
+  in: GeoJSONPolygon
+  within: GeometrieDistanceFilterInput
+}
+
+input GeometrieDistanceFilterInput {
+  point: GeoJSONPoint
+  radius: Float
+}
+
+input AdresseerbaarObjectNummeraanduidingFilterInput {
+  postcode: PostcodeFilterInput
+}
+
+input PostcodeFilterInput {
+  eq: String
+  in: [String!]
+}
+
+input AdresseerbaarObjectPandFilterInput {
+  geconstateerd: Boolean
+}
+
+input AdresseerbaarObjectFilterInput {
+  type: TypeAdresseerbaarObjectFilterInput
+  geometrie: GeometrieAdresseerbaarObjectFilterInput
+  nummeraanduiding: AdresseerbaarObjectNummeraanduidingFilterInput
+  pand: AdresseerbaarObjectPandFilterInput
+}
+
+input AdresseerbaarObjectGeometrieFilterInput {
+  type: TypeAdresseerbaarObjectFilterInput
+  geometrie: GeometrieAdresseerbaarObjectFilterInput
+  nummeraanduiding: AdresseerbaarObjectNummeraanduidingFilterInput
+}
+
+input NummeraanduidingFilterInput {
+  postcode: PostcodeFilterInput
+}
+
+input GeometriePandFilterInput {
+  in: GeoJSONPolygon
+  nin: GeoJSONPolygon
+}
+
+input PandFilterInput {
+  geconstateerd: Boolean
+  geometrie: GeometriePandFilterInput
+}
