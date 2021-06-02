@@ -28,6 +28,12 @@ enum TypeAdresseerbaarObject {
 
 union AdresseerbaarObjectGeometrie = GeoJSONPoint | GeoJSONPolygon
 
+type Adres {
+  id: ID!
+  adresregel1: String
+  adresregel2: String
+}
+
 type Nummeraanduiding {
   id: ID!
   huisnummer: Int!
@@ -47,6 +53,7 @@ type AdresseerbaarObject {
   id: ID!
   type: TypeAdresseerbaarObject!
   geometrie: AdresseerbaarObjectGeometrie
+  adressen: [Adres!]
   nummeraanduidingen(where: NummeraanduidingFilterInput, page: Int, pageSize: Int): [Nummeraanduiding!]
   panden(where: PandFilterInput, page: Int, pageSize: Int): [Pand!]
 }
@@ -76,15 +83,28 @@ input PostcodeFilterInput {
   in: [String!]
 }
 
+input IntFilterInput {
+  eq: Int
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  and: [IntFilterInput]
+  or: [IntFilterInput]
+}
+
 input AdresseerbaarObjectPandFilterInput {
   geconstateerd: Boolean
+  bouwjaar: IntFilterInput
 }
 
 input AdresseerbaarObjectFilterInput {
   type: TypeAdresseerbaarObjectFilterInput
   geometrie: GeometrieAdresseerbaarObjectFilterInput
+  # adres: AdresFilterInput
   nummeraanduiding: AdresseerbaarObjectNummeraanduidingFilterInput
   pand: AdresseerbaarObjectPandFilterInput
+  and: [AdresseerbaarObjectFilterInput!]!
 }
 
 input AdresseerbaarObjectGeometrieFilterInput {

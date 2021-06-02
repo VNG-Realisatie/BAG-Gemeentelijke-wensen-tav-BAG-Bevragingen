@@ -1,5 +1,39 @@
 # Voorbeelden Zoek queries
 
+## Zoek appartements-adressen in een bepaald gebied en bouwjaar (US380)
+
+``` json
+{
+  query {
+    adresseerbareObjecten(where: {
+      type: {
+        eq: verblijfsobject
+      }
+      and: [
+        {
+          geometrie: {
+            in: { type: Polygon, coordinates: []}
+          }
+        },
+        {
+          pand: {
+            bouwjaar: { gte: 1970, lte: 2000 }
+            // optie 2
+            // bouwjaar: {
+            //   gte: 1970, and: { lte: 2000 }}
+          }
+        }
+      ]
+    }) {
+      adressen {
+        adresregel1
+        adresregel2
+      }
+    }
+  }
+}
+```
+
 ## Zoek AdresseerbareObjecten vanaf een punt binnen een straal
 
 ```json
