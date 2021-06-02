@@ -235,10 +235,10 @@ paths:
         - $ref: '#/components/parameters/pandIdentificatie-query'
         - $ref: '#/components/parameters/geconstateerd'
         - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
-        - $ref: '#/components/parameters/oppervlakte'
         - $ref: '#/components/parameters/type'
         - $ref: '#/components/parameters/gebruiksdoelen'
-        - $ref: '#/components/parameters/locatie-query'
+        - $ref: '#/components/parameters/oppervlakte'
+        - $ref: '#/components/parameters/punt'
         - $ref: '#/components/parameters/bbox'
         - $ref: '#/components/parameters/cirkel'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/expand'
@@ -482,15 +482,9 @@ paths:
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
-# Het is consistenter om de locatie-query te hernoemen naar punt of 
-# om locatie-query ook te gebruiken bij adresseerbareobjecten.
-# locatie-query hernoemen naar punt kan niet omdat daardoor een breaking change ontstaat.
-# Daarnaast is punt van het pointGeoJson type, waardoor deze 3 coördinaten kan bevatten. 
-# Echter kan er niet worden gezocht met een z-coördinaat. 
-# Die z-coördinaat zou aan de server kant genegeerd kunnen worden.
-# Om bovenstaande redenen heb ik hier en bij /adresseerbareobjecten toch locatie-query gebruikt en niet punt. 
-        - $ref: '#/components/parameters/cirkel'
+        - $ref: '#/components/parameters/punt'
         - $ref: '#/components/parameters/bbox'
+        - $ref: '#/components/parameters/cirkel'
         - $ref: '#/components/parameters/statusPand'
         - $ref: '#/components/parameters/geconstateerd'
         - $ref: '#/components/parameters/bouwjaar'
@@ -574,6 +568,7 @@ components:
         example:
         - 196733.510
         - 439931.890
+        deprecated: true
 
     nummeraanduidingIdentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
@@ -636,7 +631,10 @@ components:
           $ref: '#/components/schemas/StatusPandEnum'
 
     bouwjaar:
-      description: "Bouwjaar van het pand."
+      description: >-
+        Bouwjaar van het pand.
+        Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken. 
+        Bv: bouwjaar[min]=1970&bouwjaar[max]=2010
       name: bouwjaar
       in: query
       required: false
@@ -666,33 +664,62 @@ components:
 
     oppervlakte:
       name: oppervlakte
-      description: 'Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).'
+      description: >-
+        Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2). 
+        Bv: oppervlakte[min]=100&oppervlakte[max]=200
       in: query
       required: false
       schema:
         $ref: '#/components/schemas/IntegerFilter'
-      explode: true
       style: deepObject
+      explode: true
+
+    punt:
+      description: >-
+        Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. 
+        Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308
+      name: punt
+      in: query
+      required: false
+      schema:
+        $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
+      style: deepObject
+      explode: true
 
     bbox:
-      description: "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen."
+      description: >-
+        Rechthoek waarbinnen het object dat je zoekt valt. 
+        Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen. 
+        Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro. 
+        Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder.
+        De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  
       name: bbox
       in: query
       required: false
       schema:
-        $ref: '#/components/schemas/BoundingBox'
-#      explode: true
-#      style: deepObject
+        type: array
+        minItems: 4
+        maxItems: 6
+        items:
+          type: number
+      explode: false
 
     cirkel:
-      description: "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen."
+      description: >-
+        Cirkel waarbinnen het object dat je zoekt valt.
+        Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen. 
+        Formaat: cirkel=x, y, radius. 
+        Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).
       name: cirkel
       in: query
       required: false
       schema:
-        $ref: '#/components/schemas/Cirkel'
-#      explode: true
-#      style: deepObject
+        type: array
+        minItems: 3
+        maxItems: 3
+        items:
+          type: number
+      explode: false
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
@@ -784,85 +811,16 @@ components:
               items:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
-    Cirkel:
-      allOf:
-      - $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
-      - description: 'Om met een cirkel te zoeken moet je een punt en een straal (in meters) opgeven.'
-      properties:
-        radius:
-          type: number
-          default: 100
-          minimum: 1
-          maximum: 280
-
-#      type: object
-#      properties:
-#        punt:
-#          $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
-#        radius:
-#          type: number
-#          default: 100
-#          minimum: 1
-#          maximum: 280
-
-    BoundingBox:
-      type: object
-      description: 'Om met een bounding box te zoeken moet je de coördinaten van links boven en rechts onder opgeven.'
-      properties:
-        minX:
-          type: number
-        minY:
-          type: number
-        maxX:
-          type: number
-        maxY:
-          type: number 
-#        coordinates:
-#          type: array
-#          minItems: 2
-#          maxItems: 2
-#          items:
-#            type: array
-#            minItems: 2
-#            maxItems: 2
-#            items:
-#              type: number
-#              example:
-#              - 196733.510
-#              - 439931.890
-
     IntegerFilter:
       description: >-
-        "Geeft aan met welke waarden je kunt zoeken.
+        Geeft aan met welke waarden je kunt zoeken.
         Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde.
         Met `max` zoek je naar waarden kleiner dan de opgegeven waarde.
-        Met `not` zoek je naar waarden groter of gelijk aan de opgegeven max waarde en kleiner dan de opgegeven min waarde."
       properties:
         min:
           type: integer
         max:
           type: integer
-        not:
-          type: boolean
-#      anyOf:
-#        - type: object
-#          required:
-#            - max
-#          properties:
-#            max:
-#              type: integer
-#        - type: object
-#          required:
-#            - min
-#          properties:
-#            min:
-#              type: integer
-#        - type: object
-#          required:
-#            - not
-#          properties:
-#            not:
-#              type: integer
 
     Adres:
       type: object

@@ -1153,17 +1153,6 @@
             }
           },
           {
-            "name": "oppervlakte",
-            "in": "query",
-            "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).",
-            "required": false,
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "$ref": "#/components/schemas/IntegerFilter"
-            }
-          },
-          {
             "name": "type",
             "in": "query",
             "description": "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is.",
@@ -1190,45 +1179,57 @@
             }
           },
           {
-            "name": "locatie",
+            "name": "oppervlakte",
             "in": "query",
-            "description": "Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308",
+            "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/IntegerFilter"
+            }
+          },
+          {
+            "name": "punt",
+            "in": "query",
+            "description": "Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken.  Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/pointGeoJSON"
+            }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt.  Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.  Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro.  Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder. De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  ",
             "required": false,
             "style": "form",
             "explode": false,
             "schema": {
-              "maxItems": 2,
-              "minItems": 2,
+              "maxItems": 6,
+              "minItems": 4,
               "type": "array",
-              "example": [
-                196733.51,
-                439931.89
-              ],
               "items": {
                 "type": "number"
               }
             }
           },
           {
-            "name": "bbox",
-            "in": "query",
-            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "$ref": "#/components/schemas/BoundingBox"
-            }
-          },
-          {
             "name": "cirkel",
             "in": "query",
-            "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.",
+            "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.  Formaat: cirkel=x, y, radius.  Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).",
             "required": false,
             "style": "form",
-            "explode": true,
+            "explode": false,
             "schema": {
-              "$ref": "#/components/schemas/Cirkel"
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
             }
           },
           {
@@ -2638,6 +2639,34 @@
                 196733.51,
                 439931.89
               ],
+              "deprecated": true,
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "punt",
+            "in": "query",
+            "description": "Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken.  Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/pointGeoJSON"
+            }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt.  Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.  Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro.  Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder. De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  ",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 6,
+              "minItems": 4,
+              "type": "array",
               "items": {
                 "type": "number"
               }
@@ -2646,23 +2675,17 @@
           {
             "name": "cirkel",
             "in": "query",
-            "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.",
+            "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.  Formaat: cirkel=x, y, radius.  Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).",
             "required": false,
             "style": "form",
-            "explode": true,
+            "explode": false,
             "schema": {
-              "$ref": "#/components/schemas/Cirkel"
-            }
-          },
-          {
-            "name": "bbox",
-            "in": "query",
-            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "$ref": "#/components/schemas/BoundingBox"
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
             }
           },
           {
@@ -2695,7 +2718,7 @@
           {
             "name": "bouwjaar",
             "in": "query",
-            "description": "Bouwjaar van het pand.",
+            "description": "Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken.  Bv: bouwjaar[min]=1970&bouwjaar[max]=2010",
             "required": false,
             "style": "deepObject",
             "explode": true,
@@ -3034,42 +3057,6 @@
         },
         "description": "Resultaten als lijst."
       },
-      "Cirkel": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/pointGeoJSON"
-          },
-          {
-            "properties": {
-              "radius": {
-                "maximum": 280,
-                "minimum": 1,
-                "type": "number",
-                "default": 100
-              }
-            },
-            "description": "Om met een cirkel te zoeken moet je een punt en een straal (in meters) opgeven."
-          }
-        ]
-      },
-      "BoundingBox": {
-        "type": "object",
-        "properties": {
-          "minX": {
-            "type": "number"
-          },
-          "minY": {
-            "type": "number"
-          },
-          "maxX": {
-            "type": "number"
-          },
-          "maxY": {
-            "type": "number"
-          }
-        },
-        "description": "Om met een bounding box te zoeken moet je de coördinaten van links boven en rechts onder opgeven."
-      },
       "IntegerFilter": {
         "properties": {
           "min": {
@@ -3077,12 +3064,9 @@
           },
           "max": {
             "type": "integer"
-          },
-          "not": {
-            "type": "boolean"
           }
         },
-        "description": "\"Geeft aan met welke waarden je kunt zoeken. Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde. Met `max` zoek je naar waarden kleiner dan de opgegeven waarde. Met `not` zoek je naar waarden groter of gelijk aan de opgegeven max waarde en kleiner dan de opgegeven min waarde.\""
+        "description": "Geeft aan met welke waarden je kunt zoeken. Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde. Met `max` zoek je naar waarden kleiner dan de opgegeven waarde."
       },
       "Adres": {
         "type": "object",
@@ -4183,6 +4167,28 @@
         },
         "description": "Details over fouten in opgegeven parameters"
       },
+      "pointGeoJSON": {
+        "required": [
+          "coordinates",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Point"
+            ]
+          },
+          "coordinates": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
       "HalLink": {
         "required": [
           "href"
@@ -4290,28 +4296,6 @@
           }
         },
         "description": "HalCollectionLinks bevat de self link die elke HAL Resource minimaal moet hebben in zijn _links property\n"
-      },
-      "pointGeoJSON": {
-        "required": [
-          "coordinates",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "Point"
-            ]
-          },
-          "coordinates": {
-            "minItems": 2,
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          }
-        }
       },
       "polygonGeoJSON": {
         "required": [
@@ -4532,6 +4516,7 @@
             196733.51,
             439931.89
           ],
+          "deprecated": true,
           "items": {
             "type": "number"
           }
@@ -4619,7 +4604,7 @@
       "bouwjaar": {
         "name": "bouwjaar",
         "in": "query",
-        "description": "Bouwjaar van het pand.",
+        "description": "Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken.  Bv: bouwjaar[min]=1970&bouwjaar[max]=2010",
         "required": false,
         "style": "deepObject",
         "explode": true,
@@ -4656,7 +4641,7 @@
       "oppervlakte": {
         "name": "oppervlakte",
         "in": "query",
-        "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).",
+        "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
         "required": false,
         "style": "deepObject",
         "explode": true,
@@ -4664,26 +4649,47 @@
           "$ref": "#/components/schemas/IntegerFilter"
         }
       },
+      "punt": {
+        "name": "punt",
+        "in": "query",
+        "description": "Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken.  Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "$ref": "#/components/schemas/pointGeoJSON"
+        }
+      },
       "bbox": {
         "name": "bbox",
         "in": "query",
-        "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.",
+        "description": "Rechthoek waarbinnen het object dat je zoekt valt.  Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.  Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro.  Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder. De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  ",
         "required": false,
         "style": "form",
-        "explode": true,
+        "explode": false,
         "schema": {
-          "$ref": "#/components/schemas/BoundingBox"
+          "maxItems": 6,
+          "minItems": 4,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
         }
       },
       "cirkel": {
         "name": "cirkel",
         "in": "query",
-        "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.",
+        "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.  Formaat: cirkel=x, y, radius.  Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).",
         "required": false,
         "style": "form",
-        "explode": true,
+        "explode": false,
         "schema": {
-          "$ref": "#/components/schemas/Cirkel"
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
         }
       },
       "nummeraanduidingidentificatie": {
