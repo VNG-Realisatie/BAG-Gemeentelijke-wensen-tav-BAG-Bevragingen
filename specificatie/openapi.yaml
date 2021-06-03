@@ -77,11 +77,34 @@ paths:
       tags:
         - Adres
       summary: "vindt adressen"
-      description: "Vind een actueel adres met de identificatie van het zoekresultaat uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
+      description: >-
+        Vind een actueel adres met:
+        
+        1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of
+        
+        2. Een pandidentificatie of 
+        
+        3. Een adresseerbaarobjectidentificatie of
+        
+        4. Een postcode, huisnummer en optioneel huisnummertoevoeging en huisletter eventueel in combinatie met exacteMatch.
+        
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, 
+        zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). 
+        
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, 
+        zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+
+        Gebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria,
+        zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature).
       parameters:
         - $ref: '#/components/parameters/pandIdentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/zoekresultaatIdentificatie'
+        - $ref: '#/components/parameters/postcode'
+        - $ref: '#/components/parameters/huisnummer'
+        - $ref: '#/components/parameters/huisletter'
+        - $ref: '#/components/parameters/huisnummertoevoeging'
+        - $ref: '#/components/parameters/exacteMatch'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/page'
@@ -556,6 +579,58 @@ components:
         type: string
         pattern: '^[0-9]{16}$'
         example: '0226010000038820'
+
+    postcode:
+      description: Postcode behorende bij een nummeraanduiding.
+      name: postcode
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$'
+        example: '6922KZ'
+
+    huisnummer:
+      description: Huisnummer behorende bij een nummeraanduiding.
+      name: huisnummer
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 99999
+        example: '1'
+
+    huisnummertoevoeging:
+      description: Huisnummertoevoeging behorende bij een nummeraanduiding.
+      name: huisnummertoevoeging
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9a-zA-Z]{1,4}$'
+        example: 'bis'
+
+    huisletter:
+      description: Huisletter behorende bij een nummeraanduiding.
+      name: huisletter
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[a-zA-Z]{1}$'
+        example: 'A'
+
+    exacteMatch:
+      description: >-
+        "Een indicatie of de resultaten van een zoekoperatie exact overeen moeten komen met de zoekcriteria, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."
+      name: exacteMatch
+      in: query
+      required: false
+      schema:
+        type: boolean
+        example: 'true'
+        default: false
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
