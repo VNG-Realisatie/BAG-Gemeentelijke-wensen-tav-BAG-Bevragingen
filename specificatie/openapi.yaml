@@ -215,15 +215,15 @@ paths:
         - Adresseerbaar object
       summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
       description: >-
-        Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen):
+        Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:
         
-        1. met een nummeraanduidingidentificatie of
+        1. een nummeraanduidingidentificatie of
         
         2. een pandidentificatie of
          
-        3. met een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of
+        3. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of
         
-        4. met een geometrische contour (punt, rechthoek of cirkel) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
+        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
         
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
@@ -233,19 +233,17 @@ paths:
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/pandIdentificatie-query'
-        - $ref: '#/components/parameters/geconstateerd'
-        - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
-        - $ref: '#/components/parameters/type'
-        - $ref: '#/components/parameters/gebruiksdoelen'
-        - $ref: '#/components/parameters/oppervlakte'
-        - $ref: '#/components/parameters/punt'
-        - $ref: '#/components/parameters/bbox'
-        - $ref: '#/components/parameters/cirkel'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/page'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/geconstateerd'
+        - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
+        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/gebruiksdoelen'
+        - $ref: '#/components/parameters/bbox'
+        - $ref: '#/components/parameters/oppervlakte'
       responses:
         '200':
           description: "Geslaagd"
@@ -473,8 +471,9 @@ paths:
         
         2. met de identificatie van een nummeraanduiding of
         
-        3. binnen een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.
+        3. met een locatie (punt) of 
         
+        4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.
          
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).
@@ -482,15 +481,14 @@ paths:
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/locatie-query'
-        - $ref: '#/components/parameters/punt'
-        - $ref: '#/components/parameters/bbox'
-        - $ref: '#/components/parameters/cirkel'
-        - $ref: '#/components/parameters/statusPand'
-        - $ref: '#/components/parameters/geconstateerd'
-        - $ref: '#/components/parameters/bouwjaar'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.2.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
+        - $ref: '#/components/parameters/bbox'
+        - $ref: '#/components/parameters/statusPand'
+        - $ref: '#/components/parameters/geconstateerd'
+        - $ref: '#/components/parameters/bouwjaar'
+
       responses:
         '200':
           description: "Geslaagd"
@@ -652,7 +650,7 @@ components:
         $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
 
     gebruiksdoelen:
-      description: "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen."
+      description: "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen."
       name: gebruiksdoelen
       in: query
       required: false
@@ -674,25 +672,13 @@ components:
       style: deepObject
       explode: true
 
-    punt:
-      description: >-
-        Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. 
-        Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308
-      name: punt
-      in: query
-      required: false
-      schema:
-        $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/pointGeoJSON.yaml'
-      style: deepObject
-      explode: true
-
     bbox:
       description: >-
-        Rechthoek waarbinnen het object dat je zoekt valt. 
-        Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen. 
-        Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro. 
-        Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder.
-        De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  
+        Rechthoek waarbinnen het object dat je zoekt valt.
+        Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen.
+        Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
+        In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn.
+        De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.
       name: bbox
       in: query
       required: false
@@ -700,23 +686,6 @@ components:
         type: array
         minItems: 4
         maxItems: 6
-        items:
-          type: number
-      explode: false
-
-    cirkel:
-      description: >-
-        Cirkel waarbinnen het object dat je zoekt valt.
-        Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen. 
-        Formaat: cirkel=x, y, radius. 
-        Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).
-      name: cirkel
-      in: query
-      required: false
-      schema:
-        type: array
-        minItems: 3
-        maxItems: 3
         items:
           type: number
       explode: false
@@ -1487,7 +1456,6 @@ components:
       enum:
         - 'Naamgeving uitgegeven'
     StatusPandEnum:
-      description: "Een codering van de verschillende waarden die de status van een pand kan aannemen."
       type: string
       enum:
         - 'Bouwvergunning verleend'

@@ -1098,7 +1098,7 @@
           "Adresseerbaar object"
         ],
         "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
-        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen):\n1. met een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. met een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of\n4. met een geometrische contour (punt, rechthoek of cirkel) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).  Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
         "operationId": "raadpleegAdresseerbareobjecten",
         "parameters": [
           {
@@ -1125,111 +1125,6 @@
               "pattern": "^[0-9]{16}$",
               "type": "string",
               "example": "0226100000008856"
-            }
-          },
-          {
-            "name": "geconstateerd",
-            "in": "query",
-            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "woonplaatsIdentificatie",
-            "in": "query",
-            "description": "De identificatie van een woonplaats.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "pattern": "^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$",
-              "type": "string",
-              "example": "2096"
-            }
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
-            }
-          },
-          {
-            "name": "gebruiksdoelen",
-            "in": "query",
-            "description": "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "minItems": 1,
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/GebruiksdoelEnum"
-              }
-            }
-          },
-          {
-            "name": "oppervlakte",
-            "in": "query",
-            "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
-            "required": false,
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "$ref": "#/components/schemas/IntegerFilter"
-            }
-          },
-          {
-            "name": "punt",
-            "in": "query",
-            "description": "Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken.  Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308",
-            "required": false,
-            "style": "deepObject",
-            "explode": true,
-            "schema": {
-              "$ref": "#/components/schemas/pointGeoJSON"
-            }
-          },
-          {
-            "name": "bbox",
-            "in": "query",
-            "description": "Rechthoek waarbinnen het object dat je zoekt valt.  Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.  Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro.  Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder. De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  ",
-            "required": false,
-            "style": "form",
-            "explode": false,
-            "schema": {
-              "maxItems": 6,
-              "minItems": 4,
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            }
-          },
-          {
-            "name": "cirkel",
-            "in": "query",
-            "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.  Formaat: cirkel=x, y, radius.  Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).",
-            "required": false,
-            "style": "form",
-            "explode": false,
-            "schema": {
-              "maxItems": 3,
-              "minItems": 3,
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
             }
           },
           {
@@ -1283,6 +1178,84 @@
               "minimum": 1,
               "type": "integer",
               "default": 20
+            }
+          },
+          {
+            "name": "geconstateerd",
+            "in": "query",
+            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "woonplaatsIdentificatie",
+            "in": "query",
+            "description": "De identificatie van een woonplaats.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$",
+              "type": "string",
+              "example": "2096"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
+            }
+          },
+          {
+            "name": "gebruiksdoelen",
+            "in": "query",
+            "description": "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/GebruiksdoelEnum"
+              }
+            }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 6,
+              "minItems": 4,
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "oppervlakte",
+            "in": "query",
+            "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/IntegerFilter"
             }
           }
         ],
@@ -2595,7 +2568,7 @@
           "Pand"
         ],
         "summary": "vindt panden",
-        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. binnen een geometrische contour (punt, rechthoek of cirkel) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).",
+        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).",
         "operationId": "raadpleegPanden",
         "parameters": [
           {
@@ -2646,42 +2619,49 @@
             }
           },
           {
-            "name": "punt",
+            "name": "fields",
             "in": "query",
-            "description": "Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken.  Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308",
+            "description": "Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma's gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)",
             "required": false,
-            "style": "deepObject",
-            "explode": true,
             "schema": {
-              "$ref": "#/components/schemas/pointGeoJSON"
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Crs",
+            "in": "header",
+            "description": "Gewenste CRS van de coördinaten in de response.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "CRS van de coördinaten in de response. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
+              "enum": [
+                "epsg:28992"
+              ]
+            }
+          },
+          {
+            "name": "Content-Crs",
+            "in": "header",
+            "description": "CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "epsg:28992"
+              ]
             }
           },
           {
             "name": "bbox",
             "in": "query",
-            "description": "Rechthoek waarbinnen het object dat je zoekt valt.  Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.  Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro.  Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder. De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  ",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
             "required": false,
             "style": "form",
             "explode": false,
             "schema": {
               "maxItems": 6,
               "minItems": 4,
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            }
-          },
-          {
-            "name": "cirkel",
-            "in": "query",
-            "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.  Formaat: cirkel=x, y, radius.  Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).",
-            "required": false,
-            "style": "form",
-            "explode": false,
-            "schema": {
-              "maxItems": 3,
-              "minItems": 3,
               "type": "array",
               "items": {
                 "type": "number"
@@ -2724,40 +2704,6 @@
             "explode": true,
             "schema": {
               "$ref": "#/components/schemas/IntegerFilter"
-            }
-          },
-          {
-            "name": "fields",
-            "in": "query",
-            "description": "Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma's gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Accept-Crs",
-            "in": "header",
-            "description": "Gewenste CRS van de coördinaten in de response.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "CRS van de coördinaten in de response. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-              "enum": [
-                "epsg:28992"
-              ]
-            }
-          },
-          {
-            "name": "Content-Crs",
-            "in": "header",
-            "description": "CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "epsg:28992"
-              ]
             }
           }
         ],
@@ -4025,7 +3971,6 @@
       },
       "StatusPandEnum": {
         "type": "string",
-        "description": "Een codering van de verschillende waarden die de status van een pand kan aannemen.",
         "enum": [
           "Bouwvergunning verleend",
           "Bouw gestart",
@@ -4166,28 +4111,6 @@
           }
         },
         "description": "Details over fouten in opgegeven parameters"
-      },
-      "pointGeoJSON": {
-        "required": [
-          "coordinates",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "Point"
-            ]
-          },
-          "coordinates": {
-            "minItems": 2,
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          }
-        }
       },
       "HalLink": {
         "required": [
@@ -4445,6 +4368,28 @@
         },
         "description": "De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5"
       },
+      "pointGeoJSON": {
+        "required": [
+          "coordinates",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Point"
+            ]
+          },
+          "coordinates": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
       "multipolygonGeoJSON": {
         "required": [
           "coordinates",
@@ -4626,7 +4571,7 @@
       "gebruiksdoelen": {
         "name": "gebruiksdoelen",
         "in": "query",
-        "description": "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
+        "description": "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
         "required": false,
         "style": "form",
         "explode": true,
@@ -4649,43 +4594,16 @@
           "$ref": "#/components/schemas/IntegerFilter"
         }
       },
-      "punt": {
-        "name": "punt",
-        "in": "query",
-        "description": "Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken.  Let op, explode is true dus het formaat is ?punt[type]=Point&punt[coordinates]=194602.722,464154.308",
-        "required": false,
-        "style": "deepObject",
-        "explode": true,
-        "schema": {
-          "$ref": "#/components/schemas/pointGeoJSON"
-        }
-      },
       "bbox": {
         "name": "bbox",
         "in": "query",
-        "description": "Rechthoek waarbinnen het object dat je zoekt valt.  Objecten die de rand van de rechthoek raken worden in het zoekresultaat meegenomen.  Formaat: bbox=x lb, y lb, x ro, y ro of bbox=x lb, y lb, z lb, x ro, y ro, z ro.  Daarbij zijn x lb en y lb (evt. z lb) de coördinaten van het punt linksboven en x ro en y ro (evt. z ro) de coördinaten van het punt rechtsonder. De oppervlakte van de bounding box mag maximaal 250.000 m2 zijn.  ",
+        "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
         "required": false,
         "style": "form",
         "explode": false,
         "schema": {
           "maxItems": 6,
           "minItems": 4,
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        }
-      },
-      "cirkel": {
-        "name": "cirkel",
-        "in": "query",
-        "description": "Cirkel waarbinnen het object dat je zoekt valt. Objecten die de rand van de cirkel raken worden in het zoekresultaat meegenomen.  Formaat: cirkel=x, y, radius.  Daarbij zijn x en y de coördinaten van het middelpunt van de cirkel en is radius de straal van de cirkel in meters (maximaal 280 m).",
-        "required": false,
-        "style": "form",
-        "explode": false,
-        "schema": {
-          "maxItems": 3,
-          "minItems": 3,
           "type": "array",
           "items": {
             "type": "number"
