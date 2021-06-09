@@ -2,127 +2,346 @@ schema {
   query: Query
 }
 
-type Query {
-  adresseerbareObjecten(where: AdresseerbaarObjectFilterInput, page: Int, pageSize: Int): [AdresseerbaarObject!]!
-  adresseerbaarObjectMetId(id: ID!): AdresseerbaarObject
-  adresseerbareObjectenMetIds(ids: [ID!]!): [AdresseerbaarObject!]!
-  adresseerbareObjectenMetPandId(id: ID!): [AdresseerbaarObject!]!
-  adresseerbareObjectenMetNummeraanduidingId(id: ID!): [AdresseerbaarObject!]!
+interface GeoJSONInterface {
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType!
+  "The minimum bounding box around the geometry object"
+  bbox: [Float]
+  "The coordinate reference system integer identifier"
+  crs: Int
 }
-
-type GeoJSONPoint {
-  type: String!
-  coordinates: [Float!]!
-}
-
-type GeoJSONPolygon {
-  type: String!
-  coordinates: [[[Float!]!]!]!
-}
-
-enum TypeAdresseerbaarObject {
-  verblijfsobject
-  standplaats
-  ligplaats
-}
-
-union AdresseerbaarObjectGeometrie = GeoJSONPoint | GeoJSONPolygon
 
 type Adres {
-  id: ID!
   adresregel1: String
   adresregel2: String
-}
-
-type Nummeraanduiding {
-  id: ID!
-  huisnummer: Int!
-  huisletter: String
-  postcode: String
-}
-
-type Pand {
-  id: ID!
-  geometrie: GeoJSONPolygon
-  geconstateerd: Boolean
-  adresseerbareObjecten: [AdresseerbaarObject!]
-  nummeraanduidingen: [Nummeraanduiding!]
+  woonplaats: String
 }
 
 type AdresseerbaarObject {
   id: ID!
   type: TypeAdresseerbaarObject!
   geometrie: AdresseerbaarObjectGeometrie
-  adressen: [Adres!]
-  nummeraanduidingen(where: NummeraanduidingFilterInput, page: Int, pageSize: Int): [Nummeraanduiding!]
-  panden(where: PandFilterInput, page: Int, pageSize: Int): [Pand!]
+  gebruiksdoelen: [TypeGebruiksdoel]
+  geconstateerd: Boolean
+  adressen(order: AdresSort): [Adres!]!
+  panden: [Pand!]!
 }
 
-input TypeAdresseerbaarObjectFilterInput {
+type GeoJSONLineStringType implements GeoJSONInterface {
+  "The \"coordinates\" field is an array of two or more positions."
+  coordinates: [Position]
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType!
+  "The minimum bounding box around the geometry object"
+  bbox: [Float!]!
+  "The coordinate reference system integer identifier"
+  crs: Int!
+}
+
+type GeoJSONMultiLineStringType implements GeoJSONInterface {
+  "The \"coordinates\" field is an array of LineString coordinate arrays."
+  coordinates: [Position]
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType!
+  "The minimum bounding box around the geometry object"
+  bbox: [Float!]!
+  "The coordinate reference system integer identifier"
+  crs: Int!
+}
+
+type GeoJSONMultiPointType implements GeoJSONInterface {
+  "The \"coordinates\" field is an array of positions."
+  coordinates: [Position]
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType!
+  "The minimum bounding box around the geometry object"
+  bbox: [Float!]!
+  "The coordinate reference system integer identifier"
+  crs: Int!
+}
+
+type GeoJSONMultiPolygonType implements GeoJSONInterface {
+  "The \"coordinates\" field is an array of Polygon coordinate arrays."
+  coordinates: [Position]
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType!
+  "The minimum bounding box around the geometry object"
+  bbox: [Float!]!
+  "The coordinate reference system integer identifier"
+  crs: Int!
+}
+
+type GeoJSONPointType implements GeoJSONInterface {
+  "The \"coordinates\" field is a single position."
+  coordinates: Position
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType!
+  "The minimum bounding box around the geometry object"
+  bbox: [Float!]!
+  "The coordinate reference system integer identifier"
+  crs: Int!
+}
+
+type GeoJSONPolygonType implements GeoJSONInterface {
+  "The \"coordinates\" field MUST be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first MUST be the exterior ring, and any others MUST be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface."
+  coordinates: [Position]
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType!
+  "The minimum bounding box around the geometry object"
+  bbox: [Float!]!
+  "The coordinate reference system integer identifier"
+  crs: Int!
+}
+
+type Pand {
+  id: ID!
+  geometrie: GeoJSONPolygonType
+  oorspronkelijkBouwjaar: Int
+  geconstateerd: Boolean!
+  status: TypeStatusPand!
+  oppervlakte: Int!
+  adressen: [Adres!]!
+}
+
+type Query {
+  adresseerbareObjecten(where: AdresseerbaarObjectFilter order: AdresseerbaarObjectSort): [AdresseerbaarObject!]!
+  panden(where: PandFilter): [Pand!]!
+}
+
+union AdresseerbaarObjectGeometrie = GeoJSONPointType | GeoJSONPolygonType
+
+input AdresInAdresseerbaarObjectFilter {
+  and: [AdresInAdresseerbaarObjectFilter]
+  or: [AdresInAdresseerbaarObjectFilter]
+  woonplaats: StringOperationFilter
+}
+
+input AdresSort {
+  adresregel1: TypeSort
+  adresregel2: TypeSort
+  woonplaats: TypeSort
+}
+
+input AdresseerbaarObjectFilter {
+  and: [AdresseerbaarObjectFilter!]
+  or: [AdresseerbaarObjectFilter!]
+  type: TypeAdresseerbaarObjectFilter
+  geometrie: AdresseerbaarObjectGeometrieFilter
+  gebruiksdoelen: GebruiksdoelenFilter
+  geconstateerd: BooleanOperationFilter
+  adressen: AdressenInAdresseerbaarObjectFilter
+  panden: PandenInAdresseerbaarObjectFilter
+}
+
+input AdresseerbaarObjectGeometrieFilter {
+  within: GeometryWithinOperationFilter
+}
+
+input AdresseerbaarObjectSort {
+  type: TypeSort
+  status: TypeSort
+}
+
+input AdressenInAdresseerbaarObjectFilter {
+  all: AdresInAdresseerbaarObjectFilter
+  none: AdresInAdresseerbaarObjectFilter
+  some: AdresInAdresseerbaarObjectFilter
+}
+
+input BooleanOperationFilter {
+  eq: Boolean
+  neq: Boolean
+}
+
+input GebruiksdoelFilter {
+  and: [GebruiksdoelFilter!]
+  or: [GebruiksdoelFilter!]
+  eq: TypeGebruiksdoel
+  in: [TypeGebruiksdoel!]
+}
+
+input GebruiksdoelenFilter {
+  all: GebruiksdoelFilter
+  none: GebruiksdoelFilter
+  some: GebruiksdoelFilter
+}
+
+input GeoJSONLineStringInput {
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType
+  "The \"coordinates\" field is an array of two or more positions."
+  coordinates: [Position]
+  "The coordinate reference system integer identifier"
+  crs: Int
+}
+
+input GeoJSONMultiLineStringInput {
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType
+  "The \"coordinates\" field is an array of LineString coordinate arrays."
+  coordinates: [[Position]]
+  "The coordinate reference system integer identifier"
+  crs: Int
+}
+
+input GeoJSONMultiPointInput {
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType
+  "The \"coordinates\" field is an array of positions."
+  coordinates: [Position]
+  "The coordinate reference system integer identifier"
+  crs: Int
+}
+
+input GeoJSONMultiPolygonInput {
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType
+  "The \"coordinates\" field is an array of Polygon coordinate arrays."
+  coordinates: [[Position]]
+  "The coordinate reference system integer identifier"
+  crs: Int
+}
+
+input GeoJSONPointInput {
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType
+  "The \"coordinates\" field is a single position."
+  coordinates: Position
+  "The coordinate reference system integer identifier"
+  crs: Int
+}
+
+input GeoJSONPolygonInput {
+  "The geometry type of the GeoJson object"
+  type: GeoJSONGeometryType
+  "The \"coordinates\" field MUST be an array of linear ring coordinate arrays. For Polygons with more than one of these rings, the first MUST be the exterior ring, and any others MUST be interior rings. The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface."
+  coordinates: [Position]
+  "The coordinate reference system integer identifier"
+  crs: Int
+}
+
+input GeometryContainsOperationFilter {
+  geometry: Geometry!
+}
+
+input GeometryOverlapsOperationFilter {
+  geometry: Geometry!
+}
+
+input GeometryWithinOperationFilter {
+  geometry: Geometry!
+}
+
+input PandBouwjaarFilter {
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+}
+
+input PandFilter {
+  and: [PandFilter!]
+  or: [PandFilter!]
+  geometrie: PandGeometrieFilter
+  oorspronkelijkBouwjaar: PandBouwjaarFilter
+  geconstateerd: BooleanOperationFilter
+  status: TypeStatusPandFilter
+}
+
+input PandGeometrieFilter {
+  contains: GeometryContainsOperationFilter
+  overlaps: GeometryOverlapsOperationFilter
+  within: GeometryWithinOperationFilter
+}
+
+input PandInAdresseerbaarObjectFilter {
+  oorspronkelijkBouwjaar: PandBouwjaarFilter
+  oppervlakte: PandOppervlakteFilter
+}
+
+input PandOppervlakteFilter {
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+}
+
+input PandenInAdresseerbaarObjectFilter {
+  all: PandInAdresseerbaarObjectFilter
+  none: PandInAdresseerbaarObjectFilter
+  some: PandInAdresseerbaarObjectFilter
+}
+
+input StringOperationFilter {
+  eq: String
+}
+
+input TypeAdresseerbaarObjectFilter {
+  and: [TypeAdresseerbaarObjectFilter!]
+  or: [TypeAdresseerbaarObjectFilter!]
   eq: TypeAdresseerbaarObject
   in: [TypeAdresseerbaarObject]
 }
 
-input GeometrieAdresseerbaarObjectFilterInput {
-  """ dit is een"""
-  in: GeoJSONPolygon
-  within: GeometrieDistanceFilterInput
+input TypeStatusPandFilter {
+  and: [TypeStatusPandFilter]
+  or: [TypeStatusPandFilter]
+  eq: TypeStatusPand
+  in: [TypeStatusPand!]
 }
 
-input GeometrieDistanceFilterInput {
-  point: GeoJSONPoint
-  radius: Float
+enum GeoJSONGeometryType {
+  Point
+  MultiPoint
+  LineString
+  MultiLineString
+  Polygon
+  MultiPolygon
+  GeometryCollection
 }
 
-input AdresseerbaarObjectNummeraanduidingFilterInput {
-  postcode: PostcodeFilterInput
+enum TypeAdresseerbaarObject {
+  VERBLIJFSOBJECT
+  STANDPLAATS
+  LIGPLAATS
 }
 
-input PostcodeFilterInput {
-  eq: String
-  in: [String!]
+enum TypeGebruiksdoel {
+  WOON_FUNCTIE
+  BIJEENKOMST_FUNCTIE
+  CEL_FUNCTIE
+  GEZONDHEIDSZORG_FUNCTIE
+  INDUSTRIE_FUNCTIE
+  KANTOOR_FUNCTIE
+  LOGIES_FUNCTIE
+  ONDERWIJS_FUNCTIE
+  SPORT_FUNCTIE
+  WINKEL_FUNCTIE
+  OVERIGE_GEBRUIKS_FUNCTIE
 }
 
-input IntFilterInput {
-  eq: Int
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  and: [IntFilterInput]
-  or: [IntFilterInput]
+enum TypeSort {
+  ASC
+  DESC
 }
 
-input AdresseerbaarObjectPandFilterInput {
-  geconstateerd: Boolean
-  bouwjaar: IntFilterInput
+enum TypeStatusPand {
+  BOUWVERGUNNING_VERLEEND
+  BOUW_GESTART
+  PAND_IN_GEBRUIK_NIET_INGEMETEN
+  PAND_IN_GEBRUIK
+  VERBOUWING_PAND
+  SLOOPVERGUNNING_VERLEEND
+  PAND_BUITEN_GEBRUIK
 }
 
-input AdresseerbaarObjectFilterInput {
-  type: TypeAdresseerbaarObjectFilterInput
-  geometrie: GeometrieAdresseerbaarObjectFilterInput
-  # adres: AdresFilterInput
-  nummeraanduiding: AdresseerbaarObjectNummeraanduidingFilterInput
-  pand: AdresseerbaarObjectPandFilterInput
-  and: [AdresseerbaarObjectFilterInput!]!
-}
+"The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`."
+directive @defer("If this argument label has a value other than null, it will be passed on to the result of this defer directive. This label is intended to give client applications a way to identify to which fragment a deferred result belongs to." label: String "Deferred when true." if: Boolean) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
-input AdresseerbaarObjectGeometrieFilterInput {
-  type: TypeAdresseerbaarObjectFilterInput
-  geometrie: GeometrieAdresseerbaarObjectFilterInput
-  nummeraanduiding: AdresseerbaarObjectNummeraanduidingFilterInput
-}
+"The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such as asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`."
+directive @stream("If this argument label has a value other than null, it will be passed on to the result of this stream directive. This label is intended to give client applications a way to identify to which fragment a streamed result belongs to." label: String "The initial elements that shall be send down to the consumer." initialCount: Int! "Streamed when true." if: Boolean!) on FIELD
 
-input NummeraanduidingFilterInput {
-  postcode: PostcodeFilterInput
-}
+scalar Geometry
 
-input GeometriePandFilterInput {
-  in: GeoJSONPolygon
-  nin: GeoJSONPolygon
-}
-
-input PandFilterInput {
-  geconstateerd: Boolean
-  geometrie: GeometriePandFilterInput
-}
+"A position is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or easting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element."
+scalar Position
