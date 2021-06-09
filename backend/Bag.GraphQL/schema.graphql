@@ -1,0 +1,193 @@
+type Query {
+  adresseerbareObjecten(where: AdresseerbaarObjectFilter order: AdresseerbaarObjectSort): [AdresseerbaarObject!]!
+  panden(where: PandFilter): [Pand!]!
+}
+
+type Adres {
+  adresregel1: String
+  adresregel2: String
+  woonplaats: String
+}
+
+type AdresseerbaarObject {
+  id: ID!
+  type: TypeAdresseerbaarObject!
+  geometrie: AdresseerbaarObjectGeometrie
+  gebruiksdoelen: [TypeGebruiksdoel]
+  geconstateerd: Boolean
+  adressen(order: AdresSort): [Adres!]!
+  panden: [Pand!]!
+}
+
+union AdresseerbaarObjectGeometrie = GeoJSONPointType | GeoJSONPolygonType  
+
+type Pand {
+  id: ID!
+  geometrie: GeoJSONPolygonType
+  oorspronkelijkBouwjaar: Int
+  geconstateerd: Boolean!
+  status: TypeStatusPand!
+  oppervlakte: Int!
+  adressen: [Adres!]!
+}
+
+enum TypeAdresseerbaarObject {
+  VERBLIJFSOBJECT,
+  STANDPLAATS,
+  LIGPLAATS
+}
+
+enum TypeGebruiksdoel {
+  WOON_FUNCTIE
+  BIJEENKOMST_FUNCTIE
+  CEL_FUNCTIE
+  GEZONDHEIDSZORG_FUNCTIE
+  INDUSTRIE_FUNCTIE
+  KANTOOR_FUNCTIE
+  LOGIES_FUNCTIE
+  ONDERWIJS_FUNCTIE
+  SPORT_FUNCTIE
+  WINKEL_FUNCTIE
+  OVERIGE_GEBRUIKS_FUNCTIE
+}
+
+enum TypeSort {
+  ASC
+  DESC
+}
+
+enum TypeStatusPand {
+  BOUWVERGUNNING_VERLEEND
+  BOUW_GESTART
+  PAND_IN_GEBRUIK_NIET_INGEMETEN
+  PAND_IN_GEBRUIK
+  VERBOUWING_PAND
+  SLOOPVERGUNNING_VERLEEND
+  PAND_BUITEN_GEBRUIK
+}
+
+input AdresInAdresseerbaarObjectFilter {
+  and: [AdresInAdresseerbaarObjectFilter]
+  or: [AdresInAdresseerbaarObjectFilter]
+  woonplaats: StringOperationFilter
+}
+
+input AdressenInAdresseerbaarObjectFilter {
+  all: AdresInAdresseerbaarObjectFilter
+  none: AdresInAdresseerbaarObjectFilter
+  some: AdresInAdresseerbaarObjectFilter
+}
+
+input AdresseerbaarObjectFilter {
+  and: [AdresseerbaarObjectFilter!]
+  or: [AdresseerbaarObjectFilter!]
+  type: TypeAdresseerbaarObjectFilter
+  geometrie: AdresseerbaarObjectGeometrieFilter
+  gebruiksdoelen: GebruiksdoelenFilter
+  geconstateerd: BooleanOperationFilter
+  adressen: AdressenInAdresseerbaarObjectFilter
+  panden: PandenInAdresseerbaarObjectFilter
+}
+
+input AdresseerbaarObjectGeometrieFilter {
+  within: GeometryWithinOperationFilter
+}
+
+input AdresseerbaarObjectSort {
+  type: TypeSort
+  status: TypeSort
+}
+
+input AdresSort {
+  adresregel1: TypeSort
+  adresregel2: TypeSort
+  woonplaats: TypeSort
+}
+
+input BooleanOperationFilter {
+  eq: Boolean
+  neq: Boolean
+}
+
+input GebruiksdoelFilter {
+  and: [GebruiksdoelFilter!]
+  or: [GebruiksdoelFilter!]
+  eq: TypeGebruiksdoel
+  in: [TypeGebruiksdoel!]
+}
+
+input GebruiksdoelenFilter {
+  all: GebruiksdoelFilter
+  none: GebruiksdoelFilter
+  some: GebruiksdoelFilter
+}
+
+input GeometryContainsOperationFilter {
+  geometry: Geometry!
+}
+
+input GeometryOverlapsOperationFilter {
+  geometry: Geometry!
+}
+
+input GeometryWithinOperationFilter {
+  geometry: Geometry!
+}
+
+input PandFilter {
+  and: [PandFilter!]
+  or: [PandFilter!]
+  geometrie: PandGeometrieFilter
+  oorspronkelijkBouwjaar: PandBouwjaarFilter
+  geconstateerd: BooleanOperationFilter
+  status: TypeStatusPandFilter
+}
+
+input PandGeometrieFilter {
+  contains: GeometryContainsOperationFilter
+  overlaps: GeometryOverlapsOperationFilter
+  within: GeometryWithinOperationFilter
+}
+
+input PandBouwjaarFilter {
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+}
+
+input PandOppervlakteFilter {
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+}
+
+input PandInAdresseerbaarObjectFilter {
+  oorspronkelijkBouwjaar: PandBouwjaarFilter
+  oppervlakte: PandOppervlakteFilter
+}
+
+input PandenInAdresseerbaarObjectFilter {
+  all: PandInAdresseerbaarObjectFilter
+  none: PandInAdresseerbaarObjectFilter
+  some: PandInAdresseerbaarObjectFilter
+}
+
+input StringOperationFilter {
+  eq: String
+}
+
+input TypeAdresseerbaarObjectFilter {
+  and: [TypeAdresseerbaarObjectFilter!]
+  or: [TypeAdresseerbaarObjectFilter!]
+  eq: TypeAdresseerbaarObject
+  in: [TypeAdresseerbaarObject]
+}
+
+input TypeStatusPandFilter {
+  and: [TypeStatusPandFilter]
+  or: [TypeStatusPandFilter]
+  eq: TypeStatusPand
+  in: [TypeStatusPand!]
+}

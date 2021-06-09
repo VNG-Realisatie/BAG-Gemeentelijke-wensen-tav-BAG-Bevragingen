@@ -1,4 +1,6 @@
+using Bag.GraphQL.GraphQL;
 using HotChocolate;
+using HotChocolate.AspNetCore.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,11 +15,19 @@ namespace Bag.GraphQL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGraphQLServer()
-                .AddQueryType<Query>()
-                //.AddProjections()
-                .AddFiltering()
+                //.AddQueryType<Query>()
+
+                .AddDocumentFromFile("./schema.graphql")
+                .BindComplexType<Query>()
+                .BindComplexType<Adres>()
+                .BindComplexType<AdresseerbaarObject>()
+                .BindComplexType<Pand>()
+
                 .AddSpatialTypes()
-                .AddSpatialFiltering();
+                .AddFiltering()
+                .AddSpatialFiltering()
+                .AddSorting()
+                ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +39,7 @@ namespace Bag.GraphQL
             }
 
             app.UseRouting();
+            app.UseVoyager();
 
             app.UseEndpoints(endpoints =>
             {
