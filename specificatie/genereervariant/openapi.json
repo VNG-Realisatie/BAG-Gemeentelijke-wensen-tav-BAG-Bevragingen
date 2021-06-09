@@ -1094,7 +1094,7 @@
           "Adresseerbaar object"
         ],
         "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
-        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresseerbareobjecten",
         "parameters": [
           {
@@ -1170,6 +1170,84 @@
               "minimum": 1,
               "type": "integer",
               "default": 20
+            }
+          },
+          {
+            "name": "geconstateerd",
+            "in": "query",
+            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "woonplaatsIdentificatie",
+            "in": "query",
+            "description": "De identificatie van een woonplaats.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$",
+              "type": "string",
+              "example": "2096"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
+            }
+          },
+          {
+            "name": "gebruiksdoelen",
+            "in": "query",
+            "description": "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/GebruiksdoelEnum"
+              }
+            }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 6,
+              "minItems": 4,
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "oppervlakte",
+            "in": "query",
+            "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/IntegerFilter"
             }
           }
         ],
@@ -1324,6 +1402,29 @@
               }
             }
           },
+          "415": {
+            "description": "Unsupported Media Type",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16",
+                  "title": "Unsupported Media Type",
+                  "status": 415,
+                  "detail": "The server is refusing the request because the entity of the request is in a format not supported by the requested resource for the requested method.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "unsupported"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal Server Error",
             "headers": {
@@ -1405,7 +1506,7 @@
           {
             "name": "woonplaatsidentificatie",
             "in": "path",
-            "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
+            "description": "De identificatie van een woonplaats.",
             "required": true,
             "style": "simple",
             "explode": false,
@@ -2451,7 +2552,7 @@
           "Pand"
         ],
         "summary": "vindt panden",
-        "description": "Zoek actuele panden met de identificatie van een adresseerbaar object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
+        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegPanden",
         "parameters": [
           {
@@ -2495,6 +2596,7 @@
                 196733.51,
                 439931.89
               ],
+              "deprecated": true,
               "items": {
                 "type": "number"
               }
@@ -2526,6 +2628,60 @@
             "schema": {
               "$ref": "#/components/schemas/CrsEnum"
             }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 6,
+              "minItems": 4,
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "statusPand",
+            "in": "query",
+            "description": "Status van het pand.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StatusPandEnum"
+              }
+            }
+          },
+          {
+            "name": "geconstateerd",
+            "in": "query",
+            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "bouwjaar",
+            "in": "query",
+            "description": "Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken.  Bv: bouwjaar[min]=1970&bouwjaar[max]=2010",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/IntegerFilter"
+            }
           }
         ],
         "responses": {
@@ -2537,6 +2693,12 @@
               },
               "warning": {
                 "$ref": "#/components/headers/warning"
+              },
+              "X-Pagination-Page": {
+                "$ref": "#/components/headers/X_Pagination_Page"
+              },
+              "X-Pagination-Limit": {
+                "$ref": "#/components/headers/X_Pagination_Limit"
               },
               "Content-Crs": {
                 "$ref": "#/components/headers/contentCrs"
@@ -2823,6 +2985,17 @@
           }
         },
         "description": "Resultaten als lijst."
+      },
+      "IntegerFilter": {
+        "properties": {
+          "min": {
+            "type": "integer"
+          },
+          "max": {
+            "type": "integer"
+          }
+        },
+        "description": "Geeft aan met welke waarden je kunt zoeken. Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde. Met `max` zoek je naar waarden kleiner dan de opgegeven waarde."
       },
       "Adres": {
         "type": "object",
@@ -3737,7 +3910,7 @@
         "type": "object",
         "properties": {
           "_links": {
-            "$ref": "#/components/schemas/HalCollectionLinks"
+            "$ref": "#/components/schemas/HalPaginationLinksMetLast"
           },
           "_embedded": {
             "type": "object",
@@ -3761,7 +3934,6 @@
       },
       "StatusPandEnum": {
         "type": "string",
-        "description": "Een codering van de verschillende waarden die de status van een pand kan aannemen.",
         "enum": [
           "Bouwvergunning verleend",
           "Bouw gestart",
@@ -4141,6 +4313,7 @@
             196733.51,
             439931.89
           ],
+          "deprecated": true,
           "items": {
             "type": "number"
           }
@@ -4185,6 +4358,110 @@
           "example": "0226010000038820"
         }
       },
+      "woonplaatsIdentificatie-query": {
+        "name": "woonplaatsIdentificatie",
+        "in": "query",
+        "description": "De identificatie van een woonplaats.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "pattern": "^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$",
+          "type": "string",
+          "example": "2096"
+        }
+      },
+      "geconstateerd": {
+        "name": "geconstateerd",
+        "in": "query",
+        "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "statusPand": {
+        "name": "statusPand",
+        "in": "query",
+        "description": "Status van het pand.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/StatusPandEnum"
+          }
+        }
+      },
+      "bouwjaar": {
+        "name": "bouwjaar",
+        "in": "query",
+        "description": "Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken.  Bv: bouwjaar[min]=1970&bouwjaar[max]=2010",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "$ref": "#/components/schemas/IntegerFilter"
+        }
+      },
+      "type": {
+        "name": "type",
+        "in": "query",
+        "description": "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
+        }
+      },
+      "gebruiksdoelen": {
+        "name": "gebruiksdoelen",
+        "in": "query",
+        "description": "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/GebruiksdoelEnum"
+          }
+        }
+      },
+      "oppervlakte": {
+        "name": "oppervlakte",
+        "in": "query",
+        "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "$ref": "#/components/schemas/IntegerFilter"
+        }
+      },
+      "bbox": {
+        "name": "bbox",
+        "in": "query",
+        "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+        "required": false,
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "maxItems": 6,
+          "minItems": 4,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
       "nummeraanduidingidentificatie": {
         "name": "nummeraanduidingidentificatie",
         "in": "path",
@@ -4227,7 +4504,7 @@
       "woonplaatsidentificatie": {
         "name": "woonplaatsidentificatie",
         "in": "path",
-        "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
+        "description": "De identificatie van een woonplaats.",
         "required": true,
         "style": "simple",
         "explode": false,
