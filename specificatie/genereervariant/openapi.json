@@ -274,7 +274,7 @@
           "Adres"
         ],
         "summary": "vindt adressen",
-        "description": "Vind een actueel adres met de identificatie van het zoekresultaat uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
+        "description": "Vind een actueel adres met de identificatie van het zoekresultaat uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdressen",
         "parameters": [
           {
@@ -555,7 +555,7 @@
           "Adres"
         ],
         "summary": "levert een adres",
-        "description": "Raadpleeg een actueel adres met de nummeraanduidingidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
+        "description": "Raadpleeg een actueel adres met de nummeraanduidingidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresMetNumId",
         "parameters": [
           {
@@ -807,7 +807,7 @@
           "Adresseerbaar object"
         ],
         "summary": "levert een verblijfsobject, standplaats of ligplaats",
-        "description": "Raadpleeg een actueel adresseerbaar object met de identificatie. Dit is de identificatie van een verblijfsobject, ligplaats of standplaats. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
+        "description": "Raadpleeg een actueel adresseerbaar object met de identificatie. Dit is de identificatie van een verblijfsobject, ligplaats of standplaats. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresseerbaarobject",
         "parameters": [
           {
@@ -847,11 +847,7 @@
             "description": "Gewenste CRS van de coördinaten in de response.",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "CRS van de coördinaten in de response. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-              "enum": [
-                "epsg:28992"
-              ]
+              "$ref": "#/components/schemas/CrsEnum"
             }
           }
         ],
@@ -1098,7 +1094,7 @@
           "Adresseerbaar object"
         ],
         "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
-        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresseerbareobjecten",
         "parameters": [
           {
@@ -1151,11 +1147,7 @@
             "description": "Gewenste CRS van de coördinaten in de response.",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "CRS van de coördinaten in de response. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-              "enum": [
-                "epsg:28992"
-              ]
+              "$ref": "#/components/schemas/CrsEnum"
             }
           },
           {
@@ -1508,7 +1500,7 @@
           "Adres"
         ],
         "summary": "levert BAG details van een woonplaats",
-        "description": "Raadpleeg een actuele woonplaats met de identificatie. Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met de gerelateerde resource geometrie, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
+        "description": "Raadpleeg een actuele woonplaats met de identificatie. Een woonplaats is een gedeelte van het grondgebied van de gemeente met een naam. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met de gerelateerde resource geometrie, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegWoonplaats",
         "parameters": [
           {
@@ -1549,11 +1541,7 @@
             "description": "Gewenste CRS van de coördinaten in de response.",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "CRS van de coördinaten in de response. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-              "enum": [
-                "epsg:28992"
-              ]
+              "$ref": "#/components/schemas/CrsEnum"
             }
           }
         ],
@@ -1800,7 +1788,7 @@
           "Adres"
         ],
         "summary": "levert BAG detals van een openbare ruimte",
-        "description": "Raadpleeg een actuele openbare ruimte met de identificatie. Een openbare ruimte is een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld een straat of een plein. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).",
+        "description": "Raadpleeg een actuele openbare ruimte met de identificatie. Een openbare ruimte is een buitenruimte met een naam die binnen één woonplaats ligt, bijvoorbeeld een straat of een plein. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegOpenbareRuimte",
         "parameters": [
           {
@@ -2043,7 +2031,7 @@
           "Adres"
         ],
         "summary": "levert BAG details van een nummeraanduiding",
-        "description": "Raadpleeg een actuele nummeraanduiding met de identificatie. Een nummeraanduiding is een postcode, huisnummer met evt een huisletter en huisnummertoevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).",
+        "description": "Raadpleeg een actuele nummeraanduiding met de identificatie. Een nummeraanduiding is een postcode, huisnummer met evt een huisletter en huisnummertoevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegNummeraanduiding",
         "parameters": [
           {
@@ -2286,7 +2274,7 @@
           "Pand"
         ],
         "summary": "levert een pand",
-        "description": "Raadpleeg een actueel pand met de identificatie. Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).",
+        "description": "Raadpleeg een actueel pand met de identificatie. Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegPand",
         "parameters": [
           {
@@ -2317,11 +2305,7 @@
             "description": "Gewenste CRS van de coördinaten in de response.",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "CRS van de coördinaten in de response. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-              "enum": [
-                "epsg:28992"
-              ]
+              "$ref": "#/components/schemas/CrsEnum"
             }
           }
         ],
@@ -2568,7 +2552,7 @@
           "Pand"
         ],
         "summary": "vindt panden",
-        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature).",
+        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegPanden",
         "parameters": [
           {
@@ -2633,11 +2617,7 @@
             "description": "Gewenste CRS van de coördinaten in de response.",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "CRS van de coördinaten in de response. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-              "enum": [
-                "epsg:28992"
-              ]
+              "$ref": "#/components/schemas/CrsEnum"
             }
           },
           {
@@ -2646,10 +2626,7 @@
             "description": "CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
             "required": false,
             "schema": {
-              "type": "string",
-              "enum": [
-                "epsg:28992"
-              ]
+              "$ref": "#/components/schemas/CrsEnum"
             }
           },
           {
@@ -2716,6 +2693,12 @@
               },
               "warning": {
                 "$ref": "#/components/headers/warning"
+              },
+              "X-Pagination-Page": {
+                "$ref": "#/components/headers/X_Pagination_Page"
+              },
+              "X-Pagination-Limit": {
+                "$ref": "#/components/headers/X_Pagination_Limit"
               },
               "Content-Crs": {
                 "$ref": "#/components/headers/contentCrs"
@@ -3927,7 +3910,7 @@
         "type": "object",
         "properties": {
           "_links": {
-            "$ref": "#/components/schemas/HalCollectionLinks"
+            "$ref": "#/components/schemas/HalPaginationLinksMetLast"
           },
           "_embedded": {
             "type": "object",
@@ -3941,26 +3924,6 @@
             }
           }
         }
-      },
-      "PandHalPaginationCollectie": {
-        "type": "object",
-        "properties": {
-          "_links": {
-            "$ref": "#/components/schemas/HalPaginationLinksMetLast_2"
-          },
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "panden": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/PandHalBasis"
-                }
-              }
-            }
-          }
-        },
-        "description": "Resultaten als lijst."
       },
       "StatusNaamgevingEnum": {
         "type": "string",
@@ -4112,6 +4075,14 @@
         },
         "description": "Details over fouten in opgegeven parameters"
       },
+      "CrsEnum": {
+        "type": "string",
+        "description": "CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
+        "default": "epsg:28992",
+        "enum": [
+          "epsg:28992"
+        ]
+      },
       "HalLink": {
         "required": [
           "href"
@@ -4248,125 +4219,6 @@
             }
           }
         }
-      },
-      "HalPaginationLinksMetLast_2": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/HalPaginationLinks_2"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "last": {
-                "type": "object",
-                "properties": {
-                  "href": {
-                    "type": "string",
-                    "example": "/resourcenaam?page=8"
-                  },
-                  "templated": {
-                    "type": "boolean"
-                  },
-                  "title": {
-                    "type": "string",
-                    "example": "Laatste pagina"
-                  }
-                },
-                "description": "uri voor het opvragen van de laatste pagina van deze collectie"
-              }
-            }
-          }
-        ]
-      },
-      "HalPaginationLinks_2": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/HalCollectionLinks_2"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "href": {
-                    "type": "string",
-                    "example": "/resourcenaam?page=1"
-                  },
-                  "templated": {
-                    "type": "boolean"
-                  },
-                  "title": {
-                    "type": "string",
-                    "example": "Eerste pagina"
-                  }
-                },
-                "description": "uri voor het opvragen van de eerste pagina van deze collectie"
-              },
-              "previous": {
-                "type": "object",
-                "properties": {
-                  "href": {
-                    "type": "string",
-                    "example": "/resourcenaam?page=3"
-                  },
-                  "templated": {
-                    "type": "boolean"
-                  },
-                  "title": {
-                    "type": "string",
-                    "example": "Vorige pagina"
-                  }
-                },
-                "description": "uri voor het opvragen van de vorige pagina van deze collectie"
-              },
-              "next": {
-                "type": "object",
-                "properties": {
-                  "href": {
-                    "type": "string",
-                    "example": "/resourcenaam?page=5"
-                  },
-                  "templated": {
-                    "type": "boolean"
-                  },
-                  "title": {
-                    "type": "string",
-                    "example": "Volgende pagina"
-                  }
-                },
-                "description": "uri voor het opvragen van de volgende pagina van deze collectie"
-              }
-            }
-          }
-        ]
-      },
-      "HalCollectionLinks_2": {
-        "type": "object",
-        "properties": {
-          "self": {
-            "$ref": "#/components/schemas/HalLink_2"
-          }
-        }
-      },
-      "HalLink_2": {
-        "required": [
-          "href"
-        ],
-        "type": "object",
-        "properties": {
-          "href": {
-            "$ref": "#/components/schemas/Href"
-          },
-          "templated": {
-            "type": "boolean"
-          },
-          "title": {
-            "type": "string",
-            "description": "Voor mens leesbaar label bij de link"
-          }
-        },
-        "description": "De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5"
       },
       "pointGeoJSON": {
         "required": [
@@ -4709,10 +4561,7 @@
       "contentCrs": {
         "description": "CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
         "schema": {
-          "type": "string",
-          "enum": [
-            "epsg:28992"
-          ]
+          "$ref": "#/components/schemas/CrsEnum"
         }
       }
     },
