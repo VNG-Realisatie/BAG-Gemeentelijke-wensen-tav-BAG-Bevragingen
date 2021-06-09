@@ -2952,13 +2952,13 @@
           {
             "properties": {
               "_links": {
-                "$ref": "#/components/schemas/ZoekResultaat_links"
+                "$ref": "#/components/schemas/ZoekResultaatLinks"
               }
             }
           }
         ]
       },
-      "ZoekResultaat_links": {
+      "ZoekResultaatLinks": {
         "type": "object",
         "properties": {
           "adres": {
@@ -3033,7 +3033,7 @@
             "example": "Duiven"
           }
         },
-        "description": "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's met adresgegevens."
+        "description": "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
       },
       "AdresUitgebreid": {
         "allOf": [
@@ -3045,12 +3045,12 @@
               "adresregel1": {
                 "type": "string",
                 "description": "De eerste regel van het adres zoals deze gebruikt kan worden in postadressering.",
-                "example": "Ln vd l D-Westervoort 1A-bis"
+                "example": "Ln vd l D-Westervoort 1"
               },
               "adresregel2": {
                 "type": "string",
                 "description": "De tweede regel van het adres zoals deze gebruikt kan worden in postadressering.",
-                "example": "6922KZ Duiven"
+                "example": "6922 KZ  DUIVEN"
               },
               "korteNaam": {
                 "maxLength": 24,
@@ -3150,7 +3150,7 @@
           {
             "properties": {
               "_embedded": {
-                "$ref": "#/components/schemas/Adres_embedded"
+                "$ref": "#/components/schemas/AdresEmbedded"
               }
             }
           }
@@ -3164,7 +3164,7 @@
           {
             "properties": {
               "_links": {
-                "$ref": "#/components/schemas/Adres_links"
+                "$ref": "#/components/schemas/AdresLinks"
               }
             }
           }
@@ -3189,7 +3189,7 @@
           }
         }
       },
-      "Adres_links": {
+      "AdresLinks": {
         "type": "object",
         "properties": {
           "self": {
@@ -3216,7 +3216,7 @@
           }
         }
       },
-      "Adres_embedded": {
+      "AdresEmbedded": {
         "type": "object",
         "properties": {
           "openbareRuimte": {
@@ -3304,7 +3304,7 @@
           {
             "properties": {
               "_embedded": {
-                "$ref": "#/components/schemas/AdresseerbaarObject_embedded"
+                "$ref": "#/components/schemas/AdresseerbaarObjectEmbedded"
               }
             }
           }
@@ -3318,7 +3318,7 @@
           {
             "properties": {
               "_links": {
-                "$ref": "#/components/schemas/AdresseerbaarObject_links"
+                "$ref": "#/components/schemas/AdresseerbaarObjectLinks"
               }
             }
           }
@@ -3355,7 +3355,7 @@
         },
         "description": "Wanneer true is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
       },
-      "AdresseerbaarObject_embedded": {
+      "AdresseerbaarObjectEmbedded": {
         "type": "object",
         "properties": {
           "adressen": {
@@ -3372,7 +3372,7 @@
           }
         }
       },
-      "AdresseerbaarObject_links": {
+      "AdresseerbaarObjectLinks": {
         "type": "object",
         "properties": {
           "adressen": {
@@ -3530,13 +3530,13 @@
           {
             "properties": {
               "_links": {
-                "$ref": "#/components/schemas/OpenbareRuimte_links"
+                "$ref": "#/components/schemas/OpenbareRuimteLinks"
               }
             }
           }
         ]
       },
-      "OpenbareRuimte_links": {
+      "OpenbareRuimteLinks": {
         "type": "object",
         "properties": {
           "self": {
@@ -3665,13 +3665,13 @@
           {
             "properties": {
               "_links": {
-                "$ref": "#/components/schemas/Nummeraanduiding_links"
+                "$ref": "#/components/schemas/NummeraanduidingLinks"
               }
             }
           }
         ]
       },
-      "Nummeraanduiding_links": {
+      "NummeraanduidingLinks": {
         "type": "object",
         "properties": {
           "self": {
@@ -3757,7 +3757,7 @@
           {
             "properties": {
               "_links": {
-                "$ref": "#/components/schemas/Woonplaats_links"
+                "$ref": "#/components/schemas/WoonplaatsLinks"
               }
             }
           }
@@ -3771,13 +3771,13 @@
           {
             "properties": {
               "_embedded": {
-                "$ref": "#/components/schemas/Woonplaats_embedded"
+                "$ref": "#/components/schemas/WoonplaatsEmbedded"
               }
             }
           }
         ]
       },
-      "Woonplaats_links": {
+      "WoonplaatsLinks": {
         "type": "object",
         "properties": {
           "self": {
@@ -3785,7 +3785,7 @@
           }
         }
       },
-      "Woonplaats_embedded": {
+      "WoonplaatsEmbedded": {
         "type": "object",
         "properties": {
           "geometrie": {
@@ -3880,13 +3880,13 @@
           {
             "properties": {
               "_links": {
-                "$ref": "#/components/schemas/Pand_links"
+                "$ref": "#/components/schemas/PandLinks"
               }
             }
           }
         ]
       },
-      "Pand_links": {
+      "PandLinks": {
         "type": "object",
         "properties": {
           "self": {
