@@ -19,7 +19,7 @@ servers:
 - url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1
   description: LVBAG - PRODUCTIE
 security:
-- apiKeyBAG: []
+- apiKeyBAG: [l706255b04085f4d308b413ac89d8df3bf]
 paths:
   /adressen/zoek:
     get:
