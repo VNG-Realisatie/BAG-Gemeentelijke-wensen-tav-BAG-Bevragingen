@@ -198,7 +198,7 @@ query {
 
 ## Zoek AdresseerbareObjecten binnen een polygon van type standplaats. Retourneer eerste 5 panden en nummeraanduidingen van gevonden AdresseerbareObjecten
 
-```json
+```graphql
 {
   query {
     adresseerbareObjecten(where: {
