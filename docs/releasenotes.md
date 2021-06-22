@@ -5,6 +5,24 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
+## Versie 1.2.0 (22-06-2021)
+In deze release zijn enkele bugs in productie opgelost. Tevens zijn er enkele wijzigingen aan de API-specificaties en de feature-files aangebracht.
+Er worden nu adresregels geleverd met daarin het samengestelde adres.
+De Header parameter ContentCrs is voorzien van een default waarde.
+Op /adressen worden de resultaten gesorteerd geretourneerd.  
+
+### Opgeloste issues 
+
+  | Link Github	| Beschrijving |
+  | --- | --- |
+  | [338](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/375 ) | Underscores verwijderen uit componentnamen en enumeratienamen. |
+  | [375](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/375 ) | Als gebruiker wil ik gesorteerde resultaten in combinatie van pagineren |  
+  | [370](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/370) | Http status code 415 voor fout "Coördinatenstelsel {crs} in Content-Crs wordt niet ondersteund." incorrect |  
+  | [360](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/360) | Als gebruiker wil ik het samengesteld adres krijgen |
+  | [294](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/294) | Als gebruiker (nader te bepalen) wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren |
+  | [293](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293) | Expand gerelateerde resource als relatie in onderzoek is |
+
+
 ## Versie 1.1.1 (03-03-2021)
 In deze release zijn enkele bugs in productie opgelost. Er zijn geen wijzigingen gedaan aan de API specificaties.
 
@@ -21,7 +39,7 @@ In deze release zijn enkele bugs in productie opgelost. Er zijn geen wijzigingen
 
 ### Opgeloste issues
   De volgende issues zijn in deze release opgelost.
-  
+
   | Link Github	| Beschrijving |
   | --- | --- |
   | [305](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/305) | Juiste foutmelding bij niet-toegestane combinatie van queryparameters |
@@ -34,11 +52,11 @@ In deze release zijn enkele bugs in productie opgelost. Er zijn geen wijzigingen
   De volgende issues staan nog open, oplossing volgt in een latere versie:
 
   | Link Github	| Beschrijving |
-  | --- | --- |
-  | -	| Opvragen nummeraanduiding die niet gekoppeld is aan een verblijfsobject|
-  | [234](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/234) | Interne URL’s in de response worden relatief (zijn nu allemaal absolute links) |
-  | [265](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/265) | Via fields-parameter opvragen van link zonder "\_links" toe te voegen |
-  | [293](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293) | Communiceren dat een relatie mogelijk onjuist is bij het met fields vragen om _links of met expand vragen om de gerelateerde resource |
+  | --- | --- | --- |
+
+
+
+
 
 
 ## Versie 1.0.0 (12-08-2020)
