@@ -8,10 +8,10 @@ title: Releasenotes
 ## Versie 1.2.0 (22-06-2021)
 In deze release zijn enkele bugs in productie opgelost. Tevens zijn er enkele wijzigingen aan de API-specificaties en de feature-files aangebracht.
 Er worden nu adresregels geleverd met daarin het samengestelde adres.
-De Header parameter ContentCrs is voorzien van een default waarde.
+De Header Content-Crs is voorzien van een default waarde.
 Op /adressen worden de resultaten gesorteerd geretourneerd.  
 
-### Opgeloste issues 
+### Opgeloste issues
 
   | Link Github	| Beschrijving |
   | --- | --- |
