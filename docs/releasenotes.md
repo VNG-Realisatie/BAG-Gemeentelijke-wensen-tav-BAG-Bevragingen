@@ -15,7 +15,7 @@ Op /adressen worden de resultaten gesorteerd geretourneerd.
 
   | Link Github	| Beschrijving |
   | --- | --- |
-  | [338](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/375 ) | Underscores verwijderen uit componentnamen en enumeratienamen. |
+  | [338](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/338 ) | Underscores verwijderen uit componentnamen en enumeratienamen. |
   | [375](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/375 ) | Als gebruiker wil ik gesorteerde resultaten in combinatie van pagineren |  
   | [370](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/370) | Http status code 415 voor fout "Coördinatenstelsel {crs} in Content-Crs wordt niet ondersteund." incorrect |  
   | [360](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/360) | Als gebruiker wil ik het samengesteld adres krijgen |
