@@ -10,11 +10,11 @@ De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 Om aan te sluiten kun je de volgende stappen doorlopen:
 1. [Meld je aan bij het kadaster om toegang te krijgen tot de testomgeving](#aanmelden-om-aan-te-sluiten)
 2. [Bekijk de functionaliteit en specificaties](#functionaliteit)
-3. [Probeer en test de API](#probeer-en-test-de-api)
-4. [Sluit aan op productie](#sluit-aan-op-productie)
+3. [Probeer en test de API in de productie-omgeving](#probeer-en-test-de-api-in-de-productie-omgeving)
+
 
 ## Aanmelden om aan te sluiten
-[Vraag een API key voor de testomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test).
+[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. Testen doe je bij voorkeur in de productie-omgeving.
 
 ## Functionaliteit
 Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui) of [Redoc](./redoc).
@@ -84,7 +84,7 @@ We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-pos
 
 ### API key
 Om de API te kunnen bevragen is een API key nodig. Deze moet je bij het request opnemen in request header "X-Api-Key".
-Vraag een API key aan voor de [testomgeving](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test){:target="_blank"}.
+[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. 
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1.
@@ -111,11 +111,6 @@ Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de
 
 Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken. 
 De (acceptatie)testomgeving bevat een kopie van de productiedata van enkele jaren geleden. Het is daardoor mogelijk dat recent toegevoegde of gewijzigde gegevens niet of onjuist worden getoond. Ook kan een recent toegevoegd adres wel verschijnen als adreszoekresultaat, maar niet worden geleverd door de API. Heb je voor het testen van je clientapplicatie volledige en actuele data nodig, dan kun je hiervoor je testomgeving [aansluiten op productie](#sluit-aan-op-productie).
-
-## Sluit aan op productie
-
-### API key
-[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. Voor de productieomgeving gebruik je dus een andere API-key dan in de testomgeving.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
