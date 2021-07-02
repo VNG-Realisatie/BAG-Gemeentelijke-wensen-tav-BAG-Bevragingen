@@ -223,7 +223,9 @@ paths:
          
         3. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of
         
-        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
+        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type of
+        
+        5. een lijst met pandidentificaties.
         
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
@@ -245,6 +247,8 @@ paths:
         - $ref: '#/components/parameters/gebruiksdoelen'
         - $ref: '#/components/parameters/bbox'
         - $ref: '#/components/parameters/oppervlakte'
+        - $ref: '#/components/parameters/pandIdentificaties'
+        
       responses:
         '200':
           description: "Geslaagd"
@@ -695,6 +699,19 @@ components:
           type: number
       explode: false
 
+    pandIdentificaties:
+      description: "Een lijst met identificaties van panden uit de BAG. Deze is 16 cijfers lang."
+      name: pandIdentificaties
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          pattern: '^[0-9]{16}$'
+          minItems: 1
+          example: '0226100000008856'
+    
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."

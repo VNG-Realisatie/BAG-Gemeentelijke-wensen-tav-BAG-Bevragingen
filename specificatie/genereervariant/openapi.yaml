@@ -836,8 +836,9 @@ paths:
         \ of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie\
         \ aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische\
         \ contour (rechthoek) in combinatie met status geconstateerd, oppervlakte,\
-        \ gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke\
-        \ velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ gebruiksdoel en/of type of\n5. een lijst met pandidentificaties.\n\nGebruik\
+        \ de fields-parameter als je alleen specifieke velden in het antwoord wil\
+        \ zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
         \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
         \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
         \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
@@ -977,6 +978,20 @@ paths:
         explode: true
         schema:
           $ref: '#/components/schemas/IntegerFilter'
+      - name: pandIdentificaties
+        in: query
+        description: Een lijst met identificaties van panden uit de BAG. Deze is 16
+          cijfers lang.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            pattern: ^[0-9]{16}$
+            minItems: 1
+            type: string
+            example: "0226100000008856"
       responses:
         "200":
           description: Geslaagd
@@ -2313,8 +2328,8 @@ components:
           description: Een woonplaats is een gedeelte van het grondgebied van de gemeente
             met een naam.
           example: Duiven
-      description: 'Eigenschappen van het adres die kunnen worden hergebruikt in andere
-        API''s waarin adresgegevens worden opgenomen. '
+      description: Eigenschappen van het adres die kunnen worden hergebruikt in andere
+        API's met adresgegevens.
     AdresUitgebreid:
       allOf:
       - $ref: '#/components/schemas/Adres'
@@ -3408,6 +3423,21 @@ components:
         type: array
         items:
           type: number
+    pandIdentificaties:
+      name: pandIdentificaties
+      in: query
+      description: Een lijst met identificaties van panden uit de BAG. Deze is 16
+        cijfers lang.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          pattern: ^[0-9]{16}$
+          minItems: 1
+          type: string
+          example: "0226100000008856"
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path
