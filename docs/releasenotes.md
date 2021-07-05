@@ -19,7 +19,7 @@ Op /adressen worden de resultaten gesorteerd geretourneerd.
   | [293](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293) | Expand gerelateerde resource als relatie in onderzoek is |
   | [294](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/294) | Als gebruiker (nader te bepalen) wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren |
   | [309](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/309) | wijzigen description zoekparameter zoekresultaat get/adressen/zoek e.a. |
-  | [338](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/338 ) | Underscores verwijderen uit componentnamen en enumeratienamen. |
+  | [338](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/338) | Underscores verwijderen uit componentnamen en enumeratienamen. |
   | [343](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/343) | Gebruiker mag niet worden verplicht om Accept-Crs te definieren |\
   | [360](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/360) | Als gebruiker wil ik het samengesteld adres krijgen |  
   | [363](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/363) | als developer van de BRK API wil ik de korteNaam kunnen leveren bij het adres van een kadastraal object |  
