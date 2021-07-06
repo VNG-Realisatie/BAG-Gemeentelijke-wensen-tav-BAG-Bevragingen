@@ -2821,12 +2821,14 @@ components:
         _links:
           $ref: '#/components/schemas/HalCollectionLinks'
         _embedded:
-          type: object
-          properties:
-            panden:
-              type: array
-              items:
-                $ref: '#/components/schemas/PandHalBasis'
+          $ref: '#/components/schemas/PandenArray'
+    PandenArray:
+      type: object
+      properties:
+        panden:
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
     StatusNaamgevingEnum:
       type: string
       description: Een aanduiding van alle waarden die de status van een openbare

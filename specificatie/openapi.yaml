@@ -1285,19 +1285,20 @@ components:
           type: array
           items:
             $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalLink'
-
     PandHalCollectie:
       type: object
       properties:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks'
         _embedded:
-          type: object
-          properties:
-            panden:
-              type: array
-              items:
-                $ref: '#/components/schemas/PandHalBasis'
+          $ref: '#/components/schemas/PandenArray'
+    PandenArray:
+      type: object
+      properties:
+        panden:
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
     StatusNaamgevingEnum:
       description: "Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen."
       type: string
