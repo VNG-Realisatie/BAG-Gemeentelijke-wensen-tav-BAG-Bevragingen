@@ -2115,17 +2115,19 @@ components:
           $ref: '#/components/schemas/HalLink'
     ZoekResultaatHalCollectie:
       type: object
+      description: "Resultaten als lijst."
       properties:
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            zoekresultaten:
-              type: array
-              items:
-                $ref: '#/components/schemas/ZoekResultaatHal'
-      description: Resultaten als lijst.
+          $ref: '#/components/schemas/ZoekresultatenArray'
+    ZoekresultatenArray:
+      type: object
+      properties:
+        zoekresultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoekResultaatHal'
     Adres:
       type: object
       properties:
@@ -2268,12 +2270,14 @@ components:
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            adressen:
-              type: array
-              items:
-                $ref: '#/components/schemas/AdresHal'
+          $ref: '#/components/schemas/AdressenArray'
+    AdressenArray:
+      type: object
+      properties:
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresHal'
     AdresLinks:
       type: object
       properties:
@@ -2425,14 +2429,16 @@ components:
       type: object
       properties:
         _embedded:
-          type: object
-          properties:
-            adresseerbareObjecten:
-              type: array
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
+          $ref: '#/components/schemas/AdresseerbaarObjectenArray'
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
+    AdresseerbaarObjectenArray:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
     AdresseerbaarObjectStatusEnum:
       type: string
       enum:

@@ -640,13 +640,14 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            zoekresultaten:
-              type: array
-              items:
-                $ref: '#/components/schemas/ZoekResultaatHal'
-
+          $ref: '#/components/schemas/ZoekresultatenArray'
+    ZoekresultatenArray:
+      type: object
+      properties:
+        zoekresultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoekResultaatHal'
     Adres:
       type: object
       description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
@@ -770,12 +771,14 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          properties:
-            adressen:
-              items:
-                $ref: '#/components/schemas/AdresHal'
-              type: array
-          type: object
+          $ref: '#/components/schemas/AdressenArray'
+    AdressenArray:
+      type: object
+      properties:
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresHal'
     AdresLinks:
       type: object
       properties:
@@ -920,14 +923,16 @@ components:
       type: object
       properties:
         _embedded:
-          properties:
-            adresseerbareObjecten:
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
-              type: array
-          type: object
+          $ref: '#/components/schemas/AdresseerbaarObjectenArray'
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
+    AdresseerbaarObjectenArray:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
     AdresseerbaarObjectStatusEnum:
       type: string
       enum:
