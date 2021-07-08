@@ -2006,8 +2006,8 @@ paths:
           minItems: 2
           type: array
           example:
-          - "196733.510"
-          - "439931.890"
+          - 196733.51
+          - 439931.89
           deprecated: true
           items:
             type: number
@@ -2379,9 +2379,10 @@ components:
             type: array
             description: Identificatie(s) van het pand of de panden waar het verblijfsobject
               deel van is.
+            example:
+            - "0226100000008856"
             items:
               type: string
-              example: '["0226100000008856"]'
           isNevenadres:
             type: boolean
             description: Indicatie dat dit adres een nevenadres is van een adresseerbaar
@@ -3123,9 +3124,9 @@ components:
     CrsEnum:
       type: string
       description: CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.
-      default: epsg:28992
       enum:
       - epsg:28992
+      default: epsg:28992
     HalLink:
       required:
       - href
@@ -3299,8 +3300,8 @@ components:
         minItems: 2
         type: array
         example:
-        - "196733.510"
-        - "439931.890"
+        - 196733.51
+        - 439931.89
         deprecated: true
         items:
           type: number
