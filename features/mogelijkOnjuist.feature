@@ -18,19 +18,24 @@ Functionaliteit: Mogelijk onjuist
               "woonplaatsIdentificatie": true,
               "nummeraanduidingIdentificatie": true,
               "openbareRuimteIdentificatie": true,
+              "adresregel1": true,
+              "adresregel2": true,
               "toelichting": [ "Adres bestaat mogelijk niet (meer)." ]
           }
       """
 
   Scenario: wanneer meerdere properties in de resource afgeleid zijn van hetzelfde gegeven in de registratie zijn al deze properties van de resource mogelijk onjuist
-    Gegeven in object Woonplaats is gegeven Status woonplaats in onderzoek
+    Gegeven in object Openbare ruimte is gegeven Naam in onderzoek
     Als de afgeleide Adres resource wordt opgevraagd
     Dan bevat het antwoord:
       """
           "mogelijkOnjuist": {
-              "woonplaats": true,
-              "woonplaatsIdentificatie": true,
-              "toelichting": [ "Woonplaats bestaat mogelijk niet." ]
+              "straat": true,
+              "korteNaam": true,
+              "adresregel1": true,
+              "toelichting": [ 
+                "Straatnaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit."'
+                "Korte naam is mogelijk onjuist, omdat de straatnaam mogelijk niet overeen komt met de vermelding in het straatnaambesluit. Dit is geen indicatie dat de straatnaam mogelijk onjuist is verkort." ]
           }
       """
 
@@ -44,20 +49,20 @@ Functionaliteit: Mogelijk onjuist
 
     Voorbeelden:
       | Objecttype       | Attribuut in de BAG                      | Resource             | mogelijkOnjuist property | toelichting |
-      | Woonplaats       | Naam woonplaats                          | Adres                | woonplaats               | Woonplaatsnaam is mogelijk onjuist geschreven. |
-      | Woonplaats       | Status woonplaats                        | Adres                | woonplaats,woonplaatsIdentificatie | Woonplaats bestaat mogelijk niet. |
-      | Woonplaats       | Geometrie                                | Adres                | woonplaats,woonplaatsIdentificatie | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
-      | Openbare ruimte  | Naam openbare ruimte                     | Adres                | straat                   | Straatnaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
-      | Openbare ruimte  | Naam openbare ruimte                     | Adres                | korteNaam                | Korte naam is mogelijk onjuist, omdat de straatnaam mogelijk niet overeen komt met de vermelding in het straatnaambesluit. Dit is geen indicatie dat de straatnaam mogelijk onjuist is verkort. |
-      | Openbare ruimte  | Status openbare ruimte                   | Adres                | straat,korteNaam,openbareRuimteIdentificatie | Straat bestaat mogelijk niet (meer). |
-      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | Adres                | woonplaats,woonplaatsIdentificatie | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
-      | Nummeraanduiding | Huisnummer                               | Adres                | huisnummer               | Mogelijk is het verkeerde huisnummer geregistreerd. |
-      | Nummeraanduiding | Huisletter                               | Adres                | huisletter               | Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend. |
-      | Nummeraanduiding | Huisnummertoevoeging                     | Adres                | huisnummertoevoeging     | Mogelijk is ten onrechte een huisnummertoevoeging toegekend, ontbreekt de huisnummertoevoeging ten onrechte, of is een verkeerde huisnummertoevoeging toegekend. |
-      | Nummeraanduiding | Postcode                                 | Adres                | postcode                 | Mogelijk is ten onrechte een postcode toegekend, ontbreekt de postcode ten onrechte, of is een verkeerde postcode toegekend. |
-      | Nummeraanduiding | Status nummeraanduiding                  | Adres                | straat,korteNaam,huisnummer,huisletter,huisnummertoevoeging,postcode,woonplaats,nummeraanduidingIdentificatie,woonplaatsIdentificatie,openbareRuimteIdentificatie | Adres bestaat mogelijk niet (meer), omdat de nummeraanduiding mogelijk niet (meer) bestaat. |
-      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | Adres                | woonplaats,woonplaatsIdentificatie | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
-      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | Adres                | straat,korteNaam,openbareRuimteIdentificatie | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
+      | Woonplaats       | Naam woonplaats                          | Adres                | woonplaats,adresregel2               | Woonplaatsnaam is mogelijk onjuist geschreven. |
+      | Woonplaats       | Status woonplaats                        | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2, | Woonplaats bestaat mogelijk niet. |
+      | Woonplaats       | Geometrie                                | Adres                | woonplaats,woonplaatsIdentificatie,adresregel 2 | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
+      | Openbare ruimte  | Naam openbare ruimte                     | Adres                | straat,adresregel1                   | Straatnaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
+      | Openbare ruimte  | Naam openbare ruimte                     | Adres                | korteNaam,adresregel1                | Korte naam is mogelijk onjuist, omdat de straatnaam mogelijk niet overeen komt met de vermelding in het straatnaambesluit. Dit is geen indicatie dat de straatnaam mogelijk onjuist is verkort. |
+      | Openbare ruimte  | Status openbare ruimte                   | Adres                | straat,korteNaam,openbareRuimteIdentificatie,adresregel1,adresregel2 | Straat bestaat mogelijk niet (meer). |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
+      | Nummeraanduiding | Huisnummer                               | Adres                | huisnummer,adresregel1               | Mogelijk is het verkeerde huisnummer geregistreerd. |
+      | Nummeraanduiding | Huisletter                               | Adres                | huisletter,adresregel1               | Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend. |
+      | Nummeraanduiding | Huisnummertoevoeging                     | Adres                | huisnummertoevoeging, adresregel1     | Mogelijk is ten onrechte een huisnummertoevoeging toegekend, ontbreekt de huisnummertoevoeging ten onrechte, of is een verkeerde huisnummertoevoeging toegekend. |
+      | Nummeraanduiding | Postcode                                 | Adres                | postcode,adresregel2                 | Mogelijk is ten onrechte een postcode toegekend, ontbreekt de postcode ten onrechte, of is een verkeerde postcode toegekend. |
+      | Nummeraanduiding | Status nummeraanduiding                  | Adres                | straat,korteNaam,huisnummer,huisletter,huisnummertoevoeging,postcode,woonplaats,nummeraanduidingIdentificatie,woonplaatsIdentificatie,openbareRuimteIdentificatie,adresregel1,adresregel2 | Adres bestaat mogelijk niet (meer), omdat de nummeraanduiding mogelijk niet (meer) bestaat. |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | Adres                | straat,korteNaam,openbareRuimteIdentificatie,adresregel1 | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
       | Pand             | Geometrie                                | Pand                 | geometrie                | Mogelijk is de locatie van de contouren onjuist. Mogelijk is de contour onjuist, bijvoorbeeld omdat een uitbouw of een gedeeltelijke sloop niet verwerkt is. |
       | Pand             | Bouwjaar                                 | Pand                 | oorspronkelijkBouwjaar   | Bouwjaar is mogelijk onjuist. |
       | Verblijfsobject  | Geometrie                                | Adresseerbaar object | geometrie                | Locatie/contour mogelijk onjuist. |
@@ -123,6 +128,7 @@ Functionaliteit: Mogelijk onjuist
           "mogelijkOnjuist": {
               "huisnummer": true,
               "huisletter": true,
+              "adresregel1":true,
               "toelichting": [
                 "Mogelijk is het verkeerde huisnummer geregistreerd.",
                 "Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend."
@@ -139,6 +145,7 @@ Functionaliteit: Mogelijk onjuist
         """
             "mogelijkOnjuist": {
                 "huisletter": true,
+                "adresregel1":true,
                 "toelichting": [
                   "Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend."
                 ]
@@ -148,14 +155,8 @@ Functionaliteit: Mogelijk onjuist
       Gegeven in object nummeraanduiding is gegeven huisnummer in onderzoek
       Als de afgeleide Adres resource wordt opgevraagd met fields=postcode,huisnummer
       Dan bevat het antwoord property mogelijkOnjuist.huisnummer met de waarde true
-      En bevat het antwoord geen property mogelijkOnjuist.postcode
-      En bevat het antwoord property postcode met een waarde
-      En bevat het antwoord property huisnummer met een waarde
-
-    Scenario: mogelijkOnjuist wordt niet geleverd voor velden die niet gevraagd zijn met fields
-      Gegeven in object Woonplaats is gegeven Status woonplaats in onderzoek
-      Als de afgeleide Adres resource wordt opgevraagd met fields=postcode,huisnummer
-      Dan bevat het antwoord geen property mogelijkOnjuist
+      En bevat het antwoord geen property mogelijkOnjuist.adresregel1
+      En bevat het antwoord geen andere properties mogelijkOnjuist
       En bevat het antwoord property postcode met een waarde
       En bevat het antwoord property huisnummer met een waarde
 
@@ -280,10 +281,23 @@ Functionaliteit: Mogelijk onjuist
         """
       En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
 
+Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onjuist is en vragen expand van woonplaats bij resource adressen
+      Gegeven bij object Woonplaats is “geomterie” in onderzoek
+      Als de resource adressen wordt opgevraagd met parameter fields=<property> en de gevraagde properties zijn niet woonplaats en/of woonplaatsIdentificatie en/of adresregel2
+      En met parameter expand=woonplaats of expand=woonplaats.<property>
+      Dan bevat het antwoord:
+        """
+            "mogelijkOnjuist": {
+                "woonplaatsIdentificatie": true,
+                "toelichting": [ "Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt." ]
+            }
+        """
+      En bevat het antwoord geen property woonplaatsIdentificatie
+
     Scenario: leveren mogelijkOnjuist bij een relatie die mogelijk onjuist is en vragen expand van gerelateerde resource
-      Gegeven bij nummeraanduiding 0018200000152130 is “ligt aan” (openbare ruimte) in onderzoek
-      En voor gerelateerde openbare ruimte 0018300000000271 is niets in onderzoek
-      Als het request wordt gedaan /adressen/0018200000152130?fields=huisnummer,woonplaats&expand=openbareRuimte
+      Gegeven in object Nummeraanduiding is “ligt aan” (openbare ruimte) in onderzoek
+      En voor gerelateerde openbare ruimte is niets in onderzoek
+      Als de resource adressen wordt opgevraagd met parameter fields=huisnummer,woonplaats&expand=openbareRuimte
       Dan bevat het antwoord:
         """
             "mogelijkOnjuist": {
@@ -296,47 +310,47 @@ Functionaliteit: Mogelijk onjuist
       En bevat het antwoord property "huisnummer"
       En bevat het antwoord property "woonplaats"
 
-    Abstract Scenario: leveren mogelijkOnjuist bij een relatie die mogelijk onjuist is die niet wordt gevraagd met fields en gerelateerde resource wordt gevraagd met expand
+    Abstract Scenario: Wel leveren mogelijkOnjuist bij een relatie die mogelijk onjuist is die niet wordt gevraagd met fields en gerelateerde resource wordt gevraagd met expand
       Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
-      Als ik de resource <Resource> opvraag met identificatie <Identificatie> met parameters fields=<Fields> en expand=<Expand>
+      Als ik de resource <Resource> opvraag met parameters fields=<property> en de opgevraagde property is geen (afgeleide) property van de gerelateerde resource die wordt gevraagd met expand> en expand=<resource> of expand=<resource.property>
       Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
       En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde <Toelichting>
 
       Voorbeelden:
-      | Objecttype       | Attribuut in de BAG                      | Resource              | identificatie    | Fields              | Expand         | Property                       | Toelichting |
-      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | 0935200000002553 | huisnummer,postcode | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
-      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | 0014200010793696 | huisnummer,postcode | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
-      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | 0018200000152130 | huisnummer,postcode | openbareRuimte | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
-      | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | 0005018888889105 | documentdatum       | panden         | pandIdentificaties             | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
-      | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | 0014010011038456 | documentdatum       | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
-      | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | 0301030000017627 | documentdatum       | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
-      | Ligplaats        | Heeft als hoofdadres                     | adresseerbareobjecten | 0301020000024208 | documentdatum       | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
-      | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | 0015010001006109 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
-      | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | 0301030000017617 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
-      | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | 0301020000024211 | documentdatum       | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Objecttype       | Attribuut in de BAG                      | Resource              | Fields bevat niet                                        | Expand         | Property                       | Toelichting |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats,woonplaatsIdentificatie,adresregel2           | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaats,woonplaatsIdentificatie,adresregel2           | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | straat,korteNaam,openbareRuimteIdentificatie,adresregel1 | openbareRuimte | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | openbareruimten       | woonplaatsIdentificatie                                  | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | nummeraanduidingen    | woonplaatsIdentificatie                                  | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | nummeraanduidingen    | openbareRuimteIdentificatie                              | openbareRuimte | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
+      | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | pandIdentificaties                                       | panden         | pandIdentificaties             | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
+      | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Ligplaats        | Heeft als hoofdadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
 
-    Abstract Scenario: leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk onjuiste identificatie bevat
+    Abstract Scenario: Wel leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk onjuiste identificatie bevat
       Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
       Als ik de resource <Resource> opvraag met fields=_links.<Fields>
       Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
       En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde
 
       Voorbeelden:
-      | Objecttype       | <Attribuut in de BAG>                    | <Resource>            | Fields                      | Property                       |
-      | Openbare ruimte  | Status openbare ruimte                   | adressen              | openbareRuimte              | openbareRuimteIdentificatie    |
-      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | openbareRuimte              | openbareRuimteIdentificatie    |
-      | Nummeraanduiding | Status nummeraanduiding                  | adressen              | nummeraanduiding            | nummeraanduidingIdentificatie  |
-      | Woonplaats       | Status woonplaats                        | adressen              | woonplaats                  | woonplaatsIdentificatie        |
-      | Woonplaats       | Geometrie                                | adressen              | woonplaats                  | woonplaatsIdentificatie        |
-      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        |
-      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        |
-      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | openbareruimten       | woonplaats                  | woonplaatsIdentificatie        |
-      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | nummeraanduidingen    | woonplaats                  | woonplaatsIdentificatie        |
-      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | nummeraanduidingen    | openbareRuimte              | openbareRuimteIdentificatie    |
-      | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | panden                      | pandIdentificaties             |
-      | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
-      | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
-      | Ligplaats        | Heeft als hoofdadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
-      | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
-      | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
-      | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties |
+      | Objecttype       | <Attribuut in de BAG>                    | <Resource>            | Fields                      | Property                       |Toelichting
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | openbareRuimte              | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
+      | Woonplaats       | Geometrie                                | adressen              | woonplaats                  | woonplaatsIdentificatie        | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | openbareruimten       | woonplaats                  | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | nummeraanduidingen    | woonplaats                  | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
+      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | nummeraanduidingen    | openbareRuimte              | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
+      | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | panden                      | pandIdentificaties             | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
+      | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Ligplaats        | Heeft als hoofdadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
+      | Verblijfsobject  | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
+      | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | adressen                    | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
