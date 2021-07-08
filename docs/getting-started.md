@@ -107,7 +107,6 @@ Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de
 | panden                | Zonder adres                                                                     | /panden/0503100000034877                |
 
 Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken. 
-De (acceptatie)testomgeving bevat een kopie van de productiedata van enkele jaren geleden. Het is daardoor mogelijk dat recent toegevoegde of gewijzigde gegevens niet of onjuist worden getoond. Ook kan een recent toegevoegd adres wel verschijnen als adreszoekresultaat, maar niet worden geleverd door de API. Heb je voor het testen van je clientapplicatie volledige en actuele data nodig, dan kun je hiervoor je testomgeving [aansluiten op productie](#sluit-aan-op-productie).
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
