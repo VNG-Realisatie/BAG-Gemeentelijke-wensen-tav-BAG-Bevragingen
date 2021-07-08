@@ -572,9 +572,7 @@ components:
         maxItems: 2
         items:
           type: number
-        example:
-        - 196733.510
-        - 439931.890
+        example: ['196733.510', '439931.890'] 
         deprecated: true
 
     nummeraanduidingIdentificatie-query:
@@ -697,6 +695,7 @@ components:
         maxItems: 6
         items:
           type: number
+        example: [196733.510, 439931.890, 196833.510, 440031.890]
       explode: false
 
     pandIdentificaties:
@@ -710,7 +709,8 @@ components:
           type: string
           pattern: '^[0-9]{16}$'
           minItems: 1
-          example: '0226100000008856'
+        example: ['0226100000008856']
+      explode: false  
     
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
@@ -803,6 +803,7 @@ components:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
     IntegerFilter:
+      type: object
       description: >-
         Geeft aan met welke waarden je kunt zoeken.
         Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde.
@@ -879,7 +880,7 @@ components:
             type: array
             items:
               type: string
-              example: '0226100000008856'
+              example: ['0226100000008856']
           isNevenadres:
             description: "Indicatie dat dit adres een nevenadres is van een adresseerbaar object. Het adres is een hoofdadres als deze indicatie niet wordt meegeleverd."
             type: boolean
@@ -1008,10 +1009,10 @@ components:
           $ref: '#/components/schemas/PuntOfVlak'
         pandIdentificaties:
           description: "Identificatie(s) van het pand of de panden waar het verblijfsobject deel van is."
+          type: array
           items:
             type: string
-            example: '0226100000008856'
-          type: array
+          example: ['0226100000008856']
         nummeraanduidingIdentificaties:
           description: "Identificatie(s) van de hoofd- en nevenadressen van de standplaats, ligplaats of verblijfsobject."
           items:
@@ -1403,7 +1404,7 @@ components:
           type: array
           items:
             type: string
-            example: '0226010000038820'
+          example: ['0226010000038820']
         nummeraanduidingIdentificaties:
           description: "Identificatie(s) van de hoofd- en nevenadressen van het pand."
           items:

@@ -967,6 +967,11 @@ paths:
           maxItems: 6
           minItems: 4
           type: array
+          example:
+          - 196733.51
+          - 439931.89
+          - 196833.51
+          - 440031.89
           items:
             type: number
       - name: oppervlakte
@@ -984,14 +989,15 @@ paths:
           cijfers lang.
         required: false
         style: form
-        explode: true
+        explode: false
         schema:
           type: array
+          example:
+          - "0226100000008856"
           items:
             pattern: ^[0-9]{16}$
             minItems: 1
             type: string
-            example: "0226100000008856"
       responses:
         "200":
           description: Geslaagd
@@ -2000,8 +2006,8 @@ paths:
           minItems: 2
           type: array
           example:
-          - 196733.51
-          - 439931.89
+          - "196733.510"
+          - "439931.890"
           deprecated: true
           items:
             type: number
@@ -2044,6 +2050,11 @@ paths:
           maxItems: 6
           minItems: 4
           type: array
+          example:
+          - 196733.51
+          - 439931.89
+          - 196833.51
+          - 440031.89
           items:
             type: number
       - name: statusPand
@@ -2286,6 +2297,7 @@ components:
                 $ref: '#/components/schemas/ZoekResultaatHal'
       description: Resultaten als lijst.
     IntegerFilter:
+      type: object
       properties:
         min:
           type: integer
@@ -2369,7 +2381,7 @@ components:
               deel van is.
             items:
               type: string
-              example: "0226100000008856"
+              example: '["0226100000008856"]'
           isNevenadres:
             type: boolean
             description: Indicatie dat dit adres een nevenadres is van een adresseerbaar
@@ -2511,9 +2523,10 @@ components:
           type: array
           description: Identificatie(s) van het pand of de panden waar het verblijfsobject
             deel van is.
+          example:
+          - "0226100000008856"
           items:
             type: string
-            example: "0226100000008856"
         nummeraanduidingIdentificaties:
           type: array
           description: Identificatie(s) van de hoofd- en nevenadressen van de standplaats,
@@ -2929,9 +2942,10 @@ components:
           example: 09.BW.0273
         adresseerbaarObjectIdentificaties:
           type: array
+          example:
+          - "0226010000038820"
           items:
             type: string
-            example: "0226010000038820"
         nummeraanduidingIdentificaties:
           type: array
           description: Identificatie(s) van de hoofd- en nevenadressen van het pand.
@@ -3285,8 +3299,8 @@ components:
         minItems: 2
         type: array
         example:
-        - 196733.51
-        - 439931.89
+        - "196733.510"
+        - "439931.890"
         deprecated: true
         items:
           type: number
@@ -3421,6 +3435,11 @@ components:
         maxItems: 6
         minItems: 4
         type: array
+        example:
+        - 196733.51
+        - 439931.89
+        - 196833.51
+        - 440031.89
         items:
           type: number
     pandIdentificaties:
@@ -3430,14 +3449,15 @@ components:
         cijfers lang.
       required: false
       style: form
-      explode: true
+      explode: false
       schema:
         type: array
+        example:
+        - "0226100000008856"
         items:
           pattern: ^[0-9]{16}$
           minItems: 1
           type: string
-          example: "0226100000008856"
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path
