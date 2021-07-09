@@ -1087,24 +1087,6 @@ paths:
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        "415":
-          description: Unsupported Media Type
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16
-                title: Unsupported Media Type
-                status: 415
-                detail: The server is refusing the request because the entity of the
-                  request is in a format not supported by the requested resource for
-                  the requested method.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: unsupported
         "500":
           description: Internal Server Error
           headers:
@@ -1944,7 +1926,7 @@ paths:
       description: "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar\
         \ object of\n2. met de identificatie van een nummeraanduiding of\n3. met een\
         \ locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen\
-        \ aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter\
+        \ aan de opgegeven status, geconstateerd of bouwjaar.\n \nGebruik de fields-parameter\
         \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
         \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature)."
       operationId: raadpleegPanden
@@ -2170,24 +2152,6 @@ paths:
                   fields evaluated to false when it was tested on the server.
                 instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
                 code: preconditionFailed
-        "415":
-          description: Unsupported Media Type
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16
-                title: Unsupported Media Type
-                status: 415
-                detail: The server is refusing the request because the entity of the
-                  request is in a format not supported by the requested resource for
-                  the requested method.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: unsupported
         "500":
           description: Internal Server Error
           headers:
@@ -2313,8 +2277,8 @@ components:
           description: Een woonplaats is een gedeelte van het grondgebied van de gemeente
             met een naam.
           example: Duiven
-      description: 'Eigenschappen van het adres die kunnen worden hergebruikt in andere
-        API''s waarin adresgegevens worden opgenomen. '
+      description: Eigenschappen van het adres die kunnen worden hergebruikt in andere
+        API's met adresgegevens.
     AdresUitgebreid:
       allOf:
       - $ref: '#/components/schemas/Adres'
@@ -3096,9 +3060,9 @@ components:
     CrsEnum:
       type: string
       description: CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.
-      default: epsg:28992
       enum:
       - epsg:28992
+      default: epsg:28992
     HalLink:
       required:
       - href
