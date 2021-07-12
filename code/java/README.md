@@ -1,8 +1,8 @@
 # openapi-java-client
 
 Huidige bevragingen API
-- API version: 1.1.0
-  - Build date: 2021-05-20T09:17:18.498281Z[Etc/UTC]
+- API version: 1.2.0
+  - Build date: 2021-07-12T14:29:52.942499Z[Etc/UTC]
 
 Deze API levert actuele gegevens over adressen, adresseerbare objecten en panden. Actueel betekent in deze API `zonder eindstatus`. De bron voor deze API is de basisregistratie adressen en gebouwen (BAG).
 
@@ -41,7 +41,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -51,7 +51,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "org.openapitools:openapi-java-client:1.1.0"
+compile "org.openapitools:openapi-java-client:1.2.0"
 ```
 
 ### Others
@@ -64,7 +64,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-1.1.0.jar`
+* `target/openapi-java-client-1.2.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -94,8 +94,8 @@ public class Example {
 
     AdresApi apiInstance = new AdresApi(defaultClient);
     String nummeraanduidingidentificatie = "0226200000038923"; // String | Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang.
-    String expand = "expand_example"; // String | Hiermee kun je opgeven welke gerelateerde resources meegeleverd moeten worden, en hun inhoud naar behoefte aanpassen. Hele resources of enkele properties geef je in de expand parameter kommagescheiden op. Properties die je wil ontvangen geef je op met de resource-naam gevolgd door de property naam, met daartussen een punt. In de definitie van het antwoord kun je bij _embedded zien welke gerelateerde resources meegeleverd kunnen worden. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature).
-    String fields = "fields_example"; // String | Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma's gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature)
+    String expand = "expand_example"; // String | Hiermee kun je opgeven welke gerelateerde resources meegeleverd moeten worden, en hun inhoud naar behoefte aanpassen. Hele resources of enkele properties geef je in de expand parameter kommagescheiden op. Properties die je wil ontvangen geef je op met de resource-naam gevolgd door de property naam, met daartussen een punt. In de definitie van het antwoord kun je bij _embedded zien welke gerelateerde resources meegeleverd kunnen worden. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+    String fields = "fields_example"; // String | Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma's gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature)
     try {
       AdresHal result = apiInstance.raadpleegAdresMetNumId(nummeraanduidingidentificatie, expand, fields);
       System.out.println(result);
@@ -156,18 +156,15 @@ Class | Method | HTTP request | Description
  - [AdresseerbaarobjectHalCollectieEmbedded](docs/AdresseerbaarobjectHalCollectieEmbedded.md)
  - [BadRequestFoutbericht](docs/BadRequestFoutbericht.md)
  - [BadRequestFoutberichtAllOf](docs/BadRequestFoutberichtAllOf.md)
+ - [CrsEnum](docs/CrsEnum.md)
  - [Foutbericht](docs/Foutbericht.md)
  - [GebruiksdoelEnum](docs/GebruiksdoelEnum.md)
  - [HalCollectionLinks](docs/HalCollectionLinks.md)
  - [HalLink](docs/HalLink.md)
  - [HalPaginationLinks](docs/HalPaginationLinks.md)
  - [HalPaginationLinksAllOf](docs/HalPaginationLinksAllOf.md)
- - [HalPaginationLinksAllOfFirst](docs/HalPaginationLinksAllOfFirst.md)
- - [HalPaginationLinksAllOfNext](docs/HalPaginationLinksAllOfNext.md)
- - [HalPaginationLinksAllOfPrevious](docs/HalPaginationLinksAllOfPrevious.md)
  - [HalPaginationLinksMetLast](docs/HalPaginationLinksMetLast.md)
  - [HalPaginationLinksMetLastAllOf](docs/HalPaginationLinksMetLastAllOf.md)
- - [HalPaginationLinksMetLastAllOfLast](docs/HalPaginationLinksMetLastAllOfLast.md)
  - [InvalidParams](docs/InvalidParams.md)
  - [MultipolygonGeoJSON](docs/MultipolygonGeoJSON.md)
  - [Nummeraanduiding](docs/Nummeraanduiding.md)
