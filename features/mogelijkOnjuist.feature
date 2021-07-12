@@ -51,10 +51,10 @@ Functionaliteit: Mogelijk onjuist
       | Objecttype       | Attribuut in de BAG                      | Resource             | mogelijkOnjuist property | toelichting |
       | Woonplaats       | Naam woonplaats                          | Adres                | woonplaats,adresregel2               | Woonplaatsnaam is mogelijk onjuist geschreven. |
       | Woonplaats       | Status woonplaats                        | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2, | Woonplaats bestaat mogelijk niet. |
-      | Woonplaats       | Geometrie                                | Adres                | woonplaats,woonplaatsIdentificatie,adresregel 2 | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
+      | Woonplaats       | Geometrie                                | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
       | Openbare ruimte  | Naam openbare ruimte                     | Adres                | straat,adresregel1                   | Straatnaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
       | Openbare ruimte  | Naam openbare ruimte                     | Adres                | korteNaam,adresregel1                | Korte naam is mogelijk onjuist, omdat de straatnaam mogelijk niet overeen komt met de vermelding in het straatnaambesluit. Dit is geen indicatie dat de straatnaam mogelijk onjuist is verkort. |
-      | Openbare ruimte  | Status openbare ruimte                   | Adres                | straat,korteNaam,openbareRuimteIdentificatie,adresregel1,adresregel2 | Straat bestaat mogelijk niet (meer). |
+      | Openbare ruimte  | Status openbare ruimte                   | Adres                | straat,korteNaam,openbareRuimteIdentificatie,woonplaats,woonplaatsIdentificatie,adresregel1,adresregel2 | Straat bestaat mogelijk niet (meer). |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
       | Nummeraanduiding | Huisnummer                               | Adres                | huisnummer,adresregel1               | Mogelijk is het verkeerde huisnummer geregistreerd. |
       | Nummeraanduiding | Huisletter                               | Adres                | huisletter,adresregel1               | Mogelijk is ten onrechte een huisletter toegekend, ontbreekt de huisletter ten onrechte, of is een verkeerde huisletter toegekend. |
@@ -282,7 +282,7 @@ Functionaliteit: Mogelijk onjuist
       En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
 
 Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onjuist is en vragen expand van woonplaats bij resource adressen
-      Gegeven bij object Woonplaats is “geomterie” in onderzoek
+      Gegeven bij object Woonplaats is “geometrie” in onderzoek
       Als de resource adressen wordt opgevraagd met parameter fields=<property> en de gevraagde properties zijn niet woonplaats en/of woonplaatsIdentificatie en/of adresregel2
       En met parameter expand=woonplaats of expand=woonplaats.<property>
       Dan bevat het antwoord:
@@ -293,6 +293,8 @@ Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onju
             }
         """
       En bevat het antwoord geen property woonplaatsIdentificatie
+      En bevat het antwoord geen property woonplaats
+      En bevat het antwoord geen property adresregel2
 
     Scenario: leveren mogelijkOnjuist bij een relatie die mogelijk onjuist is en vragen expand van gerelateerde resource
       Gegeven in object Nummeraanduiding is “ligt aan” (openbare ruimte) in onderzoek
@@ -310,9 +312,11 @@ Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onju
       En bevat het antwoord property "huisnummer"
       En bevat het antwoord property "woonplaats"
 
-    Abstract Scenario: Wel leveren mogelijkOnjuist bij een relatie die mogelijk onjuist is die niet wordt gevraagd met fields en gerelateerde resource wordt gevraagd met expand
+    Abstract Scenario: Wel leveren mogelijkOnjuist wanneer met expand een object wordt gevraagd waar mogelijk een onjuiste relatie bestaat.
       Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
-      Als ik de resource <Resource> opvraag met parameters fields=<property> en de opgevraagde property is geen (afgeleide) property van de gerelateerde resource die wordt gevraagd met expand> en expand=<resource> of expand=<resource.property>
+      Als de resource <Resource> wordt opgevraagd met parameter fields en deze bevat niet de waarde uit de kolom <Fields bevat niet>
+      En met parameter expand=<resource> of expand=<resource.property>
+      En de met fields opgevraagde property is geen property van de gerelateerde resource die wordt gevraagd met expand en expand=<resource> of expand=<resource.property>
       Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
       En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde <Toelichting>
 
