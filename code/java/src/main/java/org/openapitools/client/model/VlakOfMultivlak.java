@@ -30,7 +30,7 @@ import org.openapitools.client.model.PolygonGeoJSON;
  * Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface) of een multivlak (GM_MultiSurface).
  */
 @ApiModel(description = "Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface) of een multivlak (GM_MultiSurface).")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T14:29:52.942499Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
 public class VlakOfMultivlak {
   public static final String SERIALIZED_NAME_VLAK = "vlak";
   @SerializedName(SERIALIZED_NAME_VLAK)

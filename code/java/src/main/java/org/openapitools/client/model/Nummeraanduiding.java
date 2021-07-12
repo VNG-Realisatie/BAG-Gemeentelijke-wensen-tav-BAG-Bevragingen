@@ -31,7 +31,7 @@ import org.openapitools.client.model.StatusNaamgevingEnum;
  * Een postcode, huisnummer met mogelijk een huisletter en huisnummertoevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats.
  */
 @ApiModel(description = "Een postcode, huisnummer met mogelijk een huisletter en huisnummertoevoeging die hoort bij een verblijfsobject, een standplaats of een ligplaats.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T14:29:52.942499Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
 public class Nummeraanduiding {
   public static final String SERIALIZED_NAME_IDENTIFICATIE = "identificatie";
   @SerializedName(SERIALIZED_NAME_IDENTIFICATIE)

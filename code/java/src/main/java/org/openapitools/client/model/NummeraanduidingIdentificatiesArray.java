@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * NummeraanduidingIdentificatiesArray
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T14:29:52.942499Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
 public class NummeraanduidingIdentificatiesArray {
   public static final String SERIALIZED_NAME_NUMMERAANDUIDING_IDENTIFICATIE = "nummeraanduidingIdentificatie";
   @SerializedName(SERIALIZED_NAME_NUMMERAANDUIDING_IDENTIFICATIE)

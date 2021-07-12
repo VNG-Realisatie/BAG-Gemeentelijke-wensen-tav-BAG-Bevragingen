@@ -30,7 +30,7 @@ import java.util.List;
  * Wanneer true is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting.
  */
 @ApiModel(description = "Wanneer true is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T14:29:52.942499Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
 public class PandMogelijkOnjuist {
   public static final String SERIALIZED_NAME_GEOMETRIE = "geometrie";
   @SerializedName(SERIALIZED_NAME_GEOMETRIE)
