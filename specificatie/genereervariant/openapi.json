@@ -1264,13 +1264,13 @@
             "style": "form",
             "explode": false,
             "schema": {
+              "minItems": 1,
               "type": "array",
               "example": [
                 "0226100000008856"
               ],
               "items": {
                 "pattern": "^[0-9]{16}$",
-                "minItems": 1,
                 "type": "string"
               }
             }
@@ -4512,13 +4512,13 @@
         "style": "form",
         "explode": false,
         "schema": {
+          "minItems": 1,
           "type": "array",
           "example": [
             "0226100000008856"
           ],
           "items": {
             "pattern": "^[0-9]{16}$",
-            "minItems": 1,
             "type": "string"
           }
         }

@@ -991,12 +991,12 @@ paths:
         style: form
         explode: false
         schema:
+          minItems: 1
           type: array
           example:
           - "0226100000008856"
           items:
             pattern: ^[0-9]{16}$
-            minItems: 1
             type: string
       responses:
         "200":
@@ -3450,12 +3450,12 @@ components:
       style: form
       explode: false
       schema:
+        minItems: 1
         type: array
         example:
         - "0226100000008856"
         items:
           pattern: ^[0-9]{16}$
-          minItems: 1
           type: string
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
