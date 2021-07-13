@@ -50,7 +50,7 @@ Functionaliteit: Mogelijk onjuist
     Voorbeelden:
       | Objecttype       | Attribuut in de BAG                      | Resource             | mogelijkOnjuist property | toelichting |
       | Woonplaats       | Naam woonplaats                          | Adres                | woonplaats,adresregel2               | Woonplaatsnaam is mogelijk onjuist geschreven. |
-      | Woonplaats       | Status woonplaats                        | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2, | Woonplaats bestaat mogelijk niet. |
+      | Woonplaats       | Status woonplaats                        | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Woonplaats bestaat mogelijk niet. |
       | Woonplaats       | Geometrie                                | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
       | Openbare ruimte  | Naam openbare ruimte                     | Adres                | straat,adresregel1                   | Straatnaam komt mogelijk niet overeen met de vermelding in het straatnaambesluit. |
       | Openbare ruimte  | Naam openbare ruimte                     | Adres                | korteNaam,adresregel1                | Korte naam is mogelijk onjuist, omdat de straatnaam mogelijk niet overeen komt met de vermelding in het straatnaambesluit. Dit is geen indicatie dat de straatnaam mogelijk onjuist is verkort. |
@@ -283,7 +283,7 @@ Functionaliteit: Mogelijk onjuist
 
 Onderstaande scenario's zijn erop gericht dat afnemers altijd de noodzakelijke mogelijk onjuist informatie ontvangen als deze door toepassing van de fieldsparameter in principe niet zou worden geleverd.
 
-Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onjuist is en vragen expand van woonplaats bij resource adressen
+    Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onjuist is en vragen expand van woonplaats bij resource adressen
       Gegeven bij object Woonplaats is “geometrie” in onderzoek
       Als de resource adressen wordt opgevraagd met parameter fields=<property> en de gevraagde properties zijn niet woonplaats en/of woonplaatsIdentificatie en/of adresregel2
       En met parameter expand=woonplaats of expand=woonplaats.<property>
@@ -327,9 +327,6 @@ Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onju
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats,woonplaatsIdentificatie,adresregel2           | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
       | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaats,woonplaatsIdentificatie,adresregel2           | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
       | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | straat,korteNaam,openbareRuimteIdentificatie,adresregel1 | openbareRuimte | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
-      | Openbare ruimte  | Ligt in gerelateerde woonplaats          | openbareruimten       | woonplaatsIdentificatie                                  | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
-      | Nummeraanduiding | Ligt in gerelateerde woonplaats          | nummeraanduidingen    | woonplaatsIdentificatie                                  | woonplaats     | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
-      | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | nummeraanduidingen    | openbareRuimteIdentificatie                              | openbareRuimte | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
       | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adresseerbareobjecten | pandIdentificaties                                       | panden         | pandIdentificaties             | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
       | Verblijfsobject  | Heeft als hoofadres                      | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
       | Standplaats      | Heeft als hoofdadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | AdresseerbaarObject heeft mogelijk een verkeerd adres. Het gerelateerde hoofdadres(ID) mag niet worden gewijzigd want is onlosmakelijk met het adresseerbaar object verbonden. Kan alleen opgelost worden door de gegevens van het adres te veranderen, zodat een ander adres ontstaat. |
@@ -338,7 +335,7 @@ Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onju
       | Standplaats      | Heeft als nevenadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
       | Ligplaats        | Heeft als nevenadres                     | adresseerbareobjecten | nummeraanduidingIdentificaties                           | adressen       | nummeraanduidingIdentificaties | Mogelijk is ten onrechte een nevenadres toegekend of ontbreekt de relatie met een nevenadres. |
 
-    Abstract Scenario: Wel leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk onjuiste identificatie bevat
+    Abstract Scenario: Wel leveren mogelijkOnjuist bij met fields vragen naar link die mogelijk niet naar het juiste object verwijst.
       Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
       Als ik de resource <Resource> opvraag met fields=_links.<Fields>
       Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
