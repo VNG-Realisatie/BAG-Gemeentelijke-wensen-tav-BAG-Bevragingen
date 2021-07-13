@@ -573,7 +573,6 @@ components:
         items:
           type: number
         example: [196733.510, 439931.890] 
-        deprecated: true
 
     nummeraanduidingIdentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
