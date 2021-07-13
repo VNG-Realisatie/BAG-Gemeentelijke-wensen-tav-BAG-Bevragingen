@@ -281,6 +281,8 @@ Functionaliteit: Mogelijk onjuist
         """
       En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
 
+Onderstaande scenario's zijn erop gericht dat afnemers altijd de noodzakelijke mogelijk onjuist informatie ontvangen als deze door toepassing van de fieldsparameter in principe niet zou worden geleverd.
+
 Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onjuist is en vragen expand van woonplaats bij resource adressen
       Gegeven bij object Woonplaats is “geometrie” in onderzoek
       Als de resource adressen wordt opgevraagd met parameter fields=<property> en de gevraagde properties zijn niet woonplaats en/of woonplaatsIdentificatie en/of adresregel2
