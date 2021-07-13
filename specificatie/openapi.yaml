@@ -727,6 +727,10 @@ components:
       type: object
       description: "Wanneer true is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting."
       properties:
+        adresregel1:
+          type: boolean
+        adresregel2:
+          type: boolean
         korteNaam:
           type: boolean
         straat:
