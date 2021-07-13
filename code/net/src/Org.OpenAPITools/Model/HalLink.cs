@@ -25,7 +25,7 @@ using OpenAPIDateConverter = Org.OpenAPITools.Client.OpenAPIDateConverter;
 namespace Org.OpenAPITools.Model
 {
     /// <summary>
-    /// De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5; Deze link kan als templated link worden aangeboden. [URI-templating is hier beschreven](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/uri-templating.feature).
+    /// De Link Object zoals gespecificeerd in https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5; Deze link kan als templated link worden aangeboden. [URI-templating is hier beschreven](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/uri-templating.feature).
     /// </summary>
     [DataContract]
     public partial class HalLink :  IEquatable<HalLink>, IValidatableObject

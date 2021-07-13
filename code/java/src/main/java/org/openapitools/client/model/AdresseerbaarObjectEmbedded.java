@@ -31,7 +31,7 @@ import org.openapitools.client.model.PandHalBasis;
 /**
  * AdresseerbaarObjectEmbedded
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-13T10:42:05.060374Z[Etc/UTC]")
 public class AdresseerbaarObjectEmbedded {
   public static final String SERIALIZED_NAME_ADRESSEN = "adressen";
   @SerializedName(SERIALIZED_NAME_ADRESSEN)

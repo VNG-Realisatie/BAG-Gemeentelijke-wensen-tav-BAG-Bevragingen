@@ -62,7 +62,7 @@ public class PandApi {
     /**
      * Build call for raadpleegPand
      * @param pandidentificatie Identificatie van een pand uit de BAG. Deze is 16 cijfers lang. (required)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -139,7 +139,7 @@ public class PandApi {
      * levert een pand
      * Raadpleeg een actueel pand met de identificatie. Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
      * @param pandidentificatie Identificatie van een pand uit de BAG. Deze is 16 cijfers lang. (required)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @return PandHalBasis
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -167,7 +167,7 @@ public class PandApi {
      * levert een pand
      * Raadpleeg een actueel pand met de identificatie. Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
      * @param pandidentificatie Identificatie van een pand uit de BAG. Deze is 16 cijfers lang. (required)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @return ApiResponse&lt;PandHalBasis&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -196,7 +196,7 @@ public class PandApi {
      * levert een pand (asynchronously)
      * Raadpleeg een actueel pand met de identificatie. Een pand is een bouwkundige, constructief zelfstandige eenheid die direct en duurzaam met de aarde is verbonden en betreedbaar en afsluitbaar is. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
      * @param pandidentificatie Identificatie van een pand uit de BAG. Deze is 16 cijfers lang. (required)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -228,7 +228,7 @@ public class PandApi {
      * @param adresseerbaarObjectIdentificatie De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn. (optional)
      * @param nummeraanduidingIdentificatie Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang. (optional)
      * @param locatie Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie&#x3D;194602.722,464154.308 (optional)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @param contentCrs CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel. (optional)
      * @param _callback Callback for upload/download progress
@@ -318,7 +318,7 @@ public class PandApi {
      * @param adresseerbaarObjectIdentificatie De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn. (optional)
      * @param nummeraanduidingIdentificatie Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang. (optional)
      * @param locatie Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie&#x3D;194602.722,464154.308 (optional)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @param contentCrs CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel. (optional)
      * @return PandHalCollectie
@@ -349,7 +349,7 @@ public class PandApi {
      * @param adresseerbaarObjectIdentificatie De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn. (optional)
      * @param nummeraanduidingIdentificatie Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang. (optional)
      * @param locatie Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie&#x3D;194602.722,464154.308 (optional)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @param contentCrs CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel. (optional)
      * @return ApiResponse&lt;PandHalCollectie&gt;
@@ -381,7 +381,7 @@ public class PandApi {
      * @param adresseerbaarObjectIdentificatie De identificatie van een adresseerbaar object uit de BAG. Deze is 16 cijfers lang en kan een verblijfsobject, een standplaats of een ligplaats zijn. (optional)
      * @param nummeraanduidingIdentificatie Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang. (optional)
      * @param locatie Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie&#x3D;194602.722,464154.308 (optional)
-     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature) (optional)
+     * @param fields Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma&#39;s gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature) (optional)
      * @param acceptCrs Gewenste CRS van de coördinaten in de response. (optional)
      * @param contentCrs CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel. (optional)
      * @param _callback The callback to be executed when the API call finishes

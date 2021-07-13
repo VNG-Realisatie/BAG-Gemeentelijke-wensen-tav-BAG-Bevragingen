@@ -30,7 +30,7 @@ import org.openapitools.client.model.PolygonGeoJSON;
  * Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een vlak.
  */
 @ApiModel(description = "Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een punt of een vlak.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-13T10:42:05.060374Z[Etc/UTC]")
 public class PuntOfVlak {
   public static final String SERIALIZED_NAME_PUNT = "punt";
   @SerializedName(SERIALIZED_NAME_PUNT)
