@@ -3056,6 +3056,12 @@
       "AdresMogelijkOnjuist": {
         "type": "object",
         "properties": {
+          "adresregel1": {
+            "type": "boolean"
+          },
+          "adresregel2": {
+            "type": "boolean"
+          },
           "korteNaam": {
             "type": "boolean"
           },
