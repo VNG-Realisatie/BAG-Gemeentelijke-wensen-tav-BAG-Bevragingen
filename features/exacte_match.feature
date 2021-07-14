@@ -71,18 +71,11 @@ Achtergrond:
 Scenario: Zoeken met combinatie postcode en huisnummer
 
   Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
-  | postcode | huisnummer | huisletter | huisnummertoevoeging |
-  | 1234AA   | 3          |            |                      |
-  | 1234AA   | 3          | A          |                      |
-  | 1234AA   | 3          | B          |                      |
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 2391PH   | 1          |            |                      | false       |
   Dan bevat het resultaat de volgende objecten
   | postcode | huisnummer | huisletter | huisnummertoevoeging |
-  | 2391PH   | 1          |            |                      |
-  | 2391PH   | 1          | A          |                      |
-  | 2391PH   | 1          | B          |                      |
   | 2391PH   | 1          |            |                      |
   | 2391PH   | 1          | A          |                      |
   | 2391PH   | 1          | A          |  1                   |
