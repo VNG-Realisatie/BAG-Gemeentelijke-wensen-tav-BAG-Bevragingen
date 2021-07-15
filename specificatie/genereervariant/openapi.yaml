@@ -985,8 +985,7 @@ paths:
           $ref: '#/components/schemas/IntegerFilter'
       - name: pandIdentificaties
         in: query
-        description: Een lijst met identificaties van panden uit de BAG. Deze is 16
-          cijfers lang.
+        description: Een lijst met identificaties van panden uit de BAG.
         required: false
         style: form
         explode: false
@@ -3444,8 +3443,7 @@ components:
     pandIdentificaties:
       name: pandIdentificaties
       in: query
-      description: Een lijst met identificaties van panden uit de BAG. Deze is 16
-        cijfers lang.
+      description: Een lijst met identificaties van panden uit de BAG.
       required: false
       style: form
       explode: false

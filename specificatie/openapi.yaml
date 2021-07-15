@@ -698,7 +698,7 @@ components:
       explode: false
 
     pandIdentificaties:
-      description: "Een lijst met identificaties van panden uit de BAG. Deze is 16 cijfers lang."
+      description: "Een lijst met identificaties van panden uit de BAG."
       name: pandIdentificaties
       in: query
       required: false
