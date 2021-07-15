@@ -86,7 +86,8 @@ paths:
         
         3. Een adresseerbaarobjectidentificatie of
         
-        4. Een postcode, huisnummer en optioneel huisnummertoevoeging en huisletter eventueel in combinatie met exacteMatch.
+        4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.
+
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, 
         zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). 
@@ -581,7 +582,7 @@ components:
         example: '0226010000038820'
 
     postcode:
-      description: Postcode behorende bij een nummeraanduiding.
+      description: Postcode van het adres.
       name: postcode
       in: query
       required: false
@@ -591,7 +592,7 @@ components:
         example: '6922KZ'
 
     huisnummer:
-      description: Huisnummer behorende bij een nummeraanduiding.
+      description: Huisnummer van het adres.
       name: huisnummer
       in: query
       required: false
@@ -599,10 +600,13 @@ components:
         type: integer
         minimum: 1
         maximum: 99999
-        example: '1'
+        example: 1
 
     huisnummertoevoeging:
-      description: Huisnummertoevoeging behorende bij een nummeraanduiding.
+      description: |
+        Een toevoeging (in de vorm van maximaal 4 cijfers of letters) aan een huisnummer of een combinatie van huisnummer en huisletter van het adres.
+        Bijvoorbeeld: 
+        Bij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.
       name: huisnummertoevoeging
       in: query
       required: false
@@ -612,7 +616,10 @@ components:
         example: 'bis'
 
     huisletter:
-      description: Huisletter behorende bij een nummeraanduiding.
+      description: |
+        Een toevoeging (in de vorm van een letter) aan een huisnummer van het adres.
+        Bijvoorbeeld: 
+        Bij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer en A de huisletter.
       name: huisletter
       in: query
       required: false
@@ -623,13 +630,13 @@ components:
 
     exacteMatch:
       description: >-
-        "Een indicatie of de resultaten van een zoekoperatie exact overeen moeten komen met de zoekcriteria, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."
+        "Geeft aan of de resultaten van de zoekopdracht exact overeen moeten komen met de opgegeven parameters, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."
       name: exacteMatch
       in: query
       required: false
       schema:
         type: boolean
-        example: 'true'
+        example: true
         default: false
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.

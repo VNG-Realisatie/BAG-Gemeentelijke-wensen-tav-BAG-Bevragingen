@@ -70,7 +70,6 @@ Achtergrond:
 
 Scenario: Zoeken met combinatie postcode en huisnummer
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 2391PH   | 1          |            |                      | false       |
@@ -92,7 +91,6 @@ Scenario: Zoeken met combinatie postcode en huisnummer
   | 2391PH   | 1          | E          |                      |
   | 2391PH   | 1          | F          |                      |
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 2391PH   | 1          |            |                      | true        |
@@ -102,7 +100,6 @@ Scenario: Zoeken met combinatie postcode en huisnummer
 
 Scenario: zoeken met combinatie postcode, huisnummer en huisnummertoevoeging
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 2594AN   | 265        |            | 2                    | false       |
@@ -112,39 +109,33 @@ Scenario: zoeken met combinatie postcode, huisnummer en huisnummertoevoeging
   | 2594AN   | 265        | B          | 2                    |
   | 2594AN   | 265        | C          | 2                    |
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 2594AN   | 265        |            | 2                    | true        |
   Dan bevat het resultaat geen objecten
-  | postcode | huisnummer | huisletter | huisnummertoevoeging |
-  |          |            |            |                      |
 
 Scenario: zoeken met combinatie postcode en huisnummer komt meerdere keren voor en exacteMatch wordt niet toegepast
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 7411CC   | 36         |            |                      | false       |
-  Dan bevat het resultaat de geen objecten
+  Dan bevat het resultaat de volgende objecten
   | postcode | huisnummer | huisletter | huisnummertoevoeging |
   | 7411CC   | 36         |            |                      |
   | 7411CC   | 36         |            |                      |
 
 Scenario: zoeken met combinatie postcode en huisnummer komt meerdere keren voor en exacteMatch wordt toegepast
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 7411CC   | 36         |            |                      | true        |
-  Dan bevat het resultaat de geen objecten
+  Dan bevat het resultaat de volgende objecten
   | postcode | huisnummer | huisletter | huisnummertoevoeging |
   | 7411CC   | 36         |            |                      |
   | 7411CC   | 36         |            |                      |
   
 Scenario: zoeken met combinatie van postcode en huisnummer waarbij exacteMatch kan worden toegepast kan niet i.c.m. fuzzy search
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 2391PH   | 1          |            |                      | false       |
@@ -154,35 +145,27 @@ Scenario: zoeken met combinatie van postcode en huisnummer waarbij exacteMatch k
 
 Scenario: zoeken met combinatie van postcode, huisnummer en evt. huisletter en/of huisnummertoevoeging en waarbij exacteMatch kan worden toegepast kan niet i.c.m. fuzzy search
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 7437SZ   | 2          |            | A                    | false       |
   Dan bevat het resultaat geen objecten
-  | postcode | huisnummer | huisletter | huisnummertoevoeging |
-  |          |            |            |                      |
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 1015DT   | 237        |            | A                    | false       |
-  Dan bevat het resultaat geen objecten
+  Dan bevat het resultaat de volgende objecten
   | postcode | huisnummer | huisletter | huisnummertoevoeging |
   | 1015DT   | 237        | C          | A                    |
 
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 3581KL   | 49         | A          |                      | false       |
   Dan bevat het resultaat geen objecten
-  | postcode | huisnummer | huisletter | huisnummertoevoeging |
-  |          |            |            |                      |
 
-  Gegeven de verzameling van objecten zoals beschreven bij Achtergrond
   Als er wordt gezocht met
   | postcode | huisnummer | huisletter | huisnummertoevoeging | exacteMatch |
   | 1015DT   | 237        | A          |                      | false       |
-  Dan bevat het resultaat geen objecten
+  Dan bevat het resultaat de volgende objecten
   | postcode | huisnummer | huisletter | huisnummertoevoeging |
   | 1015DT   | 237        | A          | V                    |
