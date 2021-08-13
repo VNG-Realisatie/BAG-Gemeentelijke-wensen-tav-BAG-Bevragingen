@@ -28,7 +28,7 @@ import java.io.IOException;
  * Eigenschappen van het adres die kunnen worden hergebruikt in andere API&#39;s waarin adresgegevens worden opgenomen. 
  */
 @ApiModel(description = "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. ")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-13T10:42:05.060374Z[Etc/UTC]")
 public class Adres {
   public static final String SERIALIZED_NAME_STRAAT = "straat";
   @SerializedName(SERIALIZED_NAME_STRAAT)

@@ -31,7 +31,7 @@ import org.openapitools.client.model.HalPaginationLinksMetLastAllOf;
  * HalPaginationLinksMetLast bevat de link properties die nodig zijn om te kunnen navigeren in een eindige collectie:  - first: uri voor het opvragen van de eerste pagina van deze collectie - previous: uri voor het opvragen van de vorige pagina van deze collectie - next: uri voor het opvragen van de volgende pagina van deze collectie - last: uri voor het opvragen van de laatste pagina van deze collectie 
  */
 @ApiModel(description = "HalPaginationLinksMetLast bevat de link properties die nodig zijn om te kunnen navigeren in een eindige collectie:  - first: uri voor het opvragen van de eerste pagina van deze collectie - previous: uri voor het opvragen van de vorige pagina van deze collectie - next: uri voor het opvragen van de volgende pagina van deze collectie - last: uri voor het opvragen van de laatste pagina van deze collectie ")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-13T10:42:05.060374Z[Etc/UTC]")
 public class HalPaginationLinksMetLast {
   public static final String SERIALIZED_NAME_SELF = "self";
   @SerializedName(SERIALIZED_NAME_SELF)

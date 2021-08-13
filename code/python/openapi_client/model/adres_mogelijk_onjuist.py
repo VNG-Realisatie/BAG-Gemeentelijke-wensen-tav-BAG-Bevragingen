@@ -82,6 +82,8 @@ class AdresMogelijkOnjuist(ModelNormal):
                 and the value is attribute type.
         """
         return {
+            'adresregel1': (bool,),  # noqa: E501
+            'adresregel2': (bool,),  # noqa: E501
             'korte_naam': (bool,),  # noqa: E501
             'straat': (bool,),  # noqa: E501
             'huisnummer': (bool,),  # noqa: E501
@@ -101,6 +103,8 @@ class AdresMogelijkOnjuist(ModelNormal):
 
 
     attribute_map = {
+        'adresregel1': 'adresregel1',  # noqa: E501
+        'adresregel2': 'adresregel2',  # noqa: E501
         'korte_naam': 'korteNaam',  # noqa: E501
         'straat': 'straat',  # noqa: E501
         'huisnummer': 'huisnummer',  # noqa: E501
@@ -155,6 +159,8 @@ class AdresMogelijkOnjuist(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            adresregel1 (bool): [optional]  # noqa: E501
+            adresregel2 (bool): [optional]  # noqa: E501
             korte_naam (bool): [optional]  # noqa: E501
             straat (bool): [optional]  # noqa: E501
             huisnummer (bool): [optional]  # noqa: E501
@@ -247,6 +253,8 @@ class AdresMogelijkOnjuist(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            adresregel1 (bool): [optional]  # noqa: E501
+            adresregel2 (bool): [optional]  # noqa: E501
             korte_naam (bool): [optional]  # noqa: E501
             straat (bool): [optional]  # noqa: E501
             huisnummer (bool): [optional]  # noqa: E501

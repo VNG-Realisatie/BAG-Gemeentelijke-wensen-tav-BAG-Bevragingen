@@ -30,8 +30,16 @@ import java.util.List;
  * Wanneer true is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting.
  */
 @ApiModel(description = "Wanneer true is de waarde mogelijk onjuist en wordt juistheid op dit moment onderzocht. Zie toelichting.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-12T15:32:11.044684Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-13T10:42:05.060374Z[Etc/UTC]")
 public class AdresMogelijkOnjuist {
+  public static final String SERIALIZED_NAME_ADRESREGEL1 = "adresregel1";
+  @SerializedName(SERIALIZED_NAME_ADRESREGEL1)
+  private Boolean adresregel1;
+
+  public static final String SERIALIZED_NAME_ADRESREGEL2 = "adresregel2";
+  @SerializedName(SERIALIZED_NAME_ADRESREGEL2)
+  private Boolean adresregel2;
+
   public static final String SERIALIZED_NAME_KORTE_NAAM = "korteNaam";
   @SerializedName(SERIALIZED_NAME_KORTE_NAAM)
   private Boolean korteNaam;
@@ -75,6 +83,52 @@ public class AdresMogelijkOnjuist {
   public static final String SERIALIZED_NAME_TOELICHTING = "toelichting";
   @SerializedName(SERIALIZED_NAME_TOELICHTING)
   private List<String> toelichting = null;
+
+
+  public AdresMogelijkOnjuist adresregel1(Boolean adresregel1) {
+    
+    this.adresregel1 = adresregel1;
+    return this;
+  }
+
+   /**
+   * Get adresregel1
+   * @return adresregel1
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getAdresregel1() {
+    return adresregel1;
+  }
+
+
+  public void setAdresregel1(Boolean adresregel1) {
+    this.adresregel1 = adresregel1;
+  }
+
+
+  public AdresMogelijkOnjuist adresregel2(Boolean adresregel2) {
+    
+    this.adresregel2 = adresregel2;
+    return this;
+  }
+
+   /**
+   * Get adresregel2
+   * @return adresregel2
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public Boolean getAdresregel2() {
+    return adresregel2;
+  }
+
+
+  public void setAdresregel2(Boolean adresregel2) {
+    this.adresregel2 = adresregel2;
+  }
 
 
   public AdresMogelijkOnjuist korteNaam(Boolean korteNaam) {
@@ -347,7 +401,9 @@ public class AdresMogelijkOnjuist {
       return false;
     }
     AdresMogelijkOnjuist adresMogelijkOnjuist = (AdresMogelijkOnjuist) o;
-    return Objects.equals(this.korteNaam, adresMogelijkOnjuist.korteNaam) &&
+    return Objects.equals(this.adresregel1, adresMogelijkOnjuist.adresregel1) &&
+        Objects.equals(this.adresregel2, adresMogelijkOnjuist.adresregel2) &&
+        Objects.equals(this.korteNaam, adresMogelijkOnjuist.korteNaam) &&
         Objects.equals(this.straat, adresMogelijkOnjuist.straat) &&
         Objects.equals(this.huisnummer, adresMogelijkOnjuist.huisnummer) &&
         Objects.equals(this.huisletter, adresMogelijkOnjuist.huisletter) &&
@@ -362,13 +418,15 @@ public class AdresMogelijkOnjuist {
 
   @Override
   public int hashCode() {
-    return Objects.hash(korteNaam, straat, huisnummer, huisletter, huisnummertoevoeging, postcode, woonplaats, nummeraanduidingIdentificatie, openbareRuimteIdentificatie, woonplaatsIdentificatie, toelichting);
+    return Objects.hash(adresregel1, adresregel2, korteNaam, straat, huisnummer, huisletter, huisnummertoevoeging, postcode, woonplaats, nummeraanduidingIdentificatie, openbareRuimteIdentificatie, woonplaatsIdentificatie, toelichting);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AdresMogelijkOnjuist {\n");
+    sb.append("    adresregel1: ").append(toIndentedString(adresregel1)).append("\n");
+    sb.append("    adresregel2: ").append(toIndentedString(adresregel2)).append("\n");
     sb.append("    korteNaam: ").append(toIndentedString(korteNaam)).append("\n");
     sb.append("    straat: ").append(toIndentedString(straat)).append("\n");
     sb.append("    huisnummer: ").append(toIndentedString(huisnummer)).append("\n");

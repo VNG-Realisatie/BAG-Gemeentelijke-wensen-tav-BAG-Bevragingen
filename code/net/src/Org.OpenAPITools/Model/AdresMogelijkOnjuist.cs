@@ -33,6 +33,8 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AdresMogelijkOnjuist" /> class.
         /// </summary>
+        /// <param name="adresregel1">adresregel1.</param>
+        /// <param name="adresregel2">adresregel2.</param>
         /// <param name="korteNaam">korteNaam.</param>
         /// <param name="straat">straat.</param>
         /// <param name="huisnummer">huisnummer.</param>
@@ -44,8 +46,10 @@ namespace Org.OpenAPITools.Model
         /// <param name="openbareRuimteIdentificatie">openbareRuimteIdentificatie.</param>
         /// <param name="woonplaatsIdentificatie">woonplaatsIdentificatie.</param>
         /// <param name="toelichting">toelichting.</param>
-        public AdresMogelijkOnjuist(bool korteNaam = default(bool), bool straat = default(bool), bool huisnummer = default(bool), bool huisletter = default(bool), bool huisnummertoevoeging = default(bool), bool postcode = default(bool), bool woonplaats = default(bool), bool nummeraanduidingIdentificatie = default(bool), bool openbareRuimteIdentificatie = default(bool), bool woonplaatsIdentificatie = default(bool), List<string> toelichting = default(List<string>))
+        public AdresMogelijkOnjuist(bool adresregel1 = default(bool), bool adresregel2 = default(bool), bool korteNaam = default(bool), bool straat = default(bool), bool huisnummer = default(bool), bool huisletter = default(bool), bool huisnummertoevoeging = default(bool), bool postcode = default(bool), bool woonplaats = default(bool), bool nummeraanduidingIdentificatie = default(bool), bool openbareRuimteIdentificatie = default(bool), bool woonplaatsIdentificatie = default(bool), List<string> toelichting = default(List<string>))
         {
+            this.Adresregel1 = adresregel1;
+            this.Adresregel2 = adresregel2;
             this.KorteNaam = korteNaam;
             this.Straat = straat;
             this.Huisnummer = huisnummer;
@@ -58,6 +62,18 @@ namespace Org.OpenAPITools.Model
             this.WoonplaatsIdentificatie = woonplaatsIdentificatie;
             this.Toelichting = toelichting;
         }
+
+        /// <summary>
+        /// Gets or Sets Adresregel1
+        /// </summary>
+        [DataMember(Name="adresregel1", EmitDefaultValue=false)]
+        public bool Adresregel1 { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Adresregel2
+        /// </summary>
+        [DataMember(Name="adresregel2", EmitDefaultValue=false)]
+        public bool Adresregel2 { get; set; }
 
         /// <summary>
         /// Gets or Sets KorteNaam
@@ -133,6 +149,8 @@ namespace Org.OpenAPITools.Model
         {
             var sb = new StringBuilder();
             sb.Append("class AdresMogelijkOnjuist {\n");
+            sb.Append("  Adresregel1: ").Append(Adresregel1).Append("\n");
+            sb.Append("  Adresregel2: ").Append(Adresregel2).Append("\n");
             sb.Append("  KorteNaam: ").Append(KorteNaam).Append("\n");
             sb.Append("  Straat: ").Append(Straat).Append("\n");
             sb.Append("  Huisnummer: ").Append(Huisnummer).Append("\n");
@@ -178,6 +196,16 @@ namespace Org.OpenAPITools.Model
                 return false;
 
             return 
+                (
+                    this.Adresregel1 == input.Adresregel1 ||
+                    (this.Adresregel1 != null &&
+                    this.Adresregel1.Equals(input.Adresregel1))
+                ) && 
+                (
+                    this.Adresregel2 == input.Adresregel2 ||
+                    (this.Adresregel2 != null &&
+                    this.Adresregel2.Equals(input.Adresregel2))
+                ) && 
                 (
                     this.KorteNaam == input.KorteNaam ||
                     (this.KorteNaam != null &&
@@ -245,6 +273,10 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Adresregel1 != null)
+                    hashCode = hashCode * 59 + this.Adresregel1.GetHashCode();
+                if (this.Adresregel2 != null)
+                    hashCode = hashCode * 59 + this.Adresregel2.GetHashCode();
                 if (this.KorteNaam != null)
                     hashCode = hashCode * 59 + this.KorteNaam.GetHashCode();
                 if (this.Straat != null)
