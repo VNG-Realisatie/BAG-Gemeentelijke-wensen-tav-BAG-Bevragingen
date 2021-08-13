@@ -28,7 +28,7 @@ import org.openapitools.client.model.AdresseerbaarObjectEmbedded;
 /**
  * AdresseerbaarObjectHalAllOf
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-07-13T10:42:05.060374Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-08-13T14:23:53.711227Z[Etc/UTC]")
 public class AdresseerbaarObjectHalAllOf {
   public static final String SERIALIZED_NAME_EMBEDDED = "_embedded";
   @SerializedName(SERIALIZED_NAME_EMBEDDED)
