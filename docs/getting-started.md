@@ -8,7 +8,7 @@ De 'BAG Huidige Bevragingen' API levert actuele gegevens zonder eind status uit 
 De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 
 Om aan te sluiten kun je de volgende stappen doorlopen:
-1. [Meld je aan bij het kadaster om toegang te krijgen tot de testomgeving](#aanmelden-om-aan-te-sluiten)
+1. [Meld je aan bij het kadaster om toegang te krijgen tot de productieomgeving](#aanmelden-om-aan-te-sluiten)
 2. [Bekijk de functionaliteit en specificaties](#functionaliteit)
 3. [Probeer en test de API in de productie-omgeving](#probeer-en-test-de-api-in-de-productie-omgeving)
 
