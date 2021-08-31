@@ -11,7 +11,7 @@ title: User Stories in Productie
 - [Expand gerelateerde resource als relatie in onderzoek is](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293){:target="_blank" rel="noopener"}
 
 - [Als medewerker vergunningen en burgerzaken wil ik net zo'n informatierijke toelichting voor gecontateerd als voor mogelijkOnjuist](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/128){:target="_blank" rel="noopener"}
-- [medewerker burgerzaken wil ik een adres raadplegen uit de BRP met de nummeraanduidingidentificatie](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/32){:target="_blank" rel="noopener"}
+- [Als medewerker burgerzaken wil ik een adres raadplegen uit de BRP met de nummeraanduidingidentificatie](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/32){:target="_blank" rel="noopener"}
 - [Als burger wil ik een adres kunnen selecteren](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/18){:target="_blank" rel="noopener"}
 - [Als burger wil ik een adres kunnen selecteren ](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/17){:target="_blank" rel="noopener"}
 - [Als burger wil ik mijn nieuwe adres kunnen selecteren](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/16){:target="_blank" rel="noopener"}
