@@ -1,4 +1,4 @@
-# Haal Centraal BAG Huidige Bevragingen v1.1 is live!
+# Haal Centraal BAG Huidige Bevragingen v1.2 is live!
 
 ![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
 ![generate sdks](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-sdks/badge.svg)
