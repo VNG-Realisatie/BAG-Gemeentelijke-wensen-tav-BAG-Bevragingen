@@ -30,7 +30,7 @@ Abstract Scenario: Opvragen van adressen en een deel van de kenmerken van bijbeh
         | /0826200000016921?                                                |
 
 Scenario: Opvragen van adressen en bijbehorend adresseerbaar object met overtollig expand waarden
-    Als GET /adressen?pandidentificatie=0193100000048288&expand=<expand> is aangeroepen
+    Als GET /adressen?pandIdentificatie=0193100000048288&expand=<expand> is aangeroepen
     Dan bevat de _embedded.adresseerbaarObject property van elk Adres in de response de gevraagde kenmerken van het bijbehorend Adresseerbaar Object
 
     Voorbeelden:
