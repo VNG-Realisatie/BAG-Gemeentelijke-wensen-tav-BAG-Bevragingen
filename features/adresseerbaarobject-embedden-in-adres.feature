@@ -19,7 +19,7 @@ Abstract Scenario: Opvragen van adressen en bijbehorend adresseerbaar object via
 
 Abstract Scenario: Opvragen van adressen en een deel van de kenmerken van bijbehorend adresseerbaar object via het /adressen endpoint
     Als GET /adressen<query part>expand=adresseerbaarObject.gebruiksdoelen,adresseerbaarObject.geconstateerd,adresseerbaarObject.geometrie is aangeroepen
-    Dan bevat de _embedded.adresseerbaarObject property van elk Adres in de response het bijbehorend Adresseerbaar Object
+    Dan bevat de _embedded.adresseerbaarObject property van elk Adres in de response de gevraagde kenmerken van het bijbehorend Adresseerbaar Object
 
     Voorbeelden:
         | query part                                                        |
@@ -28,6 +28,16 @@ Abstract Scenario: Opvragen van adressen en een deel van de kenmerken van bijbeh
         | ?zoekresultaatidentificatie=adr-89d5a4d96f09c60716c4671fdb9334b8& |
         | ?postcode=2391PH&huisnummer=1&                                    |
         | /0826200000016921?                                                |
+
+Scenario: Opvragen van adressen en bijbehorend adresseerbaarobject met overtollig expand waarden
+    Als GET /adressen?pandidentificatie=0193100000048288&expand=<expand> is aangeroepen
+    Dan bevat de _embedded.adresseerbaarObject property van elk Adres in de response de gevraagde kenmerken van het bijbehorend Adresseerbaar Object
+
+    Voorbeelden:
+        | expand                                                                |
+        | adresseerbaarObject,adresseerbaarObject                               |
+        | adresseerbaarObject,adresseerbaarObject.gebruiksdoelen                |
+        | adresseerbaarObject.gebruiksdoelen,adresseerbaarObject.gebruiksdoelen |
 
 Rule: Foutsituaties
 
