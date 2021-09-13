@@ -66,3 +66,26 @@ Abstract Scenario: Verkeerde casing
         | nummeraanduidingidentificatie | expand                             |
         | 0826200000016921              | adresseerbaarobject                |
         | 0826200000016921              | adresseerbaarObject.gebruiksDoelen |
+
+Rule: filteren van een resource met de identificatie van een sub-resource en tegelijk embedden van dezelfde sub-resource is niet toegestaan om redundantie te voorkomen
+
+Scenario: filteren van adressen met adresseerbaar object identificatie en embedden van adresseerbaar object
+    Als GET /adressen?adresseerbaarObjectIdentificatie=0484010002033603&expand=adresseerbaarObject
+    Dan is de response
+    '''
+    {
+        "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+        "title": "Een of meerdere parameters zijn niet correct.",
+        "status": 400,
+        "detail": "Bad request.",
+        "instance": "https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1/adressen??adresseerbaarObjectIdentificatie=0484010002033603&expand=adresseerbaarObject",
+        "code": "paramsValidation",
+        "invalidParams": [
+            {
+                "name": "expand",
+                "code": "expand",
+                "reason": "filteren met adresseerbaarObjectIdentificatie en tegelijk expanden van adresseerbaarObject is niet toegestaan."
+            }
+        ]
+    }
+    '''
