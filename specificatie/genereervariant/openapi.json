@@ -13,7 +13,7 @@
       "name": "European Union Public License, version 1.2 (EUPL-1.2)",
       "url": "https://eupl.eu/1.2/nl/"
     },
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "servers": [
     {
@@ -274,7 +274,7 @@
           "Adres"
         ],
         "summary": "vindt adressen",
-        "description": "Vind een actueel adres met de identificatie van het zoekresultaat uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "description": "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3. Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature).",
         "operationId": "raadpleegAdressen",
         "parameters": [
           {
@@ -352,6 +352,72 @@
               "minimum": 1,
               "type": "integer",
               "default": 20
+            }
+          },
+          {
+            "name": "postcode",
+            "in": "query",
+            "description": "Postcode van het adres.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$",
+              "type": "string",
+              "example": "6922KZ"
+            }
+          },
+          {
+            "name": "huisnummer",
+            "in": "query",
+            "description": "Huisnummer van het adres.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "maximum": 99999,
+              "minimum": 1,
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "huisletter",
+            "in": "query",
+            "description": "Een toevoeging (in de vorm van een letter) aan een huisnummer van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer en A de huisletter.\n",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[a-zA-Z]{1}$",
+              "type": "string",
+              "example": "A"
+            }
+          },
+          {
+            "name": "huisnummertoevoeging",
+            "in": "query",
+            "description": "Een toevoeging (in de vorm van maximaal 4 cijfers of letters) aan een huisnummer of een combinatie van huisnummer en huisletter van het adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[0-9a-zA-Z]{1,4}$",
+              "type": "string",
+              "example": "bis"
+            }
+          },
+          {
+            "name": "exacteMatch",
+            "in": "query",
+            "description": "\"Geeft aan of de resultaten van de zoekopdracht exact overeen moeten komen met de opgegeven parameters, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature).\"",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "example": true,
+              "default": false
             }
           }
         ],
@@ -555,7 +621,7 @@
           "Adres"
         ],
         "summary": "levert een adres",
-        "description": "Raadpleeg een actueel adres met de nummeraanduidingidentificatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "description": "Raadpleeg een actueel adres met de nummeraanduidingidentificatie. \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte, adresseerbaarobject,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresMetNumId",
         "parameters": [
           {
@@ -1094,7 +1160,7 @@
           "Adresseerbaar object"
         ],
         "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
-        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type of\n5. een lijst met pandidentificaties.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een lijst met pandidentificaties.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresseerbareobjecten",
         "parameters": [
           {
@@ -1173,6 +1239,23 @@
             }
           },
           {
+            "name": "pandIdentificaties",
+            "in": "query",
+            "description": "Een lijst met identificaties van panden uit de BAG.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "example": [
+                "0226100000008856"
+              ],
+              "items": {
+                "pattern": "^[0-9]{16}$",
+                "type": "string"
+              }
+            }
             "name": "geconstateerd",
             "in": "query",
             "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
@@ -1423,29 +1506,6 @@
                   "detail": "The precondition given in one or more of the request-header fields evaluated to false when it was tested on the server.",
                   "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
                   "code": "preconditionFailed"
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "headers": {
-              "api-version": {
-                "$ref": "#/components/headers/api_version"
-              }
-            },
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Foutbericht"
-                },
-                "example": {
-                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16",
-                  "title": "Unsupported Media Type",
-                  "status": 415,
-                  "detail": "The server is refusing the request because the entity of the request is in a format not supported by the requested resource for the requested method.",
-                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
-                  "code": "unsupported"
                 }
               }
             }
@@ -2577,7 +2637,7 @@
           "Pand"
         ],
         "summary": "vindt panden",
-        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
+        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt)\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegPanden",
         "parameters": [
           {
@@ -2865,29 +2925,6 @@
               }
             }
           },
-          "415": {
-            "description": "Unsupported Media Type",
-            "headers": {
-              "api-version": {
-                "$ref": "#/components/headers/api_version"
-              }
-            },
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Foutbericht"
-                },
-                "example": {
-                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16",
-                  "title": "Unsupported Media Type",
-                  "status": 415,
-                  "detail": "The server is refusing the request because the entity of the request is in a format not supported by the requested resource for the requested method.",
-                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
-                  "code": "unsupported"
-                }
-              }
-            }
-          },
           "500": {
             "description": "Internal Server Error",
             "headers": {
@@ -3135,6 +3172,12 @@
       "AdresMogelijkOnjuist": {
         "type": "object",
         "properties": {
+          "adresregel1": {
+            "type": "boolean"
+          },
+          "adresregel2": {
+            "type": "boolean"
+          },
           "korteNaam": {
             "type": "boolean"
           },
@@ -3260,6 +3303,9 @@
           },
           "woonplaats": {
             "$ref": "#/components/schemas/WoonplaatsHalBasis"
+          },
+          "adresseerbaarObject": {
+            "$ref": "#/components/schemas/AdresseerbaarObjectHalBasis"
           }
         }
       },
@@ -4115,10 +4161,10 @@
       "CrsEnum": {
         "type": "string",
         "description": "CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
-        "default": "epsg:28992",
         "enum": [
           "epsg:28992"
-        ]
+        ],
+        "default": "epsg:28992"
       },
       "HalLink": {
         "required": [
@@ -4394,6 +4440,10 @@
           "example": "0226010000038820"
         }
       },
+      "postcode": {
+        "name": "postcode",
+        "in": "query",
+        "description": "Postcode van het adres.",
       "woonplaatsIdentificatie-query": {
         "name": "woonplaatsIdentificatie",
         "in": "query",
@@ -4402,6 +4452,15 @@
         "style": "form",
         "explode": true,
         "schema": {
+          "pattern": "^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$",
+          "type": "string",
+          "example": "6922KZ"
+        }
+      },
+      "huisnummer": {
+        "name": "huisnummer",
+        "in": "query",
+        "description": "Huisnummer van het adres.",
           "pattern": "^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$",
           "type": "string",
           "example": "2096"
@@ -4415,6 +4474,16 @@
         "style": "form",
         "explode": true,
         "schema": {
+          "maximum": 99999,
+          "minimum": 1,
+          "type": "integer",
+          "example": 1
+        }
+      },
+      "huisnummertoevoeging": {
+        "name": "huisnummertoevoeging",
+        "in": "query",
+        "description": "Een toevoeging (in de vorm van maximaal 4 cijfers of letters) aan een huisnummer of een combinatie van huisnummer en huisletter van het adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n",
           "type": "boolean",
           "default": false
         }
@@ -4427,6 +4496,15 @@
         "style": "form",
         "explode": true,
         "schema": {
+          "pattern": "^[0-9a-zA-Z]{1,4}$",
+          "type": "string",
+          "example": "bis"
+        }
+      },
+      "huisletter": {
+        "name": "huisletter",
+        "in": "query",
+        "description": "Een toevoeging (in de vorm van een letter) aan een huisnummer van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer en A de huisletter.\n",
           "minItems": 1,
           "type": "array",
           "items": {
@@ -4453,6 +4531,15 @@
         "style": "form",
         "explode": true,
         "schema": {
+          "pattern": "^[a-zA-Z]{1}$",
+          "type": "string",
+          "example": "A"
+        }
+      },
+      "exacteMatch": {
+        "name": "exacteMatch",
+        "in": "query",
+        "description": "\"Geeft aan of de resultaten van de zoekopdracht exact overeen moeten komen met de opgegeven parameters, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature).\"",
           "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
         }
       },
@@ -4464,6 +4551,15 @@
         "style": "form",
         "explode": true,
         "schema": {
+          "type": "boolean",
+          "example": true,
+          "default": false
+        }
+      },
+      "pandIdentificaties": {
+        "name": "pandIdentificaties",
+        "in": "query",
+        "description": "Een lijst met identificaties van panden uit de BAG.",
           "minItems": 1,
           "type": "array",
           "items": {
@@ -4490,6 +4586,14 @@
         "style": "form",
         "explode": false,
         "schema": {
+          "minItems": 1,
+          "type": "array",
+          "example": [
+            "0226100000008856"
+          ],
+          "items": {
+            "pattern": "^[0-9]{16}$",
+            "type": "string"
           "maxItems": 6,
           "minItems": 4,
           "type": "array",
