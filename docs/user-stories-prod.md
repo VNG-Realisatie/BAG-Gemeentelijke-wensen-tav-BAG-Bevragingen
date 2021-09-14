@@ -5,8 +5,13 @@ title: User Stories in Productie
 
 # User stories
 
+- [als developer van de BRK API wil ik de korteNaam kunnen leveren bij het adres van een kadastraal  object](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/363){:target="_blank" rel="noopener"}
+- [als gebruiker wil ik het samengesteld adres krijgen](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/360){:target="_blank" rel="noopener"}
+- [Als gebruiker wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/294){:target="_blank" rel="noopener"}
+- [Expand gerelateerde resource als relatie in onderzoek is](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293){:target="_blank" rel="noopener"}
+
 - [Als medewerker vergunningen en burgerzaken wil ik net zo'n informatierijke toelichting voor gecontateerd als voor mogelijkOnjuist](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/128){:target="_blank" rel="noopener"}
-- [medewerker burgerzaken wil ik een adres raadplegen uit de BRP met de nummeraanduidingidentificatie](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/32){:target="_blank" rel="noopener"}
+- [Als medewerker burgerzaken wil ik een adres raadplegen uit de BRP met de nummeraanduidingidentificatie](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/32){:target="_blank" rel="noopener"}
 - [Als burger wil ik een adres kunnen selecteren](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/18){:target="_blank" rel="noopener"}
 - [Als burger wil ik een adres kunnen selecteren ](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/17){:target="_blank" rel="noopener"}
 - [Als burger wil ik mijn nieuwe adres kunnen selecteren](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/16){:target="_blank" rel="noopener"}
