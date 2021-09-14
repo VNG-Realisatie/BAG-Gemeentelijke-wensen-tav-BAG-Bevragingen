@@ -1,0 +1,30 @@
+name: lint-oas
+
+on:
+  push:
+    paths:
+      - specificatie/*.yaml
+      - .github/workflows/lint-oas.yml
+    branches:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Install dependencies
+        run: npm install
+      - name: lint OAS
+        run: npm run oas:lint
+      - name: resolve OAS
+        run: npm run oas:resolve
+      - name: lint resolved OAS
+        run: npm run oas:lint-genereervariant 
+# Het pushen van de genereervariant is in deze workflow t.o.v. die in de andere repo's verwijderd.
+# De verantwoordelijkheid voor het opleveren van de genereervariant ligt hier nl. bij het Kadaster.
