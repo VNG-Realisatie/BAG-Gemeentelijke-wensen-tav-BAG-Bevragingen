@@ -20,21 +20,31 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
 
     Referenties:
     - Haal Centraal Common - foutafhandeling.feature
+    
+    Het geometrisch zoeken met een bounding box geometrie kan met de parameter: bbox.
+
+    Het geometrisch zoeken met een punt geometrie kan met de parameter: locatie.
+    Het is echter ook mogelijk om een bounding box op te geven waarbij de coördinaten van de linker onderhoek en de rechter bovenhoek exact gelijk zijn.
+
 
   Scenario: zoeken met geometrisch punt met CRS
   
     Gegeven een resource endpoint waar met een GET methode en geometrisch punt gezocht kan worden
     Als er met een geometrisch punt wordt gezocht
-    En in de Content-Crs header staat in welk CRS het punt is geëncodeerd
+    En in de Content-Crs header staat in welk CRS het punt is geëncodeerd (optioneel)
     En de provider ondersteund dit CRS
     En de resource geometrie intersects met het opgegeven geometrisch punt
     Dan wordt de resource geretourneerd
-  
+    
+    Bijvoorbeeld:
+    
+      /panden?locatie=196733.510,439931.890
+      
   Scenario: zoeken met geometrisch punt met CRS geen resources
   
     Gegeven een resource endpoint waar met een GET methode en geometrisch punt gezocht kan worden
     Als er met een geometrisch punt wordt gezocht
-    En in de Content-Crs header staat in welk CRS het punt is geëncodeerd
+    En in de Content-Crs header staat in welk CRS het punt is geëncodeerd (optioneel)
     En de provider ondersteund dit CRS
     En er geldt niet dat de resource geometrie intersects met het opgegeven geometrisch punt
     Dan wordt de resources niet geretourneerd
@@ -43,7 +53,7 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
   
     Gegeven een resource endpoint waar met een GET methode en geometrisch punt gezocht kan worden
     Als er met een geometrisch punt wordt gezocht
-    En in de Content-Crs header staat in welk CRS het punt is geëncodeerd
+    En in de Content-Crs header staat in welk CRS het punt is geëncodeerd (optioneel)
     En de provider ondersteund dit CRS niet
     Dan worden er een 400 crsNotSupported foutmelding geretourneerd
     En dan bevat de Accept-Crs de door de provider ondersteunde CRS-en
@@ -59,17 +69,35 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
   Scenario: zoeken met een bounding box met CRS
   
     Gegeven een resource endpoint waar met een GET methode en bounding box gezocht kan worden
-    Als er met een bounding box wordt gezocht
+    Als er met een bounding box wordt gezocht met 2D coördinaten
     En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd
     En de provider ondersteund dit CRS
     En de resource geometrie intersects met de opgegeven bounding box geometrie
     Dan wordt de resource geretourneerd 
+
+    Bijvoorbeeld:
+    
+      /panden?bbox=196733.510,439931.890,197033.510,440031.890
+
+  Scenario: zoeken met een bounding box met CRS gelijke coördinaten
   
+    Gegeven een resource endpoint waar met een GET methode en bounding box gezocht kan worden
+    Als er met een bounding box wordt gezocht waarbij de coördinaten voor het punt linksonder en rechtsboven gelijk zijn
+    En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd (optioneel)
+    En de provider ondersteund dit CRS
+    En de resource geometrie intersects met de opgegeven bounding box geometrie
+    Dan wordt de resource geretourneerd
+    En is het resultaat hetzelfde wanneer er bij het endpoint /panden?locatie=<coördinaat> dezelfde coördinaat wordt opgegeven
+
+    Bijvoorbeeld:
+    
+      /panden?bbox=196733.510,439931.890,196733.510,439931.890
+
   Scenario: zoeken met bounding box met CRS geen resources
   
     Gegeven een resource endpoint waar met een GET methode en bounding box gezocht kan worden
     Als er met een bounding box wordt gezocht
-    En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd
+    En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd (optioneel)
     En de provider ondersteund dit CRS
     En de resource geometrie intersects niet (disjoint) met de opgegeven bounding box geometrie
     Dan wordtn de resources niet geretourneerd
@@ -78,7 +106,7 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
   
     Gegeven een resource endpoint waar met een GET methode en bounding box gezocht kan worden
     Als er met een bounding box wordt gezocht
-    En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd
+    En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd (optioneel)
     En de provider ondersteund dit CRS niet
     Dan worden er een 400 crsNotSupported foutmelding geretourneerd
     En dan bevat de Accept-Crs de door de provider ondersteunde CRS-en
@@ -89,3 +117,20 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     Als er met een bounding box wordt gezocht
     En er wordt geen Content-Crs header meegegeven
     Dan worden er een 412 contentCrsMissing foutmelding geretourneerd
+
+  Scenario: zoeken met een bounding box met CRS
+  
+    Gegeven een resource endpoint waar met een GET methode en bounding box gezocht kan worden
+    Als er met minder dan twee 2D coördinaten wordt gezocht
+    En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd (optioneel)
+    En de provider ondersteund dit CRS
+    Dan wordt er een 400 foutmelding met foutcode paramsValidation en validatie minItems geretourneerd 
+  
+  Scenario: zoeken met een bounding box met CRS
+  
+    Gegeven een resource endpoint waar met een GET methode en bounding box gezocht kan worden
+    Als er met meer dan twee 2D coördinaten wordt gezocht
+    En in de Content-Crs header staat in welk CRS de bounding box geometrie is geëncodeerd (optioneel)
+    En de provider ondersteund dit CRS
+    Dan wordt er een 400 foutmelding met foutcode paramsValidation en validatie maxItems geretourneerd 
+  
