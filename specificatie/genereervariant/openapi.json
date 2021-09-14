@@ -1317,6 +1317,12 @@
               "maxItems": 6,
               "minItems": 4,
               "type": "array",
+              "example": [
+                196733.51,
+                439931.89,
+                196833.51,
+                440031.89
+              ],
               "items": {
                 "type": "number"
               }
@@ -1331,6 +1337,25 @@
             "explode": true,
             "schema": {
               "$ref": "#/components/schemas/IntegerFilter"
+            }
+          },
+          {
+            "name": "pandIdentificaties",
+            "in": "query",
+            "description": "Een lijst met identificaties van panden uit de BAG.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "example": [
+                "0226100000008856"
+              ],
+              "items": {
+                "pattern": "^[0-9]{16}$",
+                "type": "string"
+              }
             }
           }
         ],
@@ -2656,7 +2681,6 @@
                 196733.51,
                 439931.89
               ],
-              "deprecated": true,
               "items": {
                 "type": "number"
               }
@@ -2700,6 +2724,12 @@
               "maxItems": 6,
               "minItems": 4,
               "type": "array",
+              "example": [
+                196733.51,
+                439931.89,
+                196833.51,
+                440031.89
+              ],
               "items": {
                 "type": "number"
               }
@@ -3024,6 +3054,7 @@
         "description": "Resultaten als lijst."
       },
       "IntegerFilter": {
+        "type": "object",
         "properties": {
           "min": {
             "type": "integer"
@@ -4365,7 +4396,6 @@
             196733.51,
             439931.89
           ],
-          "deprecated": true,
           "items": {
             "type": "number"
           }
@@ -4567,8 +4597,33 @@
           "maxItems": 6,
           "minItems": 4,
           "type": "array",
+          "example": [
+            196733.51,
+            439931.89,
+            196833.51,
+            440031.89
+          ],
           "items": {
             "type": "number"
+          }
+        }
+      },
+      "pandIdentificaties": {
+        "name": "pandIdentificaties",
+        "in": "query",
+        "description": "Een lijst met identificaties van panden uit de BAG.",
+        "required": false,
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "example": [
+            "0226100000008856"
+          ],
+          "items": {
+            "pattern": "^[0-9]{16}$",
+            "type": "string"
           }
         }
       },

@@ -902,8 +902,9 @@ paths:
         \ of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie\
         \ aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische\
         \ contour (rechthoek) in combinatie met status geconstateerd, oppervlakte,\
-        \ gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke\
-        \ velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ gebruiksdoel en/of type of\n5. een lijst met pandidentificaties.\n\nGebruik\
+        \ de fields-parameter als je alleen specifieke velden in het antwoord wil\
+        \ zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
         \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
         \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
         \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
@@ -1046,6 +1047,11 @@ paths:
           maxItems: 6
           minItems: 4
           type: array
+          example:
+          - 196733.51
+          - 439931.89
+          - 196833.51
+          - 440031.89
           items:
             type: number
       - name: oppervlakte
@@ -1057,6 +1063,20 @@ paths:
         explode: true
         schema:
           $ref: '#/components/schemas/IntegerFilter'
+      - name: pandIdentificaties
+        in: query
+        description: Een lijst met identificaties van panden uit de BAG.
+        required: false
+        style: form
+        explode: false
+        schema:
+          minItems: 1
+          type: array
+          example:
+          - "0226100000008856"
+          items:
+            pattern: ^[0-9]{16}$
+            type: string
       responses:
         "200":
           description: Geslaagd
@@ -2056,7 +2076,6 @@ paths:
           example:
           - 196733.51
           - 439931.89
-          deprecated: true
           items:
             type: number
       - name: fields
@@ -2098,6 +2117,11 @@ paths:
           maxItems: 6
           minItems: 4
           type: array
+          example:
+          - 196733.51
+          - 439931.89
+          - 196833.51
+          - 440031.89
           items:
             type: number
       - name: statusPand
@@ -2322,6 +2346,7 @@ components:
                 $ref: '#/components/schemas/ZoekResultaatHal'
       description: Resultaten als lijst.
     IntegerFilter:
+      type: object
       properties:
         min:
           type: integer
@@ -3332,7 +3357,6 @@ components:
         example:
         - 196733.51
         - 439931.89
-        deprecated: true
         items:
           type: number
     nummeraanduidingIdentificatie-query:
@@ -3520,8 +3544,28 @@ components:
         maxItems: 6
         minItems: 4
         type: array
+        example:
+        - 196733.51
+        - 439931.89
+        - 196833.51
+        - 440031.89
         items:
           type: number
+    pandIdentificaties:
+      name: pandIdentificaties
+      in: query
+      description: Een lijst met identificaties van panden uit de BAG.
+      required: false
+      style: form
+      explode: false
+      schema:
+        minItems: 1
+        type: array
+        example:
+        - "0226100000008856"
+        items:
+          pattern: ^[0-9]{16}$
+          type: string
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path
