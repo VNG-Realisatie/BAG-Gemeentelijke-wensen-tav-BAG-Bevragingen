@@ -13,7 +13,7 @@
       "name": "European Union Public License, version 1.2 (EUPL-1.2)",
       "url": "https://eupl.eu/1.2/nl/"
     },
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "servers": [
     {
@@ -274,7 +274,7 @@
           "Adres"
         ],
         "summary": "vindt adressen",
-        "description": "Vind een actueel adres met de identificatie van het zoekresultaat uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie. \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte en adresseerbaarobject,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature). Het is niet mogelijk om adresseerbare objecten te expanden wanneer de query parameter adresseerbaarObjectIdentificatie wordt gebruikt.",
+        "description": "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3. Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte en adresseerbaarobject,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature). Je kunt adresseerbare objecten niet expanden als je tegelijkertijd de query parameter adresseerbaarObjectIdentificatie gebruikt.",
         "operationId": "raadpleegAdressen",
         "parameters": [
           {
@@ -352,6 +352,72 @@
               "minimum": 1,
               "type": "integer",
               "default": 20
+            }
+          },
+          {
+            "name": "postcode",
+            "in": "query",
+            "description": "Postcode van het adres.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$",
+              "type": "string",
+              "example": "6922KZ"
+            }
+          },
+          {
+            "name": "huisnummer",
+            "in": "query",
+            "description": "Huisnummer van het adres.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "maximum": 99999,
+              "minimum": 1,
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "huisletter",
+            "in": "query",
+            "description": "Een toevoeging (in de vorm van een letter) aan een huisnummer van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer en A de huisletter.\n",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[a-zA-Z]{1}$",
+              "type": "string",
+              "example": "A"
+            }
+          },
+          {
+            "name": "huisnummertoevoeging",
+            "in": "query",
+            "description": "Een toevoeging (in de vorm van maximaal 4 cijfers of letters) aan een huisnummer of een combinatie van huisnummer en huisletter van het adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "pattern": "^[0-9a-zA-Z]{1,4}$",
+              "type": "string",
+              "example": "bis"
+            }
+          },
+          {
+            "name": "exacteMatch",
+            "in": "query",
+            "description": "\"Geeft aan of de resultaten van de zoekopdracht exact overeen moeten komen met de opgegeven parameters, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature).\"",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "example": true,
+              "default": false
             }
           }
         ],
@@ -1094,7 +1160,7 @@
           "Adresseerbaar object"
         ],
         "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
-        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie. \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature). Het is niet mogelijk om panden te expanden wanneer de query parameter pandIdentificatie wordt gebruikt.",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n3. een lijst met pandidentificaties of\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature). Je kunt panden niet expanden als je tegelijkertijd de query parameter pandIdentificatie(s) gebruikt.",
         "operationId": "raadpleegAdresseerbareobjecten",
         "parameters": [
           {
@@ -1170,6 +1236,25 @@
               "minimum": 1,
               "type": "integer",
               "default": 20
+            }
+          },
+          {
+            "name": "pandIdentificaties",
+            "in": "query",
+            "description": "Een lijst met identificaties van panden uit de BAG.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "example": [
+                "0226100000008856"
+              ],
+              "items": {
+                "pattern": "^[0-9]{16}$",
+                "type": "string"
+              }
             }
           }
         ],
@@ -1405,7 +1490,7 @@
           {
             "name": "woonplaatsidentificatie",
             "in": "path",
-            "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
+            "description": "De identificatie van een woonplaats.",
             "required": true,
             "style": "simple",
             "explode": false,
@@ -2451,7 +2536,7 @@
           "Pand"
         ],
         "summary": "vindt panden",
-        "description": "Zoek actuele panden met de identificatie van een adresseerbaar object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
+        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status of geconstateerd.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegPanden",
         "parameters": [
           {
@@ -2526,6 +2611,55 @@
             "schema": {
               "$ref": "#/components/schemas/CrsEnum"
             }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 6,
+              "minItems": 4,
+              "type": "array",
+              "example": [
+                196733.51,
+                439931.89,
+                196833.51,
+                440031.89
+              ],
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "statusPand",
+            "in": "query",
+            "description": "Status van het pand.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StatusPandEnum"
+              }
+            }
+          },
+          {
+            "name": "geconstateerd",
+            "in": "query",
+            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "responses": {
@@ -2537,6 +2671,12 @@
               },
               "warning": {
                 "$ref": "#/components/headers/warning"
+              },
+              "X-Pagination-Page": {
+                "$ref": "#/components/headers/X_Pagination_Page"
+              },
+              "X-Pagination-Limit": {
+                "$ref": "#/components/headers/X_Pagination_Limit"
               },
               "Content-Crs": {
                 "$ref": "#/components/headers/contentCrs"
@@ -2669,29 +2809,6 @@
                   "detail": "The precondition given in one or more of the request-header fields evaluated to false when it was tested on the server.",
                   "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
                   "code": "preconditionFailed"
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "headers": {
-              "api-version": {
-                "$ref": "#/components/headers/api_version"
-              }
-            },
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Foutbericht"
-                },
-                "example": {
-                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16",
-                  "title": "Unsupported Media Type",
-                  "status": 415,
-                  "detail": "The server is refusing the request because the entity of the request is in a format not supported by the requested resource for the requested method.",
-                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
-                  "code": "unsupported"
                 }
               }
             }
@@ -2860,7 +2977,7 @@
             "example": "Duiven"
           }
         },
-        "description": "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's waarin adresgegevens worden opgenomen. "
+        "description": "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's met adresgegevens."
       },
       "AdresUitgebreid": {
         "allOf": [
@@ -2905,9 +3022,11 @@
               "pandIdentificaties": {
                 "type": "array",
                 "description": "Identificatie(s) van het pand of de panden waar het verblijfsobject deel van is.",
+                "example": [
+                  "0226100000008856"
+                ],
                 "items": {
-                  "type": "string",
-                  "example": "0226100000008856"
+                  "type": "string"
                 }
               },
               "isNevenadres": {
@@ -2929,6 +3048,12 @@
       "AdresMogelijkOnjuist": {
         "type": "object",
         "properties": {
+          "adresregel1": {
+            "type": "boolean"
+          },
+          "adresregel2": {
+            "type": "boolean"
+          },
           "korteNaam": {
             "type": "boolean"
           },
@@ -3102,9 +3227,11 @@
           "pandIdentificaties": {
             "type": "array",
             "description": "Identificatie(s) van het pand of de panden waar het verblijfsobject deel van is.",
+            "example": [
+              "0226100000008856"
+            ],
             "items": {
-              "type": "string",
-              "example": "0226100000008856"
+              "type": "string"
             }
           },
           "nummeraanduidingIdentificaties": {
@@ -3662,9 +3789,11 @@
           },
           "adresseerbaarObjectIdentificaties": {
             "type": "array",
+            "example": [
+              "0226010000038820"
+            ],
             "items": {
-              "type": "string",
-              "example": "0226010000038820"
+              "type": "string"
             }
           },
           "nummeraanduidingIdentificaties": {
@@ -3740,7 +3869,7 @@
         "type": "object",
         "properties": {
           "_links": {
-            "$ref": "#/components/schemas/HalCollectionLinks"
+            "$ref": "#/components/schemas/HalPaginationLinksMetLast"
           },
           "_embedded": {
             "type": "object",
@@ -3764,7 +3893,6 @@
       },
       "StatusPandEnum": {
         "type": "string",
-        "description": "Een codering van de verschillende waarden die de status van een pand kan aannemen.",
         "enum": [
           "Bouwvergunning verleend",
           "Bouw gestart",
@@ -4188,6 +4316,140 @@
           "example": "0226010000038820"
         }
       },
+      "postcode": {
+        "name": "postcode",
+        "in": "query",
+        "description": "Postcode van het adres.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "pattern": "^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$",
+          "type": "string",
+          "example": "6922KZ"
+        }
+      },
+      "huisnummer": {
+        "name": "huisnummer",
+        "in": "query",
+        "description": "Huisnummer van het adres.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "maximum": 99999,
+          "minimum": 1,
+          "type": "integer",
+          "example": 1
+        }
+      },
+      "huisnummertoevoeging": {
+        "name": "huisnummertoevoeging",
+        "in": "query",
+        "description": "Een toevoeging (in de vorm van maximaal 4 cijfers of letters) aan een huisnummer of een combinatie van huisnummer en huisletter van het adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "pattern": "^[0-9a-zA-Z]{1,4}$",
+          "type": "string",
+          "example": "bis"
+        }
+      },
+      "huisletter": {
+        "name": "huisletter",
+        "in": "query",
+        "description": "Een toevoeging (in de vorm van een letter) aan een huisnummer van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer en A de huisletter.\n",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "pattern": "^[a-zA-Z]{1}$",
+          "type": "string",
+          "example": "A"
+        }
+      },
+      "exacteMatch": {
+        "name": "exacteMatch",
+        "in": "query",
+        "description": "\"Geeft aan of de resultaten van de zoekopdracht exact overeen moeten komen met de opgegeven parameters, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature).\"",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "boolean",
+          "example": true,
+          "default": false
+        }
+      },
+      "pandIdentificaties": {
+        "name": "pandIdentificaties",
+        "in": "query",
+        "description": "Een lijst met identificaties van panden uit de BAG.",
+        "required": false,
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "example": [
+            "0226100000008856"
+          ],
+          "items": {
+            "pattern": "^[0-9]{16}$",
+            "type": "string"
+          }
+        }
+      },
+      "geconstateerd": {
+        "name": "geconstateerd",
+        "in": "query",
+        "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "statusPand": {
+        "name": "statusPand",
+        "in": "query",
+        "description": "Status van het pand.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/StatusPandEnum"
+          }
+        }
+      },
+      "bbox": {
+        "name": "bbox",
+        "in": "query",
+        "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+        "required": false,
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "maxItems": 6,
+          "minItems": 4,
+          "type": "array",
+          "example": [
+            196733.51,
+            439931.89,
+            196833.51,
+            440031.89
+          ],
+          "items": {
+            "type": "number"
+          }
+        }
+      },
       "nummeraanduidingidentificatie": {
         "name": "nummeraanduidingidentificatie",
         "in": "path",
@@ -4230,7 +4492,7 @@
       "woonplaatsidentificatie": {
         "name": "woonplaatsidentificatie",
         "in": "path",
-        "description": "Identificatie van een object uit de BAG. Deze is 4 cijfers lang.",
+        "description": "De identificatie van een woonplaats.",
         "required": true,
         "style": "simple",
         "explode": false,
