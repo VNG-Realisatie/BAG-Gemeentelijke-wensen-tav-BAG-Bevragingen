@@ -255,6 +255,7 @@ paths:
          
         3. een lijst met pandidentificaties.
 
+
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). 
         
@@ -506,11 +507,6 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
-        - $ref: '#/components/parameters/bbox'
-        - $ref: '#/components/parameters/statusPand'
-        - $ref: '#/components/parameters/geconstateerd'
-        - $ref: '#/components/parameters/bouwjaar'
-
       responses:
         '200':
           description: "Geslaagd"
@@ -519,10 +515,6 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/warning'
-            X-Pagination-Page:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
-            X-Pagination-Limit:
-              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Limit'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -781,17 +773,6 @@ components:
               items:
                 $ref: '#/components/schemas/ZoekResultaatHal'
 
-    IntegerFilter:
-      description: >-
-        Geeft aan met welke waarden je kunt zoeken.
-        Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde.
-        Met `max` zoek je naar waarden kleiner dan de opgegeven waarde.
-      properties:
-        min:
-          type: integer
-        max:
-          type: integer
-
     Adres:
       type: object
       description: "Eigenschappen van het adres die kunnen worden hergebruikt in andere API's met adresgegevens."
@@ -956,8 +937,6 @@ components:
           $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-        adresseerbaarObject:
-          $ref: '#/components/schemas/AdresseerbaarObjectHalBasis'
 
     AdresseerbaarObject:
       type: object
@@ -1436,7 +1415,7 @@ components:
       type: object
       properties:
         _links:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks'
         _embedded:
           type: object
           properties:
