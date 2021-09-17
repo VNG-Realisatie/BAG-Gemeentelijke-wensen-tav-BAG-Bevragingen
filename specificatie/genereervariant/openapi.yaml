@@ -1976,7 +1976,6 @@ paths:
           example:
           - 196733.51
           - 439931.89
-          deprecated: true
           items:
             type: number
       - name: fields
@@ -2002,53 +2001,6 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/CrsEnum'
-      - name: bbox
-        in: query
-        description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
-          de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen.
-          Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
-          In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt
-          hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan
-          te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van
-          de bounding box mag maximaal 250 duizend vierkante meter zijn.
-        required: false
-        style: form
-        explode: false
-        schema:
-          maxItems: 6
-          minItems: 4
-          type: array
-          items:
-            type: number
-      - name: statusPand
-        in: query
-        description: Status van het pand.
-        required: false
-        style: form
-        explode: true
-        schema:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusPandEnum'
-      - name: geconstateerd
-        in: query
-        description: Geef aan of je naar een geconstateerd object wilt zoeken.
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: boolean
-          default: false
-      - name: bouwjaar
-        in: query
-        description: 'Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar
-          van het pand op waarnaar je wilt zoeken.  Bv: bouwjaar[min]=1970&bouwjaar[max]=2010'
-        required: false
-        style: deepObject
-        explode: true
-        schema:
-          $ref: '#/components/schemas/IntegerFilter'
       responses:
         "200":
           description: Geslaagd
@@ -2057,10 +2009,6 @@ paths:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
-            X-Pagination-Page:
-              $ref: '#/components/headers/X_Pagination_Page'
-            X-Pagination-Limit:
-              $ref: '#/components/headers/X_Pagination_Limit'
             Content-Crs:
               $ref: '#/components/headers/contentCrs'
           content:
@@ -2241,15 +2189,6 @@ components:
               items:
                 $ref: '#/components/schemas/ZoekResultaatHal'
       description: Resultaten als lijst.
-    IntegerFilter:
-      properties:
-        min:
-          type: integer
-        max:
-          type: integer
-      description: Geeft aan met welke waarden je kunt zoeken. Met `min` zoek je naar
-        waarden groter of gelijk aan de opgegeven waarde. Met `max` zoek je naar waarden
-        kleiner dan de opgegeven waarde.
     Adres:
       type: object
       properties:
@@ -2430,8 +2369,6 @@ components:
           $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-        adresseerbaarObject:
-          $ref: '#/components/schemas/AdresseerbaarObjectHalBasis'
     AdresseerbaarObject:
       type: object
       properties:
@@ -2946,7 +2883,7 @@ components:
       type: object
       properties:
         _links:
-          $ref: '#/components/schemas/HalPaginationLinksMetLast'
+          $ref: '#/components/schemas/HalCollectionLinks'
         _embedded:
           type: object
           properties:
@@ -3074,9 +3011,9 @@ components:
     CrsEnum:
       type: string
       description: CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.
+      default: epsg:28992
       enum:
       - epsg:28992
-      default: epsg:28992
     HalLink:
       required:
       - href
@@ -3252,7 +3189,6 @@ components:
         example:
         - 196733.51
         - 439931.89
-        deprecated: true
         items:
           type: number
     nummeraanduidingIdentificatie-query:
