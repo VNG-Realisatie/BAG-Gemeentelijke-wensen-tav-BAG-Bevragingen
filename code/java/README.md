@@ -1,8 +1,8 @@
 # openapi-java-client
 
 Huidige bevragingen API
-- API version: 1.2.0
-  - Build date: 2021-08-13T14:23:53.711227Z[Etc/UTC]
+- API version: 1.3.0
+  - Build date: 2021-09-21T08:58:29.540417Z[Etc/UTC]
 
 Deze API levert actuele gegevens over adressen, adresseerbare objecten en panden. Actueel betekent in deze API `zonder eindstatus`. De bron voor deze API is de basisregistratie adressen en gebouwen (BAG).
 
@@ -41,7 +41,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -51,7 +51,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "org.openapitools:openapi-java-client:1.2.0"
+compile "org.openapitools:openapi-java-client:1.3.0"
 ```
 
 ### Others
@@ -64,7 +64,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-1.2.0.jar`
+* `target/openapi-java-client-1.3.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

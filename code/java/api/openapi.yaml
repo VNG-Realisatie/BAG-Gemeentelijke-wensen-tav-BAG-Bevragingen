@@ -12,7 +12,7 @@ info:
     url: https://eupl.eu/1.2/nl/
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
   title: Huidige bevragingen API
-  version: 1.2.0
+  version: 1.3.0
 servers:
 - description: LVBAG - ACCEPTATIE
   url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1
@@ -200,13 +200,18 @@ paths:
       x-accepts: application/hal+json,application/problem+json
   /adressen:
     get:
-      description: Vind een actueel adres met de identificatie van het zoekresultaat
-        uit de operatie get /adressen/zoek, de pandidentificatie of de adresseerbaarobjectidentificatie.
-        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
-        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
-        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
-        van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,
-        zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+      description: "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat\
+        \ uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3.\
+        \ Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en\
+        \ optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik\
+        \ de fields-parameter als je alleen specifieke velden in het antwoord wil\
+        \ zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
+        \ van) de gerelateerde resources nummeraanduiding, woonplaats en openbare\
+        \ ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\n\
+        Gebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die\
+        \ exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties\
+        \ exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature)."
       operationId: raadpleegAdressen
       parameters:
       - description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
@@ -284,6 +289,64 @@ paths:
           maximum: 100
           minimum: 1
           type: integer
+        style: form
+      - description: Postcode van het adres.
+        explode: true
+        in: query
+        name: postcode
+        required: false
+        schema:
+          example: 6922KZ
+          pattern: ^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$
+          type: string
+        style: form
+      - description: Huisnummer van het adres.
+        explode: true
+        in: query
+        name: huisnummer
+        required: false
+        schema:
+          example: 1
+          maximum: 99999
+          minimum: 1
+          type: integer
+        style: form
+      - description: "Een toevoeging (in de vorm van een letter) aan een huisnummer\
+          \ van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
+          \ is 1 het huisnummer en A de huisletter.\n"
+        explode: true
+        in: query
+        name: huisletter
+        required: false
+        schema:
+          example: A
+          pattern: ^[a-zA-Z]{1}$
+          type: string
+        style: form
+      - description: "Een toevoeging (in de vorm van maximaal 4 cijfers of letters)\
+          \ aan een huisnummer of een combinatie van huisnummer en huisletter van\
+          \ het adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
+          \ is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n"
+        explode: true
+        in: query
+        name: huisnummertoevoeging
+        required: false
+        schema:
+          example: bis
+          pattern: ^[0-9a-zA-Z]{1,4}$
+          type: string
+        style: form
+      - description: '"Geeft aan of de resultaten van de zoekopdracht exact overeen
+          moeten komen met de opgegeven parameters, zie [functionele specificatie
+          exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."'
+        explode: true
+        in: query
+        name: exacteMatch
+        required: false
+        schema:
+          default: false
+          example: true
+          type: boolean
         style: form
       responses:
         "200":
@@ -427,12 +490,12 @@ paths:
       x-accepts: application/hal+json,application/problem+json
   /adressen/{nummeraanduidingidentificatie}:
     get:
-      description: Raadpleeg een actueel adres met de nummeraanduidingidentificatie.
-        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
-        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
-        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
-        van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,
-        zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+      description: "Raadpleeg een actueel adres met de nummeraanduidingidentificatie.\
+        \ \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord\
+        \ wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
+        \ van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte,\
+        \ adresseerbaarobject,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
       operationId: raadpleegAdresMetNumId
       parameters:
       - description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
@@ -854,13 +917,14 @@ paths:
       x-accepts: application/hal+json,application/problem+json
   /adresseerbareobjecten:
     get:
-      description: Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen
-        of ligplaatsen) met een nummeraanduidingidentificatie of pandidentificatie.
-        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord
-        wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
-        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen
-        van) de gerelateerde resources adres en pand, zie [functionele specificaties
-        expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen\
+        \ of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie\
+        \ of\n \n3. een lijst met pandidentificaties.\n\nGebruik de fields-parameter\
+        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
+        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
+        \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
+        \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
       operationId: raadpleegAdresseerbareobjecten
       parameters:
       - description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16
@@ -937,6 +1001,20 @@ paths:
           maximum: 100
           minimum: 1
           type: integer
+        style: form
+      - description: Een lijst met identificaties van panden uit de BAG.
+        explode: false
+        in: query
+        name: pandIdentificaties
+        required: false
+        schema:
+          example:
+          - "0226100000008856"
+          items:
+            pattern: ^[0-9]{16}$
+            type: string
+          minItems: 1
+          type: array
         style: form
       responses:
         "200":
@@ -1107,7 +1185,7 @@ paths:
         resource geometrie, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegWoonplaats
       parameters:
-      - description: Identificatie van een object uit de BAG. Deze is 4 cijfers lang.
+      - description: De identificatie van een woonplaats.
         explode: false
         in: path
         name: woonplaatsidentificatie
@@ -1903,10 +1981,13 @@ paths:
       x-accepts: application/hal+json,application/problem+json
   /panden:
     get:
-      description: Zoek actuele panden met de identificatie van een adresseerbaar
-        object, nummeraanduiding of een locatie. Gebruik de fields-parameter als je
-        alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties
-        fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
+      description: |-
+        Zoek actuele panden:
+        1. met de identificatie van een adresseerbaar object of
+        2. met de identificatie van een nummeraanduiding of
+        3. met een locatie (punt)
+
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       operationId: raadpleegPanden
       parameters:
       - description: De identificatie van een adresseerbaar object uit de BAG. Deze
@@ -2084,24 +2165,6 @@ paths:
           headers:
             api-version:
               $ref: '#/components/headers/api_version'
-        "415":
-          content:
-            application/problem+json:
-              example:
-                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16
-                title: Unsupported Media Type
-                status: 415
-                detail: The server is refusing the request because the entity of the
-                  request is in a format not supported by the requested resource for
-                  the requested method.
-                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-                code: unsupported
-              schema:
-                $ref: '#/components/schemas/Foutbericht'
-          description: Unsupported Media Type
-          headers:
-            api-version:
-              $ref: '#/components/headers/api_version'
         "500":
           content:
             application/problem+json:
@@ -2267,6 +2330,84 @@ components:
         pattern: ^[0-9]{16}$
         type: string
       style: form
+    postcode:
+      description: Postcode van het adres.
+      explode: true
+      in: query
+      name: postcode
+      required: false
+      schema:
+        example: 6922KZ
+        pattern: ^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$
+        type: string
+      style: form
+    huisnummer:
+      description: Huisnummer van het adres.
+      explode: true
+      in: query
+      name: huisnummer
+      required: false
+      schema:
+        example: 1
+        maximum: 99999
+        minimum: 1
+        type: integer
+      style: form
+    huisnummertoevoeging:
+      description: "Een toevoeging (in de vorm van maximaal 4 cijfers of letters)\
+        \ aan een huisnummer of een combinatie van huisnummer en huisletter van het\
+        \ adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
+        \ is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n"
+      explode: true
+      in: query
+      name: huisnummertoevoeging
+      required: false
+      schema:
+        example: bis
+        pattern: ^[0-9a-zA-Z]{1,4}$
+        type: string
+      style: form
+    huisletter:
+      description: "Een toevoeging (in de vorm van een letter) aan een huisnummer\
+        \ van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
+        \ is 1 het huisnummer en A de huisletter.\n"
+      explode: true
+      in: query
+      name: huisletter
+      required: false
+      schema:
+        example: A
+        pattern: ^[a-zA-Z]{1}$
+        type: string
+      style: form
+    exacteMatch:
+      description: '"Geeft aan of de resultaten van de zoekopdracht exact overeen
+        moeten komen met de opgegeven parameters, zie [functionele specificatie exacte
+        match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."'
+      explode: true
+      in: query
+      name: exacteMatch
+      required: false
+      schema:
+        default: false
+        example: true
+        type: boolean
+      style: form
+    pandIdentificaties:
+      description: Een lijst met identificaties van panden uit de BAG.
+      explode: false
+      in: query
+      name: pandIdentificaties
+      required: false
+      schema:
+        example:
+        - "0226100000008856"
+        items:
+          pattern: ^[0-9]{16}$
+          type: string
+        minItems: 1
+        type: array
+      style: form
     nummeraanduidingidentificatie:
       description: Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers
         lang.
@@ -2304,7 +2445,7 @@ components:
         type: string
       style: simple
     woonplaatsidentificatie:
-      description: Identificatie van een object uit de BAG. Deze is 4 cijfers lang.
+      description: De identificatie van een woonplaats.
       explode: false
       in: path
       name: woonplaatsidentificatie
@@ -2357,8 +2498,8 @@ components:
           $ref: '#/components/schemas/ZoekResultaatHalCollectie__embedded'
       type: object
     Adres:
-      description: 'Eigenschappen van het adres die kunnen worden hergebruikt in andere
-        API''s waarin adresgegevens worden opgenomen. '
+      description: Eigenschappen van het adres die kunnen worden hergebruikt in andere
+        API's met adresgegevens.
       properties:
         straat:
           description: Een naam die door de gemeente aan een openbare ruimte is gegeven.
@@ -2516,8 +2657,9 @@ components:
         pandIdentificaties:
           description: Identificatie(s) van het pand of de panden waar het verblijfsobject
             deel van is.
+          example:
+          - "0226100000008856"
           items:
-            example: "0226100000008856"
             type: string
           type: array
         nummeraanduidingIdentificaties:
@@ -2919,8 +3061,9 @@ components:
           example: 09.BW.0273
           type: string
         adresseerbaarObjectIdentificaties:
+          example:
+          - "0226010000038820"
           items:
-            example: "0226010000038820"
             type: string
           type: array
         nummeraanduidingIdentificaties:
@@ -2978,8 +3121,6 @@ components:
       - Naamgeving uitgegeven
       type: string
     StatusPandEnum:
-      description: Een codering van de verschillende waarden die de status van een
-        pand kan aannemen.
       enum:
       - Bouwvergunning verleend
       - Bouw gestart
@@ -3269,8 +3410,9 @@ components:
         pandIdentificaties:
           description: Identificatie(s) van het pand of de panden waar het verblijfsobject
             deel van is.
+          example:
+          - "0226100000008856"
           items:
-            example: "0226100000008856"
             type: string
           type: array
         isNevenadres:
