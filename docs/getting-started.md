@@ -64,8 +64,11 @@ Wanneer je alle adressen in een pand wilt zoeken, kan je dit doen met /adressen?
 
 Aangezien dit veel adressen kan opleveren, wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"} toegepast.
 
+Met dit endpoint kun je ook zoeken op postcode, huisnummer, huisletter en huisnummertoevoeging.
+De manier waarop je met de parameter exacteMatch kunt zoeken, kun je vinden in de feature.
+
 #### Geometrie van een woonplaats
-De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt bij het raadplegen van een woonplaats standaard de geometrie niet meegeleverd. Wanneer je de geometrie van de woonplaats wel geleverd wilt krijgen, dan moet bij de aanvraag de expand parameter worden gebruikt. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
+De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt de geometrie niet standaard met een woonplaats meegeleverd. Wanneer je de geometrie van de woonplaats wel wilt krijgen, dan moet je de expand parameter gebruiken. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
 
 ### Algemene functionaliteit
 Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande aanvragen:
@@ -84,7 +87,7 @@ We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-pos
 
 ### API key
 Om de API te kunnen bevragen is een API key nodig. Deze moet je bij het request opnemen in request header "X-Api-Key".
-[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. 
+[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}.
 
 ### Testgevallen
 Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de werking van de API kan worden getest.
@@ -106,7 +109,7 @@ Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de
 | panden                | Met nevenadres                                                                   | /panden/0014100010921152                |
 | panden                | Zonder adres                                                                     | /panden/0503100000034877                |
 
-Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken. 
+Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
