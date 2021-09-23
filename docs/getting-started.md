@@ -64,11 +64,11 @@ Wanneer je alle adressen in een pand wilt zoeken, kan je dit doen met /adressen?
 
 Aangezien dit veel adressen kan opleveren, wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"} toegepast.
 
-Met dit endpoint kan je ook zoeken op postcode, huisnummer, huisletter en huisnummertoevoeging.
-De wijze waarop met deze parameters gezocht kan worden is te sturen met de parameter exacteMatch. Zie de betreffende feature voor nadere toelichting.
+Met dit endpoint kun je ook zoeken op postcode, huisnummer, huisletter en huisnummertoevoeging.
+De manier waarop je met de parameter exacteMatch kunt zoeken, kun je vinden in de feature.
 
 #### Geometrie van een woonplaats
-De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt bij het raadplegen van een woonplaats standaard de geometrie niet meegeleverd. Wanneer je de geometrie van de woonplaats wel geleverd wilt krijgen, dan moet bij de aanvraag de expand parameter worden gebruikt. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
+De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt de geometrie niet standaard met een woonplaats meegeleverd. Wanneer je de geometrie van de woonplaats wel wilt krijgen, dan moet je de expand parameter gebruiken. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
 
 ### Algemene functionaliteit
 Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande aanvragen:
