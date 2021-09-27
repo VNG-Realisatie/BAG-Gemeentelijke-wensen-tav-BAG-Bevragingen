@@ -13,4 +13,5 @@ title: User Stories in Ontwikkeling
 - [Als medewerker Pandbrigade wil ik selecties kunnen maken op panden en adresseerbaar objecten in een gebied met de status geconstateerd in combinatie met gebruiksdoel en type](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/331){:target="_blank" rel="noopener"}
 - [Als medewerker gebiedsontwikkeling wil ik op basis van bepaalde kenmerken van appartements-adressen/verblijfsobjecten zoals bouwjaar Pand (en energielabel) in een bepaald gebied kunnen zoeken](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/306){:target="_blank" rel="noopener"}
 - [Als medewerker stadsbeheer wil ik bewoners in een bepaald gebied kunnen aanschrijven ](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/19){:target="_blank" rel="noopener"}
+- [Als medewerker monumentenzorg wil ik het perceel of het pand kunnen aanwijzen op de kaart ](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/4){:target="_blank" rel="noopener"}
 
