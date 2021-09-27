@@ -5,17 +5,17 @@ title: User Stories in Productie
 
 # User stories
 
+## Vanaf versie 1.3
+
 - [Als gebruikers van de API wil ik exact kunnen zoeken zoeken op postcode en huisnummer](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/404){:target="_blank" rel="noopener"}
-- [Als gebruiker van de API wil ik bij het vragen van een adres direct het bijbehorende adresseerbaar object krijgen](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/403)## Vanaf versie 1.3
+- [Als gebruiker van de API wil ik bij het vragen van een adres direct het bijbehorende adresseerbaar object krijgen](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/403){:target="_blank" rel="noopener"}
 
-
+## Vanaf versie 1.2
 
 - [als developer van de BRK API wil ik de korteNaam kunnen leveren bij het adres van een kadastraal  object](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/363){:target="_blank" rel="noopener"}
 - [als gebruiker wil ik het samengesteld adres krijgen](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/360){:target="_blank" rel="noopener"}
 - [Als gebruiker wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/294){:target="_blank" rel="noopener"}
-- [Expand gerelateerde resource als relatie in onderzoek is](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293)## Vanaf versie 1.2
-
-
+- [Expand gerelateerde resource als relatie in onderzoek is](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293){:target="_blank" rel="noopener"}
 
 ## Vanaf versie 1.1
 
@@ -35,9 +35,7 @@ title: User Stories in Productie
 - [Als medewerker splitsingsvergunning wil ik weten of de adressen in de aanvraag overeenkomen met de adressen in de BAG](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/5){:target="_blank" rel="noopener"}
 - [Als medewerker monumentenzorg wil ik weten wat de kadastrale aanduiding is en wat het BAG ID is van een pand](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/3){:target="_blank" rel="noopener"}
 - [Als medewerker monumentenzorg wil ik weten van welk bouwjaar een pand is, wat de kadastrale aanduiding is, en welke adressen op het pand zijn uitgegeven](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/2){:target="_blank" rel="noopener"}
-- [Als medewerker monumentenzorg wil ik weten welke verblijfsobjecten, bergingen en parkeergarages in het pand zitten](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/1)## Vanaf versie 1.1
-
-
+- [Als medewerker monumentenzorg wil ik weten welke verblijfsobjecten, bergingen en parkeergarages in het pand zitten](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/1){:target="_blank" rel="noopener"}
 
 ## Vanaf versie 1.0
 
