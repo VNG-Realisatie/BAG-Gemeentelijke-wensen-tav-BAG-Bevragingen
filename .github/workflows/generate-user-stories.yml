@@ -69,17 +69,17 @@ jobs:
           cat issues-tmp.md >> user-stories-prod.md
           echo -e '\n' >> user-stories-prod.md
         
-      - name: List 'v1.0' user stories
-        uses: lee-dohm/select-matching-issues@v1.2.0
-        with:
-          format: list
-          query:  label:"v1.0" label:"User Story"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: issues-tmp.md
-      - run: |
-          echo -e '## Vanaf versie 1.0\n' >> user-stories-prod.md
-          cat issues-tmp.md >> user-stories-prod.md
-          echo -e '\n' >> user-stories-prod.md
+#      - name: List 'v1.0' user stories
+#        uses: lee-dohm/select-matching-issues@v1.2.0
+#        with:
+#          format: list
+#          query:  label:"v1.0" label:"User Story"
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          path: issues-tmp.md
+#      - run: |
+#          echo -e '## Vanaf versie 1.0\n' >> user-stories-prod.md
+#          cat issues-tmp.md >> user-stories-prod.md
+#          echo -e '\n' >> user-stories-prod.md
 
       - name: target=_blank toevoegen, move naar ./docs en committen
         run: |
