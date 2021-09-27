@@ -37,7 +37,3 @@ title: User Stories in Productie
 - [Als medewerker monumentenzorg wil ik weten van welk bouwjaar een pand is, wat de kadastrale aanduiding is, en welke adressen op het pand zijn uitgegeven](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/2){:target="_blank" rel="noopener"}
 - [Als medewerker monumentenzorg wil ik weten welke verblijfsobjecten, bergingen en parkeergarages in het pand zitten](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/1){:target="_blank" rel="noopener"}
 
-## Vanaf versie 1.0
-
-
-
