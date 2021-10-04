@@ -83,7 +83,7 @@ paths:
         - $ref: '#/components/parameters/pandIdentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
         - $ref: '#/components/parameters/zoekresultaatIdentificatie'
-        - $ref: '#/components/parameters/zoek'
+        - $ref: '#/components/parameters/q'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.1.0/api-specificatie/common.yaml#/components/parameters/page'
@@ -501,9 +501,19 @@ components:
       description: "Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging."
       name: zoek
       in: query
+      required: true
+      schema:
+        type: string
+
+    q:
+      description: "Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging."
+      name: q
+      in: query
       required: false
       schema:
         type: string
+        minLength: 0
+        maxLength: 255
 
     zoekresultaatIdentificatie:
       deprecated: true
