@@ -5,6 +5,41 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
+## Versie 1.3.0 (20-09-2021)
+In deze release is een bugfix opgenomen over "mogelijk onjuist" bij een adres. Naast wijzigingen in de API specificaties is een feature-file toegevoegd.
+
+### Opgeloste issues
+
+  | Link Github	| Beschrijving |
+  | --- | --- |
+  | [306](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/306) | Als medewerker gebiedsontwikkeling wil ik op basis van bepaalde kenmerken van appartements-adressen/verblijfsobjecten zoals bouwjaar Pand (en energielabel) in een bepaald gebied kunnen zoeken |
+  | [370](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/370) | Http status code 415 voor fout "Coördinatenstelsel {crs} in Content-Crs wordt niet ondersteund." incorrect |
+  | [404](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/404) | Als gebruikers van de API wil ik exact kunnen zoeken zoeken op postcode en huisnummer |
+
+
+
+## Versie 1.2.0 (22-06-2021)
+In deze release zijn enkele bugs in productie opgelost. Tevens zijn er enkele wijzigingen aan de API-specificaties en de feature-files aangebracht.
+Er worden nu adresregels geleverd met daarin het samengestelde adres.
+De Header Content-Crs is voorzien van een default waarde.
+Op /adressen worden de resultaten gesorteerd geretourneerd.  
+
+### Opgeloste issues
+
+  | Link Github	| Beschrijving |
+  | --- | --- |
+  | [234](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/234) | gebruik relatieve urls voor interne links |
+  | [293](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293) | Expand gerelateerde resource als relatie in onderzoek is |
+  | [294](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/294) | Als gebruiker (nader te bepalen) wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren |
+  | [309](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/309) | wijzigen description zoekparameter zoekresultaat get/adressen/zoek e.a. |
+  | [338](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/338) | Underscores verwijderen uit componentnamen en enumeratienamen. |
+  | [343](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/343) | Gebruiker mag niet worden verplicht om Accept-Crs te definieren |\
+  | [360](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/360) | Als gebruiker wil ik het samengesteld adres krijgen |  
+  | [363](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/363) | als developer van de BRK API wil ik de korteNaam kunnen leveren bij het adres van een kadastraal object |  
+  | [364](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/364) | toevoegen controle op minimale en maximale lengte invoer zoek |  
+  | [371](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/371) | Is Content-Crs noodzakelijk bij bevraging van panden endpoint |
+
+
 ## Versie 1.1.1 (03-03-2021)
 In deze release zijn enkele bugs in productie opgelost. Er zijn geen wijzigingen gedaan aan de API specificaties.
 
@@ -21,7 +56,7 @@ In deze release zijn enkele bugs in productie opgelost. Er zijn geen wijzigingen
 
 ### Opgeloste issues
   De volgende issues zijn in deze release opgelost.
-  
+
   | Link Github	| Beschrijving |
   | --- | --- |
   | [305](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/305) | Juiste foutmelding bij niet-toegestane combinatie van queryparameters |
@@ -34,11 +69,11 @@ In deze release zijn enkele bugs in productie opgelost. Er zijn geen wijzigingen
   De volgende issues staan nog open, oplossing volgt in een latere versie:
 
   | Link Github	| Beschrijving |
-  | --- | --- |
-  | -	| Opvragen nummeraanduiding die niet gekoppeld is aan een verblijfsobject|
-  | [234](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/234) | Interne URL’s in de response worden relatief (zijn nu allemaal absolute links) |
-  | [265](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/265) | Via fields-parameter opvragen van link zonder "\_links" toe te voegen |
-  | [293](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293) | Communiceren dat een relatie mogelijk onjuist is bij het met fields vragen om _links of met expand vragen om de gerelateerde resource |
+  | --- | --- | --- |
+
+
+
+
 
 
 ## Versie 1.0.0 (12-08-2020)
