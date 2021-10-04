@@ -252,12 +252,12 @@ paths:
         1. een nummeraanduidingidentificatie of
         
         2. een pandidentificatie of
-         
-        3. een lijst met pandidentificaties.
-
-        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
         
-        5. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of
+        3. een lijst met pandidentificaties of
+        
+        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type of
+         
+        5. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen.
         
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
@@ -505,9 +505,11 @@ paths:
         
         2. met de identificatie van een nummeraanduiding of
         
-        3. met een locatie (punt)
-
-
+        3. met een locatie (punt) of 
+        
+        4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.
+        
+         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       parameters:
@@ -521,7 +523,8 @@ paths:
         - $ref: '#/components/parameters/statusPand'
         - $ref: '#/components/parameters/geconstateerd'
         - $ref: '#/components/parameters/bouwjaar'
-
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/page'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/pageSize'
       responses:
         '200':
           description: "Geslaagd"
@@ -637,8 +640,12 @@ components:
       required: false
       schema:
         type: string
-        pattern: '^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$'
-        example: '6922KZ'
+        pattern: '^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$'
+      examples:
+        zonderSpatie:
+          value: '6922KZ'
+        metSpatie:
+          value: '6922 KZ'
 
     huisnummer:
       description: Huisnummer van het adres.
@@ -702,16 +709,6 @@ components:
         example: ['0226100000008856']
       explode: false  
 
-    woonplaatsIdentificatie-query:
-      description: "De identificatie van een woonplaats."
-      name: woonplaatsIdentificatie
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
-        example: '2096'
-
     geconstateerd:
       description: 'Geef aan of je naar een geconstateerd object wilt zoeken.'
       name: geconstateerd
@@ -719,7 +716,6 @@ components:
       required: false
       schema:
         type: boolean
-        default: false
         
     statusPand:
       description: "Status van het pand."
@@ -795,6 +791,16 @@ components:
           type: number
         example: [196733.510, 439931.890, 196833.510, 440031.890]
       explode: false
+
+    woonplaatsIdentificatie-query:
+      description: "De identificatie van een woonplaats."
+      name: woonplaatsIdentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
+        example: '2096'
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
