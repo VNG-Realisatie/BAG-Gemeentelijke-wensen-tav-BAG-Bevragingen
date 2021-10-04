@@ -782,6 +782,7 @@ components:
         Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen.
         Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
         In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn.
+        Daarnaast kan er alleen met 2D coördinaten worden gezocht.
         De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.
       name: bbox
       in: query
@@ -789,7 +790,7 @@ components:
       schema:
         type: array
         minItems: 4
-        maxItems: 6
+        maxItems: 4
         items:
           type: number
         example: [196733.510, 439931.890, 196833.510, 440031.890]
