@@ -82,13 +82,13 @@ paths:
       description: >-
         Vind een actueel adres met:
         
-        1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of
-        
-        2. Een pandidentificatie of 
-        
-        3. Een adresseerbaarobjectidentificatie of
-        
-        4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.
+        1. Een pandidentificatie of
+
+        2. Een adresseerbaarobjectidentificatie of
+
+        3. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.
+
+        4. Een zoekterm.
 
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, 
