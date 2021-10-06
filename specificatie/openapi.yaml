@@ -257,9 +257,7 @@ paths:
         
         4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type of
          
-        5. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of
-        
-        6. een vrije contour (polygoon).
+        5. een vrije contour (polygoon).
         
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
@@ -281,7 +279,7 @@ paths:
         - $ref: '#/components/parameters/gebruiksdoelen'
         - $ref: '#/components/parameters/bbox'
         - $ref: '#/components/parameters/oppervlakte'
-        - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
 # OPTIE 1:
 # Een eenvoudige oplossing waarbij de coördinaten van een polygoon in de URL van een GET operatie worden meegegeven.
 # Hier zitten wel wat randvoorwaarden aan:
@@ -373,6 +371,7 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/page'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/pageSize'
       responses:
@@ -886,16 +885,6 @@ components:
           type: number
         example: [196733.510, 439931.890, 196833.510, 440031.890]
       explode: false
-
-    woonplaatsIdentificatie-query:
-      description: "De identificatie van een woonplaats."
-      name: woonplaatsIdentificatie
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
-        example: '2096'
 
     polygoon:
       description: |

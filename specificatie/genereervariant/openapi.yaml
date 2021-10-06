@@ -902,10 +902,9 @@ paths:
         \ of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie\
         \ of\n3. een lijst met pandidentificaties of\n4. een geometrische contour\
         \ (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel\
-        \ en/of type of\n \n5. een status geconstateerd in combinatie met woonplaats\
-        \ identificatie aangevuld met type en één of meer gebruiksdoelen of\n6. een\
-        \ vrije contour (polygoon).\n\nGebruik de fields-parameter als je alleen specifieke\
-        \ velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ en/of type of\n \n5. een vrije contour (polygoon).\n\nGebruik de fields-parameter\
+        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
+        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
         \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
         \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
         \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
@@ -1054,16 +1053,13 @@ paths:
         explode: true
         schema:
           $ref: '#/components/schemas/IntegerFilter'
-      - name: woonplaatsIdentificatie
-        in: query
-        description: De identificatie van een woonplaats.
+      - name: Content-Crs
+        in: header
+        description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
+          Nederlands coordinatenstelsel.
         required: false
-        style: form
-        explode: true
         schema:
-          pattern: ^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$
-          type: string
-          example: "2096"
+          $ref: '#/components/schemas/CrsEnum'
       - name: polygoon
         in: query
         description: "Een vrije contour (polygoon) waarbinnen het object dat je zoekt\
@@ -1289,6 +1285,13 @@ paths:
       - name: Accept-Crs
         in: header
         description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          $ref: '#/components/schemas/CrsEnum'
+      - name: Content-Crs
+        in: header
+        description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
+          Nederlands coordinatenstelsel.
         required: false
         schema:
           $ref: '#/components/schemas/CrsEnum'
@@ -3815,17 +3818,6 @@ components:
         - 440031.89
         items:
           type: number
-    woonplaatsIdentificatie-query:
-      name: woonplaatsIdentificatie
-      in: query
-      description: De identificatie van een woonplaats.
-      required: false
-      style: form
-      explode: true
-      schema:
-        pattern: ^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$
-        type: string
-        example: "2096"
     polygoon:
       name: polygoon
       in: query
