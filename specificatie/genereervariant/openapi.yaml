@@ -287,9 +287,13 @@ paths:
         style: form
         explode: true
         schema:
-          pattern: ^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$
+          pattern: ^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$
           type: string
-          example: 6922KZ
+        examples:
+          zonderSpatie:
+            value: 6922KZ
+          metSpatie:
+            value: 6922 KZ
       - name: huisnummer
         in: query
         description: Huisnummer van het adres.
@@ -896,15 +900,12 @@ paths:
       summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
       description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen\
         \ of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie\
-        \ of\n \n3. een lijst met pandidentificaties.\n\nGebruik de fields-parameter\
-        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
-        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
-        \ of\n \n3. een status geconstateerd in combinatie met woonplaats identificatie\
-        \ aangevuld met type en één of meer gebruiksdoelen of\n4. een geometrische\
-        \ contour (rechthoek) in combinatie met status geconstateerd, oppervlakte,\
-        \ gebruiksdoel en/of type of\n5. een lijst met pandidentificaties.\n\nGebruik\
-        \ de fields-parameter als je alleen specifieke velden in het antwoord wil\
-        \ zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ of\n3. een lijst met pandidentificaties of\n4. een geometrische contour\
+        \ (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel\
+        \ en/of type of\n \n5. een status geconstateerd in combinatie met woonplaats\
+        \ identificatie aangevuld met type en één of meer gebruiksdoelen of\n6. een\
+        \ vrije contour (polygoon).\n\nGebruik de fields-parameter als je alleen specifieke\
+        \ velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
         \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
         \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
         \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
@@ -997,17 +998,6 @@ paths:
         explode: true
         schema:
           type: boolean
-          default: false
-      - name: woonplaatsIdentificatie
-        in: query
-        description: De identificatie van een woonplaats.
-        required: false
-        style: form
-        explode: true
-        schema:
-          pattern: ^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$
-          type: string
-          example: "2096"
       - name: type
         in: query
         description: Geeft aan of het adresseerbaar object een ligplaats, standplaats
@@ -1038,13 +1028,14 @@ paths:
           Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
           In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt
           hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan
-          te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van
-          de bounding box mag maximaal 250 duizend vierkante meter zijn.
+          te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen
+          met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag
+          maximaal 250 duizend vierkante meter zijn.
         required: false
         style: form
         explode: false
         schema:
-          maxItems: 6
+          maxItems: 4
           minItems: 4
           type: array
           example:
@@ -1063,20 +1054,267 @@ paths:
         explode: true
         schema:
           $ref: '#/components/schemas/IntegerFilter'
-      - name: pandIdentificaties
+      - name: woonplaatsIdentificatie
         in: query
-        description: Een lijst met identificaties van panden uit de BAG.
+        description: De identificatie van een woonplaats.
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$
+          type: string
+          example: "2096"
+      - name: polygoon
+        in: query
+        description: "Een vrije contour (polygoon) waarbinnen het object dat je zoekt\
+          \ valt. \nDe spatial operator die wordt toegepast is 'intersects'.\nHierdoor\
+          \ worden objecten die binnen de polygoon vallen, de polygoon overlappen,\
+          \ kruizen of de rand van de polygoon raken in het zoekresultaat meegenomen.\n\
+          Er kunnen alleen 2D coördinaten van één contour worden opgegeven, waarbij\
+          \ de coördinaten tegen de richting van de klok worden opgegeven, dit komt\
+          \ overeen met de exterior ring van een polygoon. \nHet minimum aantal coö\
+          rdinaten is 4 en om te voorkomen dat de URL te lang wordt, kunnen er maximaal\
+          \ 20 coördinaten worden opgegven waarbij het eerste en laatste punt hetzelfde\
+          \ moeten zijn.\nDe oppervlakte van de polygoon mag maximaal 250.000 vierkante\
+          \ meter zijn.\nDe contentCrs parameter wordt gebruikt om aan te geven in\
+          \ welk CRS de coördinaten van de polygoon zijn.\n"
         required: false
         style: form
         explode: false
         schema:
-          minItems: 1
+          maxItems: 40
+          minItems: 8
           type: array
           example:
-          - "0226100000008856"
+          - 196733.51
+          - 439931.89
+          - 196833.51
+          - 439931.89
+          - 196833.51
+          - 440031.89
+          - 196733.51
+          - 440031.89
           items:
-            pattern: ^[0-9]{16}$
-            type: string
+            type: number
+      responses:
+        "200":
+          description: Geslaagd
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+            warning:
+              $ref: '#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: '#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: '#/components/headers/X_Pagination_Limit'
+            Content-Crs:
+              $ref: '#/components/headers/contentCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
+        "400":
+          description: Bad Request
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestFoutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+                title: Ten minste één parameter moet worden opgegeven.
+                status: 400
+                detail: The request could not be understood by the server due to malformed
+                  syntax. The client SHOULD NOT repeat the request without modification.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: paramsRequired
+                invalidParams:
+                - type: https://www.vng.nl/realisatie/api/validaties/integer
+                  name: verblijfplaats__huisnummer
+                  code: integer
+                  reason: Waarde is geen geldige integer.
+        "401":
+          description: Unauthorized
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
+                title: Niet correct geauthenticeerd.
+                status: 401
+                detail: The request requires user authentication. The response MUST
+                  include a WWW-Authenticate header field (section 14.47) containing
+                  a challenge applicable to the requested resource.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: authentication
+        "403":
+          description: Forbidden
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
+                title: U bent niet geautoriseerd voor deze operatie.
+                status: 403
+                detail: The server understood the request, but is refusing to fulfill
+                  it.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: autorisation
+        "406":
+          description: Not Acceptable
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
+                title: Gevraagde contenttype wordt niet ondersteund.
+                status: 406
+                detail: The resource identified by the request is only capable of
+                  generating response entities which have content characteristics
+                  not acceptable according to thr accept headers sent in the request
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: notAcceptable
+        "412":
+          description: Precondition failed
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.13
+                title: Precondition Failed
+                status: 412
+                detail: The precondition given in one or more of the request-header
+                  fields evaluated to false when it was tested on the server.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: preconditionFailed
+        "500":
+          description: Internal Server Error
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+                title: Interne server fout.
+                status: 500
+                detail: The server encountered an unexpected condition which prevented
+                  it from fulfilling the request.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: serverError
+        "503":
+          description: Service Unavailable
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+              example:
+                type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
+                title: Bronservice {bron} is tijdelijk niet beschikbaar.
+                status: 503
+                detail: The service is currently unable to handle the request due
+                  to a temporary overloading or maintenance of the server.
+                instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+                code: notAvailable
+        default:
+          description: Er is een onverwachte fout opgetreden
+          headers:
+            api-version:
+              $ref: '#/components/headers/api_version'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Foutbericht'
+      security:
+      - apiKeyBAG: []
+    post:
+      tags:
+      - Adresseerbaar object
+      summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
+      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen\
+        \ of ligplaatsen) met:\n1. een vrije contour (polygoon).\n\nGebruik de fields-parameter\
+        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
+        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
+        \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
+        \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
+      operationId: raadpleegAdresseerbareobjectenInContour
+      parameters:
+      - name: expand
+        in: query
+        description: Hiermee kun je opgeven welke gerelateerde resources meegeleverd
+          moeten worden, en hun inhoud naar behoefte aanpassen. Hele resources of
+          enkele properties geef je in de expand parameter kommagescheiden op. Properties
+          die je wil ontvangen geef je op met de resource-naam gevolgd door de property
+          naam, met daartussen een punt. In de definitie van het antwoord kun je bij
+          _embedded zien welke gerelateerde resources meegeleverd kunnen worden. Zie
+          [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).
+        required: false
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Hiermee kun je de inhoud van de resource naar behoefte aanpassen
+          door een door komma's gescheiden lijst van property namen op te geven. Bij
+          opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven.
+          Wanneer de fields parameter niet is opgegeven, worden alle properties met
+          een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)
+        required: false
+        schema:
+          type: string
+      - name: Accept-Crs
+        in: header
+        description: Gewenste CRS van de coördinaten in de response.
+        required: false
+        schema:
+          $ref: '#/components/schemas/CrsEnum'
+      - name: page
+        in: query
+        description: Pagina nummer
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 20
+      requestBody:
+        description: Geometrisch punt waarop de panden bepaald moeten worden.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/polygonGeoJSON'
+        required: true
       responses:
         "200":
           description: Geslaagd
@@ -2023,17 +2261,10 @@ paths:
       tags:
       - Pand
       summary: vindt panden
-      description: |-
-        Zoek actuele panden:
-        1. met de identificatie van een adresseerbaar object of
-        2. met de identificatie van een nummeraanduiding of
-        3. met een locatie (punt)
-
-        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       description: "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar\
         \ object of\n2. met de identificatie van een nummeraanduiding of\n3. met een\
         \ locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen\
-        \ aan de opgegeven status, geconstateerd of bouwjaar.\n \nGebruik de fields-parameter\
+        \ aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter\
         \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
         \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature)."
       operationId: raadpleegPanden
@@ -2108,13 +2339,14 @@ paths:
           Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
           In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt
           hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan
-          te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van
-          de bounding box mag maximaal 250 duizend vierkante meter zijn.
+          te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen
+          met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag
+          maximaal 250 duizend vierkante meter zijn.
         required: false
         style: form
         explode: false
         schema:
-          maxItems: 6
+          maxItems: 4
           minItems: 4
           type: array
           example:
@@ -2143,7 +2375,6 @@ paths:
         explode: true
         schema:
           type: boolean
-          default: false
       - name: bouwjaar
         in: query
         description: 'Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar
@@ -2153,6 +2384,22 @@ paths:
         explode: true
         schema:
           $ref: '#/components/schemas/IntegerFilter'
+      - name: page
+        in: query
+        description: Pagina nummer
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 20
       responses:
         "200":
           description: Geslaagd
@@ -3179,9 +3426,29 @@ components:
     CrsEnum:
       type: string
       description: CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.
+      default: epsg:28992
       enum:
       - epsg:28992
-      default: epsg:28992
+    polygonGeoJSON:
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - Polygon
+        coordinates:
+          type: array
+          items:
+            minItems: 4
+            type: array
+            items:
+              minItems: 2
+              type: array
+              items:
+                type: number
     HalLink:
       required:
       - href
@@ -3265,26 +3532,6 @@ components:
           $ref: '#/components/schemas/HalLink'
       description: |
         HalCollectionLinks bevat de self link die elke HAL Resource minimaal moet hebben in zijn _links property
-    polygonGeoJSON:
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - Polygon
-        coordinates:
-          type: array
-          items:
-            minItems: 4
-            type: array
-            items:
-              minItems: 2
-              type: array
-              items:
-                type: number
     pointGeoJSON:
       required:
       - coordinates
@@ -3399,28 +3646,21 @@ components:
       name: postcode
       in: query
       description: Postcode van het adres.
-    woonplaatsIdentificatie-query:
-      name: woonplaatsIdentificatie
-      in: query
-      description: De identificatie van een woonplaats.
       required: false
       style: form
       explode: true
       schema:
-        pattern: ^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$
+        pattern: ^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$
         type: string
-        example: 6922KZ
+      examples:
+        zonderSpatie:
+          value: 6922KZ
+        metSpatie:
+          value: 6922 KZ
     huisnummer:
       name: huisnummer
       in: query
       description: Huisnummer van het adres.
-        pattern: ^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$
-        type: string
-        example: "2096"
-    geconstateerd:
-      name: geconstateerd
-      in: query
-      description: Geef aan of je naar een geconstateerd object wilt zoeken.
       required: false
       style: form
       explode: true
@@ -3436,12 +3676,6 @@ components:
         \ aan een huisnummer of een combinatie van huisnummer en huisletter van het\
         \ adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
         \ is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n"
-        type: boolean
-        default: false
-    statusPand:
-      name: statusPand
-      in: query
-      description: Status van het pand.
       required: false
       style: form
       explode: true
@@ -3455,6 +3689,58 @@ components:
       description: "Een toevoeging (in de vorm van een letter) aan een huisnummer\
         \ van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
         \ is 1 het huisnummer en A de huisletter.\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^[a-zA-Z]{1}$
+        type: string
+        example: A
+    exacteMatch:
+      name: exacteMatch
+      in: query
+      description: '"Geeft aan of de resultaten van de zoekopdracht exact overeen
+        moeten komen met de opgegeven parameters, zie [functionele specificatie exacte
+        match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."'
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: boolean
+        example: true
+        default: false
+    pandIdentificaties:
+      name: pandIdentificaties
+      in: query
+      description: Een lijst met identificaties van panden uit de BAG.
+      required: false
+      style: form
+      explode: false
+      schema:
+        minItems: 1
+        type: array
+        example:
+        - "0226100000008856"
+        items:
+          pattern: ^[0-9]{16}$
+          type: string
+    geconstateerd:
+      name: geconstateerd
+      in: query
+      description: Geef aan of je naar een geconstateerd object wilt zoeken.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: boolean
+    statusPand:
+      name: statusPand
+      in: query
+      description: Status van het pand.
+      required: false
+      style: form
+      explode: true
+      schema:
         minItems: 1
         type: array
         items:
@@ -3478,15 +3764,6 @@ components:
       style: form
       explode: true
       schema:
-        pattern: ^[a-zA-Z]{1}$
-        type: string
-        example: A
-    exacteMatch:
-      name: exacteMatch
-      in: query
-      description: '"Geeft aan of de resultaten van de zoekopdracht exact overeen
-        moeten komen met de opgegeven parameters, zie [functionele specificatie exacte
-        match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."'
         $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
     gebruiksdoelen:
       name: gebruiksdoelen
@@ -3499,13 +3776,6 @@ components:
       style: form
       explode: true
       schema:
-        type: boolean
-        example: true
-        default: false
-    pandIdentificaties:
-      name: pandIdentificaties
-      in: query
-      description: Een lijst met identificaties van panden uit de BAG.
         minItems: 1
         type: array
         items:
@@ -3528,20 +3798,14 @@ components:
         Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
         In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt
         hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan
-        te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de
-        bounding box mag maximaal 250 duizend vierkante meter zijn.
+        te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen
+        met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag
+        maximaal 250 duizend vierkante meter zijn.
       required: false
       style: form
       explode: false
       schema:
-        minItems: 1
-        type: array
-        example:
-        - "0226100000008856"
-        items:
-          pattern: ^[0-9]{16}$
-          type: string
-        maxItems: 6
+        maxItems: 4
         minItems: 4
         type: array
         example:
@@ -3551,21 +3815,50 @@ components:
         - 440031.89
         items:
           type: number
-    pandIdentificaties:
-      name: pandIdentificaties
+    woonplaatsIdentificatie-query:
+      name: woonplaatsIdentificatie
       in: query
-      description: Een lijst met identificaties van panden uit de BAG.
+      description: De identificatie van een woonplaats.
+      required: false
+      style: form
+      explode: true
+      schema:
+        pattern: ^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$
+        type: string
+        example: "2096"
+    polygoon:
+      name: polygoon
+      in: query
+      description: "Een vrije contour (polygoon) waarbinnen het object dat je zoekt\
+        \ valt. \nDe spatial operator die wordt toegepast is 'intersects'.\nHierdoor\
+        \ worden objecten die binnen de polygoon vallen, de polygoon overlappen, kruizen\
+        \ of de rand van de polygoon raken in het zoekresultaat meegenomen.\nEr kunnen\
+        \ alleen 2D coördinaten van één contour worden opgegeven, waarbij de coördinaten\
+        \ tegen de richting van de klok worden opgegeven, dit komt overeen met de\
+        \ exterior ring van een polygoon. \nHet minimum aantal coördinaten is 4 en\
+        \ om te voorkomen dat de URL te lang wordt, kunnen er maximaal 20 coördinaten\
+        \ worden opgegven waarbij het eerste en laatste punt hetzelfde moeten zijn.\n\
+        De oppervlakte van de polygoon mag maximaal 250.000 vierkante meter zijn.\n\
+        De contentCrs parameter wordt gebruikt om aan te geven in welk CRS de coö\
+        rdinaten van de polygoon zijn.\n"
       required: false
       style: form
       explode: false
       schema:
-        minItems: 1
+        maxItems: 40
+        minItems: 8
         type: array
         example:
-        - "0226100000008856"
+        - 196733.51
+        - 439931.89
+        - 196833.51
+        - 439931.89
+        - 196833.51
+        - 440031.89
+        - 196733.51
+        - 440031.89
         items:
-          pattern: ^[0-9]{16}$
-          type: string
+          type: number
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path

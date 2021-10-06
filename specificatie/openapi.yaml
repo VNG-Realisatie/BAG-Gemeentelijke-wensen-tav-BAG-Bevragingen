@@ -257,7 +257,9 @@ paths:
         
         4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type of
          
-        5. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen.
+        5. een status geconstateerd in combinatie met woonplaats identificatie aangevuld met type en één of meer gebruiksdoelen of
+        
+        6. een vrije contour (polygoon).
         
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
@@ -280,6 +282,99 @@ paths:
         - $ref: '#/components/parameters/bbox'
         - $ref: '#/components/parameters/oppervlakte'
         - $ref: '#/components/parameters/woonplaatsIdentificatie-query'
+# OPTIE 1:
+# Een eenvoudige oplossing waarbij de coördinaten van een polygoon in de URL van een GET operatie worden meegegeven.
+# Hier zitten wel wat randvoorwaarden aan:
+# - maximale oppervlakte 250.000 vierkante meter
+# - alleen 2D coördinaten
+# - alleen exterior ring van een polygoon kan worden opgegeven
+# - minimum aantal coördinaten is 4
+# - maximum aantal coördinaten 20 (voorstel), kan met 2D coördinaten max ~ 80 worden bij een max URL lengte van 2048, hoe meer coördinaten hoe meer tijd oppervlakte validatie vergt 
+# Voordelen:
+# - Eenvoudig
+# - requests caching mogelijk
+# - veronderstelde maximale URL lengte 2048
+# Nadelen:
+# - Voldoet niet aan een geometrie standaard
+        - $ref: '#/components/parameters/polygoon'
+      responses:
+        '200':
+          description: "Geslaagd"
+          headers:
+            api-version:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/api_version'
+            warning:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Limit'
+            Content-Crs:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/contentCrs'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AdresseerbaarobjectHalCollectie'
+        '400':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/400'
+        '401':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/401'
+        '403':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/403'
+        '406':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/406'
+        '412':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/412'
+        '500':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/500'
+        '503':
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/503'
+        default:
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/responses/default'
+
+# OPTIE 2:
+# Een complexere oplossing waarbij een polygoon in de body van een POST operatie wordt meegegeven.
+# Randvoorwaarden:
+# - maximale oppervlakte 250.000 vierkante meter
+# Voordelen: 
+# - Er kunnen meer dan 20 coördinaten worden meegegeven.
+# - Er wordt gebruik gemaakt van de polygonGeoJSON definitie waardoor er met zowel exterior als inerior ring, en met 2D of 3D coördinaten gezocht kan worden.
+# Nadelen:
+# - Complex
+# - POST request, is eigenlijk bedoeld voor het creëren of updaten van resources en niet voor het opvragen van resources. Wijkt dus af van standaard.
+# - requests worden niet gecached
+# - geen restrictie op data lengte
+    post:
+      requestBody:
+        description: Geometrisch punt waarop de panden bepaald moeten worden.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'http://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/schemas/polygonGeoJSON.yaml'
+      security:
+        - apiKeyBAG: []
+      operationId: raadpleegAdresseerbareobjectenInContour
+      tags:
+        - Adresseerbaar object
+      summary: "vindt verblijfsobjecten, ligplaatsen, standplaatsen"
+      description: >-
+        Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:
+        
+        1. een vrije contour (polygoon).
+        
+        
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
+        [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). 
+        
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie 
+        [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+      parameters:
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/expand'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/page'
+        - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/pageSize'
       responses:
         '200':
           description: "Geslaagd"
@@ -801,6 +896,27 @@ components:
         type: string
         pattern: '^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]|[0-9][1-9][0-9]{2}|[1-9][0-9]{3}$'
         example: '2096'
+
+    polygoon:
+      description: |
+        Een vrije contour (polygoon) waarbinnen het object dat je zoekt valt. 
+        De spatial operator die wordt toegepast is 'intersects'.
+        Hierdoor worden objecten die binnen de polygoon vallen, de polygoon overlappen, kruizen of de rand van de polygoon raken in het zoekresultaat meegenomen.
+        Er kunnen alleen 2D coördinaten van één contour worden opgegeven, waarbij de coördinaten tegen de richting van de klok worden opgegeven, dit komt overeen met de exterior ring van een polygoon. 
+        Het minimum aantal coördinaten is 4 en om te voorkomen dat de URL te lang wordt, kunnen er maximaal 20 coördinaten worden opgegven waarbij het eerste en laatste punt hetzelfde moeten zijn.
+        De oppervlakte van de polygoon mag maximaal 250.000 vierkante meter zijn.
+        De contentCrs parameter wordt gebruikt om aan te geven in welk CRS de coördinaten van de polygoon zijn.
+      name: polygoon
+      in: query
+      required: false
+      explode: false
+      schema:
+        type: array
+        minItems: 8
+        maxItems: 40
+        items:
+          type: number
+        example: [196733.510, 439931.890, 196833.510, 439931.890, 196833.510, 440031.890, 196733.510, 440031.890]
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
     nummeraanduidingidentificatie:
