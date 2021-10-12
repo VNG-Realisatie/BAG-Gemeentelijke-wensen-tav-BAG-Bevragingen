@@ -3,6 +3,8 @@
 Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kunnen zoeken naar resources, 
                  zodat ik gericht vervolgstappen kan definiëren m.b.t. de gevonden resources.
 
+    De resources waarvan de geometrie tenminste één punt gemeenschappelijk hebben met de opgegeven geometrie worden geretourneerd.
+
     Bij het bepalen of een resource geometrie binnen de opgegeven contour ligt (bbox of polygoon) of 
     dat een opgegeven geometrie (punt) binnen de resource geometrie ligt, wordt een intersects spatial operator gebruikt.
 
@@ -23,7 +25,7 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     
     Het geometrisch zoeken met een bounding box geometrie kan met de parameter: bbox.
     
-    Het geometrisch zoeken met een polygoon geometrie kan met de parameter polygoon.
+    Het geometrisch zoeken met een polygoon geometrie kan met de parameter: polygoon.
 
     Het geometrisch zoeken met een punt geometrie kan met de parameter: locatie.
     Het is echter ook mogelijk om een bounding box op te geven waarbij de coördinaten van de linker onderhoek en de rechter bovenhoek exact gelijk zijn.
