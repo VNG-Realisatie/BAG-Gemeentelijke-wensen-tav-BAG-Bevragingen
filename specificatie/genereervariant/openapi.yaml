@@ -203,10 +203,10 @@ paths:
         \ Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en\
         \ optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik\
         \ de fields-parameter als je alleen specifieke velden in het antwoord wil\
-        \ zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
-        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
+        \ zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\n\
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
         \ van) de gerelateerde resources nummeraanduiding, woonplaats en openbare\
-        \ ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\n\
+        \ ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\n\
         Gebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die\
         \ exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties\
         \ exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature)."
@@ -483,12 +483,10 @@ paths:
       tags:
       - Adres
       summary: levert een adres
-      description: "Raadpleeg een actueel adres met de nummeraanduidingidentificatie.\
-        \ \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord\
-        \ wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
-        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
-        \ van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte,\
-        \ adresseerbaarobject,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
+      description: |-
+        Raadpleeg een actueel adres met de nummeraanduidingidentificatie.
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte, adresseerbaarobject, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegAdresMetNumId
       parameters:
       - name: nummeraanduidingidentificatie
@@ -898,16 +896,15 @@ paths:
       tags:
       - Adresseerbaar object
       summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
-      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen\
-        \ of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie\
-        \ of\n3. een lijst met pandidentificaties of\n4. een geometrische contour\
-        \ (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel\
-        \ en/of type of\n \n5. een vrije contour (polygoon).\n\nGebruik de fields-parameter\
-        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
-        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
-        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
-        \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
-        \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
+      description: |-
+        Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:
+        1. een nummeraanduidingidentificatie of
+        2. een pandidentificatie of
+        3. een lijst met pandidentificaties of
+        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
+
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       operationId: raadpleegAdresseerbareobjecten
       parameters:
       - name: nummeraanduidingIdentificatie
@@ -1060,38 +1057,6 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/CrsEnum'
-      - name: polygoon
-        in: query
-        description: "Een vrije contour (polygoon) waarbinnen het object dat je zoekt\
-          \ valt. \nDe spatial operator die wordt toegepast is 'intersects'.\nHierdoor\
-          \ worden objecten die binnen de polygoon vallen, de polygoon overlappen,\
-          \ kruizen of de rand van de polygoon raken in het zoekresultaat meegenomen.\n\
-          Er kunnen alleen 2D coördinaten van één contour worden opgegeven, waarbij\
-          \ de coördinaten tegen de richting van de klok worden opgegeven, dit komt\
-          \ overeen met de exterior ring van een polygoon. \nHet minimum aantal coö\
-          rdinaten is 4 en om te voorkomen dat de URL te lang wordt, kunnen er maximaal\
-          \ 20 coördinaten worden opgegven waarbij het eerste en laatste punt hetzelfde\
-          \ moeten zijn.\nDe oppervlakte van de polygoon mag maximaal 250.000 vierkante\
-          \ meter zijn.\nDe contentCrs parameter wordt gebruikt om aan te geven in\
-          \ welk CRS de coördinaten van de polygoon zijn.\n"
-        required: false
-        style: form
-        explode: false
-        schema:
-          maxItems: 40
-          minItems: 8
-          type: array
-          example:
-          - 196733.51
-          - 439931.89
-          - 196833.51
-          - 439931.89
-          - 196833.51
-          - 440031.89
-          - 196733.51
-          - 440031.89
-          items:
-            type: number
       responses:
         "200":
           description: Geslaagd
@@ -1251,14 +1216,13 @@ paths:
       tags:
       - Adresseerbaar object
       summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
-      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen\
-        \ of ligplaatsen) met:\n1. een vrije contour (polygoon).\n\nGebruik de fields-parameter\
-        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
-        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
-        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
-        \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
-        \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
-      operationId: raadpleegAdresseerbareobjectenInContour
+      description: |-
+        Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:
+        1. een vrije contour (polygoon, multi polygoon etc.) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
+
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+      operationId: raadpleegAdresseerbareobjectenMetGeometrie
       parameters:
       - name: expand
         in: query
@@ -1312,12 +1276,7 @@ paths:
           type: integer
           default: 20
       requestBody:
-        description: Geometrisch punt waarop de panden bepaald moeten worden.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/polygonGeoJSON'
-        required: true
+        $ref: '#/components/requestBodies/AdresseerbaarObjectBody'
       responses:
         "200":
           description: Geslaagd
@@ -2264,12 +2223,14 @@ paths:
       tags:
       - Pand
       summary: vindt panden
-      description: "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar\
-        \ object of\n2. met de identificatie van een nummeraanduiding of\n3. met een\
-        \ locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen\
-        \ aan de opgegeven status, geconstateerd of bouwjaar.\n\n \nGebruik de fields-parameter\
-        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
-        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature)."
+      description: |-
+        Zoek actuele panden:
+        1. met de identificatie van een adresseerbaar object of
+        2. met de identificatie van een nummeraanduiding of
+        3. met een locatie (punt) of
+        4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.
+
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       operationId: raadpleegPanden
       parameters:
       - name: adresseerbaarObjectIdentificatie
@@ -3369,6 +3330,45 @@ components:
       description: Een samengesteld geometriegegevenstype waarbij wordt afgedwongen
         dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface)
         of een multivlak (GM_MultiSurface).
+    AdresseerbaarObjectFilter:
+      required:
+      - geometrie
+      type: object
+      properties:
+        geometrie:
+          $ref: '#/components/schemas/GeometrieWKTFilter'
+        geconstateerd:
+          type: boolean
+          description: Als geconstateerd van een object deze waarde heeft, dan wordt
+            het adresseerbare object ïn het zoekresultaat meegenomen, mits ook wordt
+            voldaan aan de andere filters.
+        oppervlakte:
+          $ref: '#/components/schemas/IntegerFilter'
+        gebruiksdoelen:
+          minItems: 1
+          type: array
+          description: Als een verblijfsobject één van de gebruiksdoelen in deze lijst
+            heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen,
+            mits ook wordt voldaan aan de andere filters.
+          items:
+            $ref: '#/components/schemas/GebruiksdoelEnum'
+        type:
+          $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
+      description: "Geometrie en andere filters waarmee adresseerbare objecten bepaald\
+        \ moeten worden, waarbij geometrie verplicht is. \nAls er meerdere filters\
+        \ worden opgegeven, dan geldt dat het resultaat aan alle opgegeven filters\
+        \ moet voldoen, oftewel een EN operatie.\n"
+    GeometrieWKTFilter:
+      required:
+      - intersects
+      type: object
+      properties:
+        intersects:
+          type: string
+          description: |
+            Well Known Text (WKT) representatie van de geometrie waarmee gezocht moet worden.
+            Ondersteund worden: polygon en multipolygon.
+          format: wkt
     BadRequestFoutbericht:
       allOf:
       - $ref: '#/components/schemas/Foutbericht'
@@ -3429,29 +3429,9 @@ components:
     CrsEnum:
       type: string
       description: CRS van geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.
-      default: epsg:28992
       enum:
       - epsg:28992
-    polygonGeoJSON:
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - Polygon
-        coordinates:
-          type: array
-          items:
-            minItems: 4
-            type: array
-            items:
-              minItems: 2
-              type: array
-              items:
-                type: number
+      default: epsg:28992
     HalLink:
       required:
       - href
@@ -3535,6 +3515,26 @@ components:
           $ref: '#/components/schemas/HalLink'
       description: |
         HalCollectionLinks bevat de self link die elke HAL Resource minimaal moet hebben in zijn _links property
+    polygonGeoJSON:
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - Polygon
+        coordinates:
+          type: array
+          items:
+            minItems: 4
+            type: array
+            items:
+              minItems: 2
+              type: array
+              items:
+                type: number
     pointGeoJSON:
       required:
       - coordinates
@@ -3818,39 +3818,6 @@ components:
         - 440031.89
         items:
           type: number
-    polygoon:
-      name: polygoon
-      in: query
-      description: "Een vrije contour (polygoon) waarbinnen het object dat je zoekt\
-        \ valt. \nDe spatial operator die wordt toegepast is 'intersects'.\nHierdoor\
-        \ worden objecten die binnen de polygoon vallen, de polygoon overlappen, kruizen\
-        \ of de rand van de polygoon raken in het zoekresultaat meegenomen.\nEr kunnen\
-        \ alleen 2D coördinaten van één contour worden opgegeven, waarbij de coördinaten\
-        \ tegen de richting van de klok worden opgegeven, dit komt overeen met de\
-        \ exterior ring van een polygoon. \nHet minimum aantal coördinaten is 4 en\
-        \ om te voorkomen dat de URL te lang wordt, kunnen er maximaal 20 coördinaten\
-        \ worden opgegven waarbij het eerste en laatste punt hetzelfde moeten zijn.\n\
-        De oppervlakte van de polygoon mag maximaal 250.000 vierkante meter zijn.\n\
-        De contentCrs parameter wordt gebruikt om aan te geven in welk CRS de coö\
-        rdinaten van de polygoon zijn.\n"
-      required: false
-      style: form
-      explode: false
-      schema:
-        maxItems: 40
-        minItems: 8
-        type: array
-        example:
-        - 196733.51
-        - 439931.89
-        - 196833.51
-        - 439931.89
-        - 196833.51
-        - 440031.89
-        - 196733.51
-        - 440031.89
-        items:
-          type: number
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path
@@ -3911,6 +3878,13 @@ components:
         pattern: ^[0-9]{16}$
         type: string
         example: "0226300000136166"
+  requestBodies:
+    AdresseerbaarObjectBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AdresseerbaarObjectFilter'
+      required: true
   headers:
     api_version:
       schema:
