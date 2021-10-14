@@ -19,8 +19,8 @@
     "preoas:resolve": "mvn-dl io.swagger.codegen.v3:swagger-codegen-cli:3.0.19 -f swagger-codegen-cli.jar",
     "oas:resolve": "java -jar swagger-codegen-cli.jar generate -i ./specificatie/openapi.yaml -l openapi-yaml -o ./specificatie/genereervariant && java -jar swagger-codegen-cli.jar generate -i ./specificatie/openapi.yaml -l openapi -o ./specificatie/genereervariant",
     "postoas:resolve": "rm swagger-codegen-cli.jar",
-    "unstage-generated": "git reset HEAD ./specificatie/genereervariant/openapi.* ./test/BAG-bevragen-postman-collection.json ./code/**",
-    "rollback-generated": "git checkout ./specificatie/genereervariant/openapi.* ./test/BAG-bevragen-postman-collection.json ./code/**"
+    "unstage-generated": "git reset HEAD ./specificatie/genereervariant/openapi.* ./test/BAG-Bevragen-postman-collection.json ./code/**",
+    "rollback-generated": "git checkout ./specificatie/genereervariant/** ./test/BAG-Bevragen-postman-collection.json ./code/**"
   },
   "repository": {
     "type": "git",
@@ -33,11 +33,11 @@
   },
   "homepage": "https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen#readme",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.3.6",
-    "@stoplight/spectral": "^5.9.2",
+    "@openapitools/openapi-generator-cli": "^2.4.12",
+    "@stoplight/spectral": "^6.1.0",
     "husky": "^4.3.8",
     "mvn-dl": "^6.0.0",
-    "openapi-to-postmanv2": "^2.8.0"
+    "openapi-to-postmanv2": "^2.11.0"
   },
   "husky": {
     "hooks": {
