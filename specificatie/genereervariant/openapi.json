@@ -274,7 +274,7 @@
           "Adres"
         ],
         "summary": "vindt adressen",
-        "description": "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3. Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature).",
+        "description": "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3. Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature).",
         "operationId": "raadpleegAdressen",
         "parameters": [
           {
@@ -362,9 +362,16 @@
             "style": "form",
             "explode": true,
             "schema": {
-              "pattern": "^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$",
-              "type": "string",
-              "example": "6922KZ"
+              "pattern": "^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$",
+              "type": "string"
+            },
+            "examples": {
+              "zonderSpatie": {
+                "value": "6922KZ"
+              },
+              "metSpatie": {
+                "value": "6922 KZ"
+              }
             }
           },
           {
@@ -621,7 +628,7 @@
           "Adres"
         ],
         "summary": "levert een adres",
-        "description": "Raadpleeg een actueel adres met de nummeraanduidingidentificatie. \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte, adresseerbaarobject,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "description": "Raadpleeg een actueel adres met de nummeraanduidingidentificatie.\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte, adresseerbaarobject, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresMetNumId",
         "parameters": [
           {
@@ -1160,7 +1167,7 @@
           "Adresseerbaar object"
         ],
         "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
-        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een lijst met pandidentificaties.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n3. een lijst met pandidentificaties of\n4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
         "operationId": "raadpleegAdresseerbareobjecten",
         "parameters": [
           {
@@ -1256,8 +1263,376 @@
                 "type": "string"
               }
             }
+          },
+          {
+            "name": "geconstateerd",
+            "in": "query",
+            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
+            }
+          },
+          {
+            "name": "gebruiksdoelen",
+            "in": "query",
+            "description": "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/GebruiksdoelEnum"
+              }
+            }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 4,
+              "minItems": 4,
+              "type": "array",
+              "example": [
+                196733.51,
+                439931.89,
+                196833.51,
+                440031.89
+              ],
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "oppervlakte",
+            "in": "query",
+            "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/IntegerFilter"
+            }
+          },
+          {
+            "name": "Content-Crs",
+            "in": "header",
+            "description": "CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CrsEnum"
+            }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Geslaagd",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              },
+              "warning": {
+                "$ref": "#/components/headers/warning"
+              },
+              "X-Pagination-Page": {
+                "$ref": "#/components/headers/X_Pagination_Page"
+              },
+              "X-Pagination-Limit": {
+                "$ref": "#/components/headers/X_Pagination_Limit"
+              },
+              "Content-Crs": {
+                "$ref": "#/components/headers/contentCrs"
+              }
+            },
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdresseerbaarobjectHalCollectie"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1",
+                  "title": "Ten minste één parameter moet worden opgegeven.",
+                  "status": 400,
+                  "detail": "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "paramsRequired",
+                  "invalidParams": [
+                    {
+                      "type": "https://www.vng.nl/realisatie/api/validaties/integer",
+                      "name": "verblijfplaats__huisnummer",
+                      "code": "integer",
+                      "reason": "Waarde is geen geldige integer."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2",
+                  "title": "Niet correct geauthenticeerd.",
+                  "status": 401,
+                  "detail": "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "authentication"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4",
+                  "title": "U bent niet geautoriseerd voor deze operatie.",
+                  "status": 403,
+                  "detail": "The server understood the request, but is refusing to fulfill it.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "autorisation"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7",
+                  "title": "Gevraagde contenttype wordt niet ondersteund.",
+                  "status": 406,
+                  "detail": "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "notAcceptable"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition failed",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.13",
+                  "title": "Precondition Failed",
+                  "status": 412,
+                  "detail": "The precondition given in one or more of the request-header fields evaluated to false when it was tested on the server.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "preconditionFailed"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1",
+                  "title": "Interne server fout.",
+                  "status": 500,
+                  "detail": "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "serverError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4",
+                  "title": "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status": 503,
+                  "detail": "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "notAvailable"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Er is een onverwachte fout opgetreden",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyBAG": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Adresseerbaar object"
+        ],
+        "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een vrije contour (polygoon, multi polygoon etc.) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "operationId": "raadpleegAdresseerbareobjectenMetGeometrie",
+        "parameters": [
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Hiermee kun je opgeven welke gerelateerde resources meegeleverd moeten worden, en hun inhoud naar behoefte aanpassen. Hele resources of enkele properties geef je in de expand parameter kommagescheiden op. Properties die je wil ontvangen geef je op met de resource-naam gevolgd door de property naam, met daartussen een punt. In de definitie van het antwoord kun je bij _embedded zien welke gerelateerde resources meegeleverd kunnen worden. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/expand.feature).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma's gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Crs",
+            "in": "header",
+            "description": "Gewenste CRS van de coördinaten in de response.",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CrsEnum"
+            }
+          },
+          {
+            "name": "Content-Crs",
+            "in": "header",
+            "description": "CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CrsEnum"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Pagina nummer",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "default": 20
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/AdresseerbaarObjectBody"
+        },
         "responses": {
           "200": {
             "description": "Geslaagd",
@@ -2536,7 +2911,7 @@
           "Pand"
         ],
         "summary": "vindt panden",
-        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt)\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
+        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of\n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegPanden",
         "parameters": [
           {
@@ -2611,6 +2986,87 @@
             "schema": {
               "$ref": "#/components/schemas/CrsEnum"
             }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 4,
+              "minItems": 4,
+              "type": "array",
+              "example": [
+                196733.51,
+                439931.89,
+                196833.51,
+                440031.89
+              ],
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "statusPand",
+            "in": "query",
+            "description": "Status van het pand.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StatusPandEnum"
+              }
+            }
+          },
+          {
+            "name": "geconstateerd",
+            "in": "query",
+            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "bouwjaar",
+            "in": "query",
+            "description": "Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken.  Bv: bouwjaar[min]=1970&bouwjaar[max]=2010",
+            "required": false,
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/IntegerFilter"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Pagina nummer",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "default": 20
+            }
           }
         ],
         "responses": {
@@ -2622,6 +3078,292 @@
               },
               "warning": {
                 "$ref": "#/components/headers/warning"
+              },
+              "X-Pagination-Page": {
+                "$ref": "#/components/headers/X_Pagination_Page"
+              },
+              "X-Pagination-Limit": {
+                "$ref": "#/components/headers/X_Pagination_Limit"
+              },
+              "Content-Crs": {
+                "$ref": "#/components/headers/contentCrs"
+              }
+            },
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PandHalCollectie"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestFoutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1",
+                  "title": "Ten minste één parameter moet worden opgegeven.",
+                  "status": 400,
+                  "detail": "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "paramsRequired",
+                  "invalidParams": [
+                    {
+                      "type": "https://www.vng.nl/realisatie/api/validaties/integer",
+                      "name": "verblijfplaats__huisnummer",
+                      "code": "integer",
+                      "reason": "Waarde is geen geldige integer."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2",
+                  "title": "Niet correct geauthenticeerd.",
+                  "status": 401,
+                  "detail": "The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "authentication"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4",
+                  "title": "U bent niet geautoriseerd voor deze operatie.",
+                  "status": 403,
+                  "detail": "The server understood the request, but is refusing to fulfill it.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "autorisation"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7",
+                  "title": "Gevraagde contenttype wordt niet ondersteund.",
+                  "status": 406,
+                  "detail": "The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "notAcceptable"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition failed",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.13",
+                  "title": "Precondition Failed",
+                  "status": 412,
+                  "detail": "The precondition given in one or more of the request-header fields evaluated to false when it was tested on the server.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "preconditionFailed"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1",
+                  "title": "Interne server fout.",
+                  "status": 500,
+                  "detail": "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "serverError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                },
+                "example": {
+                  "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4",
+                  "title": "Bronservice {bron} is tijdelijk niet beschikbaar.",
+                  "status": 503,
+                  "detail": "The service is currently unable to handle the request due to a temporary overloading or maintenance of the server.",
+                  "instance": "https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde",
+                  "code": "notAvailable"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Er is een onverwachte fout opgetreden",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Foutbericht"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKeyBAG": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Pand"
+        ],
+        "summary": "vindt panden",
+        "description": "Zoek actuele panden met:\n1. een vrije contour (polygoon of multi polygoon) in combinatie met status, geconstateerd en/of bouwjaar.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
+        "operationId": "raadpleegPandenMetGeometrie",
+        "parameters": [
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Hiermee kun je de inhoud van de resource naar behoefte aanpassen door een door komma's gescheiden lijst van property namen op te geven. Bij opgave van niet-bestaande properties wordt een 400 Bad Request teruggegeven. Wanneer de fields parameter niet is opgegeven, worden alle properties met een waarde teruggegeven. Zie [functionele specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.2.0/features/fields.feature)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept-Crs",
+            "in": "header",
+            "description": "Gewenste CRS van de coördinaten in de response.",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CrsEnum"
+            }
+          },
+          {
+            "name": "Content-Crs",
+            "in": "header",
+            "description": "CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New Nederlands coordinatenstelsel.",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CrsEnum"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Pagina nummer",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "default": 20
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PandBody"
+        },
+        "responses": {
+          "200": {
+            "description": "Geslaagd",
+            "headers": {
+              "api-version": {
+                "$ref": "#/components/headers/api_version"
+              },
+              "warning": {
+                "$ref": "#/components/headers/warning"
+              },
+              "X-Pagination-Page": {
+                "$ref": "#/components/headers/X_Pagination_Page"
+              },
+              "X-Pagination-Limit": {
+                "$ref": "#/components/headers/X_Pagination_Limit"
               },
               "Content-Crs": {
                 "$ref": "#/components/headers/contentCrs"
@@ -2886,6 +3628,18 @@
         },
         "description": "Resultaten als lijst."
       },
+      "IntegerFilter": {
+        "type": "object",
+        "properties": {
+          "min": {
+            "type": "integer"
+          },
+          "max": {
+            "type": "integer"
+          }
+        },
+        "description": "Geeft aan met welke waarden je kunt zoeken. Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde. Met `max` zoek je naar waarden kleiner dan de opgegeven waarde."
+      },
       "Adres": {
         "type": "object",
         "properties": {
@@ -3124,6 +3878,9 @@
           },
           "woonplaats": {
             "$ref": "#/components/schemas/WoonplaatsHalBasis"
+          },
+          "adresseerbaarObject": {
+            "$ref": "#/components/schemas/AdresseerbaarObjectHalBasis"
           }
         }
       },
@@ -3811,7 +4568,7 @@
         "type": "object",
         "properties": {
           "_links": {
-            "$ref": "#/components/schemas/HalCollectionLinks"
+            "$ref": "#/components/schemas/HalPaginationLinksMetLast"
           },
           "_embedded": {
             "type": "object",
@@ -3896,6 +4653,71 @@
           }
         },
         "description": "Een samengesteld geometriegegevenstype waarbij wordt afgedwongen dat voor de geometrie een keuze gemaakt moet worden tussen een vlak (GM_Surface) of een multivlak (GM_MultiSurface)."
+      },
+      "AdresseerbaarObjectFilter": {
+        "required": [
+          "geometrie"
+        ],
+        "type": "object",
+        "properties": {
+          "geometrie": {
+            "$ref": "#/components/schemas/GeometrieWKTFilter"
+          },
+          "geconstateerd": {
+            "type": "boolean",
+            "description": "Als geconstateerd van een object deze waarde heeft, dan wordt het adresseerbare object ïn het zoekresultaat meegenomen, mits ook wordt voldaan aan de andere filters."
+          },
+          "oppervlakte": {
+            "$ref": "#/components/schemas/IntegerFilter"
+          },
+          "gebruiksdoelen": {
+            "minItems": 1,
+            "type": "array",
+            "description": "Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen, mits ook wordt voldaan aan de andere filters.",
+            "items": {
+              "$ref": "#/components/schemas/GebruiksdoelEnum"
+            }
+          },
+          "type": {
+            "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
+          }
+        },
+        "description": "Geometrie en andere filters waarmee adresseerbare objecten bepaald moeten worden, waarbij geometrie verplicht is. \nAls er meerdere filters worden opgegeven, dan geldt dat het resultaat aan alle opgegeven filters moet voldoen, oftewel een EN operatie.\n"
+      },
+      "GeometrieWKTFilter": {
+        "required": [
+          "intersects"
+        ],
+        "type": "object",
+        "properties": {
+          "intersects": {
+            "type": "string",
+            "description": "Well Known Text (WKT) representatie van de geometrie waarmee gezocht moet worden.\nOndersteund worden: polygon en multipolygon.\n",
+            "format": "wkt"
+          }
+        }
+      },
+      "PandFilter": {
+        "required": [
+          "geometrie"
+        ],
+        "type": "object",
+        "properties": {
+          "geometrie": {
+            "$ref": "#/components/schemas/GeometrieWKTFilter"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusPandEnum"
+          },
+          "geconstateerd": {
+            "type": "boolean",
+            "description": "Als geconstateerd van een pand deze waarde heeft, dan wordt het pand ïn het zoekresultaat meegenomen, mits ook wordt voldaan aan de andere filters."
+          },
+          "bouwjaar": {
+            "$ref": "#/components/schemas/IntegerFilter"
+          }
+        },
+        "description": "Geometrie en andere filters waarmee panden bepaald moeten worden, waarbij geometrie verplicht is. \nAls er meerdere filters worden opgegeven, dan geldt dat het resultaat aan alle opgegeven filters moet voldoen, oftewel een EN operatie.\n"
       },
       "BadRequestFoutbericht": {
         "allOf": [
@@ -4266,9 +5088,16 @@
         "style": "form",
         "explode": true,
         "schema": {
-          "pattern": "^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$",
-          "type": "string",
-          "example": "6922KZ"
+          "pattern": "^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$",
+          "type": "string"
+        },
+        "examples": {
+          "zonderSpatie": {
+            "value": "6922KZ"
+          },
+          "metSpatie": {
+            "value": "6922 KZ"
+          }
         }
       },
       "huisnummer": {
@@ -4343,6 +5172,102 @@
           }
         }
       },
+      "geconstateerd": {
+        "name": "geconstateerd",
+        "in": "query",
+        "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "statusPand": {
+        "name": "statusPand",
+        "in": "query",
+        "description": "Status van het pand.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/StatusPandEnum"
+          }
+        }
+      },
+      "bouwjaar": {
+        "name": "bouwjaar",
+        "in": "query",
+        "description": "Bouwjaar van het pand. Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken.  Bv: bouwjaar[min]=1970&bouwjaar[max]=2010",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "$ref": "#/components/schemas/IntegerFilter"
+        }
+      },
+      "type": {
+        "name": "type",
+        "in": "query",
+        "description": "Geeft aan of het adresseerbaar object een ligplaats, standplaats of verblijfsobject is.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "$ref": "#/components/schemas/TypeAdresseerbaarObjectEnum"
+        }
+      },
+      "gebruiksdoelen": {
+        "name": "gebruiksdoelen",
+        "in": "query",
+        "description": "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/GebruiksdoelEnum"
+          }
+        }
+      },
+      "oppervlakte": {
+        "name": "oppervlakte",
+        "in": "query",
+        "description": "Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).  Bv: oppervlakte[min]=100&oppervlakte[max]=200",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+          "$ref": "#/components/schemas/IntegerFilter"
+        }
+      },
+      "bbox": {
+        "name": "bbox",
+        "in": "query",
+        "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+        "required": false,
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array",
+          "example": [
+            196733.51,
+            439931.89,
+            196833.51,
+            440031.89
+          ],
+          "items": {
+            "type": "number"
+          }
+        }
+      },
       "nummeraanduidingidentificatie": {
         "name": "nummeraanduidingidentificatie",
         "in": "path",
@@ -4408,6 +5333,28 @@
           "type": "string",
           "example": "0226300000136166"
         }
+      }
+    },
+    "requestBodies": {
+      "AdresseerbaarObjectBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AdresseerbaarObjectFilter"
+            }
+          }
+        },
+        "required": true
+      },
+      "PandBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PandFilter"
+            }
+          }
+        },
+        "required": true
       }
     },
     "headers": {
