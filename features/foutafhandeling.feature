@@ -9,7 +9,7 @@ Rule: verplichte parameter(s) zijn opgegeven
 
     Scenario: Verplichte parameter is niet opgegeven
         Als '/adressen/zoek' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                                                            |
         | title  | Ten minste één parameter moet worden opgegeven.                                   |
         | status | 400                                                                               |
@@ -21,7 +21,7 @@ Rule: alleen gespecificeerde parameters mogen worden gebruikt
 
     Scenario: Niet gespecificeerde parameter
         Als '/adressen?straat=Spui' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -35,7 +35,7 @@ Rule: minimaal één optionele parameter is opgegeven
 
     Abstract Scenario: Er zijn geen parameters opgegeven
         Als '<path>' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                          |
         | title  | Ten minste één parameter moet worden opgegeven. |
         | status | 400                                             |
@@ -53,7 +53,7 @@ Rule: opgegeven parameter(s) heeft een waarde
 
     Scenario: Er is geen waarde voor één parameter opgegeven
         Als '/adressen?pandIdentificatie=' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                                                                                                                                |
         | title  | Ten minste één parameter moet worden opgegeven.                                                                                                       |
         | status | 400                                                                                                                                                   |
@@ -62,20 +62,20 @@ Rule: opgegeven parameter(s) heeft een waarde
         En bevat de response geen invalidParams
 
     Scenario: Er is geen waarde voor meerdere parameters opgegeven
-        Als '/panden?adresseerbaarObjectIdentificatie=&fields=' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
-        | naam   | waarde                                                                                                                         |
-        | title  | Ten minste één parameter moet worden opgegeven.                                                                                |
-        | status | 400                                                                                                                            |
-        | code   | paramsRequired                                                                                                                 |
-        | detail | Precies 1 parameter van adresseerbaarObjectIdentificatie, nummeraanduidingIdentificatie, locatie of bbox moet worden opgegeven |
+        Als '/adressen?postcode=&huisnummer=' wordt aangeroepen
+        Dan bevat de response de volgende velden
+        | naam   | waarde                                                                                                                                                |
+        | title  | Ten minste één parameter moet worden opgegeven.                                                                                                       |
+        | status | 400                                                                                                                                                   |
+        | code   | paramsRequired                                                                                                                                        |
+        | detail | Precies 1 parameter van pandIdentificatie, adresseerbaarObjectIdentificatie, zoekresultaatIdentificatie, postcode of huisnummer moet worden opgegeven |
         En bevat de response geen invalidParams
 
-Rule: fields parameter bevat geen onbekende kenmerk namen
+Rule: fields parameter bevat geen onbekende veld namen
 
-    Scenario: Er is één onbekende kenmerk naam opgegeven
+    Scenario: Er is één onbekende veld naam opgegeven
         Als '/adressen?pandIdentificatie=0345100002016017&fields=bestaatniet' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -85,9 +85,9 @@ Rule: fields parameter bevat geen onbekende kenmerk namen
         | name   | code   | reason                                                    |
         | fields | fields | Deel van de parameterwaarde is niet correct: bestaatniet. |
 
-    Scenario: Er zijn meerdere onbekende kenmerk namen opgegeven
+    Scenario: Er zijn meerdere onbekende veld namen opgegeven
         Als '/adressen?pandIdentificatie=0345100002016017&fields=bestaatniet,bestaatookniet' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -101,7 +101,7 @@ Rule: expand parameter bevat geen onbekende resource namen
 
     Scenario: Er is één onbekende resource naam opgegeven
         Als '/adressen?zoekresultaatIdentificatie=adr-f6b00930705c1ef12c2624623a797d21&expand=bestaatniet' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -112,8 +112,8 @@ Rule: expand parameter bevat geen onbekende resource namen
         | expand | expand | Deel van de parameterwaarde is niet correct: bestaatniet. |
 
     Scenario: Er zijn meerdere onbekende resource namen opgegeven
-        Als '/adressen?zoekresultaatIdentificatie=adr-f6b00930705c1ef12c2624623a797d21&expand=bestaatniet' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Als '/adressen?zoekresultaatIdentificatie=adr-f6b00930705c1ef12c2624623a797d21&expand=bestaatniet,bestaatookniet' wordt aangeroepen
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -124,11 +124,23 @@ Rule: expand parameter bevat geen onbekende resource namen
         | expand | expand | Deel van de parameterwaarde is niet correct: bestaatniet.    |
         | expand | expand | Deel van de parameterwaarde is niet correct: bestaatookniet. |
 
+    Scenario: Er is één of meerdere onbekende veld namen voor één of meerdere resource opgegeven
+        Als '/adressen?zoekresultaatIdentificatie=adr-f6b00930705c1ef12c2624623a797d21&expand=nummeraanduiding.bestaatniet' wordt aangeroepen
+        Dan bevat de response de volgende velden
+        | naam   | waarde                                        |
+        | title  | Een of meerdere parameters zijn niet correct. |
+        | status | 400                                           |
+        | code   | paramsValidation                              |
+        | detail | Bad request.                                  |
+        En bevat de response de volgende invalidParams
+        | name   | code   | reason                                                                     |
+        | expand | expand | Deel van de parameterwaarde is niet correct: nummeraanduiding.bestaatniet. |
+
 Rule: type van parameter waarde is correct
 
     Abstract Scenario: type van waarde van één parameter is niet correct
         Als '<path><query string>' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -173,7 +185,7 @@ Rule: type van parameter waarde is correct
         
     Scenario: type van waarde van meerdere parameters is niet correct
         Als '/adressen?pandIdentificatie=0345100002016017&page=a&pageSize=b' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                               |
         | title  | Een of meerdere parameters zijn niet correct.        |
         | status | 400                                                  |
@@ -189,7 +201,7 @@ Rule: waarde van parameter is valide
 
     Scenario: waarde van één parameter is niet valide
         Als '/adresseerbareobjecten/0599040000' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -201,7 +213,7 @@ Rule: waarde van parameter is valide
 
     Scenario: waarde van meerdere parameters zijn niet valide
         Als '/adressen?pandIdentificatie=0345100002016017&page=-1&pageSize=2000' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -214,7 +226,7 @@ Rule: waarde van parameter is valide
 
     Scenario: waarde van bbox parameter overschrijdt maximale toegestane oppervlakte 
         Als '/panden?bbox=134647,457842,137512,455907' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -230,7 +242,7 @@ Rule: Een raadpleeg collectie aanroep mag slechts één identificatie parameter 
 
     Abstract Scenario: Er zijn meerdere identificatie parameters opgegeven
         Als '<path><query string>' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                                     |
         | title  | De combinatie van opgegeven parameters is niet toegestaan. |
         | status | 400                                                        |
@@ -247,7 +259,7 @@ Rule: alle parameter fouten in een request worden samen geretourneerd
 
     Scenario: er zijn meerdere verschillende fout soorten
         Als '/adresseerbareobjecten?nummeraanduidingIdentificatie=0226200000038923&fields=bestaatniet&expand=bestaatookniet' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
@@ -260,7 +272,7 @@ Rule: alle parameter fouten in een request worden samen geretourneerd
 
 Abstract Scenario: opgegeven identificatie is niet gekoppeld aan een resource
     Als '<path>/<identificatie>' wordt aangeroepen
-    Dan bevat de response de volgende kenmerken
+    Dan bevat de response de volgende velden
     | naam   | waarde                                               |
     | title  | Opgevraagde resource bestaat niet.                   |
     | status | 404                                                  |
@@ -276,7 +288,7 @@ Rule: embedden van een gerelateerde resource i.c.m. de gerelateerde resource ide
 
     Abstract Scenario: filteren van resources met een gerelateerde resource identificatie i.c.m. het embedden van dezelfde gerelateerde resource
         Als '<path><query string>' wordt aangeroepen
-        Dan bevat de response de volgende kenmerken
+        Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
