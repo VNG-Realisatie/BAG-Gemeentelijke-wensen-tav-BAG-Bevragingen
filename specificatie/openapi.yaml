@@ -257,7 +257,7 @@ paths:
 
         3. een lijst met pandidentificaties of
 
-        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type of
+        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
 
 
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie
@@ -500,16 +500,16 @@ paths:
       summary: "vindt panden"
       description: >- 
         Zoek actuele panden:
-        
+
         1. met de identificatie van een adresseerbaar object of
-        
+
         2. met de identificatie van een nummeraanduiding of
-        
+
         3. met een locatie (punt) of 
-        
+
         4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status, geconstateerd of bouwjaar.
-        
-         
+
+
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       parameters:
