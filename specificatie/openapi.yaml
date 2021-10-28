@@ -265,7 +265,7 @@ paths:
         [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
-        - $ref: '#/components/parameters/pandIdentificatie-query'
+        - $ref: '#/components/parameters/pandIdentificatie-2-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -605,6 +605,17 @@ components:
         example: '0226200000038923'
 
     pandIdentificatie-query:
+      description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
+      name: pandIdentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{16}$'
+        example: '0226100000008856'
+
+    pandIdentificatie-2-query:
+      deprecated: true
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
       name: pandIdentificatie
       in: query
