@@ -777,12 +777,14 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            zoekresultaten:
-              type: array
-              items:
-                $ref: '#/components/schemas/ZoekResultaatHal'
+          $ref: '#/components/schemas/ZoekResultaatHalCollectieEmbedded'
+    ZoekResultaatHalCollectieEmbedded:
+      type: object
+      properties:
+        zoekresultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoekResultaatHal'
 
     Adres:
       type: object
@@ -911,12 +913,14 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          properties:
-            adressen:
-              items:
-                $ref: '#/components/schemas/AdresHal'
-              type: array
-          type: object
+          $ref: '#/components/schemas/AdresHalCollectieEmbedded'
+    AdresHalCollectieEmbedded:
+      type: object
+      properties:
+        adressen:
+          items:
+            $ref: '#/components/schemas/AdresHal'
+          type: array
     AdresLinks:
       type: object
       properties:
@@ -1061,14 +1065,16 @@ components:
       type: object
       properties:
         _embedded:
-          properties:
-            adresseerbareObjecten:
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
-              type: array
-          type: object
+          $ref: '#/components/schemas/AdresseerbaarobjectHalCollectieEmbedded'
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
+    AdresseerbaarobjectHalCollectieEmbedded:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
+          type: array
     AdresseerbaarObjectStatusEnum:
       type: string
       enum:
@@ -1428,12 +1434,15 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks'
         _embedded:
-          type: object
-          properties:
-            panden:
-              type: array
-              items:
-                $ref: '#/components/schemas/PandHalBasis'
+          $ref: '#/components/schemas/PandHalCollectieEmbedded'
+    PandHalCollectieEmbedded:
+      type: object
+      properties:
+        panden:
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
+    
     StatusNaamgevingEnum:
       description: "Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen."
       type: string
