@@ -721,7 +721,7 @@ components:
       explode: false  
 
     geconstateerd:
-      description: 'Geef aan of je naar een geconstateerd object wilt zoeken.'
+      description: 'Geeft aan of naar geconstateerde objecten moet worden gezocht.'
       name: geconstateerd
       in: query
       required: false
@@ -742,7 +742,7 @@ components:
     bouwjaar:
       description: >-
         Bouwjaar van het pand.
-        Geef het minimale en/of maximale bouwjaar van het pand op waarnaar je wilt zoeken. 
+        Geeft het minimale en/of maximale bouwjaar aan van het pand waarnaar moet worden gezocht. 
         Bv: bouwjaar[min]=1970&bouwjaar[max]=2010
       name: bouwjaar
       in: query
