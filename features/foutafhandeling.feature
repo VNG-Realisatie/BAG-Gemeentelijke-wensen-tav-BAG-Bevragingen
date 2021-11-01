@@ -171,10 +171,9 @@ Rule: type van parameter waarde is correct
         | code   | paramsValidation                                     |
         | detail | Ongeldige waarde [a] opgegeven voor parameter [page] |
         En bevat de response de volgende invalidParams
-        | name | code    | reason                          |
-        | page | integer | Waarde is geen geldige integer. |
-        # onderstaande fout wordt niet geretourneerd
-        # | pageSize | code    | waarde 'b' is geen getal        |
+        | name     | code    | reason                          |
+        | page     | integer | Waarde is geen geldige integer. |
+        | pageSize | code    | waarde 'b' is geen getal        |
 
 Rule: waarde van parameter is valide
 
@@ -214,8 +213,6 @@ Rule: waarde van parameter is valide
         En bevat de response de volgende invalidParams
         | name | code           | reason                                             |
         | bbox | surfaceMaximum | Waarde is hoger dan maximum oppervlakte 250000 m2. |
-        # bovenstaande is tbv consistentie. Mijn voorkeur:
-        # | bbox | surfaceMaximum | Waarde overschrijdt maximum oppervlakte van 250000 m2. |
 
 Rule: Een raadpleeg collectie aanroep mag slechts één identificatie parameter bevatten
 
