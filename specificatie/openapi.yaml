@@ -568,7 +568,7 @@ components:
         type: string
 
     locatie-query:
-      description: Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+      description: Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=196733.51,439931.89
       name: locatie
       in: query
       required: false
@@ -579,7 +579,7 @@ components:
         maxItems: 2
         items:
           type: number
-        example: [196733.510, 439931.890] 
+        example: [196733.51, 439931.89] 
 
     nummeraanduidingIdentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
