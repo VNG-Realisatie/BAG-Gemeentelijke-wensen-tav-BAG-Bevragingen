@@ -618,8 +618,12 @@ components:
       required: false
       schema:
         type: string
-        pattern: '^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$'
-        example: '6922KZ'
+        pattern: '^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$'
+      examples:
+        zonderSpatie:
+          value: '6922KZ'
+        metSpatie:
+          value: '6922 KZ'
 
     huisnummer:
       description: Huisnummer van het adres.
