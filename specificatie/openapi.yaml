@@ -98,6 +98,7 @@ paths:
 
         Gebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria,
         zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature).
+        Je kunt adresseerbare objecten niet expanden als je tegelijkertijd de query parameter adresseerbaarObjectIdentificatie gebruikt.
       parameters:
         - $ref: '#/components/parameters/pandIdentificatie-query'
         - $ref: '#/components/parameters/adresseerbaarObjectIdentificatie-query'
@@ -261,6 +262,7 @@ paths:
         
         Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie 
         [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
+        Je kunt panden niet expanden als je tegelijkertijd de query parameter pandIdentificatie(s) gebruikt.
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
         - $ref: '#/components/parameters/deprecated-pandIdentificatie-query'
@@ -495,9 +497,11 @@ paths:
         
         2. met de identificatie van een nummeraanduiding of
         
-        3. met een locatie (punt)
-
-
+        3. met een locatie (punt) of 
+        
+        4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status of geconstateerd.
+        
+         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
       parameters:
@@ -507,6 +511,9 @@ paths:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
+        - $ref: '#/components/parameters/bbox'
+        - $ref: '#/components/parameters/statusPand'
+        - $ref: '#/components/parameters/geconstateerd'
       responses:
         '200':
           description: "Geslaagd"
@@ -515,6 +522,10 @@ paths:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/api_version'
             warning:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/X_Pagination_Limit'
             Content-Crs:
               $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/headers/contentCrs'
           content:
@@ -696,6 +707,45 @@ components:
           type: string
           pattern: '^[0-9]{16}$'
         example: ['0226100000008856']
+      explode: false  
+
+    geconstateerd:
+      description: 'Geef aan of je naar een geconstateerd object wilt zoeken.'
+      name: geconstateerd
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+        
+    statusPand:
+      description: "Status van het pand."
+      name: statusPand
+      in: query
+      required: false
+      schema:
+        type: array
+        minItems: 1
+        items:
+          $ref: '#/components/schemas/StatusPandEnum'
+
+    bbox:
+      description: >-
+        Rechthoek waarbinnen het object dat je zoekt valt.
+        Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen.
+        Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
+        In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn.
+        De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.
+      name: bbox
+      in: query
+      required: false
+      schema:
+        type: array
+        minItems: 4
+        maxItems: 6
+        items:
+          type: number
+        example: [196733.510, 439931.890, 196833.510, 440031.890]
       explode: false
 
     # Opsomming van path parameters - /{...} - specificatie bij operation zelf.
@@ -1436,7 +1486,7 @@ components:
       type: object
       properties:
         _links:
-          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalCollectionLinks'
+          $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
           $ref: '#/components/schemas/PandHalCollectieEmbedded'
     PandHalCollectieEmbedded:

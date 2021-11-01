@@ -274,7 +274,7 @@
           "Adres"
         ],
         "summary": "vindt adressen",
-        "description": "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3. Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature).",
+        "description": "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3. Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte en adresseerbaarobject,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature). Je kunt adresseerbare objecten niet expanden als je tegelijkertijd de query parameter adresseerbaarObjectIdentificatie gebruikt.",
         "operationId": "raadpleegAdressen",
         "parameters": [
           {
@@ -1160,7 +1160,7 @@
           "Adresseerbaar object"
         ],
         "summary": "vindt verblijfsobjecten, ligplaatsen, standplaatsen",
-        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n \n3. een lijst met pandidentificaties.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).",
+        "description": "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie of\n3. een lijst met pandidentificaties of\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature). Je kunt panden niet expanden als je tegelijkertijd de query parameter pandIdentificatie(s) gebruikt.",
         "operationId": "raadpleegAdresseerbareobjecten",
         "parameters": [
           {
@@ -2536,7 +2536,7 @@
           "Pand"
         ],
         "summary": "vindt panden",
-        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt)\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
+        "description": "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar object of\n2. met de identificatie van een nummeraanduiding of\n3. met een locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen aan de opgegeven status of geconstateerd.\n\n \nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).",
         "operationId": "raadpleegPanden",
         "parameters": [
           {
@@ -2611,6 +2611,55 @@
             "schema": {
               "$ref": "#/components/schemas/CrsEnum"
             }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "maxItems": 6,
+              "minItems": 4,
+              "type": "array",
+              "example": [
+                196733.51,
+                439931.89,
+                196833.51,
+                440031.89
+              ],
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "statusPand",
+            "in": "query",
+            "description": "Status van het pand.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StatusPandEnum"
+              }
+            }
+          },
+          {
+            "name": "geconstateerd",
+            "in": "query",
+            "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "responses": {
@@ -2622,6 +2671,12 @@
               },
               "warning": {
                 "$ref": "#/components/headers/warning"
+              },
+              "X-Pagination-Page": {
+                "$ref": "#/components/headers/X_Pagination_Page"
+              },
+              "X-Pagination-Limit": {
+                "$ref": "#/components/headers/X_Pagination_Limit"
               },
               "Content-Crs": {
                 "$ref": "#/components/headers/contentCrs"
@@ -3811,7 +3866,7 @@
         "type": "object",
         "properties": {
           "_links": {
-            "$ref": "#/components/schemas/HalCollectionLinks"
+            "$ref": "#/components/schemas/HalPaginationLinksMetLast"
           },
           "_embedded": {
             "type": "object",
@@ -4340,6 +4395,55 @@
           "items": {
             "pattern": "^[0-9]{16}$",
             "type": "string"
+          }
+        }
+      },
+      "geconstateerd": {
+        "name": "geconstateerd",
+        "in": "query",
+        "description": "Geef aan of je naar een geconstateerd object wilt zoeken.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "statusPand": {
+        "name": "statusPand",
+        "in": "query",
+        "description": "Status van het pand.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/StatusPandEnum"
+          }
+        }
+      },
+      "bbox": {
+        "name": "bbox",
+        "in": "query",
+        "description": "Rechthoek waarbinnen het object dat je zoekt valt. Objecten die de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen. Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition). In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan te geven in welk CRS de coördinaten van de bbox zijn. De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.",
+        "required": false,
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "maxItems": 6,
+          "minItems": 4,
+          "type": "array",
+          "example": [
+            196733.51,
+            439931.89,
+            196833.51,
+            440031.89
+          ],
+          "items": {
+            "type": "number"
           }
         }
       },
