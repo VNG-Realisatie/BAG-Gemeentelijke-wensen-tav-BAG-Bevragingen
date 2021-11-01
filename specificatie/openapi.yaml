@@ -258,6 +258,8 @@ paths:
         4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
 
 
+        Het zoeken van adresseerbare objecten met een oppervlakte en een type=ligplaats of type=standplaats wordt niet ondersteund en levert een foutmelding.
+
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
 
@@ -761,7 +763,12 @@ components:
     oppervlakte:
       name: oppervlakte
       description: >-
-        Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2). 
+        Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).
+        Alleen verblijfsobjecten hebben een oppervlakte en kunnen met deze parameter worden gevonden.
+        Ligtplaatsen en standplaatsen hebben geen oppervlakte en kunnen met deze parameter niet worden gevonden.
+        De oppervlakte van een verblijfstobject is een natuurlijk getal tussen 1 (minimaal) en 999999 (maximaal).
+        Het is niet toegestaan voor min een grotere waarde op te geven dan voor max.
+        Is min > max dan treedt een foutmelding op.
         Bv: oppervlakte[min]=100&oppervlakte[max]=200
       in: query
       required: false
