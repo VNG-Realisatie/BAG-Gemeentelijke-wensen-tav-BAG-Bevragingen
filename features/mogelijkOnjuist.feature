@@ -48,7 +48,7 @@ Functionaliteit: Mogelijk onjuist
     En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
 
     Voorbeelden:
-      | Objecttype       | Attribuut in de BAG                      | Resource             | mogelijkOnjuist property | toelichting |
+      | Objecttype       | Attribuut in de BAG                      | Resource             | mogelijkOnjuist property | Toelichting |
       | Woonplaats       | Naam woonplaats                          | Adres                | woonplaats,adresregel2               | Woonplaatsnaam is mogelijk onjuist geschreven. |
       | Woonplaats       | Status woonplaats                        | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Woonplaats bestaat mogelijk niet. |
       | Woonplaats       | Geometrie                                | Adres                | woonplaats,woonplaatsIdentificatie,adresregel2 | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
@@ -105,7 +105,7 @@ Functionaliteit: Mogelijk onjuist
     En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
 
     Voorbeelden:
-      | Objecttype       | Status                                      | Resource             | mogelijkOnjuist property | toelichting |
+      | Objecttype       | Status                                      | Resource             | mogelijkOnjuist property | Toelichting |
       | Pand             | Bouwvergunning verleend                     | Pand                 | status                   | Mogelijk is de bouw al gestart, is de bouw al gereed of is het pand niet gerealiseerd. |
       | Pand             | Bouw gestart                                | Pand                 | status                   | Mogelijk is de bouw al gereed of is het pand niet gerealiseerd. |
       | Pand             | Pand in gebruik (niet ingemeten)            | Pand                 | status                   | Mogelijk is de geometrie al ingemeten, of is de bouw ten onrechte gereedgemeld. |
@@ -346,10 +346,10 @@ Onderstaande scenario's zijn erop gericht dat afnemers altijd de noodzakelijke m
       Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
       Als ik de resource <Resource> opvraag met fields=_links.<Fields>
       Dan bevat het antwoord property mogelijkOnjuist.<Property> met waarde true
-      En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde
+      En bevat het antwoord property mogelijkOnjuist.toelichting met een waarde <Toelichting>
 
       Voorbeelden:
-      | Objecttype       | <Attribuut in de BAG>                    | <Resource>            | Fields                      | Property                       |Toelichting
+      | Objecttype       | Attribuut in de BAG                      | Resource              | Fields                      | Property                       | Toelichting |
       | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | openbareRuimte              | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
       | Woonplaats       | Geometrie                                | adressen              | woonplaats                  | woonplaatsIdentificatie        | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
