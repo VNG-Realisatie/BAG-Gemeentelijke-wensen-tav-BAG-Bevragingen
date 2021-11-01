@@ -3179,9 +3179,6 @@
           },
           "woonplaats": {
             "$ref": "#/components/schemas/WoonplaatsHalBasis"
-          },
-          "adresseerbaarObject": {
-            "$ref": "#/components/schemas/AdresseerbaarObjectHalBasis"
           }
         }
       },

@@ -11,7 +11,7 @@ servers:
 info:
   title: Huidige bevragingen API
   description: "Deze API levert actuele gegevens over adressen, adresseerbare objecten en panden. Actueel betekent in deze API `zonder eindstatus`. De bron voor deze API is de basisregistratie adressen en gebouwen (BAG)."
-  version: "1.3.0"
+  version: "1.4.0"
   termsOfService: https://zakelijk.kadaster.nl/algemene-voorwaarden
   contact:
     name: Kadaster - Beheerder Landelijke Voorziening BAG
@@ -92,8 +92,8 @@ paths:
         
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, 
         zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). 
-
-        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats, openbare ruimte en adresseerbaarobject, 
+        
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte, 
         zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).
 
         Gebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria,
@@ -253,10 +253,10 @@ paths:
         1. een nummeraanduidingidentificatie of
         
         2. een pandidentificatie of
-        
-        3. een lijst met pandidentificaties of
-        
-        
+         
+        3. een lijst met pandidentificaties.
+
+
         Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie 
         [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). 
         
@@ -265,7 +265,7 @@ paths:
         Je kunt panden niet expanden als je tegelijkertijd de query parameter pandIdentificatie(s) gebruikt.
       parameters:
         - $ref: '#/components/parameters/nummeraanduidingIdentificatie-query'
-        - $ref: '#/components/parameters/pandIdentificatie-query'
+        - $ref: '#/components/parameters/deprecated-pandIdentificatie-query'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/expand'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/fields'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
@@ -579,7 +579,7 @@ components:
         type: string
 
     locatie-query:
-      description: Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+      description: Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=196733.51,439931.89
       name: locatie
       in: query
       required: false
@@ -590,7 +590,7 @@ components:
         maxItems: 2
         items:
           type: number
-        example: [196733.510, 439931.890] 
+        example: [196733.51, 439931.89] 
 
     nummeraanduidingIdentificatie-query:
       description: "Identificatie van een nummeraanduiding uit de BAG. Deze is 16 cijfers lang."
@@ -603,6 +603,17 @@ components:
         example: '0226200000038923'
 
     pandIdentificatie-query:
+      description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
+      name: pandIdentificatie
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9]{16}$'
+        example: '0226100000008856'
+
+    deprecated-pandIdentificatie-query:
+      deprecated: true
       description: "Identificatie van een pand uit de BAG. Deze is 16 cijfers lang."
       name: pandIdentificatie
       in: query
@@ -629,8 +640,12 @@ components:
       required: false
       schema:
         type: string
-        pattern: '^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$'
-        example: '6922KZ'
+        pattern: '^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$'
+      examples:
+        zonderSpatie:
+          value: '6922KZ'
+        metSpatie:
+          value: '6922 KZ'
 
     huisnummer:
       description: Huisnummer van het adres.
@@ -816,12 +831,14 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            zoekresultaten:
-              type: array
-              items:
-                $ref: '#/components/schemas/ZoekResultaatHal'
+          $ref: '#/components/schemas/ZoekResultaatHalCollectieEmbedded'
+    ZoekResultaatHalCollectieEmbedded:
+      type: object
+      properties:
+        zoekresultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoekResultaatHal'
 
     Adres:
       type: object
@@ -950,12 +967,14 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          properties:
-            adressen:
-              items:
-                $ref: '#/components/schemas/AdresHal'
-              type: array
-          type: object
+          $ref: '#/components/schemas/AdresHalCollectieEmbedded'
+    AdresHalCollectieEmbedded:
+      type: object
+      properties:
+        adressen:
+          items:
+            $ref: '#/components/schemas/AdresHal'
+          type: array
     AdresLinks:
       type: object
       properties:
@@ -987,8 +1006,6 @@ components:
           $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
-        adresseerbaarObject:
-          $ref: '#/components/schemas/AdresseerbaarObjectHalBasis'
 
     AdresseerbaarObject:
       type: object
@@ -1102,14 +1119,16 @@ components:
       type: object
       properties:
         _embedded:
-          properties:
-            adresseerbareObjecten:
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
-              type: array
-          type: object
+          $ref: '#/components/schemas/AdresseerbaarobjectHalCollectieEmbedded'
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
+    AdresseerbaarobjectHalCollectieEmbedded:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
+          type: array
     AdresseerbaarObjectStatusEnum:
       type: string
       enum:
@@ -1469,12 +1488,15 @@ components:
         _links:
           $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            panden:
-              type: array
-              items:
-                $ref: '#/components/schemas/PandHalBasis'
+          $ref: '#/components/schemas/PandHalCollectieEmbedded'
+    PandHalCollectieEmbedded:
+      type: object
+      properties:
+        panden:
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
+    
     StatusNaamgevingEnum:
       description: "Een aanduiding van alle waarden die de status van een openbare ruimte of een nummeraanduiding kan aannemen."
       type: string
