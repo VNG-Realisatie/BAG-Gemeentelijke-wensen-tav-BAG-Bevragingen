@@ -280,6 +280,13 @@ Functionaliteit: Mogelijk onjuist
             }
         """
       En bevat het antwoord geen property "mogelijkOnjuist.huisnummer"
+      
+   Scenario: Openbare ruimte ligt in is in onderzoek, maar relatie naar woonplaats wordt gelegd via nummeraanduiding
+      Gegeven in object openbare ruimte is gegeven "ligt in" (woonplaats) in onderzoek
+      En in object nummeraanduiding heeft attribuut "ligt in" (woonplaats) een waarde
+      En verder zijn er geen aan het adres gerelateerde attributen in onderzoek
+      Als de afgeleide Adres resource wordt opgevraagd
+      Dan bevat het antwoord geen property "mogelijkOnjuist"      
 
 Onderstaande scenario's zijn erop gericht dat afnemers altijd de noodzakelijke mogelijk onjuist informatie ontvangen als deze door toepassing van de fieldsparameter in principe niet zou worden geleverd.
 
