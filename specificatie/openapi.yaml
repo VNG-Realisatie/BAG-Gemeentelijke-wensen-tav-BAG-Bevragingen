@@ -765,7 +765,7 @@ components:
       description: >-
         Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).
         Alleen verblijfsobjecten hebben een oppervlakte en kunnen met deze parameter worden gevonden.
-        Ligtplaatsen en standplaatsen hebben geen oppervlakte en kunnen met deze parameter niet worden gevonden.
+        Ligplaatsen en standplaatsen hebben geen oppervlakte en kunnen met deze parameter niet worden gevonden.
         De oppervlakte van een verblijfstobject is een natuurlijk getal tussen 1 (minimaal) en 999999 (maximaal).
         Het is niet toegestaan voor min een grotere waarde op te geven dan voor max.
         Is min > max dan treedt een foutmelding op.
