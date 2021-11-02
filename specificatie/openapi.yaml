@@ -590,7 +590,9 @@ components:
         type: string
 
     locatie-query:
-      description: Coordinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+      description: >-
+        Coördinaten van een locatie die als query-parameter gebruikt wordt om een object te zoeken.
+        Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
       name: locatie
       in: query
       required: false
@@ -634,7 +636,7 @@ components:
         example: '0226010000038820'
 
     postcode:
-      description: Postcode van het adres.
+      description: "Postcode van het adres."
       name: postcode
       in: query
       required: false
@@ -648,7 +650,7 @@ components:
           value: '6922 KZ'
 
     huisnummer:
-      description: Huisnummer van het adres.
+      description: "Huisnummer van het adres."
       name: huisnummer
       in: query
       required: false
@@ -659,9 +661,9 @@ components:
         example: 1
 
     huisnummertoevoeging:
-      description: |
+      description: >-
         Een toevoeging (in de vorm van maximaal 4 cijfers of letters) aan een huisnummer of een combinatie van huisnummer en huisletter van het adres.
-        Bijvoorbeeld: 
+        Bijvoorbeeld:
         Bij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.
       name: huisnummertoevoeging
       in: query
@@ -672,7 +674,7 @@ components:
         example: 'bis'
 
     huisletter:
-      description: |
+      description: >-
         Een toevoeging (in de vorm van een letter) aan een huisnummer van het adres.
         Bijvoorbeeld: 
         Bij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP, is 1 het huisnummer en A de huisletter.
@@ -686,7 +688,8 @@ components:
 
     exacteMatch:
       description: >-
-        "Geeft aan of de resultaten van de zoekopdracht exact overeen moeten komen met de opgegeven parameters, zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."
+        Geeft aan of de resultaten van de zoekopdracht exact overeen moeten komen met de opgegeven parameters, 
+        zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature).
       name: exacteMatch
       in: query
       required: false
@@ -732,6 +735,7 @@ components:
       description: >-
         Bouwjaar van het pand.
         Geeft het minimale en/of maximale bouwjaar aan van het pand waarnaar moet worden gezocht. 
+        Een bouwjaar is een natuurlijk getal tussen 0 (minimaal) en 9999 (maximaal).
         Bv: bouwjaar[min]=1970&bouwjaar[max]=2010
       name: bouwjaar
       in: query
@@ -750,7 +754,9 @@ components:
         $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
 
     gebruiksdoelen:
-      description: "De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen."
+      description: >-
+        De gebruiksdoelen van het verblijfsobject zoals in de vergunning is opgenomen of bij constatering is vastgesteld.
+        Als een verblijfsobject één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in het zoekresultaat meegenomen.
       name: gebruiksdoelen
       in: query
       required: false
@@ -766,7 +772,7 @@ components:
         Geef de minimale en maximale oppervlakte op waarbinnen je wilt zoeken (in m2).
         Alleen verblijfsobjecten hebben een oppervlakte en kunnen met deze parameter worden gevonden.
         Ligplaatsen en standplaatsen hebben geen oppervlakte en kunnen met deze parameter niet worden gevonden.
-        De oppervlakte van een verblijfstobject is een natuurlijk getal tussen 1 (minimaal) en 999999 (maximaal).
+        De oppervlakte van een verblijfsobject is een natuurlijk getal tussen 1 (minimaal) en 999999 (maximaal).
         Het is niet toegestaan voor min een grotere waarde op te geven dan voor max.
         Is min > max dan treedt een foutmelding op.
         Bv: oppervlakte[min]=100&oppervlakte[max]=200
