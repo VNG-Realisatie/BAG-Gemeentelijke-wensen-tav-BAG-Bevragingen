@@ -281,8 +281,8 @@ Rule: embedden van een gerelateerde resource i.c.m. de gerelateerde resource ide
 
 Rule: min waarde is niet groter dan max waarde
 
-    Scenario: opgegeven minimale oppervlakte is groter dan opgegeven maximale oppervlakte
-        Als oppervlakte[min] > oppervlakte[max]
+    Abstract Scenario: opgegeven minimale oppervlakte is groter dan opgegeven maximale oppervlakte
+        Als '<path><query string>' wordt aangeroepen
         Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
@@ -294,5 +294,5 @@ Rule: min waarde is niet groter dan max waarde
         | oppervlakte[min] | range  | min mag niet hoger zijn dan max. |
 
         Voorbeelden:
-        | path                   | query string                               | code   | reason                           |
-        | /adresseerbareobjecten | ?oppervlakte[min]=200&oppervlakte[max]=100 | expand | min mag niet hoger zijn dan max. |
+        | path                   | query string                               | code  | reason                           |
+        | /adresseerbareobjecten | ?oppervlakte[min]=200&oppervlakte[max]=100 | range | min mag niet hoger zijn dan max. |
