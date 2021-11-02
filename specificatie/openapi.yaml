@@ -716,8 +716,7 @@ components:
       required: false
       schema:
         type: boolean
-        default: false
-        
+
     statusPand:
       description: "Status van het pand."
       name: statusPand
