@@ -44,7 +44,7 @@ Functionaliteit: Mogelijk onjuist
     Gegeven in object <Objecttype> is gegeven <Attribuut in de BAG> in onderzoek
     Als de afgeleide <Resource> resource wordt opgevraagd
     Dan bevat het antwoord in property mogelijkOnjuist de property of properties <mogelijkOnjuist property> met de boolean waarde true
-    En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<toelichting>"
+    En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<Toelichting>"
     En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
 
     Voorbeelden:
@@ -101,7 +101,7 @@ Functionaliteit: Mogelijk onjuist
     En in object <Objecttype> heeft status de waarde <Status>
     Als de afgeleide <Resource> resource wordt opgevraagd
     Dan bevat het antwoord in property mogelijkOnjuist de property of properties <mogelijkOnjuist property> met de boolean waarde true
-    En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<toelichting>"
+    En bevat het antwoord in property mogelijkOnjuist de property toelichting met een waarde "<Toelichting>"
     En bevat het antwoord in property mogelijkOnjuist geen andere properties dan <mogelijkOnjuist property> en toelichting
 
     Voorbeelden:
@@ -351,7 +351,6 @@ Onderstaande scenario's zijn erop gericht dat afnemers altijd de noodzakelijke m
       Voorbeelden:
       | Objecttype       | Attribuut in de BAG                      | Resource              | Fields                      | Property                       | Toelichting |
       | Nummeraanduiding | Ligt aan gerelateerde openbare ruimte    | adressen              | openbareRuimte              | openbareRuimteIdentificatie    | Mogelijk verkeerde straat gebruikt. Het adres moet verwijzen naar de straat waaraan het adres ligt. |
-      | Woonplaats       | Geometrie                                | adressen              | woonplaats                  | woonplaatsIdentificatie        | Geometrie of woonplaatsgrens is mogelijk onjuist, waardoor gaten of overlappingen ontstaan in de registratie van woonplaatsen. Gevolg kan zijn dat een object in een verkeerde woonplaats, in twee woonplaatsen, of in geen enkele woonplaats ligt. |
       | Openbare ruimte  | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. De straat moet verwijzen naar de woonplaats waarin de straat fysiek ligt. |
       | Nummeraanduiding | Ligt in gerelateerde woonplaats          | adressen              | woonplaats                  | woonplaatsIdentificatie        | Mogelijk verkeerde woonplaats gebruikt. Het adres moet verwijzen naar de woonplaats waarin het adres fysiek ligt. |
       | Verblijfsobject  | Maakt onderdeel uit van gerelateerd Pand | adressen              | panden                      | pandIdentificaties             | Verblijfsobject maakt mogelijk deel uit van een ander pand. |
