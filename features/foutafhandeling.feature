@@ -278,3 +278,21 @@ Rule: embedden van een gerelateerde resource i.c.m. de gerelateerde resource ide
         | path                   | query string                                                                  | code   | reason                                                                                                                                                      |
         | /adresseerbareobjecten | ?pandIdentificatie=0226100000008856&expand=panden                             | expand | Deel van de parameterwaarde is niet correct: filteren met pandIdentificatie en tegelijk expanden van panden is niet toegestaan.                             |
         | /adressen              | ?adresseerbaarObjectIdentificatie=0226010000038820&expand=adresseerbaarObject | expand | Deel van de parameterwaarde is niet correct: filteren met adresseerbaarObjectIdentificatie en tegelijk expanden van adresseerbaarObject is niet toegestaan. |
+
+Rule: min waarde is niet groter dan max waarde
+
+    Scenario: opgegeven minimale oppervlakte is groter dan opgegeven maximale oppervlakte
+        Als oppervlakte[min] > oppervlakte[max]
+        Dan bevat de response de volgende velden
+        | naam   | waarde                                        |
+        | title  | Een of meerdere parameters zijn niet correct. |
+        | status | 400                                           |
+        | code   | paramsValidation                              |
+        | detail | Bad request.                                  |
+        En bevat de response de volgende invalidParams
+        | name             | code   | reason                           |
+        | oppervlakte[min] | range  | min mag niet hoger zijn dan max. |
+
+        Voorbeelden:
+        | path                   | query string                               | code   | reason                           |
+        | /adresseerbareobjecten | ?oppervlakte[min]=200&oppervlakte[max]=100 | expand | min mag niet hoger zijn dan max. |
