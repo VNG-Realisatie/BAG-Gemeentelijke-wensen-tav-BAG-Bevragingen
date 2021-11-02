@@ -136,7 +136,7 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     | 0002          | (12,0), (22,0), (22,10), (12,10) |
 
     Bijvoorbeeld:
-      /panden?locatie=20,2,24,6
+      /panden?bbox=20,2,24,6
 
   Scenario: GET met bounding box, Content-Crs (optioneel) en Accept-Crs (optioneel) meerdere resources
   
@@ -159,7 +159,7 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     | 0004          | (0,8),   (10,8),  (10,18), (0,18)  |
 
     Bijvoorbeeld:
-      /panden?locatie=9,9,13,13
+      /panden?bbox=9,9,13,13
 
   Scenario: GET met bounding box, Content-Crs (optioneel) en Accept-Crs (optioneel) gelijke coördinaten
   
@@ -180,7 +180,7 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     En is het resultaat hetzelfde wanneer er bij het endpoint /panden?locatie=<coördinaat> dezelfde coördinaat wordt opgegeven
 
     Bijvoorbeeld:
-      /panden?locatie=5,5,5,5
+      /panden?bbox=5,5,5,5
 
   Scenario: GET met bounding box, Content-Crs (optioneel) en Accept-Crs (optioneel) geen resources
   
@@ -197,10 +197,10 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     Dan bevat het resultaat geen objecten
 
     Bijvoorbeeld:
-      /panden?locatie=2,20,6,24
+      /panden?bbox=2,20,6,24
 
 
-  Scenario: GET met polygoon, Content-Crs (optioneel) en Accept-Crs (optioneel) één resource
+  Scenario: POST met polygoon, Content-Crs (optioneel) en Accept-Crs (optioneel) één resource
   
     Als er met de volgende parameters wordt gezocht:
     | polygoon                                     | Content-Crs | Accept-Crs |
@@ -226,9 +226,15 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     | 0002          | (12,0), (22,0), (22,10), (12,10) |
 
     Bijvoorbeeld:
-      /panden?locatie=20,9,28,7,28,12,24,14,24,11,20,9
+      /panden
+      Request body:
+      {
+        "geometrie": {
+          "intersects": "POLYGON ((20 9,28 7,28 12,24 14,24 11,20 9))"
+        }
+      }
 
-  Scenario: GET met polygoon, Content-Crs (optioneel) en Accept-Crs (optioneel) meerdere resources
+  Scenario: POST met polygoon, Content-Crs (optioneel) en Accept-Crs (optioneel) meerdere resources
   
     Als er met de volgende parameters wordt gezocht:
     | polygoon                                   | Content-Crs | Accept-Crs |
@@ -249,9 +255,15 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     | 0004          | (0,8),   (10,8),  (10,18), (0,18)  |
 
     Bijvoorbeeld:
-      /panden?locatie=7,9,15,7,15,12,11,13,11,11,7,9
+      /panden
+      Request body:
+      {
+        "geometrie": {
+          "intersects": "POLYGON ((7 9,15 7,15 12,11 13,11 11,7 9))"
+        }
+      }
 
-  Scenario: GET met polygoon, Content-Crs (optioneel) en Accept-Crs (optioneel) geen resources
+  Scenario: POST met polygoon, Content-Crs (optioneel) en Accept-Crs (optioneel) geen resources
   
     Als er met de volgende parameters wordt gezocht:
     | polygoon                                  | Content-Crs | Accept-Crs |
@@ -266,7 +278,13 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box) kun
     Dan bevat het resultaat geen objecten
 
     Bijvoorbeeld:
-      /panden?locatie=1,21,9,19,9,24,5,26,5,23,1,21
+      /panden
+      Request body:
+      {
+        "geometrie": {
+          "intersects": "POLYGON ((1 21,9 19,9 24,5 26,5 23,1 21))"
+        }
+      }
 
 
   Scenario: GET met geometrie en niet ondersteunde Content-Crs
