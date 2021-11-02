@@ -1006,6 +1006,8 @@ components:
           $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
+        adresseerbaarObject:
+          $ref: '#/components/schemas/AdresseerbaarObjectHalBasis'
 
     AdresseerbaarObject:
       type: object
