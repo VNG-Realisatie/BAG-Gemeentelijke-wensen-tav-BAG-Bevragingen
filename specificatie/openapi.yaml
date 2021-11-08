@@ -152,11 +152,7 @@ paths:
         - Adres
       summary: "vindt adressen"
       description: >-
-        Zoek actuele adressen met:
-
-        1. een vrije contour (polygoon, multi polygoon etc.).
-
-
+        Zoek actuele adressen met een vrije contour (polygoon).
       parameters:
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/acceptCrs'
         - $ref: 'https://raw.githubusercontent.com/VNG-Realisatie/Haal-Centraal-common/v1.3.0/api-specificatie/common.yaml#/components/parameters/contentCrs'
