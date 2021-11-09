@@ -290,9 +290,21 @@ Rule: min waarde is niet groter dan max waarde
         | code   | paramsValidation                              |
         | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
-        | name             | code   | reason                           |
-        | oppervlakte[min] | range  | min mag niet hoger zijn dan max. |
+        | name             | code  | reason                           |
+        | oppervlakte[min] | range | min mag niet hoger zijn dan max. |
 
         Voorbeelden:
         | path                   | query string                               | code  | reason                           |
         | /adresseerbareobjecten | ?oppervlakte[min]=200&oppervlakte[max]=100 | range | min mag niet hoger zijn dan max. |
+
+Rule: bij geometrie parameters hebben waarde fouten voorrang op crs fouten
+
+Abstract Scenario: geometrie parameter bevat zowel waarde als crs fouten
+    Als de '/panden?locatie=<locatie waarde>' wordt aangeroepen
+    Dan bevat de response alleen de volgende invalidParams
+    | name    | code      | reason                           |
+    | locatie | geometrie | Waarde is geen geldig geometrie. |
+
+    Voorbeelden:
+    | locatie waarde  | omschrijving                                                                   |
+    | 194189.98399146 | coördinaat mist een waarde en opgegeven waarde voldoet niet aan de default crs |
