@@ -153,14 +153,14 @@ Rule: type van parameter waarde is correct
         Voorbeelden:
         | path      | query string                                          | detail                                                                                           | parameter | code             | reason omschrijving                   |
         | /adressen | ?pandIdentificatie=0345100002016017&page=a&pageSize=3 | Ongeldige waarde [a] opgegeven voor parameter [page]                                             | page      | integer          | Waarde is geen geldige integer.       |
-        | /panden   | ?locatie=abc,def                                      | Ongeldige waarde [abc,def] opgegeven voor parameter [locatie]                                    | locatie   | geometry         | Waarde is geen geldig geometrie.      |
-        | /panden   | ?locatie=194189.98399146                              | Ongeldige waarde [194189.98399146] opgegeven voor parameter [locatie]                            | locatie   | geometry         | Waarde is geen geldig geometrie.      |
-        | /panden   | ?locatie=194189.98399146,abc                          | Ongeldige waarde [194189.98399146,abc] opgegeven voor parameter [locatie]                        | locatie   | geometry         | Waarde is geen geldig geometrie.      |
-        | /panden   | ?locatie=194189.98399146,465870.76799701              | Ongeldige waarde [194189.98399146,465870.76799701] opgegeven voor parameter [locatie]            | locatie   | geometryMismatch | Waarde is niet conform opgegeven CRS. |
-        | /panden   | ?bbox=a,b,c,d                                         | Ongeldige waarde [a,b,c,d] opgegeven voor parameter [bbox]                                       | bbox      | geometry         | Waarde is geen geldig geometrie.      |
-        | /panden   | ?bbox=52.10544278                                     | Ongeldige waarde [52.10544278] opgegeven voor parameter [bbox]                                   | bbox      | geometry         | Waarde is geen geldig geometrie.      |
-        | /panden   | ?bbox=52.10544278,5.09890079,52.10423390,d            | Ongeldige waarde [52.10544278,5.09890079,52.10423390,d] opgegeven voor parameter [bbox]          | bbox      | geometry         | Waarde is geen geldig geometrie.      |
-        | /panden   | ?bbox=52.10544278,5.09890079,52.10423390,5.09996295   | Ongeldige waarde [52.10544278,5.09890079,52.10423390,5.09996295] opgegeven voor parameter [bbox] | bbox      | geometryMismatch | Waarde is niet conform opgegeven CRS. |
+        | /panden   | ?locatie=abc,def                                      | Ongeldige waarde [abc,def] opgegeven voor parameter [locatie]                                    | locatie   | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?locatie=194189.98399146                              | Bad request.                                                                                     | locatie   | minItems         | Array bevat minder dan 2 items.       |
+        | /panden   | ?locatie=194189.98399146,abc                          | Ongeldige waarde [194189.98399146,abc] opgegeven voor parameter [locatie]                        | locatie   | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?locatie=194189.98399146,465870.76799701              | Ongeldige waarde [194189.98399146,465870.76799701] opgegeven voor parameter [locatie]            | locatie   | geometryMismatch | Waarde is niet conform opgegeven CRS. | # op dit moment geen invalidParams
+        | /panden   | ?bbox=a,b,c,d                                         | Ongeldige waarde [a,b,c,d] opgegeven voor parameter [bbox]                                       | bbox      | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?bbox=52.10544278                                     | Bad request.                                                                                     | bbox      | minItems         | Array bevat minder dan 4 items.       |
+        | /panden   | ?bbox=52.10544278,5.09890079,52.10423390,d            | Ongeldige waarde [52.10544278,5.09890079,52.10423390,d] opgegeven voor parameter [bbox]          | bbox      | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?bbox=52.10544278,5.09890079,52.10423390,5.09996295   | Ongeldige waarde [52.10544278,5.09890079,52.10423390,5.09996295] opgegeven voor parameter [bbox] | bbox      | geometryMismatch | Waarde is niet conform opgegeven CRS. | # op dit moment internal server error
         
     Scenario: type van waarde van meerdere parameters is niet correct
         Als '/adressen?pandIdentificatie=0345100002016017&page=a&pageSize=b' wordt aangeroepen
@@ -173,7 +173,7 @@ Rule: type van parameter waarde is correct
         En bevat de response de volgende invalidParams
         | name     | code    | reason                          |
         | page     | integer | Waarde is geen geldige integer. |
-        | pageSize | code    | waarde 'b' is geen getal        |
+        | pageSize | code    | waarde 'b' is geen getal        | # op dit moment komt deze niet terug
 
 Rule: waarde van parameter is valide
 
@@ -224,6 +224,7 @@ Rule: Een raadpleeg collectie aanroep mag slechts één identificatie parameter 
         | status | 400                                                        |
         | code   | unsupportedCombi                                           |
         | detail | Bad request.                                               |
+        En bevat de response geen invalidParams
 
         Voorbeelden:
         | path                   | query string                                                                                      | fout detail                                                                                                |
