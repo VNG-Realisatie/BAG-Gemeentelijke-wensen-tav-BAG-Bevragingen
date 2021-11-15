@@ -227,10 +227,10 @@ Rule: Een raadpleeg collectie aanroep mag slechts één identificatie parameter 
         En bevat de response geen invalidParams
 
         Voorbeelden:
-        | path                   | query string                                                                                      | fout detail                                                                                                |
-        | /adressen              | ?pandIdentificatie=0226100000008856&adresseerbaarObjectIdentificatie=0226010000038820             | Alleen parameter 'pandIdentificatie' of 'adresseerbaarObjectIdentificatie' moet zijn opgegeven             |
-        | /adresseerbareobjecten | ?nummeraanduidingIdentificatie=0226200000038923&pandIdentificatie=0226100000008856                | Alleen parameter 'nummeraanduidingIdentificatie' of 'pandIdentificatie' moet zijn opgegeven                |
-        | /panden                | ?adresseerbaarObjectIdentificatie=0226010000038820&nummeraanduidingIdentificatie=0226200000038923 | Alleen parameter 'adresseerbaarObjectIdentificatie' of 'nummeraanduidingIdentificatie' moet zijn opgegeven |
+        | path                   | query string                                                                                      |
+        | /adressen              | ?pandIdentificatie=0226100000008856&adresseerbaarObjectIdentificatie=0226010000038820             |
+        | /adresseerbareobjecten | ?nummeraanduidingIdentificatie=0226200000038923&pandIdentificatie=0226100000008856                |
+        | /panden                | ?adresseerbaarObjectIdentificatie=0226010000038820&nummeraanduidingIdentificatie=0226200000038923 |
 
 Rule: alle parameter fouten in een request worden samen geretourneerd
 
