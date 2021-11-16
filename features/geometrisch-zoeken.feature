@@ -34,24 +34,31 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box, pol
     - het zoeken van panden op een locatie
     - het zoeken van adresseerbare objecten binnen een bounding box
     - het zoeken van panden binnen een bounding box
-    - het zoeken van adressen binnen een polygoon
+    - het zoeken van adressen binnen een vrije contour (polygoon, multipolygoon)
       Omdat adres een samengesteld object is en geen geometrie bevat, worden adressen bepaald op basis van het adresseerbare object dat aan een adres is gekoppeld.
-      Daarbij wordt er alleen gekeken naar het hoofdadres van het adreseerbare object.
+      Daarbij worden hoofd- en nevenadressen van adresseerbare objecten geleverd, waarbij de adresseerbare object geometrie volgens de intersect spatial operator matcht met de opgegeven contour.
 
-    Deze feature beschrijft geen scenario's m.b.t. multi polygonen, omdat multi polygonen alleen bij woonplaatsen kunnen voorkomen.
-    Het zoeken van woonplaatsen met locatie, bbox of polygoon wordt niet ondersteund.
+    Deze feature beschrijft geen scenario's waarbij objecten een geometrie van het type multi polygoon bevatten.
+    Het enige object type waar dit voor geldt is een woonplaats, echter wordt het zoeken van woonplaatsen met locatie, bbox of polygoon niet ondersteund.
+
+    Het zoeken met een multipolygoon wordt bij adressen ondersteund.
+    Deze scenario's zijn niet apart beschreven, omdat het zoeken met een multipolygoon overeenkomt met het meerdere malen zoeken met een polygoon waarbij het resultaat wordt ontdaan van evt. dubbelingen.
 
     In de hierna volgende voorbeelden is een vereenvoudigde representatie gebruikt voor coördinaten.
     
     Voor een visualisatie van de scenario's zoals hieronder beschreven zie:
     - locatie voorbeelden: /images//locatie-voorbeelden.png
-      De zwarte punten zijn de locaties waarmee wordt gezocht. De overige figuren zijn de geometrieën van objecten.
+      De zwarte punten zijn de locaties waarmee wordt gezocht. 
+      De overige figuren zijn de geometrieën van objecten.
 
     - bounding box voorbeelden: /images/bbox-voorbeelden.png
-      De zwarte onderbroken lijnen geven de bbox aan waarmee wordt gezocht. De overige figuren zijn de geometrieën van objecten.
+      De zwarte onderbroken lijnen geven de bbox aan waarmee wordt gezocht.
+      De zwarte punt is de bounding box waarbij het punt linksonder en rechtsboven gelijk zijn en waarmee wordt gezocht. 
+      De overige figuren zijn de geometrieën van objecten.
 
     - polygoon voorbeelden: /images/locatie-voorbeelden.png
-      De zwarte onderbroken lijnen geven de bbox aan waarmee wordt gezocht. De overige figuren zijn de geometrieën van objecten.
+      De zwarte onderbroken lijnen geven de bbox aan waarmee wordt gezocht. 
+      De overige figuren zijn de geometrieën van objecten.
 
   Achtergrond:
 
