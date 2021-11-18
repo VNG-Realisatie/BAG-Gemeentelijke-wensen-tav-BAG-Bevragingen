@@ -5,9 +5,9 @@ Functionaliteit: Afhandeling van fouten
     Wil ik consistente en gebruiksvriendelijke fout responses conform problem+json
     Zodat ik in mijn consumer applicatie de fouten eenduidig kan afhandelen.
 
-Rule: type van parameter waarde is correct
+Rule: waarde van parameter is valide
 
-    Abstract Scenario: type van waarde van één parameter is niet correct
+    Abstract Scenario: waarde van één parameter is niet correct
         Als '<path><query string>' wordt aangeroepen
         Dan bevat de response de volgende velden
         | naam   | waarde                                        |
@@ -20,17 +20,15 @@ Rule: type van parameter waarde is correct
         | <parameter> | <code> | <reason omschrijving> |
 
         Voorbeelden:
-        | path      | query string                                          | detail                                                                                           | parameter | code             | reason omschrijving                   |
-        | /panden   | ?locatie=abc,def                                      | Ongeldige waarde [abc,def] opgegeven voor parameter [locatie]                                    | locatie   | number           | Waarde is geen geldig decimaal getal. |
-        | /panden   | ?locatie=194189.98399146                              | Bad request.                                                                                     | locatie   | minItems         | Array bevat minder dan 2 items.       |
-        | /panden   | ?locatie=194189.98399146,abc                          | Ongeldige waarde [194189.98399146,abc] opgegeven voor parameter [locatie]                        | locatie   | number           | Waarde is geen geldig decimaal getal. |
-        | /panden   | ?locatie=194189.98399146,465870.76799701              | Ongeldige waarde [194189.98399146,465870.76799701] opgegeven voor parameter [locatie]            | locatie   | geometryMismatch | Waarde is niet conform opgegeven CRS. | # op dit moment geen invalidParams
-        | /panden   | ?bbox=a,b,c,d                                         | Ongeldige waarde [a,b,c,d] opgegeven voor parameter [bbox]                                       | bbox      | number           | Waarde is geen geldig decimaal getal. |
-        | /panden   | ?bbox=52.10544278                                     | Bad request.                                                                                     | bbox      | minItems         | Array bevat minder dan 4 items.       |
-        | /panden   | ?bbox=52.10544278,5.09890079,52.10423390,d            | Ongeldige waarde [52.10544278,5.09890079,52.10423390,d] opgegeven voor parameter [bbox]          | bbox      | number           | Waarde is geen geldig decimaal getal. |
-        | /panden   | ?bbox=52.10544278,5.09890079,52.10423390,5.09996295   | Ongeldige waarde [52.10544278,5.09890079,52.10423390,5.09996295] opgegeven voor parameter [bbox] | bbox      | geometryMismatch | Waarde is niet conform opgegeven CRS. | # op dit moment internal server error
-
-Rule: waarde van parameter is valide
+        | path      | query string                                        | detail                                                                                           | parameter | code             | reason omschrijving                   |
+        | /panden   | ?locatie=abc,def                                    | Ongeldige waarde [abc,def] opgegeven voor parameter [locatie]                                    | locatie   | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?locatie=194189.983                                 | Bad request.                                                                                     | locatie   | minItems         | Array bevat minder dan 2 items.       |
+        | /panden   | ?locatie=194189.983,abc                             | Ongeldige waarde [194189.98399146,abc] opgegeven voor parameter [locatie]                        | locatie   | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?locatie=5.96072575,52.18450437                     | Ongeldige waarde [194189.98399146,465870.76799701] opgegeven voor parameter [locatie]            | locatie   | geometryMismatch | Waarde is niet conform opgegeven CRS. |
+        | /panden   | ?bbox=a,b,c,d                                       | Ongeldige waarde [a,b,c,d] opgegeven voor parameter [bbox]                                       | bbox      | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?bbox=134647.123,457842.456                         | Bad request.                                                                                     | bbox      | minItems         | Array bevat minder dan 4 items.       |
+        | /panden   | ?bbox=134647.123,457842.456,134747.123,d            | Ongeldige waarde [52.10544278,5.09890079,52.10423390,d] opgegeven voor parameter [bbox]          | bbox      | number           | Waarde is geen geldig decimaal getal. |
+        | /panden   | ?bbox=5.95898224,52.18079713,5.96164299,52.17919192 | Ongeldige waarde [52.10544278,5.09890079,52.10423390,5.09996295] opgegeven voor parameter [bbox] | bbox      | geometryMismatch | Waarde is niet conform opgegeven CRS. |
 
     Scenario: waarde van bbox parameter overschrijdt maximale toegestane oppervlakte 
         Als '/panden?bbox=134647,457842,137512,455907' wordt aangeroepen
@@ -62,9 +60,9 @@ Rule: min waarde is niet groter dan max waarde
         | path                   | query string                               | code  | reason                           |
         | /adresseerbareobjecten | ?oppervlakte[min]=200&oppervlakte[max]=100 | range | min mag niet hoger zijn dan max. |
 
-Rule: waarde van property in request body is valide
+Rule: waarde van parameter in request body is valide
 
-    Abstract Scenario: waarde van een property in de request body is niet correct
+    Abstract Scenario: waarde van een parameter in de request body is niet correct
         Als '<path><request body>' wordt aangeroepen
         Dan bevat de response de volgende velden
         | naam   | waarde                                        |
@@ -93,8 +91,8 @@ Rule: waarde van property in request body is valide
         | code   | paramsValidation                              |
         | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
-        | name                 | code           | reason                                             |
-        | geometrie.intersects | surfaceMaximum | Waarde is hoger dan maximum oppervlakte 250000 m2. |
+        | name                           | code           | reason                                             |
+        | AdresBody.geometrie.intersects | surfaceMaximum | Waarde is hoger dan maximum oppervlakte 250000 m2. |
 
 Rule: verplichte request body is opgegeven
 
@@ -108,27 +106,27 @@ Rule: verplichte request body is opgegeven
         | detail | Request body moet worden meegegeven. |
         En bevat de response geen invalidParams
 
-Rule: verplichte request body property is opgegeven
+Rule: verplichte request body parameter is opgegeven
 
-    Scenario: verplichte request body property is niet opgegeven
+    Scenario: verplichte request body parameter is niet opgegeven
         Als /adressen met request body AdresBody wordt aangeroepen
-        En de AdresBody bevat geen property geometrie
-        Dan bevat de response de volgende velden
-        | naam   | waarde                                        |
-        | title  | Geef tenminste één parameter op.              |
-        | status | 400                                           |
-        | code   | paramsRequired                                |
-        | detail | geometrie property ontbreekt in request body. |
-        En bevat de response geen invalidParams
-
-    Scenario: verplichte request body property is niet opgegeven
-        Als /adressen met request body AdresBody wordt aangeroepen
-        En de AdresBody bevat een property geometrie
-        En de geometrie property bevat geen property intersects
+        En de AdresBody bevat geen parameter geometrie
         Dan bevat de response de volgende velden
         | naam   | waarde                                                   |
         | title  | Geef tenminste één parameter op.                         |
         | status | 400                                                      |
         | code   | paramsRequired                                           |
-        | detail | geometrie.intersects property ontbreekt in request body. |
+        | detail | AdresBody.geometrie parameter ontbreekt in request body. |
+        En bevat de response geen invalidParams
+
+    Scenario: verplichte request body parameter is niet opgegeven
+        Als /adressen met request body AdresBody wordt aangeroepen
+        En de AdresBody bevat een parameter geometrie
+        En de geometrie parameter bevat geen parameter intersects
+        Dan bevat de response de volgende velden
+        | naam   | waarde                                                              |
+        | title  | Geef tenminste één parameter op.                                    |
+        | status | 400                                                                 |
+        | code   | paramsRequired                                                      |
+        | detail | AdresBody.geometrie.intersects parameter ontbreekt in request body. |
         En bevat de response geen invalidParams
