@@ -16,7 +16,6 @@ Rule: waarde van parameter moet valide zijn
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | <detail>                                      |
         En bevat de response de volgende invalidParams
         | name        | code   | reason                |
         | <parameter> | <code> | <reason omschrijving> |
@@ -66,27 +65,28 @@ Rule: min waarde mag niet groter zijn dan max waarde
 Rule: waarde van parameter in request body is valide
 
     Abstract Scenario: waarde van een parameter in de request body is niet correct
-        Als '<path><request body>' wordt aangeroepen
+        Als een POST request wordt gedaan met '<path>' en '<request body>'
         Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | <detail>                                      |
         En bevat de response de volgende invalidParams
         | name        | code   | reason                |
         | <parameter> | <code> | <reason omschrijving> |
 
         Voorbeelden:
-        | path      | request body                                                                                                                             | parameter            | code             | reason omschrijving                      |
-        | /adressen | AdresBody.geometrie.intersects=POLYGON ((a b,c d))                                                                                       | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
-        | /adressen | AdresBody.geometrie.intersects=POLYGON ((134647.123))                                                                                    | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
-        | /adressen | AdresBody.geometrie.intersects=POLYGON ((134647.123 457842.456, 134747.789 d))                                                           | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
-        | /adressen | AdresBody.geometrie.intersects=POLYGON (([meer dan 350 coördinaten]))                                                                    | geometrie.intersects | maxItems         | Array bevat meer dan {maxItems} items.   |
-        | /adressen | AdresBody.geometrie.intersects=POLYGON ((5.96072575 52.18450437,5.95270058 52.17811002, 5.96793552 52.17816266, 5.96072575 52.18450437)) | geometrie.intersects | geometryMismatch | Waarde is niet conform opgegeven CRS.    |
+        | path      | request body                                                                                                                                   | parameter            | code             | reason omschrijving                      |
+        | /adressen | { "geometrie": { "intersects": "" } }                                                                                                          | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((a b,c d))" } }                                                                                       | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((134647.123))" } }                                                                                    | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((134647.123 457842.456, 134747.789 d))" } }                                                           | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
+        | /adressen | { "geometrie": { "intersects": "POLYGON (([meer dan 350 coördinaten]))" } }                                                                    | geometrie.intersects | maxItems         | Array bevat meer dan {maxItems} items.   |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((5.96072575 52.18450437,5.95270058 52.17811002, 5.96793552 52.17816266, 5.96072575 52.18450437))" } } | geometrie.intersects | geometryMismatch | Waarde is niet conform opgegeven CRS.    |
+        | /adressen | { "geometrie": { "intersects": "CURVE ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }                       | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
 
-    Abstract Scenario: waarde van AdresBody.geometrie.intersects parameter overschrijdt maximale toegestane oppervlakte 
-        Als /adressen met request body AdresBody.geometrie.intersects=POLYGON ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842)) wordt aangeroepen
+    Scenario: waarde van opgegeven contour overschrijdt maximale toegestane oppervlakte 
+        Als een POST request wordt gedaan op '/adressen' met request body { "geometrie": { "intersects": "POLYGON ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }
         Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
@@ -94,42 +94,25 @@ Rule: waarde van parameter in request body is valide
         | code   | paramsValidation                              |
         | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
-        | name                           | code           | reason                                             |
-        | AdresBody.geometrie.intersects | surfaceMaximum | Waarde is hoger dan maximum oppervlakte 250000 m2. |
-
-Rule: verplichte request body is opgegeven
-
-    Scenario: verplichte request body is niet opgegeven
-        Als /adressen zonder request body AdresBody wordt aangeroepen
-        Dan bevat de response de volgende velden
-        | naam   | waarde                               |
-        | title  | Geef tenminste één parameter op.     |
-        | status | 400                                  |
-        | code   | paramsRequired                       |
-        | detail | Request body moet worden meegegeven. |
-        En bevat de response geen invalidParams
+        | name                 | code           | reason                                             |
+        | geometrie.intersects | surfaceMaximum | Waarde is hoger dan maximum oppervlakte 250000 m2. |
 
 Rule: verplichte request body parameter is opgegeven
 
-    Scenario: verplichte request body parameter is niet opgegeven
-        Als /adressen met request body AdresBody wordt aangeroepen
-        En de AdresBody bevat geen parameter geometrie
+    Abstract scenario: verplichte request body parameter is niet opgegeven
+        Als een POST request wordt gedaan op '<path>' met '<request body>'
         Dan bevat de response de volgende velden
-        | naam   | waarde                                                   |
-        | title  | Geef tenminste één parameter op.                         |
-        | status | 400                                                      |
-        | code   | paramsRequired                                           |
-        | detail | AdresBody.geometrie parameter ontbreekt in request body. |
+        | naam   | waarde                                                    |
+        | title  | Geef tenminste één parameter op.                          |
+        | status | 400                                                       |
+        | code   | paramsRequired                                            |
+        | detail | geometrie.intersects parameter ontbreekt in request body. |
         En bevat de response geen invalidParams
 
-    Scenario: verplichte request body parameter is niet opgegeven
-        Als /adressen met request body AdresBody wordt aangeroepen
-        En de AdresBody bevat een parameter geometrie
-        En de geometrie parameter bevat geen parameter intersects
-        Dan bevat de response de volgende velden
-        | naam   | waarde                                                              |
-        | title  | Geef tenminste één parameter op.                                    |
-        | status | 400                                                                 |
-        | code   | paramsRequired                                                      |
-        | detail | AdresBody.geometrie.intersects parameter ontbreekt in request body. |
-        En bevat de response geen invalidParams
+        Voorbeelden:
+        | path      | request body                          |
+        | /adressen |                                       |
+        | /adressen | {}                                    |
+        | /adressen | { "geometrie":  "" }                  |
+        | /adressen | { "geometrie": { "contains": "" } }   |
+        | /adressen | { "geometry": { "intersects": "" } }  |
