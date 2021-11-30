@@ -76,14 +76,14 @@ Rule: waarde van parameter in request body is valide
         | <parameter> | <code> | <reason omschrijving> |
 
         Voorbeelden:
-        | path      | request body                                                                                                                                   | parameter            | code             | reason omschrijving                      |
-        | /adressen | { "geometrie": { "intersects": "" } }                                                                                                          | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
-        | /adressen | { "geometrie": { "intersects": "POLYGON ((a b,c d))" } }                                                                                       | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
-        | /adressen | { "geometrie": { "intersects": "POLYGON ((134647.123))" } }                                                                                    | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
-        | /adressen | { "geometrie": { "intersects": "POLYGON ((134647.123 457842.456, 134747.789 d))" } }                                                           | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
-        | /adressen | { "geometrie": { "intersects": "POLYGON (([meer dan 350 coördinaten]))" } }                                                                    | geometrie.intersects | maxItems         | Array bevat meer dan {maxItems} items.   |
-        | /adressen | { "geometrie": { "intersects": "POLYGON ((5.96072575 52.18450437,5.95270058 52.17811002, 5.96793552 52.17816266, 5.96072575 52.18450437))" } } | geometrie.intersects | geometryMismatch | Waarde is niet conform opgegeven CRS.    |
-        | /adressen | { "geometrie": { "intersects": "CURVE ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }                       | geometrie.intersects | geometryFormat   | Waarde is niet conform {format} formaat. |
+        | path      | request body                                                                                                                                   | parameter            | code             | reason omschrijving                   |
+        | /adressen | { "geometrie": { "intersects": "" } }                                                                                                          | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((a b,c d))" } }                                                                                       | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((134647.123))" } }                                                                                    | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((134647.123 457842.456, 134747.789 d))" } }                                                           | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
+        | /adressen | { "geometrie": { "intersects": "POLYGON (([meer dan 350 coördinaten]))" } }                                                                    | geometrie.intersects | maxItems         | Array bevat meer dan 350 items.       |
+        | /adressen | { "geometrie": { "intersects": "POLYGON ((5.96072575 52.18450437,5.95270058 52.17811002, 5.96793552 52.17816266, 5.96072575 52.18450437))" } } | geometrie.intersects | geometryMismatch | Waarde is niet conform opgegeven CRS. |
+        | /adressen | { "geometrie": { "intersects": "CURVE ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }                       | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
 
     Scenario: waarde van opgegeven contour overschrijdt maximale toegestane oppervlakte 
         Als een POST request wordt gedaan op '/adressen' met request body { "geometrie": { "intersects": "POLYGON ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }
@@ -97,7 +97,7 @@ Rule: waarde van parameter in request body is valide
         | name                 | code           | reason                                             |
         | geometrie.intersects | surfaceMaximum | Waarde is hoger dan maximum oppervlakte 250000 m2. |
 
-Rule: verplichte request body parameter is opgegeven
+Rule: bij het request is een request body met geometrie verplicht
 
     Abstract scenario: verplichte request body parameter is niet opgegeven
         Als een POST request wordt gedaan op '<path>' met '<request body>'
