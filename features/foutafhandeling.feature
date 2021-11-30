@@ -61,4 +61,4 @@ Rule: min waarde mag niet groter zijn dan max waarde
         Voorbeelden:
         | path                   | query string                               | parameter   | code  | reason omschrijving              |
         | /adresseerbareobjecten | ?oppervlakte[min]=200&oppervlakte[max]=100 | oppervlakte | range | min mag niet hoger zijn dan max. |
-        | /panden                | ?bouwjaar[min]=2000&boujaar[max]=1000      | bouwjaar    | range | min mag niet hoger zijn dan max. |
+        | /panden                | ?bouwjaar[min]=2000&bouwjaar[max]=1000     | bouwjaar    | range | min mag niet hoger zijn dan max. |
