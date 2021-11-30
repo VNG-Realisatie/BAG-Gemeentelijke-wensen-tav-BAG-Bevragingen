@@ -5,28 +5,14 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box, pol
 
     De resources waarvan de geometrie tenminste één punt gemeenschappelijk hebben met de opgegeven geometrie worden geretourneerd.
 
-    Bij het bepalen of een resource geometrie binnen de opgegeven contour ligt (bbox of polygoon) of 
-    dat een opgegeven geometrie (punt) binnen de resource geometrie ligt, wordt een intersects spatial operator gebruikt.
-
-    Intersects:
-    Om te bepalen of een geometrie A binnen een geometrie B ligt, deze raakt, kruist of (deels) overlapt, wordt gebruik gemaakt van de spatial operator INTERSECTS:
-
-      intersects(geometrie A, geometrie B)
-
-    Intersects betekent dat geometrie A en geometrie B tenminste één gemeenschappelijk punt hebben.
-    Anders gezegd geometrie A en geometrie B mogen niet volledig los van elkaar staan.
-    Het resultaat van intersects(geometrie A, geometrie B) levert hetzelfde op als intersects(geometrie B, geometrie A).
-    Het maakt niet uit of geometrie A of geometrie B de geometrie is waarmee gezocht wordt en
-    het maakt niet uit of geometrie A of geometrie B de resource geometrie is.
-    Als intersects true oplevert, dan wordt de resource waar de geometrie onderdeel van is, geretourneerd.
-
     Referenties:
     - Haal Centraal Common - foutafhandeling.feature
     
     Het geometrisch zoeken met een punt geometrie kan met de parameter: locatie.
 
     Het geometrisch zoeken met een bounding box geometrie kan met de parameter: bbox.
-    Het is echter ook mogelijk om een bounding box op te geven waarbij de coördinaten van de linker onderhoek en de rechter bovenhoek exact gelijk zijn.
+    Het is ook mogelijk om een bounding box op te geven waarbij de coördinaten van de linker onderhoek en de rechter bovenhoek exact gelijk zijn.
+    De werking is dan gelijk aan het zoeken met een locatie.
 
     Ondersteund worden:
     - het zoeken van panden op een locatie
@@ -64,17 +50,9 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box, pol
     | 0008          | [13,21]                                   | punt           |
     
     
-  Scenario: GET met locatie, Content-Crs (optioneel) en Accept-Crs (optioneel) één resource met geometrie type polygoon, locatie valt binnen polygoon
+  Scenario: GET met locatie, locatie ligt binnen object geometrie
   
-    Als er met de volgende parameters wordt gezocht:
-    | locatie | Content-Crs | Accept-Crs |
-    |---------|-------------|------------|
-    | [5,5]   | -           | -          |
-    | [5,5]   | EPSG:28992  | -          |
-    | [5,5]   | -           | EPSG:28992 |
-    | [5,5]   | EPSG:28992  | EPSG:28992 |
-    En de provider ondersteunt het CRS in Content-Crs
-    En de provicer ondersteunt het CRS in Accept-Crs
+    Als er met de locatie=[5,5] wordt gezocht:
     En de geometrie van de resource intersects met de opgegeven geometrie (locatie)
     Dan bevat het resultaat de volgende resources:
     | identificatie | geometrie                     | geometrie type |
@@ -84,17 +62,9 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box, pol
     Bijvoorbeeld:
       /panden?locatie=5,5
 
-  Scenario: GET met locatie, Content-Crs (optioneel) en Accept-Crs (optioneel) één resource met geometrie type polygoon, locatie op de rand van de polygoon
+  Scenario: GET met locatie, locatie ligt op de rand van de object geometrie
   
-    Als er met de volgende parameters wordt gezocht:
-    | locatie | Content-Crs | Accept-Crs |
-    |---------|-------------|------------|
-    | [10,5]  | -           | -          |
-    | [10,5]  | EPSG:28992  | -          |
-    | [10,5]  | -           | EPSG:28992 |
-    | [10,5]  | EPSG:28992  | EPSG:28992 |
-    En de provider ondersteunt het CRS in Content-Crs
-    En de provicer ondersteunt het CRS in Accept-Crs
+    Als er met de locatie=[10,5] wordt gezocht:
     En de geometrie van de resource intersects met de opgegeven geometrie (locatie)
     Dan bevat het resultaat de volgende resources:
     | identificatie | geometrie                     | geometrie type |
@@ -104,17 +74,9 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box, pol
     Bijvoorbeeld:
       /panden?locatie=10,5
 
-  Scenario: GET met locatie, Content-Crs (optioneel) en Accept-Crs (optioneel) één resource met geometrie type punt
+  Scenario: GET met locatie, locatie gelijk aan object geometrie punt
   
-    Als er met de volgende parameters wordt gezocht:
-    | locatie | Content-Crs | Accept-Crs |
-    |---------|-------------|------------|
-    | [7,20]  | -           | -          |
-    | [7,20]  | EPSG:28992  | -          |
-    | [7,20]  | -           | EPSG:28992 |
-    | [7,20]  | EPSG:28992  | EPSG:28992 |
-    En de provider ondersteunt het CRS in Content-Crs
-    En de provicer ondersteunt het CRS in Accept-Crs
+    Als er met de locatie=[7,20] wordt gezocht:
     En de geometrie van de resource intersects met de opgegeven geometrie (locatie)
     Dan bevat het resultaat de volgende resources:
     | identificatie | geometrie | geometrie type |
@@ -243,6 +205,14 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box, pol
 
     Bijvoorbeeld:
       /panden?bbox=20,7,24,11
+
+Rule: het zoeken met een bouinding box levert objecten waarbij er tenminste één gemeenschappelijk punt is tussen de bounding box en de object geometrie
+
+  Scenario: de hoek van bounding box raakt de rand van object geometrie (er is precies één gemeenschappelijk punt tussen de bounding box en de object geometrie)
+
+  Scenario: er is een gedeeltijke overlap tussen de bounding box en de object geometrie
+
+
 
   Scenario: GET met bounding box, Content-Crs (optioneel) en Accept-Crs (optioneel) één resource met geometrie type polygoon, bounding box raakt polygoon
   
@@ -386,58 +356,7 @@ Functionaliteit: Als gebruiker wil ik met een geometrie (punt, bounding box, pol
     Bijvoorbeeld:
       /panden?bbox=1,20,5,24
 
+Nauwkeurigheid > dan aantal decimalen
 
-  Scenario: GET met locatie en niet ondersteunde Content-Crs
-  
-    Als er met de volgende parameters wordt gezocht:
-    | geometrie     | geometrie type | Content-Crs | Accept-Crs |
-    |---------------|----------------|-------------|------------|
-    | [5,9]         | locatie        | EPSG:4326   | -          |
-    | [5,9]         | locatie        | EPSG:4326   | EPSG:28992 |
-    En de provider ondersteunt het CRS in Content-Crs niet
-    En de provicer ondersteunt het CRS in Accept-Crs
-    Dan worden er een 400 crsNotSupported foutmelding geretourneerd
-    En dan bevat de Accept-Crs de door de provider ondersteunde CRS-en
+Nauwkeurigheid < dan aantal decimalen
 
-  Scenario: GET met bounding box en niet ondersteunde Content-Crs
-  
-    Als er met de volgende parameters wordt gezocht:
-    | geometrie     | geometrie type | Content-Crs | Accept-Crs |
-    |---------------|----------------|-------------|------------|
-    | [9,9],[13,13] | bbox           | EPSG:4326   | -          |
-    | [9,9],[13,13] | bbox           | EPSG:4326   | EPSG:28992 |
-    En de provider ondersteunt het CRS in Content-Crs niet
-    En de provicer ondersteunt het CRS in Accept-Crs
-    Dan worden er een 400 crsNotSupported foutmelding geretourneerd
-    En dan bevat de Accept-Crs de door de provider ondersteunde CRS-en
-
-  Scenario: GET met locatie en niet ondersteunde Accept-Crs
-  
-    Als er met de volgende parameters wordt gezocht:
-    | geometrie     | geometrie type | Content-Crs | Accept-Crs |
-    |---------------|----------------|-------------|------------|
-    | [5,9]         | locatie        | -           | EPSG:4326  |
-    | [5,9]         | locatie        | EPSG:28992  | EPSG:4326  |
-    En de provider ondersteunt het CRS in Content-Crs
-    En de provicer ondersteunt het CRS in Accept-Crs niet
-    Dan worden er een 406 crsNotAcceptable foutmelding geretourneerd
-    En dan bevat de Accept-Crs de door de provider ondersteunde CRS-en
-
-  Scenario: GET met bounding box en niet ondersteunde Accept-Crs
-  
-    Als er met de volgende parameters wordt gezocht:
-    | geometrie     | geometrie type | Content-Crs | Accept-Crs |
-    |---------------|----------------|-------------|------------|
-    | [9,9],[13,13] | bbox           | -           | EPSG:4326  |
-    | [9,9],[13,13] | bbox           | EPSG:28992  | EPSG:4326  |
-    En de provider ondersteunt het CRS in Content-Crs
-    En de provicer ondersteunt het CRS in Accept-Crs niet
-    Dan worden er een 406 crsNotAcceptable foutmelding geretourneerd
-    En dan bevat de Accept-Crs de door de provider ondersteunde CRS-en
-
-  Scenario: GET met geometrie anders dan Content-Crs (optioneel) en Accept-Crs (optionee)
-  
-    Als er met coördinaten wordt gezocht die niet overeenkomen met het CRS in Content-Crs
-    En de provider ondersteunt het CRS in Content-Crs
-    En de provicer ondersteunt het CRS in Accept-Crs
-    Dan worden er een 400 paramsValidation foutmelding geretourneerd
