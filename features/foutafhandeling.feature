@@ -85,6 +85,8 @@ Rule: waarde van parameter in request body is valide
         | /adressen | { "geometrie": { "intersects": "POLYGON ((5.96072575 52.18450437,5.95270058 52.17811002, 5.96793552 52.17816266, 5.96072575 52.18450437))" } } | geometrie.intersects | geometryMismatch | Waarde is niet conform opgegeven CRS. |
         | /adressen | { "geometrie": { "intersects": "CURVE ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }                       | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
 
+Rule: de naximale oppervlakte van een vrij contour mag niet groter zijn dan 250.000 m2
+
     Scenario: waarde van opgegeven contour overschrijdt maximale toegestane oppervlakte 
         Als een POST request wordt gedaan op '/adressen' met request body { "geometrie": { "intersects": "POLYGON ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }
         Dan bevat de response de volgende velden

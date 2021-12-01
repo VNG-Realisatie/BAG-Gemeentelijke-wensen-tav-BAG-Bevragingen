@@ -1677,7 +1677,6 @@ components:
         intersects:
           description: |
             Well Known Text (WKT) representatie van de geometrie waarmee gezocht moet worden.
-            Ondersteund worden: polygon en multipolygon.
             De oppervlakte van de contour mag niet groter zijn dan 250.000 m2.
           type: string
           format: wkt
