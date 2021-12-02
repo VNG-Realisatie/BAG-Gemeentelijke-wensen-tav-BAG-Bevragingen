@@ -60,7 +60,7 @@ Rule: min waarde mag niet groter zijn dan max waarde
         Voorbeelden:
         | path                   | query string                               | parameter   | code  | reason omschrijving              |
         | /adresseerbareobjecten | ?oppervlakte[min]=200&oppervlakte[max]=100 | oppervlakte | range | min mag niet hoger zijn dan max. |
-        | /panden                | ?bouwjaar[min]=2000&boujaar[max]=1000      | bouwjaar    | range | min mag niet hoger zijn dan max. |
+        | /panden                | ?bouwjaar[min]=2000&bouwjaar[max]=1000     | bouwjaar    | range | min mag niet hoger zijn dan max. |
 
 Rule: waarde van parameter in request body is valide
 
@@ -83,12 +83,40 @@ Rule: waarde van parameter in request body is valide
         | /adressen | { "geometrie": { "intersects": "POLYGON ((134647.123 457842.456, 134747.789 d))" } }                                                           | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
         | /adressen | { "geometrie": { "intersects": "POLYGON (([meer dan 350 coördinaten]))" } }                                                                    | geometrie.intersects | maxItems         | Array bevat meer dan 350 items.       |
         | /adressen | { "geometrie": { "intersects": "POLYGON ((5.96072575 52.18450437,5.95270058 52.17811002, 5.96793552 52.17816266, 5.96072575 52.18450437))" } } | geometrie.intersects | geometryMismatch | Waarde is niet conform opgegeven CRS. |
-        | /adressen | { "geometrie": { "intersects": "CURVE ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }                       | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
+        | /adressen | { "geometrie": { "intersects": "BBOX (134647 457842, 137512 457842)" } }                                                                       | geometrie.intersects | geometryFormat   | Waarde is niet conform WKT formaat.   |
+
+Rule: de geometrie is van het type polygon of multipolygon
+
+    Abstract Scenario: de WKT string bevat een geometrie die niet wordt ondersteund
+        Als een POST request wordt gedaan met '<path>' en '<request body>'
+        Dan bevat de response de volgende velden
+        | naam   | waarde                                                       |
+        | title  | Geometrie type <type> in <parameter> wordt niet ondersteund. |
+        | status | 400                                                          |
+        | code   | unsupportedGeometryType                                      |
+        En bevat de response geen invalidParams
+
+        Voorbeelden:
+        | path      | request body                                                                                                                                | parameter            | type               |
+        | /adressen | { "geometrie": { "intersects": "POINT (134647 457842)" } }                                                                                  | geometrie.intersects | POINT              |
+        | /adressen | { "geometrie": { "intersects": "MULTIPOINT (134647 457842, 137512 457842, 137512 455907)" } }                                               | geometrie.intersects | MULTIPOINT         |
+        | /adressen | { "geometrie": { "intersects": "LINESTRING (134647 457842, 137512 457842, 137512 455907)" } }                                               | geometrie.intersects | LINESTRING         |
+        | /adressen | { "geometrie": { "intersects": "MULTILINESTRING ((134647 457842, 137512 457842, 137512 455907), (134647 455907, 134647 457842))" } }        | geometrie.intersects | MULTILINESTRING    |
+        | /adressen | { "geometrie": { "intersects": "TRIANBLE ((134647 457842, 137512 457842, 136080 459777, 134647 457842))" } }                                | geometrie.intersects | TRIANBLE           |
+        | /adressen | { "geometrie": { "intersects": "POLYHEDRALSURFACE ( PATCHES ((134647 457842, 137512 457842, 136080 459777, 134647 457842)))" } }            | geometrie.intersects | POLYHEDRALSURFACE  |
+        | /adressen | { "geometrie": { "intersects": "TIN ((134647 457842, 137512 457842, 136080 459777, 134647 457842" } }                                       | geometrie.intersects | TIN                |
+        | /adressen | { "geometrie": { "intersects": "GEOMETRYCOLLECTION ( POINT (134647 457842), LINESTRING (134647 457842, 137512 457842, 137512 455907) )" } } | geometrie.intersects | GEOMETRYCOLLECTION |
+        | /adressen | { "geometrie": { "intersects": "CURVE ((134647 457842, 137512 457842, 136080 459777))" } }                                                  | geometrie.intersects | CURVE              |
+        | /adressen | { "geometrie": { "intersects": "SURFACE ((134647 457842, 137512 457842, 136080 459777, 134647 457842))" } }                                 | geometrie.intersects | SURFACE            |
+        | /adressen | { "geometrie": { "intersects": "LINEARRING ((134647 457842, 137512 457842, 136080 459777, 134647 457842))" } }                              | geometrie.intersects | LINEARRING         |
+        | /adressen | { "geometrie": { "intersects": "MUTLISURFACE ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }             | geometrie.intersects | MUTLISURFACE       |
+        | /adressen | { "geometrie": { "intersects": "MUTLICURVE ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }               | geometrie.intersects | MUTLICURVE         |
+
 
 Rule: de naximale oppervlakte van een vrij contour mag niet groter zijn dan 250.000 m2
 
     Scenario: waarde van opgegeven contour overschrijdt maximale toegestane oppervlakte 
-        Als een POST request wordt gedaan op '/adressen' met request body { "geometrie": { "intersects": "POLYGON ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }
+        Als een POST request wordt gedaan op '/adressen' met request body '{ "geometrie": { "intersects": "POLYGON ((134647 457842, 137512 457842, 137512 455907, 134647 455907, 134647 457842))" } }'
         Dan bevat de response de volgende velden
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
