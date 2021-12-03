@@ -910,15 +910,16 @@ components:
 
     IntegerFilter:
       type: object
-      description: >-
-        Geeft aan met welke waarden je kunt zoeken.
-        Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde.
-        Met `max` zoek je naar waarden kleiner dan de opgegeven waarde.
+      description: "Zoek binnen een bereik tussen de opgegeven minimumwaarde en maximumwaarde. De opgegeven minimumwaarde moet lager zijn dan de opgegeven maximumwaarde."
       properties:
         min:
           type: integer
+          minimum: 1
+          description: "Zoek naar waarden groter of gelijk aan de opgegeven waarde."
         max:
           type: integer
+          minimum: 1
+          description: "Zoek naar waarden kleiner dan de opgegeven waarde.""
 
     Adres:
       type: object
