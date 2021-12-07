@@ -74,15 +74,15 @@ Rule: min waarde mag niet kleiner zijn dan toegestane minimum waarde
         | code   | paramsValidation                              |
         | detail | <detail>                                      |
         En bevat de response de volgende invalidParams
-        | name        | code    | reason               |
+        | name        | code   | reason                |
         | <parameter> | <code> | <reason omschrijving> |
 
         Voorbeelden:
-        | path                   | query string                                                               | parameter        | code    | reason omschrijving            |
-        | /adresseerbareobjecten | '?bbox=134647,457842,135127,458307&oppervlakte[min]=0&oppervlakte[max]=200 | oppervlakte[min] | minimum | Waarde is lager dan minimum 1. |
-        | /panden                | '?bbox=134647,457842,135127,458307&bouwjaar[min]=-1&bouwjaar[max]=2000     | bouwjaar[min]    | minimum | Waarde is lager dan minimum 0. |
-        | /adresseerbareobjecten | '?bbox=134647,457842,135127,458307&oppervlakte[min]=0&oppervlakte[max]=0   | oppervlakte[max] | minimum | Waarde is lager dan minimum 1. |
-        | /panden                | '?bbox=134647,457842,135127,458307&bouwjaar[min]=-1&bouwjaar[max]=-1       | bouwjaar[max]    | minimum | Waarde is lager dan minimum 0. |
+        | path                   | query string                                                              | parameter        | code    | reason omschrijving            |
+        | /adresseerbareobjecten | ?bbox=134647,457842,135127,458307&oppervlakte[min]=0&oppervlakte[max]=200 | oppervlakte[min] | minimum | Waarde is lager dan minimum 1. |
+        | /panden                | ?bbox=134647,457842,135127,458307&bouwjaar[min]=-1&bouwjaar[max]=2000     | bouwjaar[min]    | minimum | Waarde is lager dan minimum 0. |
+        | /adresseerbareobjecten | ?bbox=134647,457842,135127,458307&oppervlakte[max]=0                      | oppervlakte[max] | minimum | Waarde is lager dan minimum 1. |
+        | /panden                | ?bbox=134647,457842,135127,458307&bouwjaar[max]=-1                        | bouwjaar[max]    | minimum | Waarde is lager dan minimum 0. |
 
 Rule: max waarde mag niet groter zijn dan toegestane maximum waarde
 
@@ -95,12 +95,12 @@ Rule: max waarde mag niet groter zijn dan toegestane maximum waarde
         | code   | paramsValidation                              |
         | detail | <detail>                                      |
         En bevat de response de volgende invalidParams
-        | name        | code    | reason               |
+        | name        | code   | reason                |
         | <parameter> | <code> | <reason omschrijving> |
 
         Voorbeelden:
-        | path                     | query string                                                                         | parameter        | code    | reason omschrijving                  |
-        | /adresseerbareobjecten   | '?bbox=134647,457842,135127,458307&oppervlakte[min]=1000000&oppervlakte[max]=1000000 | oppervlakte[min] | maximum | Waarde is hoger dan maximum 1000000. |
-        | /panden                  | '?bbox=134647,457842,135127,458307&bouwjaar[min]=10000&bouwjaar[max]=10000           | bouwjaar[min]    | maximum | Waarde is hoger dan maximum 10000.   |
-        | /adresseerbareobjecten   | '?bbox=134647,457842,135127,458307&oppervlakte[min]=100&oppervlakte[max]=1000000     | oppervlakte[max] | maximum | Waarde is hoger dan maximum 1000000. |
-        | /panden                  | '?bbox=134647,457842,135127,458307&bouwjaar[min]=1000&bouwjaar[max]=10000            | bouwjaar[max]    | maximum | Waarde is hoger dan maximum 10000.   |
+        | path                     | query string                                                                        | parameter        | code    | reason omschrijving                 |
+        | /adresseerbareobjecten   | ?bbox=134647,457842,135127,458307&oppervlakte[min]=1000000&oppervlakte[max]=1000000 | oppervlakte[min] | maximum | Waarde is hoger dan maximum 999999. |
+        | /panden                  | ?bbox=134647,457842,135127,458307&bouwjaar[min]=10000&bouwjaar[max]=10000           | bouwjaar[min]    | maximum | Waarde is hoger dan maximum 9999.   |
+        | /adresseerbareobjecten   | ?bbox=134647,457842,135127,458307&oppervlakte[max]=1000000                          | oppervlakte[max] | maximum | Waarde is hoger dan maximum 999999. |
+        | /panden                  | ?bbox=134647,457842,135127,458307&bouwjaar[max]=10000                               | bouwjaar[max]    | maximum | Waarde is hoger dan maximum 9999.   |
