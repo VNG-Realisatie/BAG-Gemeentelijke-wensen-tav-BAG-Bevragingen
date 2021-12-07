@@ -754,7 +754,7 @@ components:
       in: query
       required: false
       schema:
-        $ref: '#/components/schemas/IntegerFilter'
+        $ref: '#/components/schemas/BouwjaarFilter'
       explode: true
       style: deepObject
 
@@ -792,7 +792,7 @@ components:
       in: query
       required: false
       schema:
-        $ref: '#/components/schemas/IntegerFilter'
+        $ref: '#/components/schemas/OppervlakteFilter'
       style: deepObject
       explode: true
 
@@ -908,17 +908,39 @@ components:
           items:
             $ref: '#/components/schemas/ZoekResultaatHal'
 
-    IntegerFilter:
+    BouwjaarFilter:
       type: object
-      description: >-
-        Geeft aan met welke waarden je kunt zoeken.
-        Met `min` zoek je naar waarden groter of gelijk aan de opgegeven waarde.
-        Met `max` zoek je naar waarden kleiner dan de opgegeven waarde.
+      description: |
+        "Zoek binnen een bereik van de opgegeven minimumwaarde tot maximumwaarde. 
+        De opgegeven minimumwaarde moet lager zijn dan de opgegeven maximumwaarde."
       properties:
         min:
           type: integer
+          minimum: 0
+          maximum: 9999
+          description: "Zoek naar waarden groter of gelijk aan de opgegeven waarde."
         max:
           type: integer
+          minimum: 0
+          maximum: 9999
+          description: "Zoek naar waarden kleiner dan de opgegeven waarde."
+
+    OppervlakteFilter:
+      type: object
+      description: |
+        "Zoek binnen een bereik van de opgegeven minimumwaarde tot maximumwaarde. 
+        De opgegeven minimumwaarde moet lager zijn dan de opgegeven maximumwaarde."
+      properties:
+        min:
+          type: integer
+          minimum: 1
+          maximum: 999999
+          description: "Zoek naar waarden groter of gelijk aan de opgegeven waarde."
+        max:
+          type: integer
+          minimum: 1
+          maximum: 999999
+          description: "Zoek naar waarden kleiner dan de opgegeven waarde."
 
     Adres:
       type: object
