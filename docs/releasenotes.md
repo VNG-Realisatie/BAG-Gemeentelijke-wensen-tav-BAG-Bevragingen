@@ -8,20 +8,6 @@ title: Releasenotes
 ## Versie 1.4.0 (09-12-2021)
 In deze release is ....
 
-### Opgeloste issues
-
-  | Link Github	| Beschrijving |
-  | --- | --- |
-  | [4](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/4) | Als medewerker monumentenzorg wil ik het perceel of het pand kunnen aanwijzen op de kaart |
-  | [476](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/476) | Zoeken met oppervlakte min > max geeft geen fout |
-  | [477](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/477) | Zoeken met oppervlakte < 0 geeft geen fout |
-  | [478](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/478) | Zoeken met type standplaats of ligplaats in combinatie met oppervlakte geeft geen resultaten |
-  | [499](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/499) | Interne server fout bij zoeken ado op bbox |
-  | [500](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/500) | InvalidParams.code bij enumeratie fout niet als verwacht |
-  | [504](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/504) | Locatie met coördinaat gelijk aan een geometriecoördinaat vindt dat pand niet |
-  | [503](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/503) | Wanneer er meerdere parameters fout zijn moet je ze allemaal tegelijk melden |
-  | [506](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/506) | Foutmelding op status pand "Waarde is geen geldige list." |
-
 
 ## Versie 1.3.0 (20-09-2021)
 In deze release is een bugfix opgenomen over "mogelijk onjuist" bij een adres. Naast wijzigingen in de API specificaties is een feature-file toegevoegd.
