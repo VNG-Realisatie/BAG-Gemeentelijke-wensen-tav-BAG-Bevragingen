@@ -159,7 +159,7 @@ Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een colle
         | detail | Precies 1 parameter van pandIdentificatie, adresseerbaarObjectIdentificatie, zoekresultaatIdentificatie, postcode of huisnummer moet worden opgegeven |
         En bevat de response geen veld "invalidParams"
 
-Rule: Combineren van verschillende zoekcombinaties is niet toegestaan
+Rule: combineren van verschillende zoekcombinaties is niet toegestaan
 
     Abstract Scenario: Er zijn parameters uit verschillende parametercombinaties opgegeven
         Als '<path><query string>' wordt aangeroepen
@@ -246,7 +246,7 @@ Rule: parameters geconstateerd, type, gebruiksdoelen, oppervlakte, statusPand, g
         | ?nummeraanduidingIdentificatie=0599200000193766&geconstateerd=true                |
         | ?locatie=98095.02,438495.09&bouwjaar[min]=1950&bouwjaar[max]=1979                 |
 
-Rule: De oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.
+Rule: de oppervlakte van de bounding box mag maximaal 250 duizend vierkante meter zijn.
 
     Scenario: waarde van bbox parameter overschrijdt maximale toegestane oppervlakte 
         Als '/panden?bbox=134647,457842,137512,455907' wordt aangeroepen
@@ -525,4 +525,3 @@ Rule: wanneer er een technische fout optreed wordt een 500 Server Error gegeven
         En bevat de response geen veld "invalidParams"
         En is de http status code van het antwoord 500
         En bevat de response de header "Content-Type" met waarde "application/problem+json"
-
