@@ -5,7 +5,7 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
-## Versie 1.4.0 (..-12-2021)
+## Versie 1.4.0 (09-12-2021)
 In deze release is ....
 
 ### Opgeloste issues
