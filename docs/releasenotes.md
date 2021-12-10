@@ -5,6 +5,13 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
+## Versie 1.4.0 (09-12-2021)
+In deze release is de volgende functionaliteit gerealiseerd:
+
+- adresseerbaar objecten kunnen meegeleverd worden met adressen als je de expand parameter gebruikt;
+- mogelijkheden voor geometrisch zoeken met een bounding box op adresseerbare objecten,  eventueel in combinatie met bouwjaar, oppervlakterange, gebruiksdoel, pandstatus, adresseerbaar objecttype en "geconstateerd".
+- de query-parameter pand-identificatie is deprecated verklaard omdat deze funtionaliteit ook ingevuld wordt door de query-parameter pandidentificaties
+
 ## Versie 1.3.0 (20-09-2021)
 In deze release is een bugfix opgenomen over "mogelijk onjuist" bij een adres. Naast wijzigingen in de API specificaties is een feature-file toegevoegd.
 
@@ -15,7 +22,6 @@ In deze release is een bugfix opgenomen over "mogelijk onjuist" bij een adres. N
   | [306](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/306) | Als medewerker gebiedsontwikkeling wil ik op basis van bepaalde kenmerken van appartements-adressen/verblijfsobjecten zoals bouwjaar Pand (en energielabel) in een bepaald gebied kunnen zoeken |
   | [370](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/370) | Http status code 415 voor fout "Coördinatenstelsel {crs} in Content-Crs wordt niet ondersteund." incorrect |
   | [404](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/404) | Als gebruikers van de API wil ik exact kunnen zoeken zoeken op postcode en huisnummer |
-
 
 
 ## Versie 1.2.0 (22-06-2021)
