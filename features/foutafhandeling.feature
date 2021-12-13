@@ -65,19 +65,63 @@ Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
         | name                             | code    | reason                                       |
         | adresseerbaarobjectidentificatie | pattern | Waarde voldoet niet aan patroon ^[0-9]{16}$. |
 
-Rule: wanneer er meerdere parameterfouten in een request zitten, wordt alleen de eerst gevonden fout geretourneerd
+Rule: parameterwaarden worden eerst gecontroleerd op niet-toegestane tekens
 
-    Scenario: er zijn meerdere verschillende incorrecte parameters
-        Als '/adresseerbareobjecten?nummeraanduidingIdentificatie=0226200000038923&fields=bestaatniet&expand=bestaatookniet' wordt aangeroepen
-        Dan bevat de response ten minste de volgende velden
-        | naam   | waarde                                        |
-        | title  | Een of meerdere parameters zijn niet correct. |
-        | status | 400                                           |
-        | code   | paramsValidation                              |
-        En bevat de response de volgende invalidParams
-        | name   | code   | reason                                                       |
-        | fields | fields | Deel van de parameterwaarde is niet correct: bestaatniet.    |
-        | expand | expand | Deel van de parameterwaarde is niet correct: bestaatookniet. |
+    Scenario: meerdere fouten met niet-toegestane tekens en andere fouten
+        Als '/adresseerbareobjecten' wordt aangeroepen met de volgende queryparameters
+        | naam                          | waarde                        |
+        | nummeraanduidingIdentificatie | "fout"                        |
+        | pandIdentificatie             | <fout>                        |
+        | expand                        | fout                          |
+        | fields                        | fout                          |
+        | page                          | fout                          |
+        | pageSize                      | 999                           |
+        | pandIdentificaties            | fout                          |
+        | geconstateerd                 | "fout"                        |
+        | bbox                          | 135207,457400,135418,457162,5 |
+        | oppervlakte[min]              | -1                            |
+        Dan bevat de response de volgende invalidParams
+        | name                          | code                | reason                                     |
+        | nummeraanduidingIdentificatie | notAllowedCharacter | Parameter bevat niet toegestane karakters. |
+        | pandIdentificatie             | notAllowedCharacter | Parameter bevat niet toegestane karakters. |
+        | geconstateerd                 | notAllowedCharacter | Parameter bevat niet toegestane karakters. |
+
+Rule: wanneer een parameterwaarde niet overeenkomt met het gespecificeerde type (integer, number, boolean of enumeratie), wordt alleen deze fout gemeld
+
+    Scenario: meerdere fouten met onjuist type en andere fouten
+        Als '/adresseerbareobjecten' wordt aangeroepen met de volgende queryparameters
+        | naam                          | waarde                        |
+        | expand                        | fout                          |
+        | fields                        | fout                          |
+        | page                          | fout                          |
+        | pageSize                      | fout                          |
+        | geconstateerd                 | fout                          |
+        | bbox                          | 135207,457400,135418,fout     |
+        | oppervlakte[min]              | -1                            |
+        Dan bevat de response de volgende invalidParams
+        | name                          | code                | reason                          |
+        | page                          | integer             | Waarde is geen geldige integer. |
+
+Rule: wanneer er meerdere parameterwaarden niet voldoen aan de gespecificeerde eisen (minimum ,maximum, pattern, maxItems, fields, expand) worden al deze fouten tegelijk gemeld
+
+    Scenario: meerdere fouten met onjuist type en andere fouten
+        Als '/adresseerbareobjecten' wordt aangeroepen met de volgende queryparameters
+        | naam                          | waarde                        |
+        | expand                        | fout                          |
+        | fields                        | fout                          |
+        | page                          | 99                            |
+        | pageSize                      | 999                           |
+        | bbox                          | 135207,457400,135418,457162,5 |
+        | oppervlakte[min]              | -1                            |
+        | oppervlakte[max]              | 9999999                       |
+        Dan bevat de response de volgende invalidParams
+        | name                          | code          | reason                                             |
+        | bbox                          | maxItems      | Array bevat meer dan 4 items                       |
+        | expand                        | expand        | Deel van de parameterwaarde is niet correct: fout. |
+        | fields                        | fields        | Deel van de parameterwaarde is niet correct: fout. |
+        | oppervlakte[max]              | maximum       | Waarde is hoger dan maximum 999999.                |
+        | oppervlakte[min]              | minimum       | Waarde is lager dan minimum 1.                     |
+        | pageSize                      | maximum       | Waarde is hoger dan maximum 100.                   |
 
 Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een collectieaanroep
 
