@@ -7,6 +7,7 @@ title: User Stories in Productie
 
 ## Vanaf versie 1.3
 
+- [zoeken op postcode toestaan met spatie tussen cijfers en letters](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/442){:target="_blank" rel="noopener"}
 - [Als gebruikers van de API wil ik exact kunnen zoeken zoeken op postcode en huisnummer](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/404){:target="_blank" rel="noopener"}
 - [Als gebruiker van de API wil ik bij het vragen van een adres direct het bijbehorende adresseerbaar object krijgen](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/403){:target="_blank" rel="noopener"}
 

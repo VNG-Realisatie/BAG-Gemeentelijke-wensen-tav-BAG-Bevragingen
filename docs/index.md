@@ -1,11 +1,10 @@
 ---
 layout: page-with-side-nav
-title: Haal Centraal BAG Huidige Bevragingen v1.3 is live!
+title: Haal Centraal BAG Huidige Bevragingen v1.4 is live!
 ---
-# Haal Centraal BAG Huidige Bevragingen v1.3 is live!
+# Haal Centraal BAG Huidige Bevragingen v1.4 is live!
 
 ![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
-![generate sdks](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-sdks/badge.svg)
 ![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)
 
 API voor het zoeken en raadplegen van adressen, adresseerbaar objecten en panden uit de Basisregistratie Adressen en Gebouwen (BAG).
