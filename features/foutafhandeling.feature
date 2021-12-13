@@ -12,7 +12,6 @@ Rule: een verplichte parameter moet zijn opgegeven met een waarde
         | title  | Ten minste één parameter moet worden opgegeven.                                   |
         | status | 400                                                                               |
         | code   | paramsRequired                                                                    |
-        | detail | Required request parameter 'zoek' for method parameter type String is not present |
         En bevat de response geen veld "invalidParams"
         En is de http status code van het antwoord 400
         En bevat de response de header "Content-Type" met waarde "application/problem+json"
@@ -26,7 +25,6 @@ Rule: alleen gespecificeerde queryparameters mogen worden gebruikt
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name        | code         | reason                      |
         | bestaatniet | unknownParam | Parameter is niet verwacht. |
@@ -40,22 +38,21 @@ Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | <detail>                                      |
         En bevat de response de volgende invalidParams
         | name        | code   | reason                |
         | <parameter> | <code> | <reason omschrijving> |
 
         Voorbeelden:
-        | path                   | query string                                                              | detail                                                                                           | parameter         | code             | reason omschrijving                                 |
-        | /adressen              | ?pandIdentificatie=0345100002016017&page=a                                | Ongeldige waarde [a] opgegeven voor parameter [page]                                             | page              | integer          | Waarde is geen geldige integer.                     |
-        | /panden                | ?locatie=abc,def                                                          | Ongeldige waarde [abc,def] opgegeven voor parameter [locatie]                                    | locatie           | number           | Waarde is geen geldig decimaal getal.               |
-        | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&geconstateerd=Nee                       | Ongeldige waarde [Nee] opgegeven voor parameter [geconstateerd]                                  | geconstateerd     | boolean          | Waarde is geen geldige boolean.                     |
-        | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&oppervlakte[min]=-1&oppervlakte[max]=1  | Bad request.                                                                                     | oppervlakte[min]  | minimum          | Waarde is lager dan minimum 1.                      |
-        | /panden                | ?bbox=135207,457400,135418,457162&bouwjaar[min]=2000&bouwjaar[max]=20200] | Bad request.                                                                                     | bouwjaar[max]     | maximum          | Waarde is hoger dan maximum 9999.                   |
-        | /panden                | ?locatie=98095.02                                                         | Bad request.                                                                                     | locatie           | minItems         | Array bevat minder dan 2 items.                     |
-        | /panden                | ?locatie=98095.02,438495.09,0                                             | Bad request.                                                                                     | locatie           | maxItems         | Array bevat meer dan 2 items.                       |
-        | /adressen              | ?pandIdentificatie=0345100002016017X                                      | Bad request.                                                                                     | pandIdentificatie | pattern          | Waarde voldoet niet aan patroon ^[0-9]{16}$.        |
-        | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&type=fout                               | Ongeldige waarde [fout] opgegeven voor parameter [type]                                          | type              | enum             | Waarde heeft geen geldige waarde uit de enumeratie. |
+        | path                   | query string                                                              | parameter         | code             | reason omschrijving                                 |
+        | /adressen              | ?pandIdentificatie=0345100002016017&page=a                                | page              | integer          | Waarde is geen geldige integer.                     |
+        | /panden                | ?locatie=abc,def                                                          | locatie           | number           | Waarde is geen geldig decimaal getal.               |
+        | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&geconstateerd=Nee                       | geconstateerd     | boolean          | Waarde is geen geldige boolean.                     |
+        | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&oppervlakte[min]=-1&oppervlakte[max]=1  | oppervlakte[min]  | minimum          | Waarde is lager dan minimum 1.                      |
+        | /panden                | ?bbox=135207,457400,135418,457162&bouwjaar[min]=2000&bouwjaar[max]=20200] | bouwjaar[max]     | maximum          | Waarde is hoger dan maximum 9999.                   |
+        | /panden                | ?locatie=98095.02                                                         | locatie           | minItems         | Array bevat minder dan 2 items.                     |
+        | /panden                | ?locatie=98095.02,438495.09,0                                             | locatie           | maxItems         | Array bevat meer dan 2 items.                       |
+        | /adressen              | ?pandIdentificatie=0345100002016017X                                      | pandIdentificatie | pattern          | Waarde voldoet niet aan patroon ^[0-9]{16}$.        |
+        | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&type=fout                               | type              | enum             | Waarde heeft geen geldige waarde uit de enumeratie. |
 
     Scenario: waarde van de padparameter is niet correct
         Als '/adresseerbareobjecten/0599040000' wordt aangeroepen
@@ -64,7 +61,6 @@ Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name                             | code    | reason                                       |
         | adresseerbaarobjectidentificatie | pattern | Waarde voldoet niet aan patroon ^[0-9]{16}$. |
@@ -78,7 +74,6 @@ Rule: wanneer er meerdere parameterfouten in een request zitten, wordt alleen de
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name   | code   | reason                                                       |
         | fields | fields | Deel van de parameterwaarde is niet correct: bestaatniet.    |
@@ -93,14 +88,13 @@ Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een colle
         | title  | Ten minste één parameter moet worden opgegeven. |
         | status | 400                                             |
         | code   | paramsRequired                                  |
-        | detail | <error detail>                                  |
         En bevat de response geen veld "invalidParams"
 
         Voorbeelden:
-        | path                   | error detail                                                                                                                                          |
-        | /adressen              | Precies 1 parameter van pandIdentificatie, adresseerbaarObjectIdentificatie, zoekresultaatIdentificatie, postcode of huisnummer moet worden opgegeven |
-        | /adresseerbareobjecten | Precies 1 parameter van nummeraanduidingIdentificatie, pandIdentificatie, pandIdentificaties of bbox moet worden opgegeven                            |
-        | /panden                | Precies 1 parameter van adresseerbaarObjectIdentificatie, nummeraanduidingIdentificatie, locatie of bbox moet worden opgegeven                        |
+        | path                   |
+        | /adressen              |
+        | /adresseerbareobjecten |
+        | /panden                |
 
     Abstract Scenario: postcode en huisnummer niet in combinatie gebruikt
         Als '/adressen<query string>' wordt aangeroepen
@@ -109,7 +103,6 @@ Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een colle
         | title  | Minimale combinatie van parameters moet worden opgegeven. |
         | status | 400                                                       |
         | code   | paramsCombination                                         |
-        | detail | Bad request.                                              |
         En bevat de response geen veld "invalidParams"
 
         Voorbeelden:
@@ -122,11 +115,10 @@ Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een colle
     Scenario: parameters huisletter en huisnummertoevoeging zonder postcode en huisnummer
         Als '/adressen?huisletter=a&huisnummertoevoeging=II' wordt aangeroepen
         Dan bevat de response ten minste de volgende velden
-        | naam   | waarde                                                                                                                                                |
-        | title  | Ten minste één parameter moet worden opgegeven.                                                                                                       |
-        | status | 400                                                                                                                                                   |
-        | code   | paramsRequired                                                                                                                                        |
-        | detail | Precies 1 parameter van pandIdentificatie, adresseerbaarObjectIdentificatie, zoekresultaatIdentificatie, postcode of huisnummer moet worden opgegeven |
+        | naam   | waarde                                          |
+        | title  | Ten minste één parameter moet worden opgegeven. |
+        | status | 400                                             |
+        | code   | paramsRequired                                  |
         En bevat de response geen veld "invalidParams"
 
     Scenario: parameters geconstateerd, type, gebruiksdoelen en oppervlakte zonder bbox
@@ -136,7 +128,6 @@ Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een colle
         | title  | Ten minste één parameter moet worden opgegeven.                                                                                                       |
         | status | 400                                                                                                                                                   |
         | code   | paramsRequired                                                                                                                                        |
-        | detail | Precies 1 parameter van pandIdentificatie, adresseerbaarObjectIdentificatie, zoekresultaatIdentificatie, postcode of huisnummer moet worden opgegeven |
         En bevat de response geen veld "invalidParams"
     
     Scenario: parameters page, pageSize, fields en expand zonder minimale zoekparameter(combinatie)
@@ -146,7 +137,6 @@ Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een colle
         | title  | Ten minste één parameter moet worden opgegeven.                                                                                                       |
         | status | 400                                                                                                                                                   |
         | code   | paramsRequired                                                                                                                                        |
-        | detail | Precies 1 parameter van pandIdentificatie, adresseerbaarObjectIdentificatie, zoekresultaatIdentificatie, postcode of huisnummer moet worden opgegeven |
         En bevat de response geen veld "invalidParams"
 
     Scenario: zoekparameter zonder waarde
@@ -156,7 +146,6 @@ Rule: minimaal één zoekparameter(combinatie) moet zijn opgegeven bij een colle
         | title  | Ten minste één parameter moet worden opgegeven.                                                                                                       |
         | status | 400                                                                                                                                                   |
         | code   | paramsRequired                                                                                                                                        |
-        | detail | Precies 1 parameter van pandIdentificatie, adresseerbaarObjectIdentificatie, zoekresultaatIdentificatie, postcode of huisnummer moet worden opgegeven |
         En bevat de response geen veld "invalidParams"
 
 Rule: combineren van verschillende zoekcombinaties is niet toegestaan
@@ -168,7 +157,6 @@ Rule: combineren van verschillende zoekcombinaties is niet toegestaan
         | title  | De combinatie van opgegeven parameters is niet toegestaan. |
         | status | 400                                                        |
         | code   | unsupportedCombi                                           |
-        | detail | Bad request.                                               |
         En bevat de response geen veld "invalidParams"
 
         Voorbeelden:
@@ -220,7 +208,6 @@ Rule: parameters geconstateerd, type, gebruiksdoelen, oppervlakte, statusPand, g
         | title  | De combinatie van opgegeven parameters is niet toegestaan. |
         | status | 400                                                        |
         | code   | unsupportedCombi                                           |
-        | detail | Bad request.                                               |
         En bevat de response geen veld "invalidParams"
 
         Voorbeelden:
@@ -237,7 +224,6 @@ Rule: parameters geconstateerd, type, gebruiksdoelen, oppervlakte, statusPand, g
         | title  | De combinatie van opgegeven parameters is niet toegestaan. |
         | status | 400                                             |
         | code   | unsupportedCombi                                  |
-        | detail | Bad request.                                    |
         En bevat de response geen veld "invalidParams"
 
         Voorbeelden:
@@ -255,7 +241,6 @@ Rule: de oppervlakte van de bounding box mag maximaal 250 duizend vierkante mete
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name | code           | reason                                             |
         | bbox | surfaceMaximum | Waarde is hoger dan maximum oppervlakte 250000 m2. |
@@ -269,7 +254,6 @@ Rule: gebruik van de parameter oppervlakte is niet toegestaan in combinatie met 
         | title  | De combinatie van opgegeven parameters is niet toegestaan.                          |
         | status | 400                                                                                 |
         | code   | unsupportedCombi                                                                    |
-        | detail | Gebruik van parameter oppervlakte is niet toegestaan in combinatie met type <type>. |
         En bevat de response geen veld "invalidParams"
 
         Voorbeelden:
@@ -286,7 +270,6 @@ Rule: min waarde mag niet groter zijn dan max waarde
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name             | code   | reason                |
         | <parameter>[min] | <code> | <reason omschrijving> |
@@ -306,7 +289,6 @@ Rule: page mag niet hoger zijn dan de laatste pagina
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name | code | reason                            |
         | page | page | De opgegeven pagina bestaat niet. |
@@ -320,7 +302,6 @@ Rule: de fields parameter mag geen veldnamen bevatten die niet in de response ku
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name   | code   | reason                                                    |
         | fields | fields | Deel van de parameterwaarde is niet correct: bestaatniet. |
@@ -331,7 +312,6 @@ Rule: de fields parameter mag geen veldnamen bevatten die niet in de response ku
         | naam   | waarde                                        |
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name   | code   | reason                                                       |
         | fields | fields | Deel van de parameterwaarde is niet correct: bestaatniet.    |
@@ -346,7 +326,6 @@ Rule: de expand parameter mag geen resourcenamen of veldnamen bevatten die niet 
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name   | code   | reason                                                    |
         | expand | expand | Deel van de parameterwaarde is niet correct: bestaatniet. |
@@ -358,7 +337,6 @@ Rule: de expand parameter mag geen resourcenamen of veldnamen bevatten die niet 
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name   | code   | reason                                                       |
         | expand | expand | Deel van de parameterwaarde is niet correct: bestaatniet.    |
@@ -371,7 +349,6 @@ Rule: de expand parameter mag geen resourcenamen of veldnamen bevatten die niet 
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name   | code   | reason                                                                     |
         | expand | expand | Deel van de parameterwaarde is niet correct: nummeraanduiding.bestaatniet. |
@@ -385,7 +362,6 @@ Rule: embedden van een gerelateerde resource i.c.m. de gerelateerde resource ide
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name   | code   | reason   |
         | expand | <code> | <reason> |
@@ -404,7 +380,6 @@ Rule: wanneer een parameter geometrie bevat in een crs anders dan RD (epsg:28992
         | title  | Coördinatenstelsel epsg:4326 in Content-Crs wordt niet ondersteund. |
         | status | 400                                                                 |
         | code   | crsNotSupported                                                     |
-        | detail | Bad request.                                                        |
         En bevat de response geen veld "invalidParams"
         En is de http status code van het antwoord 400
         En bevat de response de header "Content-Type" met waarde "application/problem+json"
@@ -424,7 +399,6 @@ Rule: wanneer een parameter geometrie bevat in een crs anders dan RD (epsg:28992
         | title  | Een of meerdere parameters zijn niet correct. |
         | status | 400                                           |
         | code   | paramsValidation                              |
-        | detail | Bad request.                                  |
         En bevat de response de volgende invalidParams
         | name        | code             | reason                                |
         | <parameter> | geometryMismatch | Waarde is niet conform opgegeven CRS. |
@@ -462,7 +436,6 @@ Rule: wanneer de gevraagde resource niet bestaat wordt een 404 Not found fout ge
         | title  | Opgevraagde resource bestaat niet.                   |
         | status | 404                                                  |
         | code   | notFound                                             |
-        | detail | Geen <resource naam> gevonden met id <identificatie> |
         En bevat de response geen veld "invalidParams"
         En is de http status code van het antwoord 404
         En bevat de response de header "Content-Type" met waarde "application/problem+json"
@@ -481,7 +454,6 @@ Rule: wanneer gevraagd wordt om een contenttype anders dan json wordt een 406 No
         | title  | Gevraagde contenttype wordt niet ondersteund.                                                                             |
         | status | 406                                                                                                                       |
         | code   | notAcceptable                                                                                                             |
-        | detail | Not Acceptable. Je hebt waarschijnlijk een gewenst formaat met de `Accept` header verstuurd welke niet ondersteund wordt. |
         En bevat de response geen veld "invalidParams"
         En is de http status code van het antwoord 406
         En bevat de response de header "Content-Type" met waarde "application/problem+json"
@@ -503,7 +475,6 @@ Rule: wanneer gevraagd wordt om geometrie in een crs anders dan RD (epsg:28992) 
         | title  | Gevraagde coördinatenstelsel EPSG:4326 wordt niet ondersteund. |
         | status | 406                                                            |
         | code   | crsNotAcceptable                                               |
-        | detail | Not Acceptable.                                                |
         En bevat de response geen veld "invalidParams"
         En is de http status code van het antwoord 406
         En bevat de response de header "Content-Type" met waarde "application/problem+json"
