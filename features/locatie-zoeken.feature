@@ -5,10 +5,10 @@ Functionaliteit: Zoeken op een locatie
     # Zodat ik gegevens over het pand kan raadplegen door op het pand in een kaart te klikken
 
     # Onderstaande scenario's zoeken op locaties bij twee panden.
-    # Een pand is een bijna rechthoekig vlak, geïllustreerd in afbeelding /media/pand-locatie-zoeken.svg
+    # Een pand is een rechthoekig vlak, geïllustreerd in afbeelding /media/pand-locatie-zoeken.svg
     # Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding /media/pand-uitsnede-locatie-zoeken.svg
     # In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. 
-    # Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak) en U (voor uitsnede) en het testgeval nummer.
+    # Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak) en U (voor uitsnede) plus het testgeval nummer.
     # Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.
 
 

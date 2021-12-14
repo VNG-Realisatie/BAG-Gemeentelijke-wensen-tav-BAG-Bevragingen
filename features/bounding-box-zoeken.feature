@@ -6,6 +6,14 @@ Functionaliteit: Zoeken met een bounding box
 
     # Zoeken in een rechthoekig gebied kan met de parameter bbox.
 
+    # Onderstaande scenario's zoeken op bbox bij twee panden en bij een verblijfsobject.
+    # Een pand is een rechthoekig vlak, geïllustreerd in afbeelding /media/pand-bbox-zoeken.svg
+    # Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding /media/pand-uitsnede-bbox-zoeken.svg
+    # Een verblijfsobject met een puntgeometrie, geïllustreerd in afbeelding /media/verblijfsobject-bbox-zoeken.svg
+    # In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. 
+    # Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak), U (voor uitsnede) en P (voor punt) plus het testgeval nummer.
+    # Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.
+
 
 Rule: De standaardwaarde voor het coördinatenstelsel (CRS) voor de bbox-parameter is Rijksdriehoekscoördinaten New Nederlands (epsg:28992)
 
@@ -25,70 +33,86 @@ Rule: De standaardwaarde voor het coördinatenstelsel (CRS) voor de bbox-paramet
 
 Rule: Resource wordt gevonden wanneer de bbox de resourcegeometrie geheel of gedeeltelijk overlapt
 
-    Scenario: bbox overlapt geheel geometrievlak van gezochte pand
+    Scenario: bbox overlapt geheel geometrievlak van gezochte pand [V1]
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
         Als met "GET" "/panden?bbox=118313,404852,118327,404841" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
-    Scenario: bbox valt geheel binnen geometrievlak van gezochte pand
+    Scenario: bbox valt geheel binnen geometrievlak van gezochte pand [V2]
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118317,404850,118320,404845" wordt gezocht
+        Als met "GET" "/panden?bbox=118317,404848,118320,404845" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
-    Scenario: bbox overlapt deels geometrievlak van pand en coördinaten bbox vallen buiten geometrievlak van pand
+    Scenario: bbox overlapt deels geometrievlak van pand en coördinaten bbox vallen buiten geometrievlak van pand [V3]
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118300,404850,118320,404830" wordt gezocht
+        Als met "GET" "/panden?bbox=118308,404847,118318,404840" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
-    Scenario: bbox overlapt geheel de geometrie van verblijfsobject
+    Scenario: bbox overlapt geheel de geometrie van verblijfsobject [P1]
         Gegeven het adresseerbaar object met identificatie "0226010000038820" heeft de volgende geometrie punt coördinaten
         | geometriecoördinaten    |
         | [196733.427,439931.991] |
         Als met "GET" "/adresseerbareobjecten?bbox=196713.000,439951.0001,196753.000,439911.000" wordt gezocht
         Dan bevat het resultaat het adresseerbaar object met identificatie "0226010000038820"
 
+    Scenario: bbox valt binnen geometrie van binnenvlak (binnen de uitsnede) van gezochte pand met uitsnede [U1]
+        Gegeven het pand met identificatie "1926100000495231" heeft de volgende geometrie polygoon coördinaten
+        | geometriecoördinaten                                                                                                                                                 |
+        | [ [90275.639,446939.302],[90241.499,446929.194],[90265.134,446876.961],[90301.792,446899.558],[90293.907,446944.715],[90279.026,446940.298],[90275.639,446939.302] ] |
+        | [ [90257.962,446920.845],[90277.66,446926.938],[90282.005,446928.282],[90285.691,446907.282],[90268.911,446896.459],[90257.962,446920.845] ]                         |
+        Als met "GET" "/panden?bbox=90270,446915,90275,446905" wordt gezocht
+        Dan bevat het resultaat GEEN pand met identificatie "1926100000495231"
+
 Rule: Resource wordt gevonden wanneer de buitenrand van de bbox op de buitenrand van de resourcegeometrie ligt
 
-    Scenario: geometrie coördinaat van pand ligt op een verbindingslijn van de bbox 
+    Scenario: geometrie coördinaat van pand ligt op een verbindingslijn van de bbox [V4]
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
         Als met "GET" "/panden?bbox=118310.304,404850.835,118320.604,404860.592" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
-    Scenario: bbox coördinaat ligt op de verbindingslijn tussen twee coördinaten van pand
+    Scenario: bbox coördinaat ligt op de verbindingslijn tussen twee coördinaten van pand [V5]
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118324.681,404846.437,118330.911,404840.524" wordt gezocht
+        Als met "GET" "/panden?bbox=118324.681,404846.437,118328.911,404840.524" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
-    Scenario: een bbox coördinaat komt overeen met een geometrie coördinaat van pand
+    Scenario: een bbox coördinaat komt overeen met een geometrie coördinaat van pand [V6]
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118324.183,404843.509,118355.628,404839.365" wordt gezocht
+        Als met "GET" "/panden?bbox=118324.183,404843.509,118331.628,404839.365" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
-    Scenario: een bbox coördinaat komt overeen met puntgeometrie verblijfsobject
+    Scenario: een bbox coördinaat komt overeen met puntgeometrie verblijfsobject [P2]
         Gegeven het adresseerbaar object met identificatie "0226010000038820" heeft de volgende geometrie punt coördinaten
         | geometriecoördinaten    |
         | [196733.427,439931.991] |
-        Als met "GET" "/adresseerbareobjecten?bbox=196713.427,439911.991,196733.427,439931.991" wordt gezocht
+        Als met "GET" "/adresseerbareobjecten?bbox=196715.427,439910.991,196733.427,439931.991" wordt gezocht
         Dan bevat het resultaat het adresseerbaar object met identificatie "0226010000038820"
 
-    Scenario: puntgeometrie van een verblijfsobject ligt op een verbindingslijn van de bbox 
+    Scenario: puntgeometrie van een verblijfsobject ligt op een verbindingslijn van de bbox [P3]
         Gegeven het adresseerbaar object met identificatie "0226010000038820" heeft de volgende geometrie punt coördinaten
         | geometriecoördinaten    |
         | [196733.427,439931.991] |
-        Als met "GET" "/adresseerbareobjecten?bbox=196713.427,439911.142,196733.427,439951.935" wordt gezocht
+        Als met "GET" "/adresseerbareobjecten?bbox=196710.427,439940.935,196733.427,439920.142" wordt gezocht
         Dan bevat het resultaat het adresseerbaar object met identificatie "0226010000038820"
+
+    Scenario: bbox coördinaat ligt op de verbindingslijn tussen twee coördinaten van de uitsnedegeometrie van pand [U2]
+        Gegeven het pand met identificatie "1926100000495231" heeft de volgende geometrie polygoon coördinaten
+        | geometriecoördinaten                                                                                                                                                 |
+        | [ [90275.639,446939.302],[90241.499,446929.194],[90265.134,446876.961],[90301.792,446899.558],[90293.907,446944.715],[90279.026,446940.298],[90275.639,446939.302] ] |
+        | [ [90257.962,446920.845],[90277.66,446926.938],[90282.005,446928.282],[90285.691,446907.282],[90268.911,446896.459],[90257.962,446920.845] ]                         |
+        Als met "GET" "/panden?bbox=90268.848,446917.782,90283.848,446912.782" wordt gezocht
+        Dan bevat het resultaat het pand met identificatie "1926100000495231"
 
 Rule: Resource wordt gevonden wanneer de coördinaat of rand van de bbox-parameter niet meer dan een halve milimeter buiten de rand van de resourcegeometrie ligt
 
