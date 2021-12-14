@@ -1,7 +1,8 @@
 # language: nl
 
-Functionaliteit: Als Consumer van de BAG API wil ik consistente en gebruiksvriendelijke foutresponses conform problem+json
-    Zodat ik in mijn consumer applicatie de fouten eenduidig kan afhandelen.
+Functionaliteit: Foutafhandeling
+    # Als Consumer van de BAG API wil ik consistente en gebruiksvriendelijke foutresponses conform problem+json
+    # Zodat ik in mijn consumer applicatie de fouten eenduidig kan afhandelen.
 
 Rule: een verplichte parameter moet zijn opgegeven met een waarde
 
@@ -48,7 +49,7 @@ Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
         | /panden                | ?locatie=abc,def                                                          | locatie           | number           | Waarde is geen geldig decimaal getal.               |
         | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&geconstateerd=Nee                       | geconstateerd     | boolean          | Waarde is geen geldige boolean.                     |
         | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&oppervlakte[min]=-1&oppervlakte[max]=1  | oppervlakte[min]  | minimum          | Waarde is lager dan minimum 1.                      |
-        | /panden                | ?bbox=135207,457400,135418,457162&bouwjaar[min]=2000&bouwjaar[max]=20200] | bouwjaar[max]     | maximum          | Waarde is hoger dan maximum 9999.                   |
+        | /panden                | ?bbox=135207,457400,135418,457162&bouwjaar[min]=2000&bouwjaar[max]=20200  | bouwjaar[max]     | maximum          | Waarde is hoger dan maximum 9999.                   |
         | /panden                | ?locatie=98095.02                                                         | locatie           | minItems         | Array bevat minder dan 2 items.                     |
         | /panden                | ?locatie=98095.02,438495.09,0                                             | locatie           | maxItems         | Array bevat meer dan 2 items.                       |
         | /adressen              | ?pandIdentificatie=0345100002016017X                                      | pandIdentificatie | pattern          | Waarde voldoet niet aan patroon ^[0-9]{16}$.        |
@@ -116,7 +117,7 @@ Rule: wanneer er meerdere parameterwaarden niet voldoen aan de gespecificeerde e
         | oppervlakte[max]              | 9999999                       |
         Dan bevat de response de volgende invalidParams
         | name                          | code          | reason                                             |
-        | bbox                          | maxItems      | Array bevat meer dan 4 items                       |
+        | bbox                          | maxItems      | Array bevat meer dan 4 items.                      |
         | expand                        | expand        | Deel van de parameterwaarde is niet correct: fout. |
         | fields                        | fields        | Deel van de parameterwaarde is niet correct: fout. |
         | oppervlakte[max]              | maximum       | Waarde is hoger dan maximum 999999.                |
@@ -231,17 +232,17 @@ Rule: combineren van verschillende zoekcombinaties is niet toegestaan
         En bevat de response de header "Content-Type" met waarde "application/hal+json"
 
         Voorbeelden:
-        | path                   | query string                                                                                                                                       |
-        | /adressen              | ?zoekresultaatIdentificatie=adr-35eabe366d08b6087fe9cb0d2fe3922b&page=1&pageSize=20&fields=straat,huisnummer,woonplaats&expand=adresseerbaarObject |
-        | /adressen              | ?pandIdentificatie=0226100000008856&page=1&pageSize=20&fields=straat,huisnummer,woonplaats&expand=adresseerbaarObject                              |
-        | /adressen              | ?adresseerbaarObjectIdentificatie=0226010000038820&page=1&pageSize=20&fields=straat,huisnummer,woonplaats&expand=adresseerbaarObject               |
-        | /adresseerbareobjecten | ?nummeraanduidingIdentificatie=0226200000038923&page=1&pageSize=20&fields=type,gebruiksdoelen&expand=adressen                                      |
-        | /adresseerbareobjecten | ?pandIdentificatie=0226100000008856&page=1&pageSize=20&fields=type,gebruiksdoelen&expand=adressen                                                  |
-        | /adresseerbareobjecten | ?bbox=135228,457502,135246,457457&page=1&pageSize=20&fields=type,gebruiksdoelen&expand=adressen                                                    |
-        | /panden                | ?adresseerbaarObjectIdentificatie=0484010002033603&page=1&pageSize=20&fields=geometrie                                                             |
-        | /panden                | ?nummeraanduidingIdentificatie=0484200002040489&page=1&pageSize=20&fields=geometrie                                                                |
-        | /panden                | ?locatie=98095.02,438495.09&page=1&pageSize=20&fields=geometrie                                                                                    |
-        | /panden                | ?bbox=135228,457502,135246,457457&page=1&pageSize=20&fields=geometrie                                                                              |
+        | path                   | query string                                                                                                                                  |
+        | /adressen              | ?zoekresultaatIdentificatie=adr-35eabe366d08b6087fe9cb0d2fe3922b&page=1&pageSize=20&fields=straat,huisnummer,woonplaats&expand=openbareRuimte |
+        | /adressen              | ?pandIdentificatie=0226100000008856&page=1&pageSize=20&fields=straat,huisnummer,woonplaats&expand=openbareRuimte                              |
+        | /adressen              | ?adresseerbaarObjectIdentificatie=0226010000038820&page=1&pageSize=20&fields=straat,huisnummer,woonplaats&expand=openbareRuimte               |
+        | /adresseerbareobjecten | ?nummeraanduidingIdentificatie=0226200000038923&page=1&pageSize=20&fields=type,gebruiksdoelen&expand=adressen                                 |
+        | /adresseerbareobjecten | ?pandIdentificatie=0226100000008856&page=1&pageSize=20&fields=type,gebruiksdoelen&expand=adressen                                             |
+        | /adresseerbareobjecten | ?bbox=135228,457502,135246,457457&page=1&pageSize=20&fields=type,gebruiksdoelen&expand=adressen                                               |
+        | /panden                | ?adresseerbaarObjectIdentificatie=0484010002033603&page=1&pageSize=20&fields=geometrie                                                        |
+        | /panden                | ?nummeraanduidingIdentificatie=0484200002040489&page=1&pageSize=20&fields=geometrie                                                           |
+        | /panden                | ?locatie=98095.02,438495.09&page=1&pageSize=20&fields=geometrie                                                                               |
+        | /panden                | ?bbox=135228,457502,135246,457457&page=1&pageSize=20&fields=geometrie                                                                         |
 
 Rule: parameters geconstateerd, type, gebruiksdoelen, oppervlakte, statusPand, geconstateerd en bouwjaar mogen alleen in combinatie met bbox worden gebruikt
 
@@ -321,7 +322,7 @@ Rule: min waarde mag niet groter zijn dan max waarde
         Voorbeelden:
         | path                   | query string                                                                | parameter   | code  | reason omschrijving              |
         | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&oppervlakte[min]=200&oppervlakte[max]=100 | oppervlakte | range | min mag niet hoger zijn dan max. |
-        | /panden                | ?bouwjaar[min]=2000&bouwjaar[max]=1000                                      | bouwjaar    | range | min mag niet hoger zijn dan max. |
+        | /panden                | ?bbox=135207,457400,135418,457162&bouwjaar[min]=2000&bouwjaar[max]=1000     | bouwjaar    | range | min mag niet hoger zijn dan max. |
 
 Rule: page mag niet hoger zijn dan de laatste pagina
 
@@ -418,7 +419,7 @@ Rule: embedden van een gerelateerde resource i.c.m. de gerelateerde resource ide
 Rule: wanneer een parameter geometrie bevat in een crs anders dan RD (epsg:28992) wordt een 400 fout gegeven
 
     Abstract Scenario: accept-crs WGS84 geeft een foutmelding
-        Als '<path><query string>' request wordt gedaan met header 'Accept-Crs: epsg:4326'
+        Als '<path><query string>' request wordt gedaan met header 'Content-Crs: epsg:4326'
         Dan bevat de response ten minste de volgende velden
         | naam   | waarde                                                              |
         | title  | Coördinatenstelsel epsg:4326 in Content-Crs wordt niet ondersteund. |
@@ -455,12 +456,11 @@ Rule: wanneer een parameter geometrie bevat in een crs anders dan RD (epsg:28992
         | /panden                | ?bbox=52.10540,5.09861,52.10500,5.09887 | bbox      |
         | /adresseerbareobjecten | ?bbox=52.10540,5.09861,52.10500,5.09887 | bbox      |
 
-Rule: wanneer er geen API key wordt gestuurd wordt een 400 fout gegeven met html response
+Rule: wanneer er geen API key wordt gestuurd wordt een 400 fout gegeven
 
     Scenario: geen api key in request
         Als '/adressen/0599200000193766' request wordt gedaan zonder header 'x-api-key'
         Dan is de http status code van het antwoord 400
-        En bevat de response de header "Content-Type" met waarde "text/html;charset=utf-8"
         En bevat de responsebody de tekst "Missing API Key"
 
 Rule: wanneer een onjuiste API key wordt gestuurd wordt een 401 Unauthorized fout gegeven met html response
@@ -468,7 +468,6 @@ Rule: wanneer een onjuiste API key wordt gestuurd wordt een 401 Unauthorized fou
     Scenario: onjuiste API key
         Als '/adressen/0599200000193766' request wordt gedaan met header 'x-api-key: onjuist'
         Dan is de http status code van het antwoord 401
-        En bevat de response de header "Content-Type" met waarde "text/html;charset=utf-8"
         En bevat de responsebody de tekst "Invalid API Key"
 
 Rule: wanneer de gevraagde resource niet bestaat wordt een 404 Not found fout gegeven
