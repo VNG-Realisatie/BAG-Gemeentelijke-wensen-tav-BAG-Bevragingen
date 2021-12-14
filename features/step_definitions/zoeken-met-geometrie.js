@@ -60,39 +60,6 @@ When('met {string} {string} wordt gezocht', async function (verb, path) {
     }
 });
 
-When('met {string} {string} wordt gezocht zonder request header {string}', async function (verb, path, headername) {
-    const url = `${this.context.url}${path}`;
-    const config = {
-        headers: {
-            "X-Api-Key": this.context.apiKey
-        }
-    };
-
-    try {
-        this.context.response = await axios.get(url, config);
-    }
-    catch(e) {
-        console.log(e);
-    }
-});
-
-When('met {string} {string} wordt gezocht met request header {string} met waarde {string}', async function (verb, path, headername, headervalue) {
-    const url = `${this.context.url}${path}`;
-    let config = {
-        headers: {
-            "X-Api-Key": this.context.apiKey,
-        }
-    };
-    config.headers[headername] = headervalue;
-
-    try {
-        this.context.response = await axios.get(url, config);
-    }
-    catch(e) {
-        console.log(e);
-    }
-});
-
 Then('bevat het resultaat het pand met identificatie {string}', function (pandIdentificatie) {
     // console.log(this.context.response.data);
 

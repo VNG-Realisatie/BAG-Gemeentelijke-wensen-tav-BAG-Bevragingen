@@ -1,25 +1,26 @@
 # language: nl
 
-Functionaliteit: Als gebruiker wil ik een pand of adresseerbaar object kunnen zoeken binnen een gebied
-    Zodat ik de adresseerbare objecten of panden kan vinden binnen een rechthoek die ik teken op een kaart
+Functionaliteit: Zoeken met een bounding box
+    # Als gebruiker wil ik een pand of adresseerbaar object kunnen zoeken binnen een gebied
+    # Zodat ik de adresseerbare objecten of panden kan vinden binnen een rechthoek die ik teken op een kaart
 
-    Zoeken in een rechthoekig gebied kan met de parameter bbox.
+    # Zoeken in een rechthoekig gebied kan met de parameter bbox.
 
 
-Rule: De standaardwaarde voor het coördinatenstelsel (CRS) voor de bbox-parameter is Rijksdriehoekscoördinaten New Nederlands
+Rule: De standaardwaarde voor het coördinatenstelsel (CRS) voor de bbox-parameter is Rijksdriehoekscoördinaten New Nederlands (epsg:28992)
 
     Scenario: zoek op bbox zonder het coördinatenstelsel aan te geven
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118314,404843,118326,404850" wordt gezocht zonder request header "Content-Crs"
+        Als met "GET" "/panden?bbox=118314,404843,118326,404850" wordt gezocht zonder requestheader "Content-Crs"
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
     Scenario: zoek op bbox met het coördinatenstelsel dat je gebruikt in de bbox-parameter
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118314,404843,118326,404850" wordt gezocht met request header "Content-Crs" met waarde "epsg:28992"
+        Als met "GET" "/panden?bbox=118314,404843,118326,404850" wordt gezocht met requestheader "Content-Crs" met waarde "epsg:28992"
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
 Rule: Resource wordt gevonden wanneer de bbox de resourcegeometrie geheel of gedeeltelijk overlapt
@@ -28,21 +29,21 @@ Rule: Resource wordt gevonden wanneer de bbox de resourcegeometrie geheel of ged
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118314,404843,118326,404850" wordt gezocht
+        Als met "GET" "/panden?bbox=118313,404852,118327,404841" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
     Scenario: bbox valt geheel binnen geometrievlak van gezochte pand
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118317,404830,118320,404848" wordt gezocht
+        Als met "GET" "/panden?bbox=118317,404850,118320,404845" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
     Scenario: bbox overlapt deels geometrievlak van pand en coördinaten bbox vallen buiten geometrievlak van pand
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
         | geometriecoördinaten                                                                                                        |
         | [ [118315.606,404844.967],[118324.183,404843.509],[118325.179,404849.365],[118316.604,404850.835],[118315.606,404844.967] ] |
-        Als met "GET" "/panden?bbox=118300,404830,118320,404848" wordt gezocht
+        Als met "GET" "/panden?bbox=118300,404850,118320,404830" wordt gezocht
         Dan bevat het resultaat het pand met identificatie "0826100000036343"
 
     Scenario: bbox overlapt geheel de geometrie van verblijfsobject
@@ -89,7 +90,7 @@ Rule: Resource wordt gevonden wanneer de buitenrand van de bbox op de buitenrand
         Als met "GET" "/adresseerbareobjecten?bbox=196713.427,439911.142,196733.427,439951.935" wordt gezocht
         Dan bevat het resultaat het adresseerbaar object met identificatie "0226010000038820"
 
-Rule: Resource wordt gevonden wanneer de coördinaat of rand van de bbox-parameter niet meer dan een halve milimeter van de buitenrand van de resourcegeometrie ligt
+Rule: Resource wordt gevonden wanneer de coördinaat of rand van de bbox-parameter niet meer dan een halve milimeter buiten de buitenrand van de resourcegeometrie ligt
 
     Abstract Scenario: bbox <scenario> van gezochte pand
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
@@ -123,7 +124,7 @@ Rule: Resource wordt gevonden wanneer de coördinaat of rand van de bbox-paramet
         | 196000.000,440000.000,196733.427,439931.991     | wel       | coördinaat is geometriecoördinaat                   |
         | 196000.000,440000.000,196733.427,439931.992     | niet      | coördinaat ligt 1mm van geometriecoördinaat         |
         | 196000.000,440000.000,196800.000,439931.992     | niet      | verbindingslijn loopt 1mm van geometriecoördinaat   |
-        | 196000.0000,440000.0000,196800.0000,439931.9914 | niet      | verbindingslijn loopt 0,4mm van geometriecoördinaat |
+        | 196000.0000,440000.0000,196800.0000,439931.9914 | wel       | verbindingslijn loopt 0,4mm van geometriecoördinaat |
         | 196000.0000,440000.0000,196800.0000,439931.9916 | niet      | verbindingslijn loopt 0,6mm van geometriecoördinaat |
         | 196000.00,440000.00,196733.42,439931.99         | niet      | in centimeters valt buiten geometrie                |
         | 196733.42,439932.00,197000.00,439000.00         | wel       | in centimeters valt binnen geometrie                |
