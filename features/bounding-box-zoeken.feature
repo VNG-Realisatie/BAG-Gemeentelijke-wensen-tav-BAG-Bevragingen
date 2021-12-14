@@ -150,7 +150,7 @@ Rule: Resource wordt gevonden wanneer de coördinaat of rand van de bbox-paramet
         | 196000.000,440000.000,196800.000,439931.992     | niet      | verbindingslijn loopt 1mm van geometriecoördinaat   |
         | 196000.0000,440000.0000,196800.0000,439931.9914 | wel       | verbindingslijn loopt 0,4mm van geometriecoördinaat |
         | 196000.0000,440000.0000,196800.0000,439931.9916 | niet      | verbindingslijn loopt 0,6mm van geometriecoördinaat |
-        | 196000.00,440000.00,196733.42,439931.99         | niet      | in centimeters valt buiten geometrie                |
-        | 196733.42,439932.00,197000.00,439000.00         | wel       | in centimeters valt binnen geometrie                |
+        | 196720.00,439932.00,196733.42,439930.00         | niet      | in centimeters valt buiten geometrie                |
+        | 196733.42,439932.00,196735.00,439930.00         | wel       | in centimeters valt binnen geometrie                |
         | 196000,440000,196733,439931                     | niet      | in meters valt buiten geometrie                     |
         | 196733,439931,197000,440000                     | wel       | in meters valt binnen geometrie                     |

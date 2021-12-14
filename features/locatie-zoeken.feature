@@ -82,7 +82,7 @@ Rule: Pand wordt gevonden wanneer de coördinaat van de locatieparameter op de r
         | [ [90275.639,446939.302],[90241.499,446929.194],[90265.134,446876.961],[90301.792,446899.558],[90293.907,446944.715],[90279.026,446940.298],[90275.639,446939.302] ] |
         | [ [90257.962,446920.845],[90277.66,446926.938],[90282.005,446928.282],[90285.691,446907.282],[90268.911,446896.459],[90257.962,446920.845] ]                         |
         Als met "GET" "/panden?locatie=90283.848,446917.782" wordt gezocht
-        Dan bevat het resultaat GEEN pand met identificatie "1926100000495231"
+        Dan bevat het resultaat het pand met identificatie "1926100000495231"
 
 Rule: Pand wordt gevonden wanneer de coördinaat van de locatieparameter niet meer dan een halve milimeter buiten de rand van de pandgeometrie ligt
 
