@@ -90,7 +90,7 @@ Rule: Resource wordt gevonden wanneer de buitenrand van de bbox op de buitenrand
         Als met "GET" "/adresseerbareobjecten?bbox=196713.427,439911.142,196733.427,439951.935" wordt gezocht
         Dan bevat het resultaat het adresseerbaar object met identificatie "0226010000038820"
 
-Rule: Resource wordt gevonden wanneer de coördinaat of rand van de bbox-parameter niet meer dan een halve milimeter buiten de buitenrand van de resourcegeometrie ligt
+Rule: Resource wordt gevonden wanneer de coördinaat of rand van de bbox-parameter niet meer dan een halve milimeter buiten de rand van de resourcegeometrie ligt
 
     Abstract Scenario: bbox <scenario> van gezochte pand
         Gegeven het pand met identificatie "0826100000036343" heeft de volgende geometrie polygoon coördinaten
