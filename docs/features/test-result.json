@@ -1,6 +1,6 @@
 [
   {
-    "description": "",
+    "description": "    Als gebruiker wil ik een pand of adresseerbaar object kunnen zoeken binnen een gebied\n    Zodat ik de adresseerbare objecten of panden kan vinden binnen een rechthoek die ik teken op een kaart\n\n    Zoeken in een rechthoekig gebied kan met de parameter bbox.\n\n    Onderstaande scenario's zoeken op bbox bij twee panden en bij een verblijfsobject.\n    Een pand is een rechthoekig vlak, geïllustreerd in afbeelding pand-bbox-zoeken <img src='../../features/media/pand-bbox-zoeken.svg' title='pand-bbox-zoeken'>\n    Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding pand-uitsnede-bbox-zoeken <img src='../../features/media/pand-uitsnede-bbox-zoeken.svg' title='pand-uitsnede-bbox-zoeken'>\n    Een verblijfsobject met een puntgeometrie, geïllustreerd in afbeelding verblijfsobject-bbox-zoeken <img src='../../features/media/verblijfsobject-bbox-zoeken.svg' title='verblijfsobject-bbox-zoeken'>\n    In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. \n    Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak), U (voor uitsnede) en P (voor punt) plus het testgeval nummer.\n    Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.",
     "elements": [
       {
         "description": "",
@@ -30,11 +30,11 @@
             "line": 21,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 537140
+              "duration": 373200
             }
           },
           {
@@ -43,11 +43,11 @@
             "line": 24,
             "name": "met \"GET\" \"/panden?bbox=118314,404843,118326,404850\" wordt gezocht zonder requestheader \"Content-Crs\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:14"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:14"
             },
             "result": {
               "status": "passed",
-              "duration": 248456484
+              "duration": 231098799
             }
           },
           {
@@ -56,11 +56,11 @@
             "line": 25,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 2795136
+              "duration": 1605999
             }
           }
         ],
@@ -95,11 +95,11 @@
             "line": 28,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 124273
+              "duration": 122100
             }
           },
           {
@@ -108,11 +108,11 @@
             "line": 31,
             "name": "met \"GET\" \"/panden?bbox=118314,404843,118326,404850\" wordt gezocht met requestheader \"Content-Crs\" met waarde \"epsg:28992\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:30"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:30"
             },
             "result": {
               "status": "passed",
-              "duration": 141694536
+              "duration": 194626099
             }
           },
           {
@@ -121,11 +121,11 @@
             "line": 32,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 313622
+              "duration": 401399
             }
           }
         ],
@@ -160,11 +160,11 @@
             "line": 37,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 101119
+              "duration": 169300
             }
           },
           {
@@ -173,11 +173,11 @@
             "line": 40,
             "name": "met \"GET\" \"/panden?bbox=118313,404852,118327,404841\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 133710080
+              "duration": 170617100
             }
           },
           {
@@ -186,11 +186,11 @@
             "line": 41,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 260687
+              "duration": 666600
             }
           }
         ],
@@ -225,11 +225,11 @@
             "line": 44,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 114673
+              "duration": 188799
             }
           },
           {
@@ -238,11 +238,11 @@
             "line": 47,
             "name": "met \"GET\" \"/panden?bbox=118317,404848,118320,404845\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 117832205
+              "duration": 122598199
             }
           },
           {
@@ -251,11 +251,11 @@
             "line": 48,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 252579
+              "duration": 205000
             }
           }
         ],
@@ -290,11 +290,11 @@
             "line": 51,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 95913
+              "duration": 239699
             }
           },
           {
@@ -303,11 +303,11 @@
             "line": 54,
             "name": "met \"GET\" \"/panden?bbox=118308,404847,118318,404840\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 121721470
+              "duration": 149709800
             }
           },
           {
@@ -316,11 +316,11 @@
             "line": 55,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 244803
+              "duration": 484600
             }
           }
         ],
@@ -355,11 +355,11 @@
             "line": 58,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 172903
+              "duration": 327899
             }
           },
           {
@@ -368,11 +368,11 @@
             "line": 61,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196713.000,439951.0001,196753.000,439911.000\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 131399569.00000001
+              "duration": 166238900
             }
           },
           {
@@ -381,11 +381,11 @@
             "line": 62,
             "name": "bevat het resultaat het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:117"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:117"
             },
             "result": {
               "status": "passed",
-              "duration": 366460
+              "duration": 568599
             }
           }
         ],
@@ -425,11 +425,11 @@
             "line": 65,
             "name": "het pand met identificatie \"1926100000495231\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 72114
+              "duration": 168999
             }
           },
           {
@@ -438,11 +438,11 @@
             "line": 69,
             "name": "met \"GET\" \"/panden?bbox=90270,446915,90275,446905\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 101083732
+              "duration": 133304200.00000001
             }
           },
           {
@@ -451,11 +451,11 @@
             "line": 70,
             "name": "bevat het resultaat GEEN pand met identificatie \"1926100000495231\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:76"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:76"
             },
             "result": {
               "status": "passed",
-              "duration": 1914005
+              "duration": 922500
             }
           }
         ],
@@ -490,11 +490,11 @@
             "line": 75,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 80331
+              "duration": 119400
             }
           },
           {
@@ -503,11 +503,11 @@
             "line": 78,
             "name": "met \"GET\" \"/panden?bbox=118310.304,404850.835,118320.604,404860.592\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 149107473
+              "duration": 141582200
             }
           },
           {
@@ -516,11 +516,11 @@
             "line": 79,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 273165
+              "duration": 266699
             }
           }
         ],
@@ -555,11 +555,11 @@
             "line": 82,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 87209
+              "duration": 107200
             }
           },
           {
@@ -568,11 +568,11 @@
             "line": 85,
             "name": "met \"GET\" \"/panden?bbox=118324.681,404846.437,118328.911,404840.524\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 128992571
+              "duration": 153178299
             }
           },
           {
@@ -581,11 +581,11 @@
             "line": 86,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 226837
+              "duration": 250599.00000000003
             }
           }
         ],
@@ -620,11 +620,11 @@
             "line": 89,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 85689
+              "duration": 89599
             }
           },
           {
@@ -633,11 +633,11 @@
             "line": 92,
             "name": "met \"GET\" \"/panden?bbox=118324.183,404843.509,118331.628,404839.365\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 144310800
+              "duration": 145484500
             }
           },
           {
@@ -646,11 +646,11 @@
             "line": 93,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 234326
+              "duration": 216600
             }
           }
         ],
@@ -685,11 +685,11 @@
             "line": 96,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 83201
+              "duration": 79099
             }
           },
           {
@@ -698,11 +698,11 @@
             "line": 99,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196715.427,439910.991,196733.427,439931.991\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 186486942
+              "duration": 188343100
             }
           },
           {
@@ -711,11 +711,11 @@
             "line": 100,
             "name": "bevat het resultaat het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:117"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:117"
             },
             "result": {
               "status": "passed",
-              "duration": 250786.99999999997
+              "duration": 322100
             }
           }
         ],
@@ -750,11 +750,11 @@
             "line": 103,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 80566
+              "duration": 136500
             }
           },
           {
@@ -763,11 +763,11 @@
             "line": 106,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196710.427,439940.935,196733.427,439920.142\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 143746692
+              "duration": 118412899
             }
           },
           {
@@ -776,11 +776,11 @@
             "line": 107,
             "name": "bevat het resultaat het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:117"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:117"
             },
             "result": {
               "status": "passed",
-              "duration": 219257
+              "duration": 314600
             }
           }
         ],
@@ -820,11 +820,11 @@
             "line": 110,
             "name": "het pand met identificatie \"1926100000495231\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 82490
+              "duration": 128299
             }
           },
           {
@@ -833,11 +833,11 @@
             "line": 114,
             "name": "met \"GET\" \"/panden?bbox=90268.848,446917.782,90283.848,446912.782\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 181042607
+              "duration": 140259700
             }
           },
           {
@@ -846,11 +846,11 @@
             "line": 115,
             "name": "bevat het resultaat het pand met identificatie \"1926100000495231\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 261164.99999999997
+              "duration": 356300
             }
           }
         ],
@@ -885,11 +885,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 65196.00000000001
+              "duration": 127899.00000000001
             }
           },
           {
@@ -898,11 +898,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118300.000,404800.000,118315.606,404844.967\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 208859602
+              "duration": 219186800
             }
           },
           {
@@ -911,11 +911,11 @@
             "line": 124,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 346161
+              "duration": 730500
             }
           }
         ],
@@ -950,11 +950,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 56786
+              "duration": 174900
             }
           },
           {
@@ -963,11 +963,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118300.000,404800.000,118315.605,404844.967\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 207252950
+              "duration": 276150000
             }
           },
           {
@@ -976,11 +976,11 @@
             "line": 124,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 620487
+              "duration": 363799
             }
           }
         ],
@@ -1015,11 +1015,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 69603
+              "duration": 52400
             }
           },
           {
@@ -1028,11 +1028,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118324.681,404846.437,118400.000,404800.000\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 128136061.00000001
+              "duration": 162782000
             }
           },
           {
@@ -1041,11 +1041,11 @@
             "line": 124,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 233866
+              "duration": 160799
             }
           }
         ],
@@ -1080,11 +1080,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 83317
+              "duration": 63900
             }
           },
           {
@@ -1093,11 +1093,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118324.682,404846.437,118400.000,404800.000\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 122410240
+              "duration": 155508700
             }
           },
           {
@@ -1106,11 +1106,11 @@
             "line": 124,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 228705
+              "duration": 315499
             }
           }
         ],
@@ -1145,11 +1145,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 79787
+              "duration": 128098.99999999999
             }
           },
           {
@@ -1158,11 +1158,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118325.1795,404900.0000,118400.0000,404800.0000\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 126389988
+              "duration": 199327700
             }
           },
           {
@@ -1171,11 +1171,11 @@
             "line": 124,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 257759.00000000003
+              "duration": 328300
             }
           }
         ],
@@ -1210,11 +1210,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 108808
+              "duration": 115899
             }
           },
           {
@@ -1223,11 +1223,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118325.1796,404900.0000,118400.0000,404800.0000\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 141250744
+              "duration": 206212799
             }
           },
           {
@@ -1236,11 +1236,11 @@
             "line": 124,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 266743
+              "duration": 230999
             }
           }
         ],
@@ -1275,11 +1275,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 101190
+              "duration": 53300
             }
           },
           {
@@ -1288,11 +1288,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118300.00,404800.00,118315.60,404844.96\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 197610821
+              "duration": 212525999
             }
           },
           {
@@ -1301,11 +1301,11 @@
             "line": 124,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 326389
+              "duration": 496899
             }
           }
         ],
@@ -1340,11 +1340,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 82288
+              "duration": 137300
             }
           },
           {
@@ -1353,11 +1353,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118325.17,404900.00,118400.00,404800.00\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 135460124
+              "duration": 161275100
             }
           },
           {
@@ -1366,11 +1366,11 @@
             "line": 124,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 183780
+              "duration": 181699
             }
           }
         ],
@@ -1405,11 +1405,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 55378
+              "duration": 66700
             }
           },
           {
@@ -1418,11 +1418,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118300,404800,118315,404844\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 189872844
+              "duration": 200885499
             }
           },
           {
@@ -1431,11 +1431,11 @@
             "line": 124,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 381478
+              "duration": 509300
             }
           }
         ],
@@ -1470,11 +1470,11 @@
             "line": 120,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 64138
+              "duration": 131800
             }
           },
           {
@@ -1483,11 +1483,11 @@
             "line": 123,
             "name": "met \"GET\" \"/panden?bbox=118325,404900,118400,404800\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 131199641.00000001
+              "duration": 165756299
             }
           },
           {
@@ -1496,11 +1496,11 @@
             "line": 124,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 301801
+              "duration": 392099
             }
           }
         ],
@@ -1535,11 +1535,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 109999
+              "duration": 131500
             }
           },
           {
@@ -1548,11 +1548,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196000.000,440000.000,196733.427,439931.991\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 201364562
+              "duration": 187057299
             }
           },
           {
@@ -1561,11 +1561,11 @@
             "line": 144,
             "name": "bevat het resultaat wel het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:130"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:130"
             },
             "result": {
               "status": "passed",
-              "duration": 477075
+              "duration": 634700
             }
           }
         ],
@@ -1600,11 +1600,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 89140
+              "duration": 132499
             }
           },
           {
@@ -1613,11 +1613,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196000.000,440000.000,196733.427,439931.992\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 180901121
+              "duration": 194814600
             }
           },
           {
@@ -1626,11 +1626,11 @@
             "line": 144,
             "name": "bevat het resultaat niet het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:143"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:143"
             },
             "result": {
               "status": "passed",
-              "duration": 496482
+              "duration": 683000
             }
           }
         ],
@@ -1665,11 +1665,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 87508
+              "duration": 138700
             }
           },
           {
@@ -1678,11 +1678,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196000.000,440000.000,196800.000,439931.992\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 187282451
+              "duration": 186073900
             }
           },
           {
@@ -1691,11 +1691,11 @@
             "line": 144,
             "name": "bevat het resultaat niet het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:143"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:143"
             },
             "result": {
               "status": "passed",
-              "duration": 288288
+              "duration": 437400
             }
           }
         ],
@@ -1730,11 +1730,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 81245
+              "duration": 131699
             }
           },
           {
@@ -1743,11 +1743,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196000.0000,440000.0000,196800.0000,439931.9914\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 320905999
+              "duration": 209916500
             }
           },
           {
@@ -1756,11 +1756,11 @@
             "line": 144,
             "name": "bevat het resultaat wel het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:130"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:130"
             },
             "result": {
               "status": "passed",
-              "duration": 283537
+              "duration": 400400
             }
           }
         ],
@@ -1795,11 +1795,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 91280
+              "duration": 134399
             }
           },
           {
@@ -1808,11 +1808,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196000.0000,440000.0000,196800.0000,439931.9916\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 221105794
+              "duration": 200455099
             }
           },
           {
@@ -1821,11 +1821,11 @@
             "line": 144,
             "name": "bevat het resultaat niet het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:143"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:143"
             },
             "result": {
               "status": "passed",
-              "duration": 280836
+              "duration": 401100
             }
           }
         ],
@@ -1860,11 +1860,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 76377
+              "duration": 154699
             }
           },
           {
@@ -1873,11 +1873,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196720.00,439932.00,196733.42,439930.00\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 220759036
+              "duration": 162411299
             }
           },
           {
@@ -1886,11 +1886,11 @@
             "line": 144,
             "name": "bevat het resultaat niet het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:143"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:143"
             },
             "result": {
               "status": "passed",
-              "duration": 166675
+              "duration": 253000
             }
           }
         ],
@@ -1925,11 +1925,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 78346
+              "duration": 130699.00000000001
             }
           },
           {
@@ -1938,11 +1938,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196733.42,439932.00,196735.00,439930.00\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 127520065
+              "duration": 131335799.00000001
             }
           },
           {
@@ -1951,11 +1951,11 @@
             "line": 144,
             "name": "bevat het resultaat wel het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:130"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:130"
             },
             "result": {
               "status": "passed",
-              "duration": 230165
+              "duration": 277299
             }
           }
         ],
@@ -1990,11 +1990,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 77819
+              "duration": 122600
             }
           },
           {
@@ -2003,11 +2003,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196000,440000,196733,439931\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 241996711
+              "duration": 182214200
             }
           },
           {
@@ -2016,11 +2016,11 @@
             "line": 144,
             "name": "bevat het resultaat niet het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:143"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:143"
             },
             "result": {
               "status": "passed",
-              "duration": 298891
+              "duration": 644600
             }
           }
         ],
@@ -2055,11 +2055,11 @@
             "line": 140,
             "name": "het adresseerbaar object met identificatie \"0226010000038820\" heeft de volgende geometrie punt coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:11"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:11"
             },
             "result": {
               "status": "passed",
-              "duration": 77353
+              "duration": 122899
             }
           },
           {
@@ -2068,11 +2068,11 @@
             "line": 143,
             "name": "met \"GET\" \"/adresseerbareobjecten?bbox=196733,439931,197000,440000\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 256788262.99999997
+              "duration": 304488599
             }
           },
           {
@@ -2081,11 +2081,11 @@
             "line": 144,
             "name": "bevat het resultaat wel het adresseerbaar object met identificatie \"0226010000038820\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:130"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:130"
             },
             "result": {
               "status": "passed",
-              "duration": 265627
+              "duration": 292299
             }
           }
         ],
@@ -2098,10 +2098,10 @@
     "keyword": "Functionaliteit",
     "name": "Zoeken met een bounding box",
     "tags": [],
-    "uri": "features/bounding-box-zoeken.feature"
+    "uri": "features\\bounding-box-zoeken.feature"
   },
   {
-    "description": "",
+    "description": "    Als gebruiker wil ik een pand kunnen zoeken op locatiecoördinaten\n    Zodat ik gegevens over het pand kan raadplegen door op het pand in een kaart te klikken\n\n    Onderstaande scenario's zoeken op locaties bij twee panden.\n    Een pand is een rechthoekig vlak, geïllustreerd in afbeelding pand-locatie-zoeken <img src='../../features/media/pand-locatie-zoeken.svg' title='pand-locatie-zoeken'>\n    Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding pand-uitsnede-locatie-zoeken <img src='../../features/media/pand-uitsnede-locatie-zoeken.svg' title='pand-uitsnede-locatie-zoeken'>\n    In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. \n    Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak) en U (voor uitsnede) plus het testgeval nummer.\n    Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.",
     "elements": [
       {
         "description": "",
@@ -2131,11 +2131,11 @@
             "line": 18,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 61364
+              "duration": 60800
             }
           },
           {
@@ -2144,11 +2144,11 @@
             "line": 21,
             "name": "met \"GET\" \"/panden?locatie=118320,404848\" wordt gezocht zonder requestheader \"Content-Crs\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:14"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:14"
             },
             "result": {
               "status": "passed",
-              "duration": 120447018
+              "duration": 139287200
             }
           },
           {
@@ -2157,11 +2157,11 @@
             "line": 22,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 212818
+              "duration": 128200.00000000001
             }
           }
         ],
@@ -2196,11 +2196,11 @@
             "line": 25,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 76321
+              "duration": 55900
             }
           },
           {
@@ -2209,11 +2209,11 @@
             "line": 28,
             "name": "met \"GET\" \"/panden?locatie=118320,404848\" wordt gezocht met requestheader \"Content-Crs\" met waarde \"epsg:28992\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:30"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:30"
             },
             "result": {
               "status": "passed",
-              "duration": 122642993
+              "duration": 130024398.99999999
             }
           },
           {
@@ -2222,11 +2222,11 @@
             "line": 29,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 223019
+              "duration": 116200
             }
           }
         ],
@@ -2261,11 +2261,11 @@
             "line": 34,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 77835
+              "duration": 46299
             }
           },
           {
@@ -2274,11 +2274,11 @@
             "line": 37,
             "name": "met \"GET\" \"/panden?locatie=118320,404848\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 119405113
+              "duration": 138432599
             }
           },
           {
@@ -2287,11 +2287,11 @@
             "line": 38,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 172777
+              "duration": 302000
             }
           }
         ],
@@ -2326,11 +2326,11 @@
             "line": 41,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 59649
+              "duration": 134800
             }
           },
           {
@@ -2339,11 +2339,11 @@
             "line": 44,
             "name": "met \"GET\" \"/panden?locatie=118314,404852\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 446376969
+              "duration": 109518500
             }
           },
           {
@@ -2352,11 +2352,11 @@
             "line": 45,
             "name": "bevat het resultaat GEEN pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:76"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:76"
             },
             "result": {
               "status": "passed",
-              "duration": 182369
+              "duration": 111999
             }
           }
         ],
@@ -2396,11 +2396,11 @@
             "line": 48,
             "name": "het pand met identificatie \"1926100000495231\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 66863
+              "duration": 59299
             }
           },
           {
@@ -2409,11 +2409,11 @@
             "line": 52,
             "name": "met \"GET\" \"/panden?locatie=90290,446910\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 201915257
+              "duration": 159346800
             }
           },
           {
@@ -2422,11 +2422,11 @@
             "line": 53,
             "name": "bevat het resultaat het pand met identificatie \"1926100000495231\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 250566
+              "duration": 482300
             }
           }
         ],
@@ -2466,11 +2466,11 @@
             "line": 56,
             "name": "het pand met identificatie \"1926100000495231\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 76641
+              "duration": 117700
             }
           },
           {
@@ -2479,11 +2479,11 @@
             "line": 60,
             "name": "met \"GET\" \"/panden?locatie=90270,446910\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 121996625
+              "duration": 175691499
             }
           },
           {
@@ -2492,11 +2492,11 @@
             "line": 61,
             "name": "bevat het resultaat GEEN pand met identificatie \"1926100000495231\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:76"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:76"
             },
             "result": {
               "status": "passed",
-              "duration": 164088
+              "duration": 175200
             }
           }
         ],
@@ -2531,11 +2531,11 @@
             "line": 66,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 75818
+              "duration": 52000
             }
           },
           {
@@ -2544,11 +2544,11 @@
             "line": 69,
             "name": "met \"GET\" \"/panden?locatie=118315.606,404844.967\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 151814658
+              "duration": 139589700
             }
           },
           {
@@ -2557,11 +2557,11 @@
             "line": 70,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 231081
+              "duration": 148199
             }
           }
         ],
@@ -2596,11 +2596,11 @@
             "line": 73,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 59324
+              "duration": 122899
             }
           },
           {
@@ -2609,11 +2609,11 @@
             "line": 76,
             "name": "met \"GET\" \"/panden?locatie=118324.681,404846.437\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 116605678
+              "duration": 127606500
             }
           },
           {
@@ -2622,11 +2622,11 @@
             "line": 77,
             "name": "bevat het resultaat het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 217666
+              "duration": 138999
             }
           }
         ],
@@ -2666,11 +2666,11 @@
             "line": 80,
             "name": "het pand met identificatie \"1926100000495231\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 76166
+              "duration": 56200
             }
           },
           {
@@ -2679,11 +2679,11 @@
             "line": 84,
             "name": "met \"GET\" \"/panden?locatie=90283.848,446917.782\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 172166122
+              "duration": 157162899
             }
           },
           {
@@ -2692,11 +2692,11 @@
             "line": 85,
             "name": "bevat het resultaat het pand met identificatie \"1926100000495231\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:63"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:63"
             },
             "result": {
               "status": "passed",
-              "duration": 197815
+              "duration": 157700
             }
           }
         ],
@@ -2731,11 +2731,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 60322
+              "duration": 50699
             }
           },
           {
@@ -2744,11 +2744,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118315.606,404844.967\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 127274736
+              "duration": 185208600
             }
           },
           {
@@ -2757,11 +2757,11 @@
             "line": 94,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 235056
+              "duration": 335800
             }
           }
         ],
@@ -2796,11 +2796,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 75860
+              "duration": 132500
             }
           },
           {
@@ -2809,11 +2809,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118315.605,404844.967\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 99389152
+              "duration": 133354500
             }
           },
           {
@@ -2822,11 +2822,11 @@
             "line": 94,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 183904
+              "duration": 206600
             }
           }
         ],
@@ -2861,11 +2861,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 73579
+              "duration": 111399
             }
           },
           {
@@ -2874,11 +2874,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118324.681,404846.437\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 125923425
+              "duration": 131244200
             }
           },
           {
@@ -2887,11 +2887,11 @@
             "line": 94,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 268732
+              "duration": 289700
             }
           }
         ],
@@ -2926,11 +2926,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 77814
+              "duration": 121000
             }
           },
           {
@@ -2939,11 +2939,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118324.682,404846.437\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 108820610
+              "duration": 124315399
             }
           },
           {
@@ -2952,11 +2952,11 @@
             "line": 94,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 185725
+              "duration": 125899.00000000001
             }
           }
         ],
@@ -2991,11 +2991,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 79337
+              "duration": 57599
             }
           },
           {
@@ -3004,11 +3004,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118325.1795,404849.3650\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 260655342.00000003
+              "duration": 103836699
             }
           },
           {
@@ -3017,11 +3017,11 @@
             "line": 94,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 220550
+              "duration": 294600
             }
           }
         ],
@@ -3056,11 +3056,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 59792
+              "duration": 122699
             }
           },
           {
@@ -3069,11 +3069,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118325.1796,404849.3650\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 106003991
+              "duration": 111155600
             }
           },
           {
@@ -3082,11 +3082,11 @@
             "line": 94,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 211546
+              "duration": 193400
             }
           }
         ],
@@ -3121,11 +3121,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 96122
+              "duration": 144700
             }
           },
           {
@@ -3134,11 +3134,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118315.60,404844.96\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 132326726.00000001
+              "duration": 110648199
             }
           },
           {
@@ -3147,11 +3147,11 @@
             "line": 94,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 166639
+              "duration": 131000
             }
           }
         ],
@@ -3186,11 +3186,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 79211
+              "duration": 53299
             }
           },
           {
@@ -3199,11 +3199,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118325.17,404849.36\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 178450385
+              "duration": 127570299
             }
           },
           {
@@ -3212,11 +3212,11 @@
             "line": 94,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 176550
+              "duration": 304399
             }
           }
         ],
@@ -3251,11 +3251,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 68265
+              "duration": 122700
             }
           },
           {
@@ -3264,11 +3264,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118315,404844\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 107033408
+              "duration": 140413399
             }
           },
           {
@@ -3277,11 +3277,11 @@
             "line": 94,
             "name": "bevat het resultaat niet het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:90"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 185734
+              "duration": 113300
             }
           }
         ],
@@ -3316,11 +3316,11 @@
             "line": 90,
             "name": "het pand met identificatie \"0826100000036343\" heeft de volgende geometrie polygoon coördinaten",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:8"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 75326
+              "duration": 62400
             }
           },
           {
@@ -3329,11 +3329,11 @@
             "line": 93,
             "name": "met \"GET\" \"/panden?locatie=118325,404849\" wordt gezocht",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:47"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:47"
             },
             "result": {
               "status": "passed",
-              "duration": 148421797
+              "duration": 133291000
             }
           },
           {
@@ -3342,11 +3342,11 @@
             "line": 94,
             "name": "bevat het resultaat wel het pand met identificatie \"0826100000036343\"",
             "match": {
-              "location": "features/step_definitions/zoeken-met-geometrie.js:104"
+              "location": "features\\step_definitions\\zoeken-met-geometrie.js:104"
             },
             "result": {
               "status": "passed",
-              "duration": 218798
+              "duration": 292500
             }
           }
         ],
@@ -3359,6 +3359,6 @@
     "keyword": "Functionaliteit",
     "name": "Zoeken op een locatie",
     "tags": [],
-    "uri": "features/locatie-zoeken.feature"
+    "uri": "features\\locatie-zoeken.feature"
   }
 ]

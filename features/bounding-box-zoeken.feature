@@ -1,18 +1,18 @@
 # language: nl
 
 Functionaliteit: Zoeken met een bounding box
-    # Als gebruiker wil ik een pand of adresseerbaar object kunnen zoeken binnen een gebied
-    # Zodat ik de adresseerbare objecten of panden kan vinden binnen een rechthoek die ik teken op een kaart
+    Als gebruiker wil ik een pand of adresseerbaar object kunnen zoeken binnen een gebied
+    Zodat ik de adresseerbare objecten of panden kan vinden binnen een rechthoek die ik teken op een kaart
 
-    # Zoeken in een rechthoekig gebied kan met de parameter bbox.
+    Zoeken in een rechthoekig gebied kan met de parameter bbox.
 
-    # Onderstaande scenario's zoeken op bbox bij twee panden en bij een verblijfsobject.
-    # Een pand is een rechthoekig vlak, geïllustreerd in afbeelding /media/pand-bbox-zoeken.svg
-    # Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding /media/pand-uitsnede-bbox-zoeken.svg
-    # Een verblijfsobject met een puntgeometrie, geïllustreerd in afbeelding /media/verblijfsobject-bbox-zoeken.svg
-    # In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. 
-    # Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak), U (voor uitsnede) en P (voor punt) plus het testgeval nummer.
-    # Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.
+    Onderstaande scenario's zoeken op bbox bij twee panden en bij een verblijfsobject.
+    Een pand is een rechthoekig vlak, geïllustreerd in afbeelding pand-bbox-zoeken <img src='../../features/media/pand-bbox-zoeken.svg' title='pand-bbox-zoeken'>
+    Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding pand-uitsnede-bbox-zoeken <img src='../../features/media/pand-uitsnede-bbox-zoeken.svg' title='pand-uitsnede-bbox-zoeken'>
+    Een verblijfsobject met een puntgeometrie, geïllustreerd in afbeelding verblijfsobject-bbox-zoeken <img src='../../features/media/verblijfsobject-bbox-zoeken.svg' title='verblijfsobject-bbox-zoeken'>
+    In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. 
+    Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak), U (voor uitsnede) en P (voor punt) plus het testgeval nummer.
+    Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.
 
 
 Rule: De standaardwaarde voor het coördinatenstelsel (CRS) voor de bbox-parameter is Rijksdriehoekscoördinaten New Nederlands (epsg:28992)

@@ -1,15 +1,15 @@
 # language: nl
 
 Functionaliteit: Zoeken op een locatie
-    # Als gebruiker wil ik een pand kunnen zoeken op locatiecoördinaten
-    # Zodat ik gegevens over het pand kan raadplegen door op het pand in een kaart te klikken
+    Als gebruiker wil ik een pand kunnen zoeken op locatiecoördinaten
+    Zodat ik gegevens over het pand kan raadplegen door op het pand in een kaart te klikken
 
-    # Onderstaande scenario's zoeken op locaties bij twee panden.
-    # Een pand is een rechthoekig vlak, geïllustreerd in afbeelding /media/pand-locatie-zoeken.svg
-    # Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding /media/pand-uitsnede-locatie-zoeken.svg
-    # In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. 
-    # Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak) en U (voor uitsnede) plus het testgeval nummer.
-    # Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.
+    Onderstaande scenario's zoeken op locaties bij twee panden.
+    Een pand is een rechthoekig vlak, geïllustreerd in afbeelding pand-locatie-zoeken <img src='../../features/media/pand-locatie-zoeken.svg' title='pand-locatie-zoeken'>
+    Een pand heeft een uitsnede (bijvoorbeeld een binnenplaats), geïllustreerd in afbeelding pand-uitsnede-locatie-zoeken <img src='../../features/media/pand-uitsnede-locatie-zoeken.svg' title='pand-uitsnede-locatie-zoeken'>
+    In de illustraties staan de testgevallen aangegeven als blauw punt met een nummer. 
+    Deze testgevallen zie je in de scenariotitels in rechte haken met respectievelijk V (voor vlak) en U (voor uitsnede) plus het testgeval nummer.
+    Bijvoorbeeld [U2] vindt je in de illustratie pand-uitsnede-locatie-zoeken.svg als het blauwe punt met nummer 2.
 
 
 Rule: De standaardwaarde voor het coördinatenstelsel (CRS) voor de locatieparameter is Rijksdriehoekscoördinaten New Nederlands (epsg:28992)
