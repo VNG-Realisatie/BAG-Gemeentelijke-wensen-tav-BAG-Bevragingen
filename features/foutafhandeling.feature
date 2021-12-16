@@ -30,7 +30,7 @@ Rule: alleen gespecificeerde queryparameters mogen worden gebruikt
         | name        | code         | reason                      |
         | bestaatniet | unknownParam | Parameter is niet verwacht. |
 
-Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
+Rule: wanneer een parameterwaarde niet aan de parameterspecificaties voldoet wordt een 400 fout gegeven met de reden in invalidParams
 
     Abstract Scenario: waarde van een queryparameter is niet correct conform parameterspecificaties
         Als '<path><query string>' wordt aangeroepen
@@ -66,7 +66,7 @@ Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
         | name                             | code    | reason                                       |
         | adresseerbaarobjectidentificatie | pattern | Waarde voldoet niet aan patroon ^[0-9]{16}$. |
 
-Rule: parameterwaarden worden eerst gecontroleerd op niet-toegestane tekens
+Rule: parameterwaarden worden eerst gecontroleerd op niet-toegestane tekens, voordat andere validaties worden gedaan
 
     Scenario: meerdere fouten met niet-toegestane tekens en ook andere soorten fouten
         Als '/adresseerbareobjecten' wordt aangeroepen met de volgende queryparameters
