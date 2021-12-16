@@ -3,9 +3,6 @@ layout: page-with-side-nav
 title: Getting Started
 ---
 # Getting Started - BAG Huidige Bevragingen API
-De 'BAG Huidige Bevragingen' API levert actuele gegevens zonder eind status uit de Basisregistratie Adressen en Gebouwen. Dit betekent dat geen historische gegevens kunnen worden gevraagd en dat gegevens met een eindstatus niet worden geleverd.
-
-De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 
 Om aan te sluiten kun je de volgende stappen doorlopen:
 1. [Meld je aan bij het kadaster om toegang te krijgen tot de productieomgeving](#aanmelden-om-aan-te-sluiten)
