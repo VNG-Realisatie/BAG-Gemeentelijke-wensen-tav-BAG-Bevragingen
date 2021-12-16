@@ -1,4 +1,5 @@
 # language: nl
+@skip-verify
 Functionaliteit: Adresseerbaar object embedden in een adres
 
 	Als consumer van de BAG API
@@ -44,7 +45,7 @@ Rule: Foutsituaties
 Abstract Scenario: Verkeerde casing
     Als GET /adressen/<nummeraanduidingidentificatie>&expand=<expand> is aangeroepen
     Dan is de response
-    '''
+    """
     {
         "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
         "title": "Een of meerdere parameters zijn niet correct.",
@@ -60,7 +61,7 @@ Abstract Scenario: Verkeerde casing
             }
         ]
     }
-    '''
+    """
 
     Voorbeelden:
         | nummeraanduidingidentificatie | expand                             |
@@ -72,7 +73,7 @@ Rule: filteren van een resource met de identificatie van een sub-resource en teg
 Scenario: filteren van adressen met adresseerbaar object identificatie en embedden van adresseerbaar object
     Als GET /adressen?adresseerbaarObjectIdentificatie=0484010002033603&expand=adresseerbaarObject
     Dan is de response
-    '''
+    """
     {
         "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
         "title": "Een of meerdere parameters zijn niet correct.",
@@ -88,4 +89,4 @@ Scenario: filteren van adressen met adresseerbaar object identificatie en embedd
             }
         ]
     }
-    '''
+    """

@@ -1,4 +1,5 @@
 # language: nl
+@skip-verify
 Functionaliteit: Adres met free text zoeken
 
 Design Decision:

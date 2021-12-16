@@ -526,6 +526,7 @@ Rule: wanneer gevraagd wordt om geometrie in een crs anders dan RD (epsg:28992) 
 
 Rule: wanneer er een technische fout optreed wordt een 500 Server Error gegeven
 
+    @not-testable
     Scenario: interne server fout
         Gegeven er is een technische fout waardoor er een interne server error optreedt
         Als '/adressen/0599200000193766' wordt aangeroepen
