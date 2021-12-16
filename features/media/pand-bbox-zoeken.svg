@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 809 525" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(0.941839,0,0,1.02968,28.2872,-89.3359)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:1.01px;"/>
+    </g>
+    <g transform="matrix(5.58672,0.943416,-0.720284,4.26538,-3273.93,-1661.08)">
+        <rect x="662.395" y="264.795" width="76.446" height="51.26" style="fill:white;stroke:black;stroke-width:0.2px;"/>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-644.359,-381.292)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-262.146,-183.454)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">1</text>
+    </g>
+    <g transform="matrix(0.286917,0,0,0.189948,229.468,167.531)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:4.11px;"/>
+    </g>
+    <g transform="matrix(0.670341,0,0,0.189948,-41.0533,1.53998)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:2.03px;"/>
+    </g>
+    <g transform="matrix(0.515753,0,0,0.7221,-47.1453,112.073)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:1.59px;"/>
+    </g>
+    <g transform="matrix(0.172382,0,0,0.552271,618.459,194.104)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:2.44px;"/>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-543.654,-249.221)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-162.441,-51.384)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">2</text>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-785.591,-226.201)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-404.378,-28.3638)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">3</text>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-756.574,-351.475)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-374.361,-153.638)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">4</text>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-171.933,-170.025)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,209.28,27.8126)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">5</text>
+    </g>
+    <g transform="matrix(0.27789,0,0,0.332979,581.387,334.462)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:3.26px;"/>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-193.016,-62.0066)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,188.197,135.831)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">6</text>
+    </g>
+</svg>
