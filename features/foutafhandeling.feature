@@ -461,14 +461,12 @@ Rule: wanneer er geen API key wordt gestuurd wordt een 400 fout gegeven
     Scenario: geen api key in request
         Als '/adressen/0599200000193766' request wordt gedaan zonder header 'x-api-key'
         Dan is de http status code van het antwoord 400
-        En bevat de responsebody de tekst "Missing API Key"
 
 Rule: wanneer een onjuiste API key wordt gestuurd wordt een 401 Unauthorized fout gegeven met html response
 
     Scenario: onjuiste API key
         Als '/adressen/0599200000193766' request wordt gedaan met header 'x-api-key: onjuist'
         Dan is de http status code van het antwoord 401
-        En bevat de responsebody de tekst "Invalid API Key"
 
 Rule: wanneer de gevraagde resource niet bestaat wordt een 404 Not found fout gegeven
 
