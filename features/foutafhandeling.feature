@@ -316,8 +316,8 @@ Rule: min waarde mag niet groter zijn dan max waarde
         | status | 400                                           |
         | code   | paramsValidation                              |
         En bevat de response de volgende invalidParams
-        | name             | code   | reason                |
-        | <parameter>[min] | <code> | <reason omschrijving> |
+        | name        | code   | reason                |
+        | <parameter> | <code> | <reason omschrijving> |
 
         Voorbeelden:
         | path                   | query string                                                                | parameter   | code  | reason omschrijving              |
@@ -515,7 +515,7 @@ Rule: wanneer gevraagd wordt om geometrie in een crs anders dan RD (epsg:28992) 
         Als '/adresseerbareobjecten/0599010000165822' request wordt gedaan met header 'Accept-Crs: epsg:4326'
         Dan bevat de response ten minste de volgende velden
         | naam   | waarde                                                         |
-        | title  | Gevraagde coördinatenstelsel EPSG:4326 wordt niet ondersteund. |
+        | title  | Gevraagde coördinatenstelsel epsg:4326 wordt niet ondersteund. |
         | status | 406                                                            |
         | code   | crsNotAcceptable                                               |
         En bevat de response geen veld "invalidParams"
