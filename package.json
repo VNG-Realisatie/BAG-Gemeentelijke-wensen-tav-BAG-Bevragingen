@@ -21,7 +21,7 @@
     "postoas:resolve": "rm swagger-codegen-cli.jar",
     "unstage-generated": "git reset HEAD ./specificatie/genereervariant/openapi.* ./test/BAG-Bevragen-postman-collection.json ./code/**",
     "rollback-generated": "git checkout ./specificatie/genereervariant/** ./test/BAG-Bevragen-postman-collection.json ./code/**",
-    "specs:verify": "cucumber-js -f html:docs/features/test-result.html -f json:docs/features/test-result.json features/bounding-box-zoeken.feature features/locatie-zoeken.feature",
+    "specs:verify": "cucumber-js -f html:docs/features/test-result.html -f json:docs/features/test-result.json features/bounding-box-zoeken.feature features/locatie-zoeken.feature features/foutafhandeling.feature",
     "specs:report": "node generate-cucumber-report.js",
     "test": "npm run specs:verify && npm run specs:report"
   },
