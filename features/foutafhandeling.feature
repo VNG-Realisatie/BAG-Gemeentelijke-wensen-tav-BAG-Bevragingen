@@ -32,7 +32,7 @@ Rule: alleen gespecificeerde queryparameters mogen worden gebruikt
 
 Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
 
-    Abstract Scenario: waarde van een queryparameter is niet correct
+    Abstract Scenario: waarde van een queryparameter is niet correct conform parameterspecificaties
         Als '<path><query string>' wordt aangeroepen
         Dan bevat de response ten minste de volgende velden
         | naam   | waarde                                        |
@@ -55,7 +55,7 @@ Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
         | /adressen              | ?pandIdentificatie=0345100002016017X                                      | pandIdentificatie | pattern          | Waarde voldoet niet aan patroon ^[0-9]{16}$.        |
         | /adresseerbareobjecten | ?bbox=135207,457400,135418,457162&type=fout                               | type              | enum             | Waarde heeft geen geldige waarde uit de enumeratie. |
 
-    Scenario: waarde van de padparameter is niet correct
+    Scenario: waarde van de padparameter is niet correct conform parameterspecificaties
         Als '/adresseerbareobjecten/0599040000' wordt aangeroepen
         Dan bevat de response ten minste de volgende velden
         | naam   | waarde                                        |
@@ -68,7 +68,7 @@ Rule: de parameterwaarde moet aan de parameterspecificaties voldoen
 
 Rule: parameterwaarden worden eerst gecontroleerd op niet-toegestane tekens
 
-    Scenario: meerdere fouten met niet-toegestane tekens en andere fouten
+    Scenario: meerdere fouten met niet-toegestane tekens en ook andere soorten fouten
         Als '/adresseerbareobjecten' wordt aangeroepen met de volgende queryparameters
         | naam                          | waarde                        |
         | nummeraanduidingIdentificatie | "fout"                        |
@@ -89,7 +89,7 @@ Rule: parameterwaarden worden eerst gecontroleerd op niet-toegestane tekens
 
 Rule: wanneer een parameterwaarde niet overeenkomt met het gespecificeerde type (integer, number, boolean of enumeratie), wordt alleen deze fout gemeld
 
-    Scenario: meerdere fouten met onjuist type en andere fouten
+    Scenario: meerdere fouten met onjuist type en ook andere soorten fouten
         Als '/adresseerbareobjecten' wordt aangeroepen met de volgende queryparameters
         | naam                          | waarde                        |
         | expand                        | fout                          |
@@ -105,7 +105,7 @@ Rule: wanneer een parameterwaarde niet overeenkomt met het gespecificeerde type 
 
 Rule: wanneer er meerdere parameterwaarden niet voldoen aan de gespecificeerde eisen (minimum ,maximum, pattern, maxItems, fields, expand) worden al deze fouten tegelijk gemeld
 
-    Scenario: meerdere fouten met onjuist type en andere fouten
+    Scenario: tegelijk meerdere parameters met fout
         Als '/adresseerbareobjecten' wordt aangeroepen met de volgende queryparameters
         | naam                          | waarde                        |
         | expand                        | fout                          |
