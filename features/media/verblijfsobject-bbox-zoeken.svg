@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 809 472" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(2.27287,0,0,1.80408,-384.699,-240.146)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349"/>
+    </g>
+    <g transform="matrix(0.941839,0,0,1.02968,28.2872,-110.336)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:1.01px;"/>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-644.359,-402.292)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-262.146,-204.454)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">1</text>
+    </g>
+    <g transform="matrix(0.639542,0,0,0.529176,-19.3233,48.9668)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:1.7px;"/>
+    </g>
+    <g transform="matrix(0.396778,0,0,0.708449,151.957,100.141)">
+        <rect x="151.532" y="147.473" width="554.01" height="335.549" style="fill:none;stroke:rgb(0,51,255);stroke-width:1.74px;"/>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-604.518,-2.42667)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-223.305,195.411)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">2</text>
+    </g>
+    <g transform="matrix(2.27287,0,0,1.80408,-739.011,-317.759)">
+        <ellipse cx="359.282" cy="246.532" rx="4.416" ry="5.349" style="fill:rgb(0,51,255);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-357.798,-119.921)">
+        <text x="431.036px" y="250.718px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">3</text>
+    </g>
+</svg>

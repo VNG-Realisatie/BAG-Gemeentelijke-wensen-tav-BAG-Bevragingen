@@ -12,7 +12,7 @@ info:
   license:
     name: European Union Public License, version 1.2 (EUPL-1.2)
     url: https://eupl.eu/1.2/nl/
-  version: 1.3.0
+  version: 1.4.0
 servers:
 - url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1
   description: LVBAG - ACCEPTATIE
@@ -209,7 +209,9 @@ paths:
         \ ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\n\
         Gebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die\
         \ exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties\
-        \ exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature)."
+        \ exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature).\
+        \ Je kunt adresseerbare objecten niet expanden als je tegelijkertijd de query\
+        \ parameter adresseerbaarObjectIdentificatie gebruikt."
       operationId: raadpleegAdressen
       parameters:
       - name: pandIdentificatie
@@ -287,9 +289,13 @@ paths:
         style: form
         explode: true
         schema:
-          pattern: ^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$
+          pattern: ^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$
           type: string
-          example: 6922KZ
+        examples:
+          zonderSpatie:
+            value: 6922KZ
+          metSpatie:
+            value: 6922 KZ
       - name: huisnummer
         in: query
         description: Huisnummer van het adres.
@@ -303,9 +309,9 @@ paths:
           example: 1
       - name: huisletter
         in: query
-        description: "Een toevoeging (in de vorm van een letter) aan een huisnummer\
-          \ van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
-          \ is 1 het huisnummer en A de huisletter.\n"
+        description: 'Een toevoeging (in de vorm van een letter) aan een huisnummer
+          van het adres. Bijvoorbeeld:  Bij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,
+          is 1 het huisnummer en A de huisletter.'
         required: false
         style: form
         explode: true
@@ -315,10 +321,10 @@ paths:
           example: A
       - name: huisnummertoevoeging
         in: query
-        description: "Een toevoeging (in de vorm van maximaal 4 cijfers of letters)\
-          \ aan een huisnummer of een combinatie van huisnummer en huisletter van\
-          \ het adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
-          \ is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n"
+        description: 'Een toevoeging (in de vorm van maximaal 4 cijfers of letters)
+          aan een huisnummer of een combinatie van huisnummer en huisletter van het
+          adres. Bijvoorbeeld: Bij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,
+          is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.'
         required: false
         style: form
         explode: true
@@ -328,9 +334,9 @@ paths:
           example: bis
       - name: exacteMatch
         in: query
-        description: '"Geeft aan of de resultaten van de zoekopdracht exact overeen
-          moeten komen met de opgegeven parameters, zie [functionele specificatie
-          exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."'
+        description: Geeft aan of de resultaten van de zoekopdracht exact overeen
+          moeten komen met de opgegeven parameters,  zie [functionele specificatie
+          exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature).
         required: false
         style: form
         explode: true
@@ -894,14 +900,16 @@ paths:
       tags:
       - Adresseerbaar object
       summary: vindt verblijfsobjecten, ligplaatsen, standplaatsen
-      description: "Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen\
-        \ of ligplaatsen) met:\n1. een nummeraanduidingidentificatie of\n2. een pandidentificatie\
-        \ of\n \n3. een lijst met pandidentificaties.\n\nGebruik de fields-parameter\
-        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
-        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
-        \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
-        \ van) de gerelateerde resources adres en pand, zie  [functionele specificaties\
-        \ expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature)."
+      description: |-
+        Zoek actuele adresseerbare objecten (verblijfsobjecten, standplaatsen of ligplaatsen) met:
+        1. een nummeraanduidingidentificatie of
+        2. een pandidentificatie of
+        3. een lijst met pandidentificaties of
+        4. een geometrische contour (rechthoek) in combinatie met status geconstateerd, oppervlakte, gebruiksdoel en/of type.
+
+        Het zoeken van adresseerbare objecten met een oppervlakte en een type=ligplaats of type=standplaats wordt niet ondersteund en levert een foutmelding.
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
+        Gebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources adres en pand, zie  [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature). Je kunt panden niet expanden als je tegelijkertijd de query parameter pandIdentificatie(s) gebruikt.
       operationId: raadpleegAdresseerbareobjecten
       parameters:
       - name: nummeraanduidingIdentificatie
@@ -919,6 +927,7 @@ paths:
         in: query
         description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
         required: false
+        deprecated: true
         style: form
         explode: true
         schema:
@@ -983,6 +992,82 @@ paths:
           items:
             pattern: ^[0-9]{16}$
             type: string
+      - name: geconstateerd
+        in: query
+        description: Geeft aan of naar geconstateerde objecten moet worden gezocht.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: type
+        in: query
+        description: Geeft aan of het adresseerbaar object een ligplaats, standplaats
+          of verblijfsobject is.
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
+      - name: gebruiksdoelen
+        in: query
+        description: De gebruiksdoelen van het verblijfsobject zoals in de vergunning
+          is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject
+          één van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject
+          in het zoekresultaat meegenomen.
+        required: false
+        style: form
+        explode: true
+        schema:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/GebruiksdoelEnum'
+      - name: bbox
+        in: query
+        description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
+          de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen.
+          Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
+          In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt
+          hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan
+          te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen
+          met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag
+          maximaal 250 duizend vierkante meter zijn.
+        required: false
+        style: form
+        explode: false
+        schema:
+          maxItems: 4
+          minItems: 4
+          type: array
+          example:
+          - 196733.51
+          - 439931.89
+          - 196833.51
+          - 440031.89
+          items:
+            type: number
+      - name: oppervlakte
+        in: query
+        description: 'Geef de minimale en maximale oppervlakte op waarbinnen je wilt
+          zoeken (in m2). Alleen verblijfsobjecten hebben een oppervlakte en kunnen
+          met deze parameter worden gevonden. Ligplaatsen en standplaatsen hebben
+          geen oppervlakte en kunnen met deze parameter niet worden gevonden. De oppervlakte
+          van een verblijfsobject is een natuurlijk getal tussen 1 (minimaal) en 999999
+          (maximaal). Het is niet toegestaan voor min een grotere waarde op te geven
+          dan voor max. Is min > max dan treedt een foutmelding op. Bv: oppervlakte[min]=100&oppervlakte[max]=200'
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          $ref: '#/components/schemas/OppervlakteFilter'
+      - name: Content-Crs
+        in: header
+        description: CRS van de meegegeven geometrie. epsg:28992 mapt op het RD New
+          Nederlands coordinatenstelsel.
+        required: false
+        schema:
+          $ref: '#/components/schemas/CrsEnum'
       responses:
         "200":
           description: Geslaagd
@@ -1929,13 +2014,12 @@ paths:
       tags:
       - Pand
       summary: vindt panden
-      description: |-
-        Zoek actuele panden:
-        1. met de identificatie van een adresseerbaar object of
-        2. met de identificatie van een nummeraanduiding of
-        3. met een locatie (punt)
-
-        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien, zie  [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).
+      description: "Zoek actuele panden:\n1. met de identificatie van een adresseerbaar\
+        \ object of\n2. met de identificatie van een nummeraanduiding of\n3. met een\
+        \ locatie (punt) of \n4. binnen een geometrische contour (rechthoek) die voldoen\
+        \ aan de opgegeven status, geconstateerd of bouwjaar.\n\nGebruik de fields-parameter\
+        \ als je alleen specifieke velden in het antwoord wil zien, zie  [functionele\
+        \ specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature)."
       operationId: raadpleegPanden
       parameters:
       - name: adresseerbaarObjectIdentificatie
@@ -1963,9 +2047,9 @@ paths:
           example: "0226200000038923"
       - name: locatie
         in: query
-        description: Coordinaten van een locatie die als query-parameter gebruikt
+        description: Coördinaten van een locatie die als query-parameter gebruikt
           wordt om een object te zoeken. Let op, explode is false dus het formaat
-          is ?locatie=194602.722,464154.308
+          is ?locatie=196733.51,439931.89
         required: false
         style: form
         explode: false
@@ -2001,6 +2085,75 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/CrsEnum'
+      - name: bbox
+        in: query
+        description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
+          de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen.
+          Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
+          In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt
+          hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan
+          te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen
+          met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag
+          maximaal 250 duizend vierkante meter zijn.
+        required: false
+        style: form
+        explode: false
+        schema:
+          maxItems: 4
+          minItems: 4
+          type: array
+          example:
+          - 196733.51
+          - 439931.89
+          - 196833.51
+          - 440031.89
+          items:
+            type: number
+      - name: statusPand
+        in: query
+        description: Status van het pand.
+        required: false
+        style: form
+        explode: true
+        schema:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusPandEnum'
+      - name: geconstateerd
+        in: query
+        description: Geeft aan of naar geconstateerde objecten moet worden gezocht.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: bouwjaar
+        in: query
+        description: 'Bouwjaar van het pand. Geeft het minimale en/of maximale bouwjaar
+          aan van het pand waarnaar moet worden gezocht.  Een bouwjaar is een natuurlijk
+          getal tussen 0 (minimaal) en 9999 (maximaal). Bv: bouwjaar[min]=1970&bouwjaar[max]=2010'
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          $ref: '#/components/schemas/BouwjaarFilter'
+      - name: page
+        in: query
+        description: Pagina nummer
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 20
       responses:
         "200":
           description: Geslaagd
@@ -2009,6 +2162,10 @@ paths:
               $ref: '#/components/headers/api_version'
             warning:
               $ref: '#/components/headers/warning'
+            X-Pagination-Page:
+              $ref: '#/components/headers/X_Pagination_Page'
+            X-Pagination-Limit:
+              $ref: '#/components/headers/X_Pagination_Limit'
             Content-Crs:
               $ref: '#/components/headers/contentCrs'
           content:
@@ -2182,13 +2339,47 @@ components:
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            zoekresultaten:
-              type: array
-              items:
-                $ref: '#/components/schemas/ZoekResultaatHal'
+          $ref: '#/components/schemas/ZoekResultaatHalCollectieEmbedded'
       description: Resultaten als lijst.
+    ZoekResultaatHalCollectieEmbedded:
+      type: object
+      properties:
+        zoekresultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoekResultaatHal'
+    BouwjaarFilter:
+      type: object
+      properties:
+        min:
+          maximum: 9999
+          minimum: 0
+          type: integer
+          description: Zoek naar waarden groter of gelijk aan de opgegeven waarde.
+        max:
+          maximum: 9999
+          minimum: 0
+          type: integer
+          description: Zoek naar waarden kleiner dan de opgegeven waarde.
+      description: "\"Zoek binnen een bereik van de opgegeven minimumwaarde tot maximumwaarde.\
+        \ \nDe opgegeven minimumwaarde moet lager zijn dan de opgegeven maximumwaarde.\"\
+        \n"
+    OppervlakteFilter:
+      type: object
+      properties:
+        min:
+          maximum: 999999
+          minimum: 1
+          type: integer
+          description: Zoek naar waarden groter of gelijk aan de opgegeven waarde.
+        max:
+          maximum: 999999
+          minimum: 1
+          type: integer
+          description: Zoek naar waarden kleiner dan de opgegeven waarde.
+      description: "\"Zoek binnen een bereik van de opgegeven minimumwaarde tot maximumwaarde.\
+        \ \nDe opgegeven minimumwaarde moet lager zijn dan de opgegeven maximumwaarde.\"\
+        \n"
     Adres:
       type: object
       properties:
@@ -2336,12 +2527,14 @@ components:
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            adressen:
-              type: array
-              items:
-                $ref: '#/components/schemas/AdresHal'
+          $ref: '#/components/schemas/AdresHalCollectieEmbedded'
+    AdresHalCollectieEmbedded:
+      type: object
+      properties:
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresHal'
     AdresLinks:
       type: object
       properties:
@@ -2369,6 +2562,8 @@ components:
           $ref: '#/components/schemas/NummeraanduidingHalBasis'
         woonplaats:
           $ref: '#/components/schemas/WoonplaatsHalBasis'
+        adresseerbaarObject:
+          $ref: '#/components/schemas/AdresseerbaarObjectHalBasis'
     AdresseerbaarObject:
       type: object
       properties:
@@ -2494,14 +2689,16 @@ components:
       type: object
       properties:
         _embedded:
-          type: object
-          properties:
-            adresseerbareObjecten:
-              type: array
-              items:
-                $ref: '#/components/schemas/AdresseerbaarObjectHal'
+          $ref: '#/components/schemas/AdresseerbaarobjectHalCollectieEmbedded'
         _links:
           $ref: '#/components/schemas/HalPaginationLinksMetLast'
+    AdresseerbaarobjectHalCollectieEmbedded:
+      type: object
+      properties:
+        adresseerbareObjecten:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdresseerbaarObjectHal'
     AdresseerbaarObjectStatusEnum:
       type: string
       enum:
@@ -2883,14 +3080,16 @@ components:
       type: object
       properties:
         _links:
-          $ref: '#/components/schemas/HalCollectionLinks'
+          $ref: '#/components/schemas/HalPaginationLinksMetLast'
         _embedded:
-          type: object
-          properties:
-            panden:
-              type: array
-              items:
-                $ref: '#/components/schemas/PandHalBasis'
+          $ref: '#/components/schemas/PandHalCollectieEmbedded'
+    PandHalCollectieEmbedded:
+      type: object
+      properties:
+        panden:
+          type: array
+          items:
+            $ref: '#/components/schemas/PandHalBasis'
     StatusNaamgevingEnum:
       type: string
       description: Een aanduiding van alle waarden die de status van een openbare
@@ -3177,8 +3376,8 @@ components:
     locatie-query:
       name: locatie
       in: query
-      description: Coordinaten van een locatie die als query-parameter gebruikt wordt
-        om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=194602.722,464154.308
+      description: Coördinaten van een locatie die als query-parameter gebruikt wordt
+        om een object te zoeken. Let op, explode is false dus het formaat is ?locatie=196733.51,439931.89
       required: false
       style: form
       explode: false
@@ -3214,6 +3413,18 @@ components:
         pattern: ^[0-9]{16}$
         type: string
         example: "0226100000008856"
+    deprecated-pandIdentificatie-query:
+      name: pandIdentificatie
+      in: query
+      description: Identificatie van een pand uit de BAG. Deze is 16 cijfers lang.
+      required: false
+      deprecated: true
+      style: form
+      explode: true
+      schema:
+        pattern: ^[0-9]{16}$
+        type: string
+        example: "0226100000008856"
     adresseerbaarObjectIdentificatie-query:
       name: adresseerbaarObjectIdentificatie
       in: query
@@ -3235,9 +3446,13 @@ components:
       style: form
       explode: true
       schema:
-        pattern: ^[1-9]{1}[0-9]{3}[a-zA-Z]{2}$
+        pattern: ^[1-9]{1}[0-9]{3}[ ]{0,1}[a-zA-Z]{2}$
         type: string
-        example: 6922KZ
+      examples:
+        zonderSpatie:
+          value: 6922KZ
+        metSpatie:
+          value: 6922 KZ
     huisnummer:
       name: huisnummer
       in: query
@@ -3253,10 +3468,10 @@ components:
     huisnummertoevoeging:
       name: huisnummertoevoeging
       in: query
-      description: "Een toevoeging (in de vorm van maximaal 4 cijfers of letters)\
-        \ aan een huisnummer of een combinatie van huisnummer en huisletter van het\
-        \ adres.\nBijvoorbeeld: \nBij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
-        \ is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.\n"
+      description: 'Een toevoeging (in de vorm van maximaal 4 cijfers of letters)
+        aan een huisnummer of een combinatie van huisnummer en huisletter van het
+        adres. Bijvoorbeeld: Bij het adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,
+        is 1 het huisnummer, A de huisletter en 2 de huisnummertoevoeging.'
       required: false
       style: form
       explode: true
@@ -3267,9 +3482,9 @@ components:
     huisletter:
       name: huisletter
       in: query
-      description: "Een toevoeging (in de vorm van een letter) aan een huisnummer\
-        \ van het adres.\nBijvoorbeeld: \nBij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,\
-        \ is 1 het huisnummer en A de huisletter.\n"
+      description: 'Een toevoeging (in de vorm van een letter) aan een huisnummer
+        van het adres. Bijvoorbeeld:  Bij adres: Belgiëlaan 1 A2, 2391 PH  HAZERSWOUDE-DORP,
+        is 1 het huisnummer en A de huisletter.'
       required: false
       style: form
       explode: true
@@ -3280,9 +3495,8 @@ components:
     exacteMatch:
       name: exacteMatch
       in: query
-      description: '"Geeft aan of de resultaten van de zoekopdracht exact overeen
-        moeten komen met de opgegeven parameters, zie [functionele specificatie exacte
-        match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)."'
+      description: Geeft aan of de resultaten van de zoekopdracht exact overeen moeten
+        komen met de opgegeven parameters,  zie [functionele specificatie exacte match](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature).
       required: false
       style: form
       explode: true
@@ -3305,6 +3519,103 @@ components:
         items:
           pattern: ^[0-9]{16}$
           type: string
+    geconstateerd:
+      name: geconstateerd
+      in: query
+      description: Geeft aan of naar geconstateerde objecten moet worden gezocht.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: boolean
+    statusPand:
+      name: statusPand
+      in: query
+      description: Status van het pand.
+      required: false
+      style: form
+      explode: true
+      schema:
+        minItems: 1
+        type: array
+        items:
+          $ref: '#/components/schemas/StatusPandEnum'
+    bouwjaar:
+      name: bouwjaar
+      in: query
+      description: 'Bouwjaar van het pand. Geeft het minimale en/of maximale bouwjaar
+        aan van het pand waarnaar moet worden gezocht.  Een bouwjaar is een natuurlijk
+        getal tussen 0 (minimaal) en 9999 (maximaal). Bv: bouwjaar[min]=1970&bouwjaar[max]=2010'
+      required: false
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/BouwjaarFilter'
+    type:
+      name: type
+      in: query
+      description: Geeft aan of het adresseerbaar object een ligplaats, standplaats
+        of verblijfsobject is.
+      required: false
+      style: form
+      explode: true
+      schema:
+        $ref: '#/components/schemas/TypeAdresseerbaarObjectEnum'
+    gebruiksdoelen:
+      name: gebruiksdoelen
+      in: query
+      description: De gebruiksdoelen van het verblijfsobject zoals in de vergunning
+        is opgenomen of bij constatering is vastgesteld. Als een verblijfsobject één
+        van de gebruiksdoelen in deze lijst heeft, dan wordt het verblijfsobject in
+        het zoekresultaat meegenomen.
+      required: false
+      style: form
+      explode: true
+      schema:
+        minItems: 1
+        type: array
+        items:
+          $ref: '#/components/schemas/GebruiksdoelEnum'
+    oppervlakte:
+      name: oppervlakte
+      in: query
+      description: 'Geef de minimale en maximale oppervlakte op waarbinnen je wilt
+        zoeken (in m2). Alleen verblijfsobjecten hebben een oppervlakte en kunnen
+        met deze parameter worden gevonden. Ligplaatsen en standplaatsen hebben geen
+        oppervlakte en kunnen met deze parameter niet worden gevonden. De oppervlakte
+        van een verblijfsobject is een natuurlijk getal tussen 1 (minimaal) en 999999
+        (maximaal). Het is niet toegestaan voor min een grotere waarde op te geven
+        dan voor max. Is min > max dan treedt een foutmelding op. Bv: oppervlakte[min]=100&oppervlakte[max]=200'
+      required: false
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/OppervlakteFilter'
+    bbox:
+      name: bbox
+      in: query
+      description: Rechthoek waarbinnen het object dat je zoekt valt. Objecten die
+        de rand van de rechthoek raken of kruisen worden in het zoekresultaat meegenomen.
+        Voor een definitie van bbox, zie [OGC API Features specificatie - bbox definitie](https://docs.opengeospatial.org/is/17-069r3/17-069r3.html#ats_core_fc-bbox-definition).
+        In tegenstelling tot wat er in de OGC API Features specificatie staat, wordt
+        hier geen bbox-crs parameter maar de contentCrs parameter gebruikt om aan
+        te geven in welk CRS de coördinaten van de bbox zijn. Daarnaast kan er alleen
+        met 2D coördinaten worden gezocht. De oppervlakte van de bounding box mag
+        maximaal 250 duizend vierkante meter zijn.
+      required: false
+      style: form
+      explode: false
+      schema:
+        maxItems: 4
+        minItems: 4
+        type: array
+        example:
+        - 196733.51
+        - 439931.89
+        - 196833.51
+        - 440031.89
+        items:
+          type: number
     nummeraanduidingidentificatie:
       name: nummeraanduidingidentificatie
       in: path
