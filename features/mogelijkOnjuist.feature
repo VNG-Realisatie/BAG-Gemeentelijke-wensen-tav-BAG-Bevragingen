@@ -1,4 +1,5 @@
 # language: nl
+@skip-verify
 Functionaliteit: Mogelijk onjuist
   In de resource wordt aangegeven of bepaalde teruggegeven waarden in de resource mogelijk onjuist zijn. Waarden in de resource zijn mogelijk onjuist wanneer er onderzoek wordt gedaan naar de juistheid van onderliggende gegevens in de registratie.
 
@@ -288,7 +289,7 @@ Functionaliteit: Mogelijk onjuist
       Als de afgeleide Adres resource wordt opgevraagd
       Dan bevat het antwoord geen property "mogelijkOnjuist"      
 
-Onderstaande scenario's zijn erop gericht dat afnemers altijd de noodzakelijke mogelijk onjuist informatie ontvangen als deze door toepassing van de fieldsparameter in principe niet zou worden geleverd.
+# Onderstaande scenario's zijn erop gericht dat afnemers altijd de noodzakelijke mogelijk onjuist informatie ontvangen als deze door toepassing van de fieldsparameter in principe niet zou worden geleverd.
 
     Scenario: leveren mogelijkOnjuist wanneer een woonplaats geometrie mogelijk onjuist is en vragen expand van woonplaats bij resource adressen
       Gegeven bij object Woonplaats is “geometrie” in onderzoek
