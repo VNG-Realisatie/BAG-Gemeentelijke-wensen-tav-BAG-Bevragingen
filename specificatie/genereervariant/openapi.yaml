@@ -12,7 +12,7 @@ info:
   license:
     name: European Union Public License, version 1.2 (EUPL-1.2)
     url: https://eupl.eu/1.2/nl/
-  version: 1.4.0
+  version: 1.5.0
 servers:
 - url: https://api.bag.acceptatie.kadaster.nl/esd/huidigebevragingen/v1
   description: LVBAG - ACCEPTATIE
@@ -191,6 +191,7 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Foutbericht'
+      deprecated: true
       security:
       - apiKeyBAG: []
   /adressen:
@@ -198,12 +199,11 @@ paths:
       tags:
       - Adres
       summary: vindt adressen
-      description: "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat\
-        \ uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3.\
-        \ Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en\
-        \ optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik\
-        \ de fields-parameter als je alleen specifieke velden in het antwoord wil\
-        \ zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
+      description: "Vind een actueel adres met:\n1. Een pandidentificatie of\n2. Een\
+        \ adresseerbaarobjectidentificatie of\n3. Een postcode, huisnummer en optioneel\
+        \ huisletter, huisnummertoevoeging en/of exacteMatch.\n4. Een zoekterm.\n\n\
+        Gebruik de fields-parameter als je alleen specifieke velden in het antwoord\
+        \ wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature).\
         \ \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen\
         \ van) de gerelateerde resources nummeraanduiding, woonplaats en openbare\
         \ ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\n\
@@ -240,6 +240,7 @@ paths:
         in: query
         description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek.
         required: false
+        deprecated: true
         style: form
         explode: true
         schema:
@@ -344,6 +345,17 @@ paths:
           type: boolean
           example: true
           default: false
+      - name: q
+        in: query
+        description: Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter,
+          huisnummertoevoeging.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maxLength: 255
+          minLength: 1
+          type: string
       responses:
         "200":
           description: Geslaagd
@@ -2322,7 +2334,9 @@ components:
           description: Identificatie van het zoekresultaat
       description: Resultaat van een zoekoperatie dat je kunt gebruiken om een adres
         te vinden met /adressen.
+      deprecated: true
     ZoekResultaatHal:
+      deprecated: true
       allOf:
       - $ref: '#/components/schemas/ZoekResultaat'
       - properties:
@@ -2333,6 +2347,7 @@ components:
       properties:
         adres:
           $ref: '#/components/schemas/HalLink'
+      deprecated: true
     ZoekResultaatHalCollectie:
       type: object
       properties:
@@ -2341,6 +2356,7 @@ components:
         _embedded:
           $ref: '#/components/schemas/ZoekResultaatHalCollectieEmbedded'
       description: Resultaten als lijst.
+      deprecated: true
     ZoekResultaatHalCollectieEmbedded:
       type: object
       properties:
@@ -2348,6 +2364,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ZoekResultaatHal'
+      deprecated: true
     BouwjaarFilter:
       type: object
       properties:
@@ -3364,11 +3381,24 @@ components:
       explode: true
       schema:
         type: string
+    q:
+      name: q
+      in: query
+      description: Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter,
+        huisnummertoevoeging.
+      required: false
+      style: form
+      explode: true
+      schema:
+        maxLength: 255
+        minLength: 1
+        type: string
     zoekresultaatIdentificatie:
       name: zoekresultaatIdentificatie
       in: query
       description: De identificatie van een zoekresultaat van het endpoint get /adressen/zoek.
       required: false
+      deprecated: true
       style: form
       explode: true
       schema:
