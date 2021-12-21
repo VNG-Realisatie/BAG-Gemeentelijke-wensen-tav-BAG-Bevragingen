@@ -5,6 +5,15 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
+## Versie 1.5.0 (22-12-2021)
+In deze release is de volgende functionaliteit gerealiseerd:
+
+- fuzzy-search op adressen toegevoegd
+  - endpoint /adressen/zoek is deprecated verklaard.
+  - de parameter "zoekresultaatIdentificatie" bij het endpoint /adressen is deprecated verklaard.
+  - alle schema-componenten voor Zoekresultaat zijn deprecated verklaard.
+  - endpoint /adressen is uitgebreid met een parameter "q" waarmee een zoekstring voor fuzzy-search op adressen kan worden opgegeven.
+
 ## Versie 1.4.0 (09-12-2021)
 In deze release is de volgende functionaliteit gerealiseerd:
 
