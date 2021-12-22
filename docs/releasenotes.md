@@ -9,10 +9,9 @@ title: Releasenotes
 In deze release is de volgende functionaliteit gerealiseerd:
 
 - fuzzy-search op adressen toegevoegd
-  - endpoint /adressen/zoek is deprecated verklaard.
+  - endpoint /adressen is uitgebreid met een parameter "q" waarmee met vrij op te geven zoekwoorden adressen kunnen worden gezocht. Het is nu niet meer nodig om in twee stappen te zoeken met /adressen/zoek gevolgd door /adressen met de zoekresultaatIdentificatie.
   - de parameter "zoekresultaatIdentificatie" bij het endpoint /adressen is deprecated verklaard.
   - alle schema-componenten voor Zoekresultaat zijn deprecated verklaard.
-  - endpoint /adressen is uitgebreid met een parameter "q" waarmee een zoekstring voor fuzzy-search op adressen kan worden opgegeven.
 
 ## Versie 1.4.0 (09-12-2021)
 In deze release is de volgende functionaliteit gerealiseerd:
@@ -44,7 +43,7 @@ Op /adressen worden de resultaten gesorteerd geretourneerd.
   | Link Github	| Beschrijving |
   | --- | --- |
   | [234](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/234) | gebruik relatieve urls voor interne links |
-  | | (edit) Bovenstaande issue (234) is onterecht als opgelost in versie 1.2.0 genoemd. De bovenstaande issue is dus niet in versie 1.2.0 opgelost en staat vooralsnognog op de backlog | 
+  | | (edit) Bovenstaande issue (234) is onterecht als opgelost in versie 1.2.0 genoemd. De bovenstaande issue is dus niet in versie 1.2.0 opgelost en staat vooralsnognog op de backlog |
   | [293](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293) | Expand gerelateerde resource als relatie in onderzoek is |
   | [294](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/294) | Als gebruiker (nader te bepalen) wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren |
   | [309](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/309) | wijzigen description zoekparameter zoekresultaat get/adressen/zoek e.a. |
