@@ -13,7 +13,7 @@
       "name": "European Union Public License, version 1.2 (EUPL-1.2)",
       "url": "https://eupl.eu/1.2/nl/"
     },
-    "version": "1.4.0"
+    "version": "1.5.0"
   },
   "servers": [
     {
@@ -261,6 +261,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "apiKeyBAG": []
@@ -274,7 +275,7 @@
           "Adres"
         ],
         "summary": "vindt adressen",
-        "description": "Vind een actueel adres met:\n1. De identificatie van het zoekresultaat uit de operatie get /adressen/zoek of\n2. Een pandidentificatie of \n3. Een adresseerbaarobjectidentificatie of\n4. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature). Je kunt adresseerbare objecten niet expanden als je tegelijkertijd de query parameter adresseerbaarObjectIdentificatie gebruikt.",
+        "description": "Vind een actueel adres met:\n1. Een pandidentificatie of\n2. Een adresseerbaarobjectidentificatie of\n3. Een postcode, huisnummer en optioneel huisletter, huisnummertoevoeging en/of exacteMatch.\n4. Een zoekterm.\n\nGebruik de fields-parameter als je alleen specifieke velden in het antwoord wil zien,  zie [functionele specificaties fields-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/fields.feature). \nGebruik de expand-parameter als je het antwoord wil uitbreiden met (delen van) de gerelateerde resources nummeraanduiding, woonplaats en openbare ruimte,  zie [functionele specificaties expand-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.3.0/features/expand.feature).\nGebruik de exacteMatch parameter als je alleen resultaten wilt ontvangen die exact overeenkomen met de opgegeven zoek criteria, zie [functionele specificaties exacteMatch-parameter](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/v1.2.0/features/exacte_match.feature). Je kunt adresseerbare objecten niet expanden als je tegelijkertijd de query parameter adresseerbaarObjectIdentificatie gebruikt.",
         "operationId": "raadpleegAdressen",
         "parameters": [
           {
@@ -308,6 +309,7 @@
             "in": "query",
             "description": "De identificatie van een zoekresultaat van het endpoint get /adressen/zoek.",
             "required": false,
+            "deprecated": true,
             "style": "form",
             "explode": true,
             "schema": {
@@ -425,6 +427,19 @@
               "type": "boolean",
               "example": true,
               "default": false
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
             }
           }
         ],
@@ -3016,9 +3031,11 @@
             "description": "Identificatie van het zoekresultaat"
           }
         },
-        "description": "Resultaat van een zoekoperatie dat je kunt gebruiken om een adres te vinden met /adressen."
+        "description": "Resultaat van een zoekoperatie dat je kunt gebruiken om een adres te vinden met /adressen.",
+        "deprecated": true
       },
       "ZoekResultaatHal": {
+        "deprecated": true,
         "allOf": [
           {
             "$ref": "#/components/schemas/ZoekResultaat"
@@ -3038,7 +3055,8 @@
           "adres": {
             "$ref": "#/components/schemas/HalLink"
           }
-        }
+        },
+        "deprecated": true
       },
       "ZoekResultaatHalCollectie": {
         "type": "object",
@@ -3050,7 +3068,8 @@
             "$ref": "#/components/schemas/ZoekResultaatHalCollectieEmbedded"
           }
         },
-        "description": "Resultaten als lijst."
+        "description": "Resultaten als lijst.",
+        "deprecated": true
       },
       "ZoekResultaatHalCollectieEmbedded": {
         "type": "object",
@@ -3061,7 +3080,8 @@
               "$ref": "#/components/schemas/ZoekResultaatHal"
             }
           }
-        }
+        },
+        "deprecated": true
       },
       "BouwjaarFilter": {
         "type": "object",
@@ -4413,11 +4433,25 @@
           "type": "string"
         }
       },
+      "q": {
+        "name": "q",
+        "in": "query",
+        "description": "Zoekterm op postcode, woonplaats, straatnaam, huisnummer, huisletter, huisnummertoevoeging.",
+        "required": false,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
       "zoekresultaatIdentificatie": {
         "name": "zoekresultaatIdentificatie",
         "in": "query",
         "description": "De identificatie van een zoekresultaat van het endpoint get /adressen/zoek.",
         "required": false,
+        "deprecated": true,
         "style": "form",
         "explode": true,
         "schema": {
