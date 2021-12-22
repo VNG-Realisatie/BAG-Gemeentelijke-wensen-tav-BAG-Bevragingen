@@ -5,11 +5,14 @@ title: Features
 # Features
 De functionaliteit van de API is gespecificeerd en geillustreerd door middel van gerichte voorbeelden.
 
-- [free text zoeken van adressen](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/adres-free-text-zoeken.feature){:target="_blank" rel="noopener"}
+
 - [onderzoek naar de juistheid van gegevens (mogelijk onjuist)](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/mogelijkOnjuist.feature){:target="_blank" rel="noopener"}
 - [leveren van correct samengestelde adresregels](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/adresregels.feature)
 - [leveren van objecten die exact overeenkomen met een opgegeven huisnummer, eventueel in combinatie met een huisletter en/of huisnummertoevoeging](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/exacte_match.feature)
 - [foutafhandeling](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/foutafhandeling.feature){:target="_blank" rel="noopener"}
+- [locatie-zoeken](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/lokatie-zoeken.feature){:target="_blank" rel="noopener"}
+- [adresseerbaar objecten meeleveren bij een adres](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/adresseerbaarobject-embedden-in-adres.feature){:target="_blank" rel="noopener"}
+- [zoeken met een bounding box](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/features/bounding-box-zoeken.feature){:target="_blank" rel="noopener"}
 
 ## Algemene Haal Centraal features
 Naast de specifieke features voor BAG-bevragen gelden de volgende features uit Haal Centraal common voor alle Haal Centraal API's:
