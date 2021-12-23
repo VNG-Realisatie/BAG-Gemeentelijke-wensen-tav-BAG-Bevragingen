@@ -5,10 +5,6 @@ title: User Stories in Productie
 
 # User stories
 
-## Vanaf versie 1.5
-
-- [Als medewerker van de gemeente wil ik dat het zoeken op adressen direct een collectie adressen teruggeeft](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/336){:target="_blank" rel="noopener"}
-
 ## Vanaf versie 1.4
 
 - [Als medewerker gebiedsontwikkeling wil ik op bouwjaar (range, ouder dan, jonger dan) appartements-adressen in een bepaald gebied kunnen zoeken](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/380){:target="_blank" rel="noopener"}
@@ -54,3 +50,4 @@ title: User Stories in Productie
 - [Als medewerker monumentenzorg wil ik weten wat de kadastrale aanduiding is en wat het BAG ID is van een pand](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/3){:target="_blank" rel="noopener"}
 - [Als medewerker monumentenzorg wil ik weten van welk bouwjaar een pand is, wat de kadastrale aanduiding is, en welke adressen op het pand zijn uitgegeven](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/2){:target="_blank" rel="noopener"}
 - [Als medewerker monumentenzorg wil ik weten welke verblijfsobjecten, bergingen en parkeergarages in het pand zitten](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/1){:target="_blank" rel="noopener"}
+
