@@ -5,10 +5,6 @@ title: User Stories in Productie
 
 # User stories
 
-## Vanaf versie 1.5
-
-- [Als medewerker van de gemeente wil ik dat het zoeken op adressen direct een collectie adressen teruggeeft](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/336){:target="_blank" rel="noopener"}
-
 ## Vanaf versie 1.4
 
 - [Als medewerker gebiedsontwikkeling wil ik op bouwjaar (range, ouder dan, jonger dan) appartements-adressen in een bepaald gebied kunnen zoeken](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/380){:target="_blank" rel="noopener"}
