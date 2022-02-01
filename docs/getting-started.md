@@ -3,20 +3,17 @@ layout: page-with-side-nav
 title: Getting Started
 ---
 # Getting Started - BAG Huidige Bevragingen API
-De 'BAG Huidige Bevragingen' API levert actuele gegevens zonder eind status uit de Basisregistratie Adressen en Gebouwen. Dit betekent dat geen historische gegevens kunnen worden gevraagd en dat gegevens met een eindstatus niet worden geleverd.
-
-De API is gespecificeerd met behulp van de OpenAPI Specifications (OAS3).
 
 Om aan te sluiten kun je de volgende stappen doorlopen:
-1. [Meld je aan bij het kadaster om toegang te krijgen tot de productieomgeving](#aanmelden-om-aan-te-sluiten)
-2. [Bekijk de functionaliteit en specificaties](#functionaliteit)
-3. [Probeer en test de API in de productie-omgeving](#probeer-en-test-de-api-in-de-productie-omgeving)
+1. [Aanmelden](#aanmelden) om toegang te krijgen tot de acceptatie- en productieomgeving
+2. Bekijk de [functionaliteit en specificaties](#functionaliteit-en-specificaties)
+3. [Implementeer de API Client](#implementeer-de-api-client)
+4. [Probeer en test de API](#probeer-en-test-de-api)
 
-
-## Aanmelden om aan te sluiten
+## Aanmelden
 [Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. Testen doe je bij voorkeur in de productie-omgeving.
 
-## Functionaliteit
+## Functionaliteit en specificaties
 Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui) of [Redoc](./redoc).
 
 De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
@@ -64,8 +61,11 @@ Wanneer je alle adressen in een pand wilt zoeken, kan je dit doen met /adressen?
 
 Aangezien dit veel adressen kan opleveren, wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"} toegepast.
 
+Met dit endpoint kun je ook zoeken op postcode, huisnummer, huisletter en huisnummertoevoeging.
+De manier waarop je met de parameter exacteMatch kunt zoeken, kun je vinden in de feature.
+
 #### Geometrie van een woonplaats
-De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt bij het raadplegen van een woonplaats standaard de geometrie niet meegeleverd. Wanneer je de geometrie van de woonplaats wel geleverd wilt krijgen, dan moet bij de aanvraag de expand parameter worden gebruikt. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
+De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt de geometrie niet standaard met een woonplaats meegeleverd. Wanneer je de geometrie van de woonplaats wel wilt krijgen, dan moet je de expand parameter gebruiken. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
 
 ### Algemene functionaliteit
 Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande aanvragen:
@@ -74,8 +74,22 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 - Gebruik van paginering om het aantal zoekresultaten per zoekvraag te beperken. Met de **page** parameter kan een volgende pagina worden gevraagd. Met de **pageSize** parameter kan gekozen worden voor meer of minder zoekresultaten per pagina (standaard is 20, maximum is 100). Voor werking, zie feature [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"}
 - Soms kan er een onderzoek lopen of een gegeven wel correct is. Er zijn dan twijfels over de juistheid van de geregistreerde waarde. De API levert deze waarde wel, maar neemt die velden dan op in **mogelijkOnjuist** met de waarde True.
 - Sommige resources bevatten geometrie. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992). Bij een aanvraag die geometrie teruglevert moet de request header **Accept-Crs** worden meegestuurd.
-- Bij het zoeken van een pand op **locatie** moet de header **Content-Crs** worden meegestuurd. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992).
+- Bij het zoeken van een pand op **locatie** mag de header **Content-Crs** worden meegestuurd. Wanneer je deze header weglaat wordt default coördinatenstelsel RD (epsg:28992) gebruikt wat op dit moment ook het enige het coördinatenstelsel is dat de API ondersteunt.
+- Bij het zoeken naar panden en adresseerbare objecten kun je gebruik maken van bbox.
 - [HAL links](https://tools.ietf.org/html/draft-kelly-json-hal-08){:target="_blank"}, die soms [templated](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/uri-templating.feature){:target="_blank"} worden geleverd.
+
+## Implementeer de API client
+Client code kun je genereren met de "[genereervariant](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}" van de API-specificaties en een code generator. Een overzicht met codegeneratoren kun je vinden op [OpenAPI.Tools](https://openapi.tools/#sdk){:target="_blank" rel="noopener"}.
+
+Deze repo bevat scripts waarmee je met [OpenAPI Generator](https://openapi-generator.tech/){:target="_blank" rel="noopener"} client code kunt genereren in JAVA, .NET (Full Framework & Core) en Python. De makkelijkste manier om de code generatie scripts te gebruiken, is door deze repo te clonen. Na het clonen kun je met `npm install` de benodigde packages installeren en kun je met npm run <script naam> één van de volgende scripts uitvoeren:
+- oas:generate-java-client (voor JAVA client code)
+- oas:generate-netcore-client (voor .NET Core client code)
+- oas:generate-net-client (voor .NET Full Framework client code)
+- oas:generate-python-client (voor Python client code)
+
+Een lijst met andere ondersteunde generator opties kun je vinden in de [Generators List](https://openapi-generator.tech/docs/generators){:target="_blank" rel="noopener"} van OpenAPI Generator.
+
+Note. De prerequisite van OpenAPI Generator is JAVA. Je moet een JAVA runtime installeren voordat je OpenAPI Generator kunt gebruiken
 
 ## Probeer en test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/){:target="_blank"}.
@@ -84,7 +98,7 @@ We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-pos
 
 ### API key
 Om de API te kunnen bevragen is een API key nodig. Deze moet je bij het request opnemen in request header "X-Api-Key".
-[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. 
+[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}.
 
 ### Testgevallen
 Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de werking van de API kan worden getest.
@@ -106,7 +120,7 @@ Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de
 | panden                | Met nevenadres                                                                   | /panden/0014100010921152                |
 | panden                | Zonder adres                                                                     | /panden/0503100000034877                |
 
-Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken. 
+Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken.
 
 ### URL
 De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.

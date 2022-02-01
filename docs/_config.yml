@@ -3,7 +3,7 @@ apiname: "BAG Bevragen"
 url: "http://localhost:4000"
 # nav is t.b.v. generatie side-navigation menu.
 # Een 'title' zonder path of url genereert slechts een kopje.
-# 'path' vormt tezamen met de baseurl de url waarmee de 'href' wordt gevuld. 
+# 'path' vormt tezamen met de baseurl de url waarmee de 'href' wordt gevuld.
 # Indien een 'url' voorradig dan wordt daarmee de 'href' gevuld en dient het path slechts om te bepalen welke link active is.
 # 'target: blank' zorgt er voor dat de link in een nieuw tabblad wordt geöpend.
 nav:
@@ -13,12 +13,11 @@ nav:
         path: /
       - title: Goals canvas
         path: /goals-canvas
-  - title: Specificaties v. 1.3 (Live)
+  - title: Specificaties v. 1.5 (Live)
     subnav:
       - title: Getting started
         path: /getting-started
       - title: User stories
-#        url: https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/user-stories-prod
         path: /user-stories-prod
       - title: Bevragen API (swagger-ui)
         path: /swagger-ui
@@ -26,13 +25,12 @@ nav:
         path: /redoc
       - title: Features
         path: /features
-  - title: Specificaties v. 1.4 (IO)
-    subnav:
-      - title: User stories
-#        url: https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/user-stories-dev
-        path: /user-stories-dev
-      - title: Bevragen API (swagger-ui)
-        path: /swagger-ui-io
+ #  - title: Specificaties v. 1.5 (IO)
+ #    subnav:
+ #      - title: User stories
+ #        path: /user-stories-dev
+ #     - title: Bevragen API (swagger-ui)
+ #       path: /swagger-ui-io
  #     - title: Bevragen API (redoc)
  #       path: /redoc-io
  #     - title: Features

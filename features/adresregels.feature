@@ -1,5 +1,5 @@
 # language: nl
-
+@skip-verify
 Functionaliteit: Als gebruiker wil ik samengestelde adresregels
     zodat ik het samengestelde adres direct en correct kan gebruiken.
 

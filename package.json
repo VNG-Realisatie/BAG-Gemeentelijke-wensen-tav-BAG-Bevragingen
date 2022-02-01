@@ -19,8 +19,11 @@
     "preoas:resolve": "mvn-dl io.swagger.codegen.v3:swagger-codegen-cli:3.0.19 -f swagger-codegen-cli.jar",
     "oas:resolve": "java -jar swagger-codegen-cli.jar generate -i ./specificatie/openapi.yaml -l openapi-yaml -o ./specificatie/genereervariant && java -jar swagger-codegen-cli.jar generate -i ./specificatie/openapi.yaml -l openapi -o ./specificatie/genereervariant",
     "postoas:resolve": "rm swagger-codegen-cli.jar",
-    "unstage-generated": "git reset HEAD ./specificatie/genereervariant/openapi.* ./test/BAG-bevragen-postman-collection.json ./code/**",
-    "rollback-generated": "git checkout ./specificatie/genereervariant/openapi.* ./test/BAG-bevragen-postman-collection.json ./code/**"
+    "unstage-generated": "git reset HEAD ./specificatie/genereervariant/openapi.* ./test/BAG-Bevragen-postman-collection.json ./code/**",
+    "rollback-generated": "git checkout ./specificatie/genereervariant/** ./test/BAG-Bevragen-postman-collection.json ./code/**",
+    "specs:verify": "cucumber-js -f html:docs/features/test-result.html -f json:docs/features/test-result.json ./features/*.feature --tags \"not @not-testable\" --tags \"not @skip-verify\"",
+    "specs:report": "node generate-cucumber-report.js",
+    "test": "npm run specs:verify && npm run specs:report"
   },
   "repository": {
     "type": "git",
@@ -33,11 +36,15 @@
   },
   "homepage": "https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen#readme",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.3.6",
-    "@stoplight/spectral": "^5.9.1",
+    "@cucumber/cucumber": "^8.0.0-rc.1",
+    "@openapitools/openapi-generator-cli": "^2.4.18",
+    "@stoplight/spectral": "^6.1.0",
+    "axios": "^0.24.0",
+    "chai": "^4.3.4",
+    "cucumber-html-reporter": "^5.5.0",
     "husky": "^4.3.8",
-    "mvn-dl": "^5.1.1",
-    "openapi-to-postmanv2": "^2.8.0"
+    "mvn-dl": "^6.0.0",
+    "openapi-to-postmanv2": "^2.13.0"
   },
   "husky": {
     "hooks": {

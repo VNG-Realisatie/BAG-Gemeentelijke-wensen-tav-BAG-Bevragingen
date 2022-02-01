@@ -17,11 +17,11 @@ jobs:
           echo -e '---\nlayout: page-with-side-nav\ntitle: User Stories in Ontwikkeling\n---\n' >> user-stories-dev.md
           echo -e '# User stories\n' >> user-stories-dev.md
 
-      - name: List 'v1.3' user stories
+      - name: List 'v1.5' user stories
         uses: lee-dohm/select-matching-issues@v1.2.0
         with:
           format: list
-          query:  label:"v1.4" label:"User Story"
+          query:  label:"v1.5" label:"User Story"
           token: ${{ secrets.GITHUB_TOKEN }}
           path: issues-tmp.md
       - run: |
@@ -33,6 +33,18 @@ jobs:
           echo -e '---\nlayout: page-with-side-nav\ntitle: User Stories in Productie\n---\n' >> user-stories-prod.md
           echo -e '# User stories\n' >> user-stories-prod.md
 
+      - name: List 'v1.4' user stories
+        uses: lee-dohm/select-matching-issues@v1.2.0
+        with:
+          format: list
+          query:  label:"v1.4" label:"User Story"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: issues-tmp.md
+      - run: |
+          echo -e '## Vanaf versie 1.4\n' >> user-stories-prod.md
+          cat issues-tmp.md >> user-stories-prod.md
+          echo -e '\n' >> user-stories-prod.md
+
       - name: List 'v1.3' user stories
         uses: lee-dohm/select-matching-issues@v1.2.0
         with:
@@ -41,6 +53,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: issues-tmp.md
       - run: |
+          echo -e '## Vanaf versie 1.3\n' >> user-stories-prod.md
           cat issues-tmp.md >> user-stories-prod.md
           echo -e '\n' >> user-stories-prod.md
 
@@ -52,6 +65,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: issues-tmp.md
       - run: |
+          echo -e '## Vanaf versie 1.2\n' >> user-stories-prod.md
           cat issues-tmp.md >> user-stories-prod.md
           echo -e '\n' >> user-stories-prod.md
 
@@ -63,39 +77,42 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: issues-tmp.md
       - run: |
+          echo -e '## Vanaf versie 1.1\n' >> user-stories-prod.md
           cat issues-tmp.md >> user-stories-prod.md
           echo -e '\n' >> user-stories-prod.md
         
-      - name: List 'v1.0' user stories
-        uses: lee-dohm/select-matching-issues@v1.2.0
-        with:
-          format: list
-          query:  label:"v1.0" label:"User Story"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: issues-tmp.md
-      - run: |
-          cat issues-tmp.md >> user-stories-prod.md
-          echo -e '\n' >> user-stories-prod.md
+#      - name: List 'v1.0' user stories
+#        uses: lee-dohm/select-matching-issues@v1.2.0
+#        with:
+#          format: list
+#          query:  label:"v1.0" label:"User Story"
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          path: issues-tmp.md
+#      - run: |
+#          echo -e '## Vanaf versie 1.0\n' >> user-stories-prod.md
+#          cat issues-tmp.md >> user-stories-prod.md
+#          echo -e '\n' >> user-stories-prod.md
 
-      - name: target=_blank toevoegen, move naar ./docs en committen
+      - name: target=_blank toevoegen aan issue link
         run: |
           sed -i 's/)$/){:target="_blank" rel="noopener"}/' user-stories-dev.md
           sed -i 's/)$/){:target="_blank" rel="noopener"}/' user-stories-prod.md
-
+      - name: move user-stories markdown bestanden naar ./docs
+        run: |
           mv user-stories-dev.md ./docs/user-stories-dev.md
           mv user-stories-prod.md ./docs/user-stories-prod.md
-
+      - name: commit & push user-stories markdown bestanden
+        run: |
           if [ -n "$(git status ./docs/user-stories-dev.md --porcelain)" ]; then
             git add ./docs/user-stories-dev.md
           fi
           if [ -n "$(git status ./docs/user-stories-prod.md --porcelain)" ]; then
             git add ./docs/user-stories-prod.md
           fi
-
           if [ -n "$(git status ./docs --porcelain)" ]; then
             git config user.name "$GITHUB_ACTOR"
             git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
             git commit -m "commit user stories artifacts"
-            git pull --ff-only
+            git pull --ff
             git push
           fi

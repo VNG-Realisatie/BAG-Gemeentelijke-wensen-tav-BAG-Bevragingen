@@ -1,7 +1,6 @@
-# Haal Centraal BAG Huidige Bevragingen v1.3 is live!
+# Haal Centraal BAG Huidige Bevragingen
 
 ![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
-![generate sdks](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-sdks/badge.svg)
 ![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)
 
 BAG Huidige bevragingen is een Haal Centraal API voor het zoeken en raadplegen van gegevens in de basisregistratie Adressen en Gebouwen voor alle binnengemeentelijke afnemers in NL, maar ook voor waterschappen, belastingsamenwerkingen en andere overheden.
@@ -15,7 +14,7 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 * Lees de [Getting started](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started)
 * Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml)
 * Download [client code](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/tree/master/code)
-* [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_test) voor toegang tot de testomgeving.
+* [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie) voor toegang tot de productieomgeving.
 
 
 ## Bronnen

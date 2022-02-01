@@ -5,6 +5,33 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
+## Versie 1.5.0 (22-12-2021)
+In deze release is de volgende functionaliteit gerealiseerd:
+
+- fuzzy-search op adressen toegevoegd
+  - endpoint /adressen is uitgebreid met een parameter "q" waarmee met vrij op te geven zoekwoorden adressen kunnen worden gezocht. Het is nu niet meer nodig om in twee stappen te zoeken met /adressen/zoek gevolgd door /adressen met de zoekresultaatIdentificatie.
+  - de parameter "zoekresultaatIdentificatie" bij het endpoint /adressen is deprecated verklaard.
+  - alle schema-componenten voor Zoekresultaat zijn deprecated verklaard.
+
+## Versie 1.4.0 (09-12-2021)
+In deze release is de volgende functionaliteit gerealiseerd:
+
+- adresseerbaar objecten kunnen meegeleverd worden met adressen als je de expand parameter gebruikt;
+- mogelijkheden voor geometrisch zoeken met een bounding box op adresseerbare objecten,  eventueel in combinatie met bouwjaar, oppervlakterange, gebruiksdoel, pandstatus, adresseerbaar objecttype en "geconstateerd".
+- de query-parameter pand-identificatie is deprecated verklaard omdat deze funtionaliteit ook ingevuld wordt door de query-parameter pandidentificaties
+
+## Versie 1.3.0 (20-09-2021)
+In deze release is een bugfix opgenomen over "mogelijk onjuist" bij een adres. Naast wijzigingen in de API specificaties is een feature-file toegevoegd.
+
+### Opgeloste issues
+
+  | Link Github	| Beschrijving |
+  | --- | --- |
+  | [306](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/306) | Als medewerker gebiedsontwikkeling wil ik op basis van bepaalde kenmerken van appartements-adressen/verblijfsobjecten zoals bouwjaar Pand (en energielabel) in een bepaald gebied kunnen zoeken |
+  | [370](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/370) | Http status code 415 voor fout "Coördinatenstelsel {crs} in Content-Crs wordt niet ondersteund." incorrect |
+  | [404](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/404) | Als gebruikers van de API wil ik exact kunnen zoeken zoeken op postcode en huisnummer |
+
+
 ## Versie 1.2.0 (22-06-2021)
 In deze release zijn enkele bugs in productie opgelost. Tevens zijn er enkele wijzigingen aan de API-specificaties en de feature-files aangebracht.
 Er worden nu adresregels geleverd met daarin het samengestelde adres.
@@ -16,6 +43,7 @@ Op /adressen worden de resultaten gesorteerd geretourneerd.
   | Link Github	| Beschrijving |
   | --- | --- |
   | [234](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/234) | gebruik relatieve urls voor interne links |
+  | | (edit) Bovenstaande issue (234) is onterecht als opgelost in versie 1.2.0 genoemd. De bovenstaande issue is dus niet in versie 1.2.0 opgelost en staat vooralsnognog op de backlog |
   | [293](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/293) | Expand gerelateerde resource als relatie in onderzoek is |
   | [294](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/294) | Als gebruiker (nader te bepalen) wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren |
   | [309](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/309) | wijzigen description zoekparameter zoekresultaat get/adressen/zoek e.a. |
