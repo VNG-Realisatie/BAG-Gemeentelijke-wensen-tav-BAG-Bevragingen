@@ -1,6 +1,6 @@
 ---
 layout: page-with-side-nav
-title: Haal Centraal BAG Huidige Bevragingen v1.5 is live!
+title: Haal Centraal BAG Huidige Bevragingen
 ---
 # Haal Centraal BAG Huidige Bevragingen v1.5 is live!
 
