@@ -2,7 +2,7 @@
 layout: page-with-side-nav
 title: Haal Centraal BAG Huidige Bevragingen
 ---
-# Haal Centraal BAG Huidige Bevragingen v1.5 is live!
+# Haal Centraal BAG Huidige Bevragingen
 
 ![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
 ![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)
