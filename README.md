@@ -27,7 +27,7 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 
 ## Contact
 
-* Product Owner: Cathy Dingemanse, cathy.dingemanse@denhaag.nl
+* Product Owner: [Cathy Dingemanse](mailto:c.dingemanse@comites.nl)
 
 ## Licentie
 
