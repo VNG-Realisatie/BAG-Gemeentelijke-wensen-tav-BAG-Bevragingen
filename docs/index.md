@@ -15,7 +15,6 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 * Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/redoc)
 * Lees de [Getting started](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started)
 * Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"}
-* Download [client code](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/tree/master/code){:target="_blank"}
 * [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"} voor toegang tot de productieomgeving.
 
 
