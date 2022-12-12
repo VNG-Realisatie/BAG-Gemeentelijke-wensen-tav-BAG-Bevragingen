@@ -1,3 +1,7 @@
+---
+layout: page-with-side-nav
+title: Getting Started
+---
 # Getting Started 
   
 Om aan te sluiten kun je de volgende stappen doorlopen:
