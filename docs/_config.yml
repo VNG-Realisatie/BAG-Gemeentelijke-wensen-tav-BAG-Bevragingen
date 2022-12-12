@@ -30,7 +30,7 @@ nav:
       - title: Getting started
         path: /getting-started-IB
       - title: User stories
-        path: /user-stories-prod
+        path: /user-stories-prod-IB
       - title: IB API (swagger-ui)
         path: /swagger-ui-IB
       - title: IB API (redoc)
