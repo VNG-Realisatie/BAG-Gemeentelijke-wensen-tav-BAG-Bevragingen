@@ -7,7 +7,7 @@ title: Haal Centraal BAG Huidige Bevragingen
 ![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
 ![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)
 
-Deze API voor het zoeken en raadplegen van adressen, adresseerbaar objecten en panden uit de Basisregistratie Adressen en Gebouwen (BAG) wordt geintegreerd in de BAG API Individuele Bevragingen. Als gebruiker van de BAG API Huidige Bevragingen hebt u tot 1 juli 2023 de tijd om over te stappen.
+Deze API voor het zoeken en raadplegen van adressen, adresseerbaar objecten en panden uit de Basisregistratie Adressen en Gebouwen (BAG) wordt geintegreerd in de BAG API Individuele Bevragingen. Als gebruiker van de BAG API Huidige Bevragingen heb je tot 1 juli 2023 de tijd om over te stappen.
 
 Tijdens de doorontwikkeling die de afgelopen jaren heeft plaatsgevonden, zijn de beide BAG API’s dusdanig naar elkaar toe gegroeid, dat het efficiënter is om de BAG API’s te integreren. Het Kadaster en VNG Realisatie hebben de afgelopen maanden gewerkt aan de integratie van de twee BAG API’s: Huidige Bevragingen (Haal Centraal) en Individuele Bevragingen. Alle functionaliteiten van de BAG API Huidige Bevragingen zijn nu toegevoegd aan de BAG API Individuele Bevragingen. Zodra de nieuwe versie van BAG Individuele Bevragingen in productie gaat, vind je de specificaties en de Getting Started van Individuele Bevragingen op deze website. 
 
