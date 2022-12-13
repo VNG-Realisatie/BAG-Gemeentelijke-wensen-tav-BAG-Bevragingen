@@ -13,8 +13,8 @@ Tijdens de doorontwikkeling die de afgelopen jaren heeft plaatsgevonden, zijn de
 
 # Direct aan de slag?
 
-* Bekijk de specificaties met [Swagger UI](/swagger-ui-IB) of [Redoc](/redoc-IB)
-* Lees de [Getting started](/getting-started-IB)
+* Bekijk de specificaties met [Swagger UI](./swagger-ui-IB) of [Redoc](./redoc-IB)
+* Lees de [Getting started](./getting-started-IB)
 * Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"}
 * [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"} voor toegang tot de productieomgeving.
 
