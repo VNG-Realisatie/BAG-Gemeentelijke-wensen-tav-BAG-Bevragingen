@@ -4,8 +4,8 @@ title: Haal Centraal BAG Huidige Bevragingen
 ---
 # Haal Centraal BAG Huidige Bevragingen wordt geintegreerd in BAG Individuele Bevragingen!
 
-![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
-![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)
+<!--![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
+![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)-->
 
 Deze API voor het zoeken en raadplegen van adressen, adresseerbaar objecten en panden uit de Basisregistratie Adressen en Gebouwen (BAG) wordt geintegreerd in de BAG API Individuele Bevragingen. Als gebruiker van de BAG API Huidige Bevragingen heb je tot 1 juli 2023 de tijd om over te stappen.
 
@@ -13,11 +13,10 @@ Tijdens de doorontwikkeling die de afgelopen jaren heeft plaatsgevonden, zijn de
 
 # Direct aan de slag?
 
-* Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/redoc)
-* Lees de [Getting started](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started)
+* Bekijk de specificaties met [Swagger UI](./swagger-ui-IB) of [Redoc](./redoc-IB)
+* Lees de [Getting started](./getting-started-IB)
 * Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"}
 * [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"} voor toegang tot de productieomgeving.
-
 
 ## Bronnen
 
