@@ -35,8 +35,8 @@ nav:
         path: /swagger-ui-IB
       - title: IB API (redoc)
         path: /redoc-IB
-      - title: Features
-        path: https://github.com/lvbag/BAG-API/tree/master/Features
+#      - title: Features
+#        path: https://github.com/lvbag/BAG-API/tree/master/Features
  #  - title: Specificaties v. 1.5 (IO)
  #    subnav:
  #      - title: User stories
