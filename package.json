@@ -13,6 +13,7 @@
     "oas:generate-netcore-client": "npm run oas:generate-client -- -o ./code/netcore -g csharp-netcore --additional-properties=optionalProjectFile=false,optionalAssemblyInfo=false",
     "oas:generate-net-client": "npm run oas:generate-client -- -o ./code/net -g csharp --additional-properties=optionalProjectFile=false,optionalAssemblyInfo=false",
     "oas:generate-python-client": "npm run oas:generate-client -- -o ./code/python -g python --additional-properties=optionalProjectFile=false,optionalAssemblyInfo=false",
+    "preoas:generate-postman-collection": "mkdirp ./test",
     "oas:generate-postman-collection": "openapi2postmanv2 -s ./specificatie/genereervariant/openapi.yaml -o ./test/BAG-Bevragen-postman-collection.json --pretty",
     "oas:lint": "spectral lint ./specificatie/openapi.yaml",
     "oas:lint-genereervariant": "spectral lint ./specificatie/genereervariant/openapi.yaml",
@@ -37,12 +38,13 @@
   "homepage": "https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen#readme",
   "devDependencies": {
     "@cucumber/cucumber": "^8.0.0-rc.1",
-    "@openapitools/openapi-generator-cli": "^2.4.18",
-    "@stoplight/spectral": "^6.1.0",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@stoplight/spectral-cli": "^6.6.0",
     "axios": "^0.24.0",
     "chai": "^4.3.4",
     "cucumber-html-reporter": "^5.5.0",
     "husky": "^4.3.8",
+    "mkdirp": "^1.0.4",
     "mvn-dl": "^6.0.0",
     "openapi-to-postmanv2": "^2.13.0"
   },

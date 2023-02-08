@@ -13,7 +13,7 @@ nav:
         path: /
       - title: Goals canvas
         path: /goals-canvas
-  - title: Specificaties v. 1.5 (Live)
+  - title: Haal Centraal BAG Huidige Bevragingen v. 1.5 (Deprecated)
     subnav:
       - title: Getting started
         path: /getting-started
@@ -25,6 +25,18 @@ nav:
         path: /redoc
       - title: Features
         path: /features
+  - title: BAG Individuele Bevragingen v. 2.6 (Live)
+    subnav:
+      - title: Getting started
+        path: /getting-started-IB
+      - title: User stories
+        path: /user-stories-prod-IB
+      - title: IB API (swagger-ui)
+        path: /swagger-ui-IB
+      - title: IB API (redoc)
+        path: /redoc-IB
+#      - title: Features
+#        path: https://github.com/lvbag/BAG-API/tree/master/Features
  #  - title: Specificaties v. 1.5 (IO)
  #    subnav:
  #      - title: User stories
