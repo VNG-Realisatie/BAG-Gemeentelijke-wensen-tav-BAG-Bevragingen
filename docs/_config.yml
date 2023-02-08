@@ -1,4 +1,4 @@
-cbaseurl: "/Haal-Centraal-BAG-bevragen"
+baseurl: "/Haal-Centraal-BAG-bevragen"
 apiname: "BAG Bevragen"
 url: "http://localhost:4000"
 # nav is t.b.v. generatie side-navigation menu.
