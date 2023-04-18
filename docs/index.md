@@ -27,7 +27,7 @@ Tijdens de doorontwikkeling die de afgelopen jaren heeft plaatsgevonden, zijn de
 
 ## Contact
 
-* Productregiseur: Patrick van der Spank, [standaarden.ondersteuning@VNG.NL](mailto:standaarden.ondersteuning@VNG.NL)
+* Productregiseur: Arjen Brienen, [standaarden.ondersteuning@VNG.NL](mailto:standaarden.ondersteuning@VNG.NL)
 * Designer: Johan Boer, [johan.boer@vng.nl](mailto:johan.boer@vng.nl)
 * Designer: Robert Melskens, [robert.melskens@vng.nl](mailto:robert.melskens@vng.nl)
 
