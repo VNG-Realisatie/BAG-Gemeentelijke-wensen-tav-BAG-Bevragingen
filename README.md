@@ -27,7 +27,9 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 
 ## Contact
 
-* Product Owner: [Cathy Dingemanse](mailto:c.dingemanse@comites.nl)
+* Productregiseur: Arjen Brienen, [standaarden.ondersteuning@VNG.NL](mailto:standaarden.ondersteuning@VNG.NL)
+* Designer: Johan Boer, [johan.boer@vng.nl](mailto:johan.boer@vng.nl)
+* Designer: Robert Melskens, [robert.melskens@vng.nl](mailto:robert.melskens@vng.nl)
 
 ## Licentie
 
