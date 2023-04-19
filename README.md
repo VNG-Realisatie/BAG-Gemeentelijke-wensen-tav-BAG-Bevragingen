@@ -13,21 +13,27 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 * Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/redoc)
 * Lees de [Getting started](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started)
 * Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml)
-* Download [client code](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/tree/master/code)
 * [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie) voor toegang tot de productieomgeving.
 
 
 ## Bronnen
 
 * [Productvisie Haal Centraal](https://vng-realisatie.github.io/Haal-Centraal)
-* [API Design Visie](https://github.com/Geonovum/KP-APIs/tree/master/Werkgroep%20API%20design%20visie)
+* [API Design Visie](https://github.com/Geonovum/KP-APIs/blob/master/overleggen/Werkgroep%20API%20design%20visie/API%20Design%20Visie.md)
 * [REST API Design Rules](https://docs.geostandaarden.nl/api/API-Designrules/)
 * [Landelijke API strategie voor de overheid](https://geonovum.github.io/KP-APIs/)
 * [Stelselcatalogus](https://www.stelselcatalogus.nl/registraties/BAG/)
 
 ## Contact
 
-* Productregiseur: Arjen Brienen, [standaarden.ondersteuning@VNG.NL](mailto:standaarden.ondersteuning@VNG.NL)
+* Bug Melden
+  [Maak een bug issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=bug&template=bug_report.md&title=)
+* Verbeteringen doorgeven
+  [Maak een verbeter issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=)
+* Community: Wil je geïnformeerd blijven over productwijzigingen of meepraten over de API meld je dan aan bij de community.<br/><a href="https://haalcentraal.pleio.nl/groups/view/f567d45a-586b-4acf-b7f6-9e75bb89140a/community-bag-api">Ga naar de community>></a>
+
+
+* Regiseur API's: Arjen Brienen, [arjen.brienen@VNG.NL](mailto:arjen.brienen@VNG.NL)
 * Designer: Johan Boer, [johan.boer@vng.nl](mailto:johan.boer@vng.nl)
 * Designer: Robert Melskens, [robert.melskens@vng.nl](mailto:robert.melskens@vng.nl)
 
