@@ -78,8 +78,7 @@ De [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/b
 We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
 
 ### API key
-Om de API te kunnen bevragen is een API key nodig. Deze moet je bij het request opnemen in request header "X-Api-Key".
-[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}.
+Om de API te kunnen bevragen is de API key nodig die je al eerder hebt ontvangen. Deze moet je bij het request opnemen in request header "X-Api-Key".
 
 ### Testgevallen
 Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de werking van de API kan worden getest.
