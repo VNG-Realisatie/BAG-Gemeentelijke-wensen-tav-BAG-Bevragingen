@@ -4,11 +4,13 @@ title: Functionaliteit en specificaties
 ---
 # Functionaliteit en specificaties - BAG Huidige Bevragingen API
 
+## <span style="color:red">De BAG Huidige Bevragingen API is deprecated en wordt met ingang van 1 juli a.s. niet meer ondersteund. Wij adviseren niet meer te starten met de implementatie van deze API en verwijzen je naar de BAG Individuele Bevragingen v. 2.6 die deze API gaat vervangen. Onderstaande informatie is alleen bedoelt voor de huidige gebruikers van deze API.
+
 Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui) of [Redoc](./redoc).
 
 De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
 
-### Beschikbare resources
+## Beschikbare resources
 De API kent de volgende resources:
 - adressen: hierin zijn samenhangende en gerelateerde gegevens samengevoegd uit de nummeraanduiding, openbare ruimte en woonplaats die samen een adres vormen
 - adresseerbareobjecten: dit kan een verblijfsobject, ligplaats of standplaats zijn
@@ -20,7 +22,7 @@ De API kent de volgende resources:
 Voor de verschillende resources wordt de uri samengesteld met de identificatie van het onderliggende BAG-object. Dit is een 16 cijferige, of in geval van woonplaats 4 cijferige identificatie. Voor adressen wordt de nummeraanduiding identificatie gebruikt in de uri.  
 De identificatie kan voorloopnullen bevatten, dus het is geen integer.
 
-#### Zoeken van een adres
+### Zoeken van een adres
 Je kan een adres zoeken met endpoint /adressen/zoek en parameter "zoek" waarin met postcode, woonplaats, straatnaam, huisnummer, huisletter en huisnummertoevoeging kan worden gezocht. Op dit moment worden alleen deze gegevens ondersteund, het is de bedoeling dat dit later volledig "fuzzy search" wordt.  
 Deze zoekfunctie, via endpoint /adressen/zoek levert voor elk gevonden adres een combinatie van een zoekresultaat identificatie en een omschrijving, plus een link voor het ophalen van de volledige adresgegevens.
 
@@ -46,7 +48,7 @@ Bijvoorbeeld zoeken op "/adressen/zoek?zoek=nootdorp 15c dorpsstraat" levert:
 ```
 Het adres haal je vervolgens op met "/adressen?zoekresultaatIdentificatie=adr-89d5a4d96f09c60716c4671fdb9334b8".
 
-#### Zoeken van adressen in een pand
+### Zoeken van adressen in een pand
 Wanneer je alle adressen in een pand wilt zoeken, kan je dit doen met /adressen?pandIdentificatie={pandIdentificatie}, waarbij {pandIdentificatie} moet worden vervangen door de identificatie van het betreffende pand. Bijvoorbeeld /adressen?pandIdentificatie=0826100000000467.
 
 Aangezien dit veel adressen kan opleveren, wordt hier [paginering](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/paginering.feature){:target="_blank"} toegepast.
@@ -54,10 +56,10 @@ Aangezien dit veel adressen kan opleveren, wordt hier [paginering](https://githu
 Met dit endpoint kun je ook zoeken op postcode, huisnummer, huisletter en huisnummertoevoeging.
 De manier waarop je met de parameter exacteMatch kunt zoeken, kun je vinden in de feature.
 
-#### Geometrie van een woonplaats
+### Geometrie van een woonplaats
 De geometrie van een woonplaats kan zeer omvangrijk zijn. Daarom wordt de geometrie niet standaard met een woonplaats meegeleverd. Wanneer je de geometrie van de woonplaats wel wilt krijgen, dan moet je de expand parameter gebruiken. Bijvoorbeeld /woonplaatsen/2258?expand=geometrie.
 
-### Algemene functionaliteit
+## Algemene functionaliteit
 Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande aanvragen:
 - Gebruik van de **fields** parameter om de response te filteren. Voor werking, zie feature [fields](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/fields.feature){:target="_blank"}
 - Gebruik van de **expand** parameter om subresources te ontsluiten. Voor werking, zie feature [expand](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/expand.feature){:target="_blank"}
