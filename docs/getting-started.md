@@ -1,6 +1,6 @@
 ---
 layout: page-with-side-nav
-title: Getting Started
+title: Functionaliteit en specificaties
 ---
 # Functionaliteit en specificaties - BAG Huidige Bevragingen API
 
