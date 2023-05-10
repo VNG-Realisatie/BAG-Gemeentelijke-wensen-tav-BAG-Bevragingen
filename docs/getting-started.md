@@ -2,18 +2,8 @@
 layout: page-with-side-nav
 title: Getting Started
 ---
-# Getting Started - BAG Huidige Bevragingen API
+# Functionaliteit en specificaties - BAG Huidige Bevragingen API
 
-Om aan te sluiten kun je de volgende stappen doorlopen:
-1. [Aanmelden](#aanmelden) om toegang te krijgen tot de acceptatie- en productieomgeving
-2. Bekijk de [functionaliteit en specificaties](#functionaliteit-en-specificaties)
-3. [Implementeer de API Client](#implementeer-de-api-client)
-4. [Probeer en test de API](#probeer-en-test-de-api)
-
-## Aanmelden
-[Vraag een API key voor de productieomgeving aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"}. Testen doe je bij voorkeur in de productie-omgeving.
-
-## Functionaliteit en specificaties
 Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui) of [Redoc](./redoc).
 
 De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
@@ -78,20 +68,7 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 - Bij het zoeken naar panden en adresseerbare objecten kun je gebruik maken van bbox.
 - [HAL links](https://tools.ietf.org/html/draft-kelly-json-hal-08){:target="_blank"}, die soms [templated](https://github.com/VNG-Realisatie/Haal-Centraal-common/blob/v1.1.0/features/uri-templating.feature){:target="_blank"} worden geleverd.
 
-## Implementeer de API client
-Client code kun je genereren met de "[genereervariant](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}" van de API-specificaties en een code generator. Een overzicht met codegeneratoren kun je vinden op [OpenAPI.Tools](https://openapi.tools/#sdk){:target="_blank" rel="noopener"}.
-
-Deze repo bevat scripts waarmee je met [OpenAPI Generator](https://openapi-generator.tech/){:target="_blank" rel="noopener"} client code kunt genereren in JAVA, .NET (Full Framework & Core) en Python. De makkelijkste manier om de code generatie scripts te gebruiken, is door deze repo te clonen. Na het clonen kun je met `npm install` de benodigde packages installeren en kun je met npm run <script naam> één van de volgende scripts uitvoeren:
-- oas:generate-java-client (voor JAVA client code)
-- oas:generate-netcore-client (voor .NET Core client code)
-- oas:generate-net-client (voor .NET Full Framework client code)
-- oas:generate-python-client (voor Python client code)
-
-Een lijst met andere ondersteunde generator opties kun je vinden in de [Generators List](https://openapi-generator.tech/docs/generators){:target="_blank" rel="noopener"} van OpenAPI Generator.
-
-Note. De prerequisite van OpenAPI Generator is JAVA. Je moet een JAVA runtime installeren voordat je OpenAPI Generator kunt gebruiken
-
-## Probeer en test de API
+## Test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/){:target="_blank"}.
 De [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"} kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
 We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
