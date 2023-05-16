@@ -37,16 +37,15 @@
   },
   "homepage": "https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen#readme",
   "devDependencies": {
-    "@cucumber/cucumber": "^8.0.0-rc.1",
-    "@openapitools/openapi-generator-cli": "^0.0.6",
+    "@cucumber/cucumber": "^9.1.2",
+    "@openapitools/openapi-generator-cli": "^2.6.0",
     "@stoplight/spectral-cli": "^6.6.0",
-    "axios": "^0.24.0",
-    "chai": "^4.3.4",
-    "cucumber-html-reporter": "^5.5.0",
-    "husky": "^4.3.8",
-    "mkdirp": "^1.0.4",
-    "mvn-dl": "^2.0.1",
-    "openapi-to-postmanv2": "^2.13.0"
+    "axios": "^1.4.0",
+    "chai": "^4.3.7",
+    "cucumber-html-reporter": "^7.1.0",
+    "mkdirp": "^3.0.1",
+    "mvn-dl": "^6.0.0",
+    "openapi-to-postmanv2": "^4.12.0"
   },
   "husky": {
     "hooks": {
