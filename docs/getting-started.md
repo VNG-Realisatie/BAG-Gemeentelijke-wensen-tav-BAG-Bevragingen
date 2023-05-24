@@ -4,7 +4,7 @@ title: Functionaliteit en specificaties
 ---
 # Functionaliteit en specificaties - BAG Huidige Bevragingen API
 
-## <span style="color:red">De BAG Huidige Bevragingen API is deprecated en wordt met ingang van 1 juli a.s. niet meer ondersteund.</span>
+## <span style="color:red">De BAG Huidige Bevragingen API v 1.5 is deprecated en wordt met ingang van 1 juli a.s. niet meer ondersteund.</span>
    
 <span style="color:red">Wij adviseren niet meer te starten met de implementatie van deze API en verwijzen je naar de [Getting Started van de BAG Individuele Bevragingen v. 2.6](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started-IB) die deze API gaat vervangen. Onderstaande informatie is alleen bedoelt voor de huidige gebruikers van deze API.</span>
 
