@@ -16,7 +16,7 @@ Tijdens de doorontwikkeling die de afgelopen jaren heeft plaatsgevonden, zijn de
 * Bekijk de specificaties met [Swagger UI](./swagger-ui-IB) of [Redoc](./redoc-IB)
 * Lees de [Getting started](./getting-started-IB)
 * Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"}
-* [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie){:target="_blank"} voor toegang tot de productieomgeving.
+* [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_individuele_bevragingen_productie){:target="_blank"} voor toegang tot de productieomgeving.
 
 ## Bronnen
 
@@ -31,6 +31,8 @@ Tijdens de doorontwikkeling die de afgelopen jaren heeft plaatsgevonden, zijn de
   [Maak een bug issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=bug&template=bug_report.md&title=)
 * Verbeteringen doorgeven
   [Maak een verbeter issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=)
+* Storingen
+  [Meld een storing](https://formulieren.kadaster.nl/contact_kadaster)
 * Community: Wil je geïnformeerd blijven over productwijzigingen of meepraten over de API meld je dan aan bij de community.<br/><a href="https://haalcentraal.pleio.nl/groups/view/f567d45a-586b-4acf-b7f6-9e75bb89140a/community-bag-api">Ga naar de community>></a>
 
 

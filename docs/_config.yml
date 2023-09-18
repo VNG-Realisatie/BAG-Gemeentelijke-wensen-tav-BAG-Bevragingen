@@ -15,7 +15,7 @@ nav:
         path: /goals-canvas
   - title: Haal Centraal BAG Huidige Bevragingen v. 1.5 (Deprecated)
     subnav:
-      - title: Getting started
+      - title: Functionaliteit en specificaties
         path: /getting-started
       - title: User stories
         path: /user-stories-prod
