@@ -40,7 +40,7 @@
     "@cucumber/cucumber": "^9.1.2",
     "@openapitools/openapi-generator-cli": "^2.6.0",
     "@stoplight/spectral-cli": "^6.6.0",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "chai": "^4.3.7",
     "cucumber-html-reporter": "^6.0.0",
     "mkdirp": "^3.0.1",
