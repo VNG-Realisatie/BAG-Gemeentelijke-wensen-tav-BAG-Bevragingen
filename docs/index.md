@@ -11,6 +11,8 @@ Deze API voor het zoeken en raadplegen van adressen, adresseerbaar objecten en p
 
 Tijdens de doorontwikkeling die de afgelopen jaren heeft plaatsgevonden, zijn de beide BAG API’s dusdanig naar elkaar toe gegroeid, dat het efficiënter is om de BAG API’s te integreren. Het Kadaster en VNG Realisatie hebben de afgelopen maanden gewerkt aan de integratie van de twee BAG API’s: Huidige Bevragingen (Haal Centraal) en Individuele Bevragingen. Alle functionaliteiten van de BAG API Huidige Bevragingen zijn nu toegevoegd aan de BAG API Individuele Bevragingen. Zodra de nieuwe versie van BAG Individuele Bevragingen in productie gaat, vind je de specificaties en de Getting Started van de BAG Individuele Bevragingen API op deze website. 
 
+Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/).
+
 # Direct aan de slag?
 
 * Bekijk de specificaties met [Swagger UI](./swagger-ui-IB) of [Redoc](./redoc-IB)
