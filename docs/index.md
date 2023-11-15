@@ -41,6 +41,7 @@ Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/Haal-Centraal-BA
 * Regiseur API's: Arjen Brienen
 * Designer: Johan Boer
 * Designer: Robert Melskens
+
 U kunt hen bereiken via [standaarden.ondersteuning@vng.nl](mailto:standaarden.ondersteuning@vng.nl)
 
 ## Licentie
