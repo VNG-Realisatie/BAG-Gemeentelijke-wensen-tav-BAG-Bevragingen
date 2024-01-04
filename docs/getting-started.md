@@ -24,21 +24,17 @@ De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://api.bag.kadaste
   
 De API kent de volgende endpoints:  
 
-•	*Woonplaatsen*  
-•	*Openbare ruimten*  
-•	*Nummeraanduidingen*  
-•	*Verblijfsobjecten*  
-•	*Standplaatsen*  
-•	*Ligplaatsen*  
-•	*Panden*  
-•	*Bronhouders*  
-  
-
-•	*Adressen*: hierin zijn samenhangende en gerelateerde gegevens samengevoegd uit de nummeraanduiding, openbare ruimte en woonplaats die samen een adres vormen.
-
-•	*Adressen uitgebreid*: deze resource ondersteunt de mogelijkheid om met één bevraging meer informatie over het adres op te halen, zoals het bouwjaar en de gebruiksoppervlakte.   
-  
-•	*Adresseerbare objecten*: dit kan een verblijfsobject, ligplaats of standplaats zijn.  
+*	*Woonplaatsen*  
+*	*Openbare ruimten*  
+*	*Nummeraanduidingen*  
+*	*Verblijfsobjecten*  
+*	*Standplaatsen*  
+*	*Ligplaatsen*  
+*	*Panden*  
+*	*Bronhouders*  
+*	*Adressen*:<br/>hierin zijn samenhangende en gerelateerde gegevens samengevoegd uit de nummeraanduiding, openbare ruimte en woonplaats die samen een adres vormen.
+*	*Adressen uitgebreid*:<br/>deze resource ondersteunt de mogelijkheid om met één bevraging meer informatie over het adres op te halen, zoals het bouwjaar en de gebruiksoppervlakte.   
+*	*Adresseerbare objecten*:<br/>dit kan een verblijfsobject, ligplaats of standplaats zijn.  
 
 De objecten endpoints leveren één of meer (voorkomens van) object(en), met embedded resources en links. 
 
@@ -53,21 +49,21 @@ In de tabel [Wat zit in welk endpoint](https://github.com/lvbag/BAG-API/blob/mas
   
 Er zijn een aantal algemene functies die gelden voor bovenstaande aanvragen:  
   
-  •	De expand resource is te gebruiken om binnen een response extra informatie te ontvangen over een van de objecttypen. Zo kan bijvoorbeeld bij een adres de volledige informatie (inclusief registratie tijdstippen) van een openbare ruimte worden opgevraagd door expand=openbareruimte mee te nemen in de bevraging. Voor de werking, zie feature [expand.](https://github.com/lvbag/BAG-API/blob/master/Features/expand.feature)
+*	De expand resource is te gebruiken om binnen een response extra informatie te ontvangen over een van de objecttypen. Zo kan bijvoorbeeld bij een adres de volledige informatie (inclusief registratie tijdstippen) van een openbare ruimte worden opgevraagd door expand=openbareruimte mee te nemen in de bevraging. Voor de werking, zie feature [expand.](https://github.com/lvbag/BAG-API/blob/master/Features/expand.feature)
 
-•	De functionaliteit exacte match biedt de mogelijkheid om een specifiek object te bevragen. Ook wanneer er meerdere objecten aan de opgegeven parameters voldoen. Parameter exacteMatch=true werkt als een filter op de objecten die voldoen aan de opgegeven parameters huisnummer, huisletter en huisnummertoevoeging. De endpoints waar exacte match kan worden toegepast kennen geen fuzzy search. Voor de werking, zie feature [exacte match.](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)
+*	De functionaliteit exacte match biedt de mogelijkheid om een specifiek object te bevragen. Ook wanneer er meerdere objecten aan de opgegeven parameters voldoen. Parameter exacteMatch=true werkt als een filter op de objecten die voldoen aan de opgegeven parameters huisnummer, huisletter en huisnummertoevoeging. De endpoints waar exacte match kan worden toegepast kennen geen fuzzy search. Voor de werking, zie feature [exacte match.](https://github.com/lvbag/BAG-API/blob/master/Features/exacte_match.feature)
 
-•	Er wordt paginering gebruikt om het aantal zoekresultaten per zoekvraag te beperken. Met de page parameter kan een volgende pagina worden gevraagd. Met de pageSize parameter kan gekozen worden voor meer of minder zoekresultaten per pagina (standaard is 20, maximum is 100). Voor de werking, zie feature [paginering.](https://github.com/lvbag/BAG-API/blob/master/Features/paginering.feature) 
+*	Er wordt paginering gebruikt om het aantal zoekresultaten per zoekvraag te beperken. Met de page parameter kan een volgende pagina worden gevraagd. Met de pageSize parameter kan gekozen worden voor meer of minder zoekresultaten per pagina (standaard is 20, maximum is 100). Voor de werking, zie feature [paginering.](https://github.com/lvbag/BAG-API/blob/master/Features/paginering.feature) 
 
-•	Bij enkele endpoints wordt de mogelijkheid geboden om met de parameter Huidig alleen huidige objecten op te vragen. Huidig betekent dat het object actueel is en geen eindstatus heeft. De endpoints Adressen en Adressen uitgebreid leveren alleen huidige gegevens. Voor meer informatie, zie feature [huidig.](https://github.com/lvbag/BAG-API/blob/master/Features/huidig.feature)
+*	Bij enkele endpoints wordt de mogelijkheid geboden om met de parameter Huidig alleen huidige objecten op te vragen. Huidig betekent dat het object actueel is en geen eindstatus heeft. De endpoints Adressen en Adressen uitgebreid leveren alleen huidige gegevens. Voor meer informatie, zie feature [huidig.](https://github.com/lvbag/BAG-API/blob/master/Features/huidig.feature)
 
-•	Soms kan een onderzoek lopen naar de juistheid van een gegeven. Er zijn dan twijfels over de juistheid van de geregistreerde waarde. De API levert deze waarde wel, maar neemt die velden dan op in Inonderzoek met de waarde True. Voor de werking, zie feature [Inonderzoek bij adressen en adressenUitgebreid.](https://github.com/lvbag/BAG-API/blob/master/Features/inonderzoek-bij-adressen-en-adressen-uitgebreid.feature)  
+*	Soms kan een onderzoek lopen naar de juistheid van een gegeven. Er zijn dan twijfels over de juistheid van de geregistreerde waarde. De API levert deze waarde wel, maar neemt die velden dan op in Inonderzoek met de waarde True. Voor de werking, zie feature [Inonderzoek bij adressen en adressenUitgebreid.](https://github.com/lvbag/BAG-API/blob/master/Features/inonderzoek-bij-adressen-en-adressen-uitgebreid.feature)  
 
-•	De gegevens die worden geleverd met de endpoints adressen en adressen uitgebreid zijn huidige gegevens. Door middel van de boolean inclusief eindstatus, is het mogelijk om ook adressen te zoeken waarbij één van de bronobjecten (nummeraanduiding, openbare ruimte en woonplaats) een eindstatus heeft.
+*	De gegevens die worden geleverd met de endpoints adressen en adressen uitgebreid zijn huidige gegevens. Door middel van de boolean inclusief eindstatus, is het mogelijk om ook adressen te zoeken waarbij één van de bronobjecten (nummeraanduiding, openbare ruimte en woonplaats) een eindstatus heeft.
 
-•	Sommige resources bevatten geometrie. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992). Bij een aanvraag die geometrie teruglevert, moet de request header Accept-Crs worden meegestuurd.
+*	Sommige resources bevatten geometrie. De API ondersteunt op dit moment alleen het RD coördinatenstelsel (epsg:28992). Bij een aanvraag die geometrie teruglevert, moet de request header Accept-Crs worden meegestuurd.
 
-•	Bij het zoeken naar panden en adresseerbare objecten kan gebruik worden gemaakt van een boundingbox.  
+*	Bij het zoeken naar panden en adresseerbare objecten kan gebruik worden gemaakt van een boundingbox.  
   
 ### Uitwerking Use cases  
   
@@ -114,7 +110,6 @@ Het gebruik van de BAG API Individuele Bevragingen is kosteloos. Bij het gebruik
 ## Implementeer de API client  
   
 Client code kan worden gegenereerd met de “[genereervariant](https://api.bag.kadaster.nl/lvbag/individuelebevragingen/v2/openapi.yaml)” van de API-specificaties en een code generator. Een overzicht met codegeneratoren is te vinden op [OpenAPI.Tools.](https://openapi.tools/#sdk)  
-  
 ## Probeer en test de API  
   
 De werking van de API is het gemakkelijkst te testen met behulp van [Postman](https://www.getpostman.com/). De [openapi.yaml](https://api.bag.kadaster.nl/lvbag/individuelebevragingen/v2/openapi.yaml) kan je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.  
@@ -150,8 +145,8 @@ Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/i
   
 De API is te benaderen via de volgende url:  
 
-Testomgeving:  
+**Testomgeving**:  
 https://api.bag.acceptatie.kadaster.nl/lvbag/individuelebevragingen/v2/  
 
-Productieomgeving:  
+**Productieomgeving**:  
 https://api.bag.kadaster.nl/lvbag/individuelebevragingen/v2/  
