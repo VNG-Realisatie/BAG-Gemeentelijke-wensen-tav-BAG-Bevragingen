@@ -7,8 +7,6 @@ BAG Individuele bevragingen is een API voor het zoeken en raadplegen van gegeven
 
 Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/releasenotes) van deze release.
 
-Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/).
-
 ## Direct aan de slag?
 
 * Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/redoc)
