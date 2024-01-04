@@ -4,11 +4,11 @@ title: Functionaliteit en specificaties
 ---
 # Functionaliteit en specificaties - BAG Huidige Bevragingen API
 
-## <span style="color:red">De BAG Huidige Bevragingen API v 1.5 is deprecated en wordt met ingang van 1 juli a.s. niet meer ondersteund.</span>
+## <span style="color:red">De BAG Huidige Bevragingen API v 1.5 is expired.</span>
    
-<span style="color:red">Wij adviseren niet meer te starten met de implementatie van deze API en verwijzen je naar de [Getting Started van de BAG Individuele Bevragingen v. 2.6](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started-IB) die deze API gaat vervangen. Onderstaande informatie is alleen bedoelt voor de huidige gebruikers van deze API.</span>
+<span style="color:red">Start niet meer met de implementatie van deze API. Implementeer daarvoor in plaats de BAG Individuele Bevragingen API, we verwijzen je daarvoor naar de [Getting Started van de BAG Individuele Bevragingen v. 2.6](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started).<br/><br/> Onderstaande informatie is alleen bedoelt voor evt. resterende gebruikers van de BAG Huidige Bevragingen API.</span>
 
-Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui) of [Redoc](./redoc).
+Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui-HB) of [Redoc](./redoc-HB).
 
 De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
 
@@ -75,10 +75,10 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 ## Test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/){:target="_blank"}.
 De [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"} kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
-We hebben al een project voor je gemaakt die je kan gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
+Je kunt ook het project dat we voor je heben gemaakt gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
 
-### API key
-Om de API te kunnen bevragen is de API key nodig die je al eerder hebt ontvangen. Deze moet je bij het request opnemen in request header "X-Api-Key".
+<!--### API key
+Om de API te kunnen bevragen is de API key nodig die je al eerder hebt ontvangen. Deze moet je bij het request opnemen in request header "X-Api-Key".-->
 
 ### Testgevallen
 Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de werking van de API kan worden getest.
@@ -101,6 +101,6 @@ Onderstaande tabellen bevatten testgevallen voor specifieke situaties waarmee de
 | panden                | Zonder adres                                                                     | /panden/0503100000034877                |
 
 Tip: Je kan ook de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer/index.html){:target="_blank"} gebruiken om meer testgevallen te zoeken.
-
+<!--
 ### URL
-De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.
+De API is te benaderen via de volgende url: https://api.bag.kadaster.nl/esd/huidigebevragingen/v1.-->
