@@ -1,6 +1,6 @@
 ---
 layout: page-with-side-nav
-title: Haal Centraal BAG Huidige Bevragingen
+title: BAG Individuele Bevragingen
 ---
 # BAG Individuele Bevragingen
 
