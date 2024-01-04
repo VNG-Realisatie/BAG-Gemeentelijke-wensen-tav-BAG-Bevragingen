@@ -13,7 +13,7 @@ nav:
         path: /
       - title: Goals canvas
         path: /goals-canvas
-  - title: Haal Centraal BAG Huidige Bevragingen v. 1.5 (Deprecated)
+  - title: Haal Centraal BAG Huidige Bevragingen v. 1.5 (Expired)
     subnav:
       - title: Functionaliteit en specificaties
         path: /getting-started-HB
