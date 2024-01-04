@@ -9,8 +9,6 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 
 Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/).
 
-# Haal Centraal BAG Huidige Bevragingen
-
 ## Direct aan de slag?
 
 * Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/redoc)
