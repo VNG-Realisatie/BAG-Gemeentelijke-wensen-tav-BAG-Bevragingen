@@ -18,10 +18,10 @@ Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/Haal-Centraal-BA
 
 ## Bronnen
 
-* [API Design Visie](https://github.com/Geonovum/KP-APIs/blob/master/overleggen/Werkgroep%20API%20design%20visie/API%20Design%20Visie.md){:target="_blank" rel="noopener"}
-* [REST API Design Rules](https://docs.geostandaarden.nl/api/API-Designrules/){:target="_blank" rel="noopener"}
-* [Landelijke API strategie voor de overheid](https://geonovum.github.io/KP-APIs/){:target="_blank" rel="noopener"}
-* [Stelselcatalogus](https://www.stelselcatalogus.nl/registraties/registratie?id=http://opendata.stelselcatalogus.nl/id/registratie/BAG){:target="_blank" rel="noopener"}
+* [API Design Visie](https://github.com/Geonovum/KP-APIs/blob/master/overleggen/Werkgroep%20API%20design%20visie/API%20Design%20Visie.md)
+* [REST API Design Rules](https://docs.geostandaarden.nl/api/API-Designrules/)
+* [Landelijke API strategie voor de overheid](https://geonovum.github.io/KP-APIs/)
+* [Stelselcatalogus](https://www.stelselcatalogus.nl/registraties/registratie?id=http://opendata.stelselcatalogus.nl/id/registratie/BAG)
 
 ## Contact
 
