@@ -16,25 +16,25 @@ nav:
   - title: Haal Centraal BAG Huidige Bevragingen v. 1.5 (Deprecated)
     subnav:
       - title: Functionaliteit en specificaties
-        path: /getting-started
+        path: /getting-started-HB
       - title: User stories
-        path: /user-stories-prod
+        path: /user-stories-prod-HB
       - title: Bevragen API (swagger-ui)
-        path: /swagger-ui
+        path: /swagger-ui-HB
       - title: Bevragen API (redoc)
-        path: /redoc
+        path: /redoc-HB
       - title: Features
         path: /features
   - title: BAG Individuele Bevragingen v. 2.6 (Live)
     subnav:
       - title: Getting started
-        path: /getting-started-IB
+        path: /getting-started
       - title: User stories
-        path: /user-stories-prod-IB
+        path: /user-stories-prod
       - title: IB API (swagger-ui)
-        path: /swagger-ui-IB
+        path: /swagger-ui
       - title: IB API (redoc)
-        path: /redoc-IB
+        path: /redoc
 #      - title: Features
 #        path: https://github.com/lvbag/BAG-API/tree/master/Features
  #  - title: Specificaties v. 1.5 (IO)
