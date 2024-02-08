@@ -3,6 +3,8 @@
 <!--![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
 ![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)-->
 
+Onderliggende repository is tot eind 2023 onder de naam 'Haal-Centraal-BAG-bevragen' in gebruik geweest als project repository voor de Haal Centraal BAG Bevragen API. Deze API is echter halverwege 2023 vervangen door de BAG Individuele bevragingen API 2.0. De issues in deze repository, waaronder een flink aantal user stories, evenals de features en de documentatie blijven echter onverkort van toepassing. Voor de API specificaties, step definitions en testbestanden geldt dat niet en deze zijn dan ook in januari 2024 verwijderd. De API specificaties van de BAG Individuele bevragingen API worden in [deze respository](https://github.com/lvbag/BAG-API) beheerd. Als gevolg daarvan is de onderliggende repository hernoemd naar 'BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen'.
+
 BAG Individuele bevragingen is een API voor het zoeken en raadplegen van gegevens in de basisregistratie Adressen en Gebouwen voor alle binnengemeentelijke afnemers in NL, maar ook voor waterschappen, belastingsamenwerkingen en andere overheden. We doen ons uiterste best om de API evolvable door te ontwikkelen en geen breaking changes te introduceren.
 
 Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/releasenotes) van deze release.
@@ -11,7 +13,7 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 
 * Bekijk de specificaties met [Swagger UI](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/swagger-ui) of [Redoc](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/redoc)
 * Lees de [Getting started](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started)
-* Download de [technische specificaties](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml)
+* Download de [technische specificaties](https://github.com/lvbag/BAG-API/blob/master/Technische%20specificatie/Archief/Yaml's/BAG%20API%20Individuele%20Bevragingen/resolved/individuelebevragingen/v2/openapi.yaml)
 * [Vraag een API-key aan](https://formulieren.kadaster.nl/aanvraag_bag_api_huidige_bevragingen_productie) voor toegang tot de productieomgeving.
 
 ## Bronnen
