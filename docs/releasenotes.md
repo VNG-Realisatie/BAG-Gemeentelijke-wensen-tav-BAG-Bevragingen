@@ -5,6 +5,9 @@ title: Releasenotes
 
 # Release notes BAG Huidige bevragingen API
 
+## 1-1-2024
+BAG Huidige bevragingen is uitgefaseerd en definitief vervangen door BAG Individuele Bevragingen v. 2.6
+
 ## Versie 1.5.0 (22-12-2021)
 In deze release is de volgende functionaliteit gerealiseerd:
 
