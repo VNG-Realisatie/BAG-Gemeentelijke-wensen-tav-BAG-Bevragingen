@@ -1,5 +1,5 @@
-baseurl: "/Haal-Centraal-BAG-bevragen"
-apiname: "BAG Bevragen"
+baseurl: "/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen"
+apiname: "BAG Individuele Bevragingen"
 url: "http://localhost:4000"
 # nav is t.b.v. generatie side-navigation menu.
 # Een 'title' zonder path of url genereert slechts een kopje.
@@ -7,13 +7,13 @@ url: "http://localhost:4000"
 # Indien een 'url' voorradig dan wordt daarmee de 'href' gevuld en dient het path slechts om te bepalen welke link active is.
 # 'target: blank' zorgt er voor dat de link in een nieuw tabblad wordt geöpend.
 nav:
-  - title: BAG Bevragen
+  - title: BAG Individuele Bevragingen
     subnav:
       - title: Main
         path: /
       - title: Goals canvas
         path: /goals-canvas
-  - title: Haal Centraal BAG Huidige Bevragingen v. 1.5 (Deprecated)
+  - title: Haal Centraal BAG Huidige Bevragingen v. 1.5 (Expired)
     subnav:
       - title: Functionaliteit en specificaties
         path: /getting-started
@@ -53,8 +53,7 @@ plugins:
 
 remote_theme: VNG-Realisatie/jekyll-theme-haal-centraal
 
-github: VNG-Realisatie/Haal-Centraal-BAG-bevragen
-
+github: VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen
 theme: jekyll-theme-time-machine
 
-project_name: /Haal-Centraal-BAG-bevragen
+project_name: /BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen
