@@ -6,11 +6,11 @@ title: Functionaliteit en specificaties
 
 ## <span style="color:red">De BAG Huidige Bevragingen API v 1.5 is expired.</span>
    
-<span style="color:red">Start niet meer met de implementatie van deze API. Implementeer daarvoor in plaats de BAG Individuele Bevragingen API, we verwijzen je daarvoor naar de [Getting Started van de BAG Individuele Bevragingen v. 2.6](https://vng-realisatie.github.io/Haal-Centraal-BAG-bevragen/getting-started).<br/><br/> Onderstaande informatie is alleen bedoelt voor evt. resterende gebruikers van de BAG Huidige Bevragingen API.</span>
+<span style="color:red">Start niet meer met de implementatie van deze API. Implementeer daarvoor in plaats de BAG Individuele Bevragingen API, we verwijzen je daarvoor naar de [Getting Started van de BAG Individuele Bevragingen v. 2.6](https://vng-realisatie.github.io/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/getting-started).<br/><br/> Onderstaande informatie is alleen bedoelt voor evt. resterende gebruikers van de BAG Huidige Bevragingen API.</span>
 
 Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui-HB) of [Redoc](./redoc-HB).
 
-De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
+De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
 
 ## Beschikbare resources
 De API kent de volgende resources:
@@ -74,8 +74,8 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 
 ## Test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/){:target="_blank"}.
-De [openapi.yaml](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"} kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
-Je kunt ook het project dat we voor je heben gemaakt gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
+De [openapi.yaml](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"} kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
+Je kunt ook het project dat we voor je heben gemaakt gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
 
 <!--### API key
 Om de API te kunnen bevragen is de API key nodig die je al eerder hebt ontvangen. Deze moet je bij het request opnemen in request header "X-Api-Key".-->
