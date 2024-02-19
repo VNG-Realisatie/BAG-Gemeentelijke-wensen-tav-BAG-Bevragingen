@@ -9,8 +9,6 @@ title: BAG Individuele Bevragingen
 
 BAG Individuele bevragingen is een API voor het zoeken en raadplegen van gegevens in de basisregistratie Adressen en Gebouwen voor alle binnengemeentelijke afnemers in NL, maar ook voor waterschappen, belastingsamenwerkingen en andere overheden. We doen ons uiterste best om de API evolvable door te ontwikkelen en geen breaking changes te introduceren.
 
-Bekijk de [release notes](./releasenotes.md) van deze release.
-
 Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/).
 
 # Direct aan de slag?
