@@ -74,8 +74,8 @@ Verder zijn er nog een paar algemene functies die gelden voor alle bovenstaande 
 
 ## Test de API
 De werking van de API is het makkelijkst te testen met behulp van [Postman](https://www.getpostman.com/){:target="_blank"}.
-De [openapi.yaml](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank"} kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
-Je kunt ook het project dat we voor je heben gemaakt gebruiken: [BAG-Bevragen-postman-collection.json](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/blob/master/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
+De [openapi.yaml](https://raw.githubusercontent.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/v1.5.0/specificatie/genereervariant/openapi.yaml){:target="_blank"} kun je importeren als project, waarna de verschillende requests worden ingeladen die deze API ondersteunt.
+Je kunt ook het project dat we voor je heben gemaakt gebruiken: [BAG-Bevragen-postman-collection.json](https://raw.githubusercontent.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/v1.5.0/test/BAG-Bevragen-postman-collection.json){:target="_blank"}. Hierin moet je alleen de base url en authenticatie (API-key) nog invullen.
 
 <!--### API key
 Om de API te kunnen bevragen is de API key nodig die je al eerder hebt ontvangen. Deze moet je bij het request opnemen in request header "X-Api-Key".-->
