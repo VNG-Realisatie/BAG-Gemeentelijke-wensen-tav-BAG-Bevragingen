@@ -4,14 +4,14 @@ title: BAG Individuele Bevragingen
 ---
 # BAG Individuele Bevragingen
 
-<!--![lint oas](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/lint-oas/badge.svg)
-![generate postman collection](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/workflows/generate-postman-collection/badge.svg)-->
+<!--![lint oas](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/workflows/lint-oas/badge.svg)
+![generate postman collection](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/workflows/generate-postman-collection/badge.svg)-->
 
 BAG Individuele bevragingen is een API voor het zoeken en raadplegen van gegevens in de basisregistratie Adressen en Gebouwen voor alle binnengemeentelijke afnemers in NL, maar ook voor waterschappen, belastingsamenwerkingen en andere overheden. We doen ons uiterste best om de API evolvable door te ontwikkelen en geen breaking changes te introduceren.
 
 Bekijk de [release notes](./releasenotes.md) van deze release.
 
-Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/).
+Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/).
 
 # Direct aan de slag?
 
@@ -30,9 +30,9 @@ Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/Haal-Centraal-BA
 ## Contact
 
 * Bug Melden
-  [Maak een bug issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=bug&template=bug_report.md&title=)
+  [Maak een bug issue aan >>](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/new?assignees=&labels=bug&template=bug_report.md&title=)
 * Verbeteringen doorgeven
-  [Maak een verbeter issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=)
+  [Maak een verbeter issue aan >>](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=)
 * Storingen
   [Meld een storing](https://formulieren.kadaster.nl/contact_kadaster)
 * Community: Wil je geïnformeerd blijven over productwijzigingen of meepraten over de API meld je dan aan bij de community.<br/><a href="https://haalcentraal.pleio.nl/groups/view/f567d45a-586b-4acf-b7f6-9e75bb89140a/community-bag-api">Ga naar de community>></a>
