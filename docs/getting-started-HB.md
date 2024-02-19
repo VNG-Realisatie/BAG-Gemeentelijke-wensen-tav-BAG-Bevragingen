@@ -10,7 +10,7 @@ title: Functionaliteit en specificaties
 
 Je kunt de Open API Specificaties (OAS3) van de API bekijken in [Swagger-formaat](./swagger-ui-HB) of [Redoc](./redoc-HB).
 
-De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/blob/master/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
+De (resolved) OAS3 is hier te downloaden: [openapi.yaml](https://raw.githubusercontent.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/v1.5.0/specificatie/genereervariant/openapi.yaml){:target="_blank" rel="noopener"}.
 
 ## Beschikbare resources
 De API kent de volgende resources:
