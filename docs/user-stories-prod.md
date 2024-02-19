@@ -5,6 +5,8 @@ title: User Stories in Productie in BAG individuele Bevragingen
 
 # User stories
 
+De BAG Individuele Bevragingen API bedient een grotere groep afnemers dan alleen gemeenten. De in dit document opgenomen userstories betreffen echter slechts de vanuit gemeentelijk perspectief in BAG Individuele Bevragingen opgenomen userstories.
+
 ## Vanaf versie 2.6
 
 - [Als medewerker gebiedsontwikkeling wil ik op bouwjaar (range, ouder dan, jonger dan) appartements-adressen in een bepaald gebied kunnen zoeken](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/380){:target="_blank" rel="noopener"}
