@@ -36,7 +36,7 @@ Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/BAG-Gemeentelijk
 * Community: Wil je geïnformeerd blijven over productwijzigingen of meepraten over de API meld je dan aan bij de community.<br/><a href="https://haalcentraal.pleio.nl/groups/view/f567d45a-586b-4acf-b7f6-9e75bb89140a/community-bag-api">Ga naar de community>></a>
 
 
-* Regiseur API's: Arjen Brienen
+* Regisseur API's: Arjen Brienen
 * Designer: Johan Boer
 * Designer: Robert Melskens
 
