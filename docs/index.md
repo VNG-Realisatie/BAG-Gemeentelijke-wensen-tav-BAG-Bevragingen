@@ -34,13 +34,14 @@ Bezoek de [GitHub repository](https://github.com/VNG-Realisatie/BAG-Gemeentelijk
 * Storingen
   [Meld een storing](https://formulieren.kadaster.nl/contact_kadaster)
 * Community: Wil je geïnformeerd blijven over productwijzigingen of meepraten over de API meld je dan aan bij de community.<br/><a href="https://haalcentraal.pleio.nl/groups/view/f567d45a-586b-4acf-b7f6-9e75bb89140a/community-bag-api">Ga naar de community>></a>
+* [Stel je vraag](https://formulieren.kadaster.nl/contact_bag)
 
 
-* Regisseur API's: Arjen Brienen
+<!--* Regisseur API's: Arjen Brienen
 * Designer: Johan Boer
 * Designer: Robert Melskens
 
-U kunt hen bereiken via [standaarden.ondersteuning@vng.nl](mailto:standaarden.ondersteuning@vng.nl)
+U kunt hen bereiken via [standaarden.ondersteuning@vng.nl](mailto:standaarden.ondersteuning@vng.nl) -->
 
 ## Licentie
 
