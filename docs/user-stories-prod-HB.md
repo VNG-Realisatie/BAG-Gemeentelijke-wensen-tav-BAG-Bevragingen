@@ -1,13 +1,11 @@
 ---
 layout: page-with-side-nav
-title: User Stories in Productie in BAG individuele Bevragingen
+title: User Stories in Productie
 ---
 
 # User stories
 
-De BAG Individuele Bevragingen API bedient een grotere groep afnemers dan alleen gemeenten. De in dit document opgenomen userstories betreffen echter slechts de vanuit gemeentelijk perspectief in BAG Individuele Bevragingen opgenomen userstories.
-
-## Vanaf versie 2.6
+## Vanaf versie 1.4
 
 - [Als medewerker gebiedsontwikkeling wil ik op bouwjaar (range, ouder dan, jonger dan) appartements-adressen in een bepaald gebied kunnen zoeken](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/380){:target="_blank" rel="noopener"}
 - [Als medewerker van de gemeente die personen in een gebied wil zoeken en aanschrijven/contacten wil ik direct een collectie adressen en/of ado's terugkrijgen](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/373){:target="_blank" rel="noopener"}
@@ -19,13 +17,22 @@ De BAG Individuele Bevragingen API bedient een grotere groep afnemers dan alleen
 - [Als medewerker gebiedsontwikkeling wil ik op basis van bepaalde kenmerken van appartements-adressen/verblijfsobjecten zoals bouwjaar Pand (en energielabel) in een bepaald gebied kunnen zoeken](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/306){:target="_blank" rel="noopener"}
 - [Als medewerker stadsbeheer wil ik bewoners in een bepaald gebied kunnen aanschrijven ](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/19){:target="_blank" rel="noopener"}
 - [Als medewerker monumentenzorg wil ik het perceel of het pand kunnen aanwijzen op de kaart ](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/4){:target="_blank" rel="noopener"}
+
+## Vanaf versie 1.3
+
 - [zoeken op postcode toestaan met spatie tussen cijfers en letters](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/442){:target="_blank" rel="noopener"}
 - [Als gebruikers van de API wil ik exact kunnen zoeken zoeken op postcode en huisnummer](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/404){:target="_blank" rel="noopener"}
 - [Als gebruiker van de API wil ik bij het vragen van een adres direct het bijbehorende adresseerbaar object krijgen](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/403){:target="_blank" rel="noopener"}
+
+## Vanaf versie 1.2
+
 - [als developer van de BRK API wil ik de korteNaam kunnen leveren bij het adres van een kadastraal  object](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/363){:target="_blank" rel="noopener"}
 - [als gebruiker wil ik het samengesteld adres krijgen](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/360){:target="_blank" rel="noopener"}
 - [Als gebruiker wil ik de inhoud van de mogelijkOnjuist gegevensgroep kunnen filteren](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/294){:target="_blank" rel="noopener"}
 - [Expand gerelateerde resource als relatie in onderzoek is](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/293){:target="_blank" rel="noopener"}
+
+## Vanaf versie 1.1
+
 - [Als medewerker vergunningen en burgerzaken wil ik net zo'n informatierijke toelichting voor gecontateerd als voor mogelijkOnjuist](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/128){:target="_blank" rel="noopener"}
 - [Als medewerker burgerzaken wil ik een adres raadplegen uit de BRP met de nummeraanduidingidentificatie](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/32){:target="_blank" rel="noopener"}
 - [Als burger wil ik een adres kunnen selecteren](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/18){:target="_blank" rel="noopener"}
