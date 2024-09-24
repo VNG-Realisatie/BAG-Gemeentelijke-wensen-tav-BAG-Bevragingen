@@ -26,19 +26,14 @@ Bekijk de [release notes](https://vng-realisatie.github.io/Haal-Centraal-BAG-bev
 ## Contact
 
 * Bug Melden
-  [Maak een bug issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=bug&template=bug_report.md&title=)
+  [Maak een bug issue aan >>](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/new?assignees=&labels=bug&template=bug_report.md&title=)
 * Verbeteringen doorgeven
-  [Maak een verbeter issue aan >>](https://github.com/VNG-Realisatie/Haal-Centraal-BAG-bevragen/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=)
+  [Maak een verbeter issue aan >>](https://github.com/VNG-Realisatie/BAG-Gemeentelijke-wensen-tav-BAG-Bevragingen/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=)
 * Storingen
   [Meld een storing](https://formulieren.kadaster.nl/contact_kadaster)
 * Community: Wil je geïnformeerd blijven over productwijzigingen of meepraten over de API meld je dan aan bij de community.<br/><a href="https://haalcentraal.pleio.nl/groups/view/f567d45a-586b-4acf-b7f6-9e75bb89140a/community-bag-api">Ga naar de community>></a>
-
-
-* Regiseur API's: Arjen Brienen
-* Designer: Johan Boer
-* Designer: Robert Melskens
-
-U kunt hen bereiken via [standaarden.ondersteuning@vng.nl](mailto:standaarden.ondersteuning@vng.nl)
+* [Stel je vraag](https://formulieren.kadaster.nl/contact_bag)
+* [Contact met het Kadaster](https://www.kadaster.nl/over-ons/het-kadaster/contact)
 
 ## Licentie
 
